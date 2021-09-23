@@ -62,6 +62,7 @@ typings/
 envProduction.js
 db_credentials.php
 local.sql
+wp-*
 
 # Mac files
 .DS_Store
