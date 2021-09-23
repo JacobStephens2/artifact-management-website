@@ -56,7 +56,6 @@ typings/
 
 # gatsby files
 .cache/
-public
 .wordpress-cache/
 
 # other files
@@ -73,3 +72,8 @@ yarn-error.log
 .pnp.js
 # Yarn Integrity file
 .yarn-integrity
+
+.htaccess
+error_log
+
+Roboto_Slab

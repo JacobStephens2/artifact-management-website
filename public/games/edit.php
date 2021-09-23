@@ -1,0 +1,125 @@
+<?php
+
+require_once('../../artifacts_private/initialize.php');
+require_login();
+
+if(!isset($_GET['id'])) {
+  redirect_to(url_for('/games/index.php'));
+}
+$id = $_GET['id'];
+
+if(is_post_request()) {
+
+  // Handle form values sent by new.php
+
+  $game = [];
+  $game['id'] = $id ?? '';
+  $game['Title'] = $_POST['Title'] ?? '';
+  $game['Acq'] = $_POST['Acq'] ?? '';
+  $game['type'] = $_POST['type'] ?? '';
+  $game['KeptCol'] = $_POST['KeptCol'] ?? '';
+
+  $result = update_game($game);
+  if($result === true) {
+    $_SESSION['message'] = 'The game was updated successfully.';
+    redirect_to(url_for('/games/show.php?id=' . $id));
+  } else {
+    $errors = $result;
+    //var_dump($errors);
+  }
+
+} else {
+
+  $game = find_game_by_id($id);
+
+}
+
+?>
+
+<?php $page_title = 'Edit game'; ?>
+<?php include(SHARED_PATH . '/staff_header.php'); ?>
+
+<div id="content">
+
+  <li><a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Games</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/games/playby.php'); ?>">&laquo; Play games by</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/games/playgroup-choose.php'); ?>">&laquo; Choose for playgroup</a></li>
+
+  <div class="object edit">
+    <h1>Edit game</h1>
+
+    <?php echo display_errors($errors); ?>
+
+    <form action="<?php echo url_for('/games/edit.php?id=' . h(u($id))); ?>" method="post">
+      <dl>
+        <dt>Title</dt>
+        <dd><input type="text" name="Title" value="<?php echo h($game['Title']); ?>" /></dd>
+      </dl>
+      <dl>
+        <dt>type</dt>
+        <dd>
+          <?php $type = $game['type']; ?>
+          <?php if($type == 'board-game') {
+            echo '<select name="type">
+              <option value="board-game" selected>Board Game</option>
+              <option value="role-playing-game">Role Playing Game</option>
+              <option value="video-game">Video Game</option>
+              <option value="sport">Sport</option>
+              <option value="game">Game</option>
+            </select>';
+          } elseif ($type == 'role-playing-game') {
+            echo '<select name="type">
+              <option value="board-game">Board Game</option>
+              <option value="role-playing-game" selected>Role Playing Game</option>
+              <option value="video-game">Video Game</option>
+              <option value="sport">Sport</option>
+              <option value="game">Game</option>
+            </select>';
+          } elseif ($type == 'video-game') {
+            echo '<select name="type">
+              <option value="board-game">Board Game</option>
+              <option value="role-playing-game">Role Playing Game</option>
+              <option value="video-game" selected>Video Game</option>
+              <option value="sport">Sport</option>
+              <option value="game">Game</option>
+            </select>';
+          } elseif ($type == 'sport') {
+            echo '<select name="type">
+              <option value="board-game">Board Game</option>
+              <option value="role-playing-game">Role Playing Game</option>
+              <option value="video-game">Video Game</option>
+              <option value="sport" selected>Sport</option>
+              <option value="game">Game</option>
+            </select>';
+          } else {
+            echo '<select name="type">
+              <option value="board-game">Board Game</option>
+              <option value="role-playing-game">Role Playing Game</option>
+              <option value="video-game">Video Game</option>
+              <option value="sport">Sport</option>
+              <option value="game" selected>Game</option>
+            </select>';
+          }
+          ?>
+        </dd>
+      <dl>
+        <dt>Acq</dt>
+        <dd><input type="date" name="Acq" value="<?php echo h($game['Acq']); ?>" /></dd>
+      </dl>
+      <dl>
+        <dt>KeptCol</dt>
+        <dd>
+          <input type="hidden" name="KeptCol" value="0" />
+          <input type="checkbox" name="KeptCol" value="1"<?php if($game['KeptCol'] == "1") { echo " checked"; } ?> />
+        </dd>
+      </dl>
+      <div id="operations">
+        <input type="submit" value="Save game edits" />
+      </div>
+    </form>
+
+  </div>
+
+</div>
+
+<?php include(SHARED_PATH . '/staff_footer.php'); ?>
