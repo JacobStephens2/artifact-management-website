@@ -81,9 +81,8 @@ if(isset($_POST["email"]) && isset($_POST["action"]) && ($_POST["action"]=="upda
     $form_data['password'] = $new_password;
     $form_data['email'] = $email;
     $result = reset_password($form_data);
-    print_r($form_data);
     $hashed_password = password_hash($new_password, PASSWORD_BCRYPT);
-    $sql = "UPDATE users SET hashed_password = '" . $hashed_password . "' WHERE email = 'napoleon.lucks@gmail.com'";
+    $sql = "UPDATE users SET hashed_password = '" . $hashed_password . "' WHERE email = '$email'";
     $result = mysqli_query($con, $sql);
     if($result) {
       echo true;
@@ -108,14 +107,7 @@ if(isset($_POST["email"]) && isset($_POST["action"]) && ($_POST["action"]=="upda
           </p>
         </div>
         <?php
-        $_SESSION['message'] = 'User registered';
-        $user['user_group'] = 1;
-        log_in_user($user);
-        redirect_to(url_for('/index.php'));
-      } else {
-        $errors = $result;
-        echo $errors;
       }
-  } 
-}
-?>
+    } 
+  }
+
