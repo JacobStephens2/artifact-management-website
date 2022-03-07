@@ -13,7 +13,7 @@ if (isset($_GET["key"]) && isset($_GET["email"]) && isset($_GET["action"]) && ($
   $query = mysqli_query($con,"SELECT * FROM `password_reset_temp` WHERE `key`='".$key."' and `email`='".$email."';");
   $row = mysqli_num_rows($query);
   if ($row==""){
-    $error .= '<h2>Invalid Link</h2><p>The link is invalid/expired. Either you did not copy the correct link from the email, or you have already used the key in which case it is deactivated.</p><p><a href="https://artifacts.stewardgoods.com/reset/index.php">Click here</a> to reset password.</p>';
+    $error .= '<h2>Invalid Link</h2><p>The link is invalid/expired. Either you did not copy the correct link from the email, or you have already used the key in which case it is deactivated.</p><p><a href="https://artifact-minimalism.site/reset/index.php">Click here</a> to reset password.</p>';
   } else {
     $row = mysqli_fetch_assoc($query);
     $expDate = $row['expDate'];
@@ -82,7 +82,7 @@ if(isset($_POST["email"]) && isset($_POST["action"]) && ($_POST["action"]=="upda
     // "UPDATE `users` SET `password`='".$pass1."' 
     // WHERE `email`='".$email."';"
       if($result === true) {
-        echo '<div class="error"><p>Congratulations! Your password has been updated successfully.</p><p><a href="https://artifacts.stewardgoods.com/login.php">Click here</a> to Login.</p></div><br />';
+        echo '<div class="error"><p>Congratulations! Your password has been updated successfully.</p><p><a href="https://artifact-minimalism.site/login.php">Click here</a> to Login.</p></div><br />';
         // $_SESSION['message'] = 'User registered';
         // $user['user_group'] = 1;
         // log_in_user($user);
