@@ -1,18 +1,40 @@
-{
-    "name": "Production Server",
-    "host": "",
-    "protocol": "ftp",
-    "port": 21,
-    "username": "",
-    "password": "",
-    "remotePath": "",
-    "uploadOnSave": false,
-    "ignore": [
-        ".vscode",
-        ".git",
-        ".gitignore",
-        ".DS_Store",
-        "LICENSE.txt",
-        "README.md"
-    ]
-}
+[
+    {
+        "name": "Public Production Server",
+        "context": "public",
+        "host": "",
+        "protocol": "ftp",
+        "port": 21,
+        "username": "",
+        "password": "",
+        "remotePath": "",
+        "uploadOnSave": false,
+        "ignore": [
+            ".vscode",
+            ".git",
+            ".gitignore",
+            ".DS_Store",
+            "LICENSE.txt",
+            "README.md"
+        ]
+    },
+    {
+        "name": "Private Production Server",
+        "context": "artifacts_private",
+        "host": "",
+        "protocol": "ftp",
+        "port": 21,
+        "username": "",
+        "password": "",
+        "remotePath": "",
+        "uploadOnSave": false,
+        "ignore": [
+            ".vscode",
+            ".git",
+            ".gitignore",
+            ".DS_Store",
+            "LICENSE.txt",
+            "README.md"
+        ]
+    }
+]
