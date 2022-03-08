@@ -8,6 +8,17 @@
   form {
     padding-left: 3rem;
   }
+  div {
+    padding-left: 0;
+  }
+  label {
+    font-weight: bold;
+    font-size: 1.7rem;
+  }
+  input {
+    display: block;
+    margin-top: 0.5rem;
+  }
 </style>
 
 <?php
@@ -44,10 +55,14 @@ if (
           <br />
           <form method="post" action="reset-password.php" name="update">
             <input type="hidden" name="action" value="update" />
-            <label>Enter New Password:</label>
-            <input type="password" name="new_password" maxlength="15" required />
-            <label>Re-Enter New Password:</label>
-            <input type="password" name="new_password_check" maxlength="15" required/>
+            <div>
+              <label>Enter New Password</label>
+              <input type="password" name="new_password" maxlength="15" required />
+            </div>
+            <div>
+              <label>Re-Enter New Password</label>
+              <input type="password" name="new_password_check" maxlength="15" required/>
+            </div>
             <input type="hidden" name="email" value="<?php echo $email;?>"/>
             <input type="submit" value="Reset Password" />
           </form>
