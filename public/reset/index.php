@@ -6,6 +6,11 @@ require_once('../../artifacts_private/initialize.php');
 <?php $page_title = 'Reset'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 <div class="content">
+   <style>
+      .update-message {
+         padding-left: 0;
+      }
+   </style>
 <?php
 $con = $db;
 
@@ -87,7 +92,7 @@ if(isset($_POST["email"]) && (!empty($_POST["email"]))){
          echo "Mailer Error: " . $mail->ErrorInfo;
       } else {
          echo 
-            "<div class='error'>
+            "<div class='error update-message'>
                <p>An email has been sent to you with instructions on how to reset your password.</p>
             </div>
             <br /><br /><br />";
