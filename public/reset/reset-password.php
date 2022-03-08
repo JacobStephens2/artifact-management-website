@@ -19,6 +19,9 @@
     display: block;
     margin-top: 0.5rem;
   }
+  .update-message {
+    padding-left: 3rem;
+  }
 </style>
 
 <?php
@@ -100,7 +103,7 @@ if(isset($_POST["email"]) && isset($_POST["action"]) && ($_POST["action"]=="upda
     $sql = "UPDATE users SET hashed_password = '" . $hashed_password . "' WHERE email = '$email'";
     $result = mysqli_query($con, $sql);
     if($result) {
-      echo true;
+      true;
     } else {
       echo mysqli_error($db);
       db_disconnect($db);
@@ -115,7 +118,7 @@ if(isset($_POST["email"]) && isset($_POST["action"]) && ($_POST["action"]=="upda
     mysqli_query($con, $sql);
       if($result === true) {
         ?>
-        <div class="error">
+        <div class="error update-message">
           <p>Congratulations! Your password has been updated successfully.</p>
           <p>
             <a href="https:\/\/artifact-minimalism.site/login.php">Click here</a> to Login.
