@@ -1048,7 +1048,7 @@ ORDER BY UseDate DESC
     $sql .= "games.Title DESC, ";
     $sql .= "players.LastName ASC, ";
     $sql .= "players.FirstName ASC ";
-    $sql .= "LIMIT 100";
+    $sql .= "LIMIT 4000";
 
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
