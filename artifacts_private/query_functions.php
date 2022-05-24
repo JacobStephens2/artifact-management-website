@@ -75,6 +75,17 @@
     if(!empty($errors)) {
       return $errors;
     }
+    
+/*
+SELECT
+objects.ObjectName,
+use_table.UseDate,
+objects.user_id,
+use_table.ID
+FROM use_table
+LEFT JOIN objects ON objects.ID = use_table.ObjectName 
+ORDER BY UseDate DESC
+*/
 
     $sql = "INSERT INTO use_table ";
     $sql .= "(ObjectName, user_id, UseDate) ";
