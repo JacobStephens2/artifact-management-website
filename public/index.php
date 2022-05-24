@@ -14,6 +14,14 @@ require_login();
       <li class="main-menu list-2"><a href="<?php echo url_for('/object_uses/new.php'); ?>">Record use</a></li>
       <li class="main-menu list-2"><a href="<?php echo url_for('/object_uses/index.php'); ?>">Uses</a></li>
       <li class="main-menu list-2"><a href="<?php echo url_for('/objects/useby.php'); ?>">Use artifacts by date list</a></li>
+      <li class="main-menu"><a href="<?php echo url_for('/games/index.php');?>">Games</a></li>
+      <li class="main-menu list-2"><a href="<?php echo url_for('/players/index.php');?>">Players</a></li>
+      <li class="main-menu list-2"><a href="<?php echo url_for('/games/playgroup.php');?>">Playgroup</a></li>
+      <li class="main-menu list-2"><a href="<?php echo url_for('/games/responses.php');?>">Responses</a></li>
+      <li class="main-menu list-2"><a href="<?php echo url_for('/games/response-new.php');?>">New response</a></li>
+      <li class="main-menu list-2"><a href=" <?php echo url_for('/games/playby.php');?>">Play games by date list</a></li>
+      <li class="main-menu list-2"><a href=" <?php echo url_for('/explore/index.php');?>">Explore games by characteristic</a></li>
+      <li class="main-menu"><a href="<?php echo url_for('/reset/index.php'); ?>">Reset password</a></li>
       <li class="main-menu"><a href="<?php echo url_for('/reset/index.php'); ?>">Reset password</a></li>      
     </ul>
 
