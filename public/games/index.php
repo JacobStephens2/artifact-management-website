@@ -51,30 +51,23 @@ require_login();
    ?>
 
   	<table class="list">
-  	  <tr>
-        <!-- <th>ID</th> -->
-        <th>Name&ensp;</th>
-        <th>Kept&ensp;</th>
-  	    <th>Acquisition&ensp;</th>
+  	  <tr id="headerRow">
+        <th>Acquisition&ensp;</th>
         <th>Type&ensp;</th>
-  	    <th>&nbsp;</th>
-  	    <th>&nbsp;</th>
-        <th>&nbsp;</th>
+        <th>Kept&ensp;</th>
+        <th>Name&ensp;</th>
   	  </tr>
 
       <?php while($object = mysqli_fetch_assoc($object_set)) { ?>
         <tr>
+          <td><?php echo h($object['Acq']); ?></td>
+    	    <td><?php echo h($object['type']); ?></td>
+          <td><?php echo $object['KeptCol'] == 1 ? 'true' : 'false'; ?></td>
           <td>
             <a class="table-action" href="<?php echo url_for('/games/edit.php?id=' . h(u($object['id']))); ?>">  
               <?php echo h($object['Title']); ?>
             </a>
           </td>
-          <td><?php echo $object['KeptCol'] == 1 ? 'true' : 'false'; ?></td>
-    	    <td><?php echo h($object['Acq']); ?></td>
-    	    <td><?php echo h($object['type']); ?></td>
-          <td><a class="table-action" href="<?php echo url_for('/games/show.php?id=' . h(u($object['id']))); ?>">View</a></td>
-          <td><a class="table-action" href="<?php echo url_for('/games/edit.php?id=' . h(u($object['id']))); ?>">Edit</a></td>
-          <td><a class="table-action" href="<?php echo url_for('/games/delete.php?id=' . h(u($object['id']))); ?>">Delete</a></td>
     	  </tr>
       <?php } ?>
   	</table>

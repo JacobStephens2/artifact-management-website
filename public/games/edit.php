@@ -60,45 +60,55 @@ if(is_post_request()) {
         <dd>
           <?php $type = $game['type']; ?>
           <?php if($type == 'board-game') {
-            echo '<select name="type">
+            ?>
+            <select name="type">
               <option value="board-game" selected>Board Game</option>
               <option value="role-playing-game">Role Playing Game</option>
               <option value="video-game">Video Game</option>
               <option value="sport">Sport</option>
               <option value="game">Game</option>
-            </select>';
+            </select>
+            <?php
           } elseif ($type == 'role-playing-game') {
-            echo '<select name="type">
+            ?>
+            <select name="type">
               <option value="board-game">Board Game</option>
               <option value="role-playing-game" selected>Role Playing Game</option>
               <option value="video-game">Video Game</option>
               <option value="sport">Sport</option>
               <option value="game">Game</option>
-            </select>';
+            </select>
+            <?php
           } elseif ($type == 'video-game') {
-            echo '<select name="type">
+            ?>
+            <select name="type">
               <option value="board-game">Board Game</option>
               <option value="role-playing-game">Role Playing Game</option>
               <option value="video-game" selected>Video Game</option>
               <option value="sport">Sport</option>
               <option value="game">Game</option>
-            </select>';
+            </select>
+            <?php
           } elseif ($type == 'sport') {
-            echo '<select name="type">
+            ?>
+            <select name="type">
               <option value="board-game">Board Game</option>
               <option value="role-playing-game">Role Playing Game</option>
               <option value="video-game">Video Game</option>
               <option value="sport" selected>Sport</option>
               <option value="game">Game</option>
-            </select>';
+            </select>
+            <?php
           } else {
-            echo '<select name="type">
+            ?>
+            <select name="type">
               <option value="board-game">Board Game</option>
               <option value="role-playing-game">Role Playing Game</option>
               <option value="video-game">Video Game</option>
               <option value="sport">Sport</option>
               <option value="game" selected>Game</option>
-            </select>';
+            </select>
+            <?php
           }
           ?>
         </dd>
@@ -117,6 +127,10 @@ if(is_post_request()) {
         <input type="submit" value="Save game edits" />
       </div>
     </form>
+
+    <a class="table-action" href="<?php echo url_for('/games/delete.php?id=' . h(u($_REQUEST['id']))); ?>">
+      Delete
+    </a>
 
   </div>
 
