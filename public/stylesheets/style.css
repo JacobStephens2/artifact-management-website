@@ -127,6 +127,7 @@ button {
 
 button:hover {
   background: #80D0C7;
+  cursor: pointer;
 }
 
 .reset-password-button {
@@ -172,6 +173,10 @@ input[type="submit"]:hover {
   background-color: hsl(181deg 42% 49%);
   transition: 0.2s;
   cursor: pointer;
+}
+
+input[type="text"] {
+  width: 30rem;
 }
 
 .submit {
@@ -481,6 +486,11 @@ strong {
 
 }
 
-td {
-  padding: 2px 2px 2px 5px;
+td,
+th {
+  padding: 2px 5px;
+}
+
+#operations {
+  padding-left: 0;
 }
