@@ -22,10 +22,9 @@ if(is_post_request()) {
   $result = update_game($game);
   if($result === true) {
     $_SESSION['message'] = 'The game was updated successfully.';
-    redirect_to(url_for('/games/show.php?id=' . $id));
+    redirect_to(url_for('/games/edit.php?id=' . $id));
   } else {
     $errors = $result;
-    //var_dump($errors);
   }
 
 } else {
