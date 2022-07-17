@@ -64,7 +64,11 @@ require_login();
 
       <?php while($object = mysqli_fetch_assoc($object_set)) { ?>
         <tr>
-          <td><?php echo h($object['Title']); ?></td>
+          <td>
+            <a class="table-action" href="<?php echo url_for('/games/edit.php?id=' . h(u($object['id']))); ?>">  
+              <?php echo h($object['Title']); ?>
+            </a>
+          </td>
           <td><?php echo $object['KeptCol'] == 1 ? 'true' : 'false'; ?></td>
     	    <td><?php echo h($object['Acq']); ?></td>
     	    <td><?php echo h($object['type']); ?></td>
