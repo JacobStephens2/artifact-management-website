@@ -35,11 +35,12 @@ html {
 /* Body */
 body {
   margin: 0;
+  background-color: ivory;
 }
 
 /* Header and Footer */
 header {
-  background-image: linear-gradient(to right, #0093E9 , #80D0C7);
+  background-image: linear-gradient(to right, #0093E9, #80D0C7);
   padding-left: 3rem;
   padding-top: 1.6rem;
   padding-right: 3rem;
@@ -49,12 +50,13 @@ header {
 }
 
 footer {
-  background-image: linear-gradient(to right, #0093E9 , #80D0C7);
+  background-image: linear-gradient(to right, #0093E9, #80D0C7);
   color: white;
   padding: 1rem 3rem;
 }
 
-#header, #footer {
+#header,
+#footer {
   background: #30395C;
 }
 
@@ -90,6 +92,7 @@ h2 {
 th {
   font-family: 'Raleway', Arial, Helvetica, sans-serif;
 }
+
 /* Lists */
 .bullet {
   list-style-type: circle;
@@ -110,16 +113,16 @@ div h1 {
 
 /* Buttons */
 button {
-    color: white;
-    background: #0093E9;
-    border: white;
-    margin-bottom: 0.5rem;
-    border-radius: 4rem;
-    margin-top: 0.5rem;
-    padding-left: 4rem;
-    padding-right: 4rem;
-    height: 8rem;
-    font-size: 5rem;
+  color: white;
+  background: #0093E9;
+  border: white;
+  margin-bottom: 0.5rem;
+  border-radius: 4rem;
+  margin-top: 0.5rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  height: 8rem;
+  font-size: 5rem;
 }
 
 button:hover {
@@ -163,6 +166,12 @@ input[type="submit" i] {
   box-shadow: none;
   border-style: solid;
   -webkit-appearance: none;
+}
+
+input[type="submit"]:hover {
+  background-color: hsl(181deg 42% 49%);
+  transition: 0.2s;
+  cursor: pointer;
 }
 
 .submit {
@@ -218,10 +227,6 @@ table {
   vertical-align: top;
 }
 
-table.list {
-  width: 100%;
-}
-
 table.list tr td {
   border: 1px solid #999999;
   font-size: 4.5rem;
@@ -231,6 +236,11 @@ table.list tr th {
   background: #0093E9;
   color: white;
   font-size: 4rem;
+}
+
+tr#headerRow {
+  position: sticky;
+  top: 0;
 }
 
 /* Errors */
@@ -312,10 +322,10 @@ strong {
 }
 
 .objects .listing {
- padding-right: 3rem;
+  padding-right: 3rem;
 }
 
-@media (hover: hover) { 
+@media (hover: hover) {
 
   li {
     font-size: 2rem;
@@ -355,8 +365,8 @@ strong {
   }
 
   .reset-password-button {
-      margin-top: 3rem;
-      margin-bottom: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
   }
 
   p {
@@ -411,9 +421,10 @@ strong {
   }
 
   input[type="checkbox" i] {
-      margin-top: 1rem;
-      height: 2.3rem;
-      width: 2.3rem;
+    margin-top: 1rem;
+    height: 3.2rem;
+    width: 3.2rem;
+    cursor: pointer;
   }
 
   #message {
@@ -447,6 +458,7 @@ strong {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
 }
+
 .table-header {
   padding-left: 0.75rem;
   padding-top: 0.5rem;
@@ -469,4 +481,6 @@ strong {
 
 }
 
-
+td {
+  padding: 2px 2px 2px 5px;
+}
