@@ -809,7 +809,6 @@ ORDER BY UseDate DESC
     $sql .= "games.id, ";
     $sql .= "games.Title ";
     $sql .= "FROM games ";
-    $sql .= "WHERE type = 'board-game' ";
     $sql .= "ORDER BY games.Title ASC";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
