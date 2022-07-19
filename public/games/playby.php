@@ -38,28 +38,19 @@ $game_set = play_by($type, $interval);
   	<table class="list">
   	  <tr>
         <th class="table-header">Name</th>
-        <!-- and link to collection spots -->
-        <th>&nbsp;</th>
         <th class="table-header">Type</th>
         <th class="table-header">Play By</th>
-        <th class="table-header">Recent</th>
+        <th class="table-header">Recent Use</th>
   	    <th class="table-header">Acquisition</th>
   	  </tr>
 
       <?php while($game = mysqli_fetch_assoc($game_set)) { ?>
         <tr>
           <td class="edit">
-            <!-- <a class="action" target="_blank" href="
-              <?php 
-                // $link = $game['Title'];
-                // $link = str_replace(' ', '', $link);
-                // $link = str_replace("'", "", $link);
-                // echo 'https://workflowy.com/#/3a6f8ec3868a?q=' . $link; 
-              ?>
-            "> -->
+            <a class="action edit" href="<?php echo url_for('/games/edit.php?id=' . h(u($game['id']))); ?>">
             <?php echo h($game['Title']); ?></a>
+            </a>
           </td>
-          <td><a class="action edit" href="<?php echo url_for('/games/edit.php?id=' . h(u($game['id']))); ?>">Edit</a></td>
     	    <td class="edit"><?php echo h($game['type']); ?></td>
           <td class="edit"><?php echo h($game['PlayBy']); ?></td>
           <td class="edit"><?php echo h($game['MaxPlay']); ?></td>
