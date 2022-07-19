@@ -163,7 +163,6 @@ ORDER BY UseDate DESC
     $sql .= "types.ObjectType ";
     $sql .= "HAVING objects.KeptCol = 1 ";
     $sql .= "AND objects.user_id = '" . db_escape($db, $_SESSION['user_id']) . "' ";
-    // $sql .= "AND types.ObjectType = 'book' ";
     $sql .= "ORDER BY UseBy ASC ";
     if ($limit == 1) {
       $sql .= "LIMIT 1";
@@ -171,7 +170,6 @@ ORDER BY UseDate DESC
       $sql .= "LIMIT 1024";
     }
 
-    // echo '<p>' . $sql . '</p>';
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     return $result;
@@ -180,13 +178,9 @@ ORDER BY UseDate DESC
     global $db;
 
     $sql = "SELECT ";
-    // $sql .= "ID, ";
     $sql .= "ObjectName ";
-    // $sql .= "* ";
     $sql .= "FROM objects ";
     $sql .= "WHERE user_id = '" . db_escape($db, $_SESSION['user_id']) . "'";
-    // limit placed for easier dev, TODO remove when finished
-    // $sql .= 'LIMIT 10';
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     return $result;
@@ -195,12 +189,8 @@ ORDER BY UseDate DESC
     global $db;
 
     $sql = "SELECT ";
-    // $sql .= "ID, ";
     $sql .= "ObjectName ";
-    // $sql .= "* ";
     $sql .= "FROM objects ";
-    // limit placed for easier dev, TODO remove when finished
-    // $sql .= 'LIMIT 10';
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     return $result;
@@ -218,7 +208,6 @@ ORDER BY UseDate DESC
     $sql .= "LEFT JOIN types ON objects.ObjectType = types.ID ";
     $sql .= "WHERE user_id = '" . db_escape($db, $_SESSION['user_id']) . "' ";
     $sql .= "ORDER BY objects.ObjectName ASC";
-    // echo '<p>' . $sql . '</p>';
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     return $result;
@@ -260,7 +249,6 @@ ORDER BY UseDate DESC
     global $db;
 
     $sql = "SELECT ";
-    // $sql .= "objects.ID, ";
     $sql .= "objects.ID, ";
     $sql .= "objects.ObjectName, ";
     $sql .= "objects.KeptCol, ";
@@ -443,7 +431,6 @@ ORDER BY UseDate DESC
     global $db;
 
     $hashed_password = password_hash($form_data['password'], PASSWORD_BCRYPT);
-    // $hashed_password = $new_password;
 
     $sql = "UPDATE users ";
     $sql .= "SET hashed_password = '" . db_escape($db, $hashed_password) . "' ";
@@ -703,7 +690,6 @@ ORDER BY UseDate DESC
 
     $sql = "SELECT * FROM games ";
     $sql .= "WHERE id='" . db_escape($db, $id) . "' ";
-    // echo $sql;
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     $subject = mysqli_fetch_assoc($result);
