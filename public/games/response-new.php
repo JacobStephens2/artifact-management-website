@@ -43,35 +43,7 @@ if(is_post_request()) {
   if($result === true) {
     $new_id = mysqli_insert_id($db);
     $_SESSION['message'] = 'The response was recorded successfully.';
-    switch($playerCount) {
-      case "1":
-        redirect_to(url_for('/games/response-show.php?id=' . $new_id . '&player1=' . $response['Player1']));
-        break;
-      case "2";
-        redirect_to(url_for('/games/response-show.php?id=' . $new_id . '&player1=' . $response['Player1'] . '&player2=' . $response['Player2']));
-        break;
-      case "3";
-        redirect_to(url_for('/games/response-show.php?id=' . $new_id . '&player1=' . $response['Player1'] . '&player2=' . $response['Player2'] . '&player3=' . $response['Player3']));
-        break;
-      case "4";
-        redirect_to(url_for('/games/response-show.php?id=' . $new_id . '&player1=' . $response['Player1'] . '&player2=' . $response['Player2'] . '&player3=' . $response['Player3'] . '&player4=' . $response['Player4']));
-        break;
-      case "5";
-        redirect_to(url_for('/games/response-show.php?id=' . $new_id . '&player1=' . $response['Player1'] . '&player2=' . $response['Player2'] . '&player3=' . $response['Player3'] . '&player4=' . $response['Player4'] . '&player5=' . $response['Player5']));
-        break;
-      case "6";
-        redirect_to(url_for('/games/response-show.php?id=' . $new_id . '&player1=' . $response['Player1'] . '&player2=' . $response['Player2'] . '&player3=' . $response['Player3'] . '&player4=' . $response['Player4'] . '&player5=' . $response['Player5'] . '&player6=' . $response['Player6']));
-        break;
-      case "7";
-        redirect_to(url_for('/games/response-show.php?id=' . $new_id . '&player1=' . $response['Player1'] . '&player2=' . $response['Player2'] . '&player3=' . $response['Player3'] . '&player4=' . $response['Player4'] . '&player5=' . $response['Player5'] . '&player6=' . $response['Player6'] . '&player7=' . $response['Player7']));
-        break;
-      case "8";
-        redirect_to(url_for('/games/response-show.php?id=' . $new_id . '&player1=' . $response['Player1'] . '&player2=' . $response['Player2'] . '&player3=' . $response['Player3'] . '&player4=' . $response['Player4'] . '&player5=' . $response['Player5'] . '&player6=' . $response['Player6'] . '&player7=' . $response['Player7'] . '&player8=' . $response['Player8']));
-        break;
-      case "9";
-        redirect_to(url_for('/games/response-show.php?id=' . $new_id . '&player1=' . $response['Player1'] . '&player2=' . $response['Player2'] . '&player3=' . $response['Player3'] . '&player4=' . $response['Player4'] . '&player5=' . $response['Player5'] . '&player6=' . $response['Player6'] . '&player7=' . $response['Player7'] . '&player8=' . $response['Player8'] . '&player9=' . $response['Player9']));
-        break;
-    } 
+    redirect_to(url_for('/games/response-new.php'));
   } else {
     $errors = $result;
   }
@@ -83,7 +55,6 @@ if(is_post_request()) {
   $response["PlayDate"] = '';
   $response["Player"] = '';
   $playerCount = $_GET['playerCount'] ?? '';
-
 }
 
 ?>
@@ -96,7 +67,6 @@ if(is_post_request()) {
   <li><a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Games</a></li>
   <li><a class="back-link" href="<?php echo url_for('/games/playby.php'); ?>">&laquo; Play games by date</a></li>
   <li><a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; Responses</a></li>
-
 
   <div class="use new">
     <h1>Record response</h1>
