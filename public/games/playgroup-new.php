@@ -77,7 +77,6 @@ if(is_post_request()) {
           }
         ?>
       </select>
-      <br>
       <input type="submit" value="Select player count" />
     </form>
 

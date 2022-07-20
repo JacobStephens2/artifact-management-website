@@ -16,7 +16,6 @@ $game_set = play_by($type, $interval);
     <h1>Play games by date</h1>
     <li><a class="back-link" href="<?php echo url_for('/games/response-new.php'); ?>">Record response</a></li>
     <li><a class="back-link" href="<?php echo url_for('/objects/about-useby.php'); ?>">Learn about play-by date generation</a></li>
-    <br>
     <form action="<?php echo url_for('/games/playby.php'); ?>" method="post">
       <dl>
         <dt>Game type</dt>

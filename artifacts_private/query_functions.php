@@ -44,7 +44,6 @@
     $sql .= "WHERE use_table.user_id = '" . db_escape($db, $_SESSION['user_id']) . "' ";
     $sql .= "ORDER BY UseDate DESC";
 
-    // echo $sql . '<br>';
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     return $result;
@@ -95,7 +94,7 @@ ORDER BY UseDate DESC
     $sql .= "'" . db_escape($db, $use['UseDate']) . "'";
     $sql .= ")";
 
-    echo $sql . "<br><br>";
+    echo $sql;
     $result = mysqli_query($db, $sql);
     // For INSERT statements, $result is true/false
     if($result) {
@@ -1011,7 +1010,6 @@ ORDER BY UseDate DESC
     $sql .= "players.FirstName ASC ";
     $sql .= "LIMIT 100";
 
-    // echo $sql . '<br>';
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     return $result;
