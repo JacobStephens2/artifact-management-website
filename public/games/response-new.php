@@ -42,7 +42,7 @@ if(is_post_request()) {
   $playerCount = $response['PlayerCount'];
   if($result === true) {
     $new_id = mysqli_insert_id($db);
-    $_SESSION['message'] = 'The response was recorded successfully.';
+    $_SESSION['message'] = "The response was recorded successfully. " . print_r($result);
     redirect_to(url_for('/games/response-new.php'));
   } else {
     $errors = $result;
@@ -85,7 +85,6 @@ if(is_post_request()) {
           }
         ?>
       </select>
-      <br>
       <input type="submit" value="Select player count" />
     </form>
 
