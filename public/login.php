@@ -63,7 +63,7 @@ if(is_post_request()) {
         <h2>Username:</h2>
         <input class="input-box" type="text" name="username" value=""/>
         <h2>Password:</h2>
-        <input class="input-box" type="password" name="password" value=""/><br>
+        <input class="input-box" type="password" name="password" value=""/>
         <input class="submit" type="submit" name="submit" value="Submit"  />
       </form>
 
