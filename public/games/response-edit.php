@@ -9,9 +9,7 @@ if(!isset($_GET['id'])) {
 $id = $_GET['id'];
 
 if(is_post_request()) {
-
   // handle post requests sent by this page
-
   $response = [];
   $response['id'] = $id ?? '';
   $response['Title'] = $_POST['Title'] ?? '';
@@ -35,7 +33,7 @@ if(is_post_request()) {
 
 ?>
 
-<?php $page_title = 'Edit response'; ?>
+<?php $page_title = 'Edit Response'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
 <div id="content">
@@ -43,7 +41,7 @@ if(is_post_request()) {
   <a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; Back to List</a>
 
   <div class="object edit">
-    <h1>Edit response</h1>
+    <h1>Edit Response</h1>
 
     <?php echo display_errors($errors); ?>
 
@@ -97,6 +95,10 @@ if(is_post_request()) {
         <input type="submit" value="Edit response" />
       </div>
     </form>
+
+    <a class="action" href="<?php echo url_for('/games/response-delete.php?id=' . h(u($use['id']))); ?>">
+      Delete Response
+    </a>
 
   </div>
 
