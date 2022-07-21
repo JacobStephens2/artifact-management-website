@@ -104,6 +104,8 @@ h2 {
 /* Lists */
 .bullet {
   list-style-type: circle;
+  margin-left: 1.3rem;
+  font-size: 1.1rem;
 }
 
 /* Divs */
@@ -140,6 +142,8 @@ button:hover {
 p {
   margin-bottom: 1rem;
   margin-right: 3rem;
+  max-width: 65rem;
+  font-size: 1.1rem;
 }
 
 /* Form */
@@ -220,7 +224,6 @@ table {
 
 table.list tr td {
   border: 1px solid #999999;
-  font-size: 1.4rem;
 }
 
 table.list tr th {
@@ -362,14 +365,8 @@ li {
   margin-bottom: 1rem;
 }
 
-p {
-  max-width: 65rem;
-  font-size: 1.4rem;
-}
-
 .action {
   line-height: 1.2rem;
-  font-size: 1.3rem;
 }
 
 .actions {
