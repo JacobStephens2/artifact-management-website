@@ -62,13 +62,13 @@ if(is_post_request()) {
 
 <main>
   <li>
-		<a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Games</a>
+		<a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Artifacts</a>
 	</li>
   <li>
-		<a class="back-link" href="<?php echo url_for('/games/playby.php'); ?>">&laquo; Play games by date</a>
+		<a class="back-link" href="<?php echo url_for('/games/playby.php'); ?>">&laquo; Use Artifacts By Date</a>
 	</li>
   <li>
-		<a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; Responses</a>
+		<a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; Uses</a>
 	</li>
 
     <h1>Record Response</h1>
