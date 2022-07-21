@@ -70,7 +70,7 @@ footer {
   color: #DDF1FF;
 }
 
-navigation ul {
+#navigation ul {
   padding-left: 3rem;
   font-family: 'Raleway', Arial, Helvetica, sans-serif;
 }
@@ -90,8 +90,8 @@ h2 {
   margin-bottom: 0.3rem;
 }
 
-th {
-  font-family: 'Raleway', Arial, Helvetica, sans-serif;
+.main-menu h2 {
+  font-size: 2.5rem;
 }
 
 /* Lists */
@@ -209,6 +209,7 @@ a:hover {
 table {
   border-collapse: collapse;
   vertical-align: top;
+  margin-top: 1.2rem;
 }
 
 table.list tr td {
@@ -226,6 +227,65 @@ table.list tr th {
 tr#headerRow {
   position: sticky;
   top: 0;
+}
+
+th {
+  font-family: 'Raleway', Arial, Helvetica, sans-serif;
+}
+
+td,
+th {
+  padding: 2px 5px;
+  max-width: 40ch;
+}
+
+td.playerName {
+  min-width: 18ch;
+  max-width: 20ch;
+}
+
+td.date {
+  min-width: 10ch;
+}
+
+@media (max-width: 750px) {
+  td.playerName {
+    min-width: 9ch;
+  }
+
+  td.date {
+    min-width: 5ch;
+  }
+}
+
+table.list tr td {
+  border: 1px solid #999999;
+}
+
+.table-action {
+  font-size: 2rem;
+}
+
+table.list tr th {
+  background: #0093E9;
+  color: white;
+  text-align: left;
+}
+
+dt {
+  font-size: 1.6rem;
+  margin-top: 0.7rem;
+}
+
+dd {
+  font-size: 2rem;
+}
+
+.table-header {
+  padding-left: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 0.75rem;
 }
 
 /* Errors */
@@ -249,7 +309,8 @@ tr#headerRow {
   color: #0093E9;
   background: white;
   border: 2px solid #0093E9;
-  font-size: 4rem;
+  font-size: 2rem;
+  padding: 1.4rem 3rem;
 }
 
 /* Auto-suggest styles */
@@ -269,14 +330,6 @@ ul#suggestions li a:hover {
   height: 300px;
 }
 
-.table-action {
-  font-size: 4rem;
-}
-
-dt {
-  font-size: 4rem;
-}
-
 dd {
   font-size: 4rem;
   margin-left: 0;
@@ -291,14 +344,9 @@ strong {
   padding-right: 3rem;
 }
 
-
 li {
   font-size: 1.5rem;
   list-style-type: none;
-}
-
-.main-menu h2 {
-  font-size: 2.5rem;
 }
 
 .input-box {
@@ -326,28 +374,6 @@ p {
   padding-left: 0rem;
 }
 
-table.list tr td {
-  border: 1px solid #999999;
-}
-
-.table-action {
-  font-size: 2rem;
-}
-
-table.list tr th {
-  background: #0093E9;
-  color: white;
-  text-align: left;
-}
-
-.back-link {
-  font-size: 1.2rem;
-}
-
-dt {
-  font-size: 2rem;
-}
-
 select {
   font-size: 1.3rem;
 }
@@ -373,14 +399,6 @@ input[type="checkbox" i] {
   cursor: pointer;
 }
 
-#message {
-  font-size: 2rem;
-}
-
-dd {
-  font-size: 2rem;
-}
-
 strong {
   font-size: 2rem;
 }
@@ -399,18 +417,6 @@ strong {
   padding-left: 2rem;
 }
 
-.edit {
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-}
-
-.table-header {
-  padding-left: 0.75rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-right: 0.75rem;
-}
-
 /* Stationary scrolling header */
 /* Style the header */
 .header {
@@ -423,36 +429,10 @@ strong {
   background: #0093E9;
   color: white;
   font-size: 4rem;
-
-}
-
-td,
-th {
-  padding: 2px 5px;
-  max-width: 40ch;
 }
 
 #operations {
   padding-left: 0;
-}
-
-td.playerName {
-  min-width: 18ch;
-  max-width: 20ch;
-}
-
-@media (max-width: 750px) {
-  td.playerName {
-    min-width: 9ch;
-  }
-
-  td.date {
-    min-width: 5ch;
-  }
-}
-
-div#message {
-  padding: 1.4rem 3rem;
 }
 
 label {
@@ -465,8 +445,4 @@ label {
   padding-bottom: 2rem;
   padding-left: 3rem;
   padding-right: 3rem;
-}
-
-td.date {
-  min-width: 10ch;
 }
