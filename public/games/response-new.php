@@ -57,7 +57,7 @@ if(is_post_request()) {
 }
 ?>
 
-<?php $page_title = 'Record response'; ?>
+<?php $page_title = 'Record Use'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
 <main>
@@ -71,10 +71,11 @@ if(is_post_request()) {
 		<a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; Responses</a>
 	</li>
 
-    <h1>Record response</h1>
-    <h2>User count</h2>
+    <h1>Record Response</h1>
+
     <form action="<?php echo url_for('/games/response-new.php'); ?>" method="get">
-      <select name="playerCount">
+			<label for="playerCount">User Count</label>
+      <select name="playerCount" id="playerCount">
         <?php
           $i = 1;
           while ($i < 10) {
@@ -91,7 +92,7 @@ if(is_post_request()) {
     </form>
 
     <form action="<?php echo url_for('/games/response-new.php'); ?>" method="post">
-		
+
 			<label for="Title">Artifact</label>
 			<select name="Title" id="Title">
 				<!-- Identifies next play by game -->
@@ -167,7 +168,7 @@ if(is_post_request()) {
         }
       ?>
 
-			<input type="submit" value="Record response" />
+			<input type="submit" value="Record Use" />
 
     </form>
 
