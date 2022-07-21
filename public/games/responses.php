@@ -7,16 +7,20 @@ include(SHARED_PATH . '/staff_header.php');
 ?>
 
 <div id="content">
-  <a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Games</a>
+  <a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Games List</a>
   <div class="uses listing">
-    <h1>Game responses</h1>
+    <h1>Game Responses</h1>
 
-      <li><a class="action" href="<?php echo url_for('/games/response-new.php'); ?>">New response</a></li>
-      <li><a class="action" href="<?php echo url_for('/games/playby.php'); ?>">Play games by date</a></li>
+    <li>
+      <a class="action" href="<?php echo url_for('/games/response-new.php'); ?>">New Response</a>
+    </li>
+    <li>
+      <a class="action" href="<?php echo url_for('/games/playby.php'); ?>">Play Games by Date List</a>
+    </li>
 
   	<table class="list">
   	  <tr>
-        <th>Play date</th>
+        <th>Play Date</th>
         <th>Title</th>
         <th>Player</th>
   	  </tr>
