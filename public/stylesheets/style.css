@@ -61,18 +61,29 @@ footer {
 
 /* Navigation */
 
-#navigation a {
-  color: #FFF;
+nav {
+  display: flex;
+  gap: 0.8rem;
+  margin-left: 3rem;
+  margin-bottom: 0.7rem;
+  margin-top: 0.7rem;
+}
+
+nav a {
   text-decoration: none;
 }
 
-#navigation a:hover {
-  color: #DDF1FF;
+nav a:hover {
+  color: #455c6c;
 }
 
-#navigation ul {
+nav ul {
   padding-left: 3rem;
   font-family: 'Raleway', Arial, Helvetica, sans-serif;
+}
+
+ul {
+  padding-left: 0;
 }
 
 /* Headings */
@@ -262,10 +273,6 @@ table.list tr td {
   border: 1px solid #999999;
 }
 
-.table-action {
-  font-size: 2rem;
-}
-
 table.list tr th {
   background: #0093E9;
   color: white;
@@ -368,10 +375,16 @@ p {
 
 .action {
   line-height: 1.2rem;
+  font-size: 1.3rem;
 }
 
 .actions {
   padding-left: 0rem;
+}
+
+a.action {
+  display: block;
+  margin-bottom: 0.7rem;
 }
 
 select {
@@ -445,4 +458,8 @@ label {
   padding-bottom: 2rem;
   padding-left: 3rem;
   padding-right: 3rem;
+}
+
+a.back-link {
+  font-size: 1.4rem;
 }
