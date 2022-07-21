@@ -374,7 +374,6 @@ li {
 
 a.action {
   display: block;
-  margin-bottom: 0.7rem;
 }
 
 table a.action {
@@ -461,4 +460,9 @@ a.back-link {
 
 dl {
   margin-bottom: 1.6rem;
+}
+
+section.actions {
+  display: flex;
+  gap: 1rem;
 }

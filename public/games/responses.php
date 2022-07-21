@@ -8,15 +8,12 @@ include(SHARED_PATH . '/staff_header.php');
 
 <main>
   <a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Artifact List</a>
-  <div class="uses listing">
     <h1>Artifact Uses</h1>
 
-    <li>
+    <section class="actions">
       <a class="action" href="<?php echo url_for('/games/response-new.php'); ?>">New Use</a>
-    </li>
-    <li>
       <a class="action" href="<?php echo url_for('/games/playby.php'); ?>">Use Artifacts by Date List</a>
-    </li>
+    </section>
 
   	<table class="list">
   	  <tr>
@@ -45,8 +42,7 @@ include(SHARED_PATH . '/staff_header.php');
   	</table>
 
     <?php mysqli_free_result($use_set); ?>
-  </div>
 
-      </main>
+</main>
 
 <?php include(SHARED_PATH . '/staff_footer.php'); ?>
