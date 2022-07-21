@@ -38,14 +38,14 @@ if(is_post_request()) {
 <?php $page_title = 'Edit game'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
-<div id="content">
+<main>
 
-  <li><a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Games</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/games/playby.php'); ?>">&laquo; Play games by</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/games/playgroup-choose.php'); ?>">&laquo; Choose for playgroup</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Artifacts</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/games/playby.php'); ?>">&laquo; Use Artifacts By</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/games/playgroup-choose.php'); ?>">&laquo; Choose for Group</a></li>
 
   <div class="object edit">
-    <h1>Edit game</h1>
+    <h1>Edit Artifact</h1>
 
     <?php echo display_errors($errors); ?>
 
@@ -55,7 +55,7 @@ if(is_post_request()) {
         <dd><input type="text" name="Title" value="<?php echo h($game['Title']); ?>" /></dd>
       </dl>
       <dl>
-        <dt>type</dt>
+        <dt>Type</dt>
         <dd>
           <?php $type = $game['type']; ?>
           <?php if($type == 'board-game') {
@@ -112,27 +112,27 @@ if(is_post_request()) {
           ?>
         </dd>
       <dl>
-        <dt>Acq</dt>
+        <dt>Acquisition Date</dt>
         <dd><input type="date" name="Acq" value="<?php echo h($game['Acq']); ?>" /></dd>
       </dl>
       <dl>
-        <dt>KeptCol</dt>
+        <dt>Kept in Collection? (Checked Indicates Kept)</dt>
         <dd>
           <input type="hidden" name="KeptCol" value="0" />
           <input type="checkbox" name="KeptCol" value="1"<?php if($game['KeptCol'] == "1") { echo " checked"; } ?> />
         </dd>
       </dl>
       <div id="operations">
-        <input type="submit" value="Save game edits" />
+        <input type="submit" value="Save Edits" />
       </div>
     </form>
 
-    <a class="table-action" href="<?php echo url_for('/games/delete.php?id=' . h(u($_REQUEST['id']))); ?>">
-      Delete
+    <a class="action" href="<?php echo url_for('/games/delete.php?id=' . h(u($_REQUEST['id']))); ?>">
+      <p>Delete <?php echo h($game['Title']); ?></p>
     </a>
 
   </div>
 
-</div>
+</main>
 
 <?php include(SHARED_PATH . '/staff_footer.php'); ?>
