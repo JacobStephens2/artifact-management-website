@@ -14,7 +14,7 @@ require_login();
 <?php $page_title = 'Explore games'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
-<div id="content">
+<main>
   <div class="objects listing">
     <h1>Games</h1>
 
@@ -93,6 +93,6 @@ require_login();
     ?>
   </div>
 
-</div>
+</main>
 
 <?php include(SHARED_PATH . '/staff_footer.php'); ?>
