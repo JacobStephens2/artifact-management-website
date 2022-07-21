@@ -90,9 +90,8 @@ if(is_post_request()) {
 
     <form action="<?php echo url_for('/games/response-new.php'); ?>" method="post">
       <dl>
-        <dt>Game</dt>
-        <dd>
-          <select name="Title">
+        <label for="Title">Game</label>
+          <select name="Title" id="Title">
             <!-- Identifies next play by game -->
             <?php 
               $first_set = first_play_by(); 
@@ -113,14 +112,19 @@ if(is_post_request()) {
             mysqli_free_result($game_set);
           ?>
           </select>
-        </dd>
-      </dl>
-      <dl>
       <?php
         if ($playerCount > 1) {
-          echo '<dt>Players</dt>';
+          ?>
+            <dt>
+              Players
+            </dt>
+          <?php
         } else {
-          echo '<dt>Player</dt>';
+          ?>
+            <dt>
+              Player
+            </dt>
+          <?php
         }
       ?>
 
