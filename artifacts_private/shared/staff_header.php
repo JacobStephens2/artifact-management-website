@@ -22,9 +22,11 @@
     <meta charset="utf-8">
     <link rel="stylesheet" media="all" href="../../stylesheets/style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
-    <?php if($page_title == 'Create Use') {
+    <?php 
+      if($page_title == 'Create Use') {
         echo '<script src="' . url_for('/js/public.js') . '"></script>';
-      }?>
+      }
+    ?>
   </head>
 
   <body>
@@ -34,25 +36,15 @@
             <?php
               $username = $_SESSION['username'] ?? '';
               $_SESSION['user_group'] = $_SESSION['user_group'] ?? '';
-              if($_SESSION['user_group'] == 2) {
-                echo '<navigation>';
-                echo '<ul>';
-                echo '<li>';
-                $menu = '<a href="' . url_for('index.php') . '">Menu</a>&ensp;<a href="' . url_for('logout.php') . '">Logout</a></li>';
-                echo '<li>Admin: ' . $username . ' ';
-                echo $menu;
-                echo '</ul>';
-                echo '</navigation>';
-              } elseif($_SESSION['user_group'] == 1) {
-                echo '<navigation>';
-                echo '<ul>';
-                echo '<li>';
-                $menu = '<a href="' . url_for('index.php') . '">Menu</a>&ensp;<a href="' . url_for('logout.php') . '">Logout</a></li>';
-                echo '<li>User: ' . $username . '&ensp;';
-                echo $menu;
-                echo '</ul>';
-                echo '</navigation>';
-              }
+              echo '<nav>';
+                if($_SESSION['user_group'] == 2) {
+                  echo '<span>Admin: ' . $username . '</span>';
+                } elseif($_SESSION['user_group'] == 1) {
+                  echo '<span>User: ' . $username . '</span>';
+                }
+                  echo '<span><a href="' . url_for('index.php') . '">Menu</a></span>';
+                  echo '<span><a href="' . url_for('logout.php') . '">Logout</a></span>';
+              echo '</nav>';
             ?>
 
       <?php echo display_session_message(); ?>
