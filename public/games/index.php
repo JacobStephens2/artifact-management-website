@@ -18,9 +18,6 @@ require_login();
 
     <div class="actions">
       <a class="action" href="<?php echo url_for('/games/new.php'); ?>">Create New Game</a>
-    </div>
-
-    <div class="actions">
       <a class="action" href="<?php echo url_for('/games/playby.php'); ?>">Play games by date</a>
     </div>
 
