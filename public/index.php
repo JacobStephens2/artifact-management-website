@@ -6,7 +6,7 @@ require_login();
 
 <?php $page_title = 'Menu'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
-<div id="content">
+<main>
   <div id="main-menu">
     <h2>Main Menu</h2>
     <ul>
@@ -28,6 +28,6 @@ require_login();
 
   </div>
 
-</div>
+</main>
 
 <?php include(SHARED_PATH . '/staff_footer.php'); ?>

@@ -6,7 +6,7 @@ $page_title = 'Game responses';
 include(SHARED_PATH . '/staff_header.php');
 ?>
 
-<div id="content">
+<main>
   <a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Games List</a>
   <div class="uses listing">
     <h1>Game Responses</h1>
@@ -27,7 +27,6 @@ include(SHARED_PATH . '/staff_header.php');
 
       <?php while($use = mysqli_fetch_assoc($use_set)) { ?>
         <tr>
-
           <td class="date">
             <a class="action" href="<?php echo url_for('/games/response-edit.php?id=' . h(u($use['id']))); ?>">
               <?php echo h($use['PlayDate']); ?>
@@ -48,6 +47,6 @@ include(SHARED_PATH . '/staff_header.php');
     <?php mysqli_free_result($use_set); ?>
   </div>
 
-</div>
+      </main>
 
 <?php include(SHARED_PATH . '/staff_footer.php'); ?>
