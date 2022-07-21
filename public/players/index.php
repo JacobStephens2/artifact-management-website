@@ -11,7 +11,7 @@ require_login();
 <?php $page_title = 'objects'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
-<div id="content">
+<main>
   <div class="objects listing">
     <h1><?php echo $plural_page_name; ?></h1>
 
@@ -47,6 +47,6 @@ require_login();
     ?>
   </div>
 
-</div>
+</main>
 
 <?php include(SHARED_PATH . '/staff_footer.php'); ?>
