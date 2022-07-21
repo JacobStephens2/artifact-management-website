@@ -10,16 +10,16 @@ $game_set = play_by($type, $interval);
 ?>
 
 <main>
-  <li><a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; To use list</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; To artifact list</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; To Use List</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; To Artifact List</a></li>
     
   <h1>Use Artifacts by Date</h1>
 
-  <li><a class="back-link" href="<?php echo url_for('/games/response-new.php'); ?>">Record use</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/objects/about-useby.php'); ?>">Learn about use-by date generation</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/games/response-new.php'); ?>">Record Use</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/objects/about-useby.php'); ?>">Learn About Use-by Date Generation</a></li>
 
   <form action="<?php echo url_for('/games/playby.php'); ?>" method="post">
-    <label for="type">Game type</label>
+    <label for="type">Artifact Type</label>
     <select name="type" id="type">
       <option value="1" <?php if ($type == 1) { echo 'selected'; } ?>>All types</option>
       <option value="board-game" <?php if ($type == 'board-game') { echo 'selected'; } ?>>Board Game</option>
@@ -29,7 +29,7 @@ $game_set = play_by($type, $interval);
       <option value="game" <?php if ($type == 'game') { echo 'selected'; } ?>>Game</option>
     </select>
 
-    <label for="interval">Interval from latest or to soonest use (Default = 180)</label>
+    <label for="interval">Interval in days from latest or to soonest use</label>
     <input type="number" name="interval" id="interval" value="<?php echo $interval ?>">
     
     <input type="submit" value="Submit" />
