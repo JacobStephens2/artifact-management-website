@@ -1,10 +1,8 @@
 <?php
-
 require_once('../../artifacts_private/initialize.php');
 require_login();
 
 if(is_post_request()) {
-
   $response = [];
   $response['Title'] = $_POST['Title'] ?? '';
   $response['PlayDate'] = $_POST['PlayDate'] ?? '';
@@ -18,6 +16,7 @@ if(is_post_request()) {
   $response['Player8'] = $_POST['Player8'] ?? '';
   $response['Player9'] = $_POST['Player9'] ?? '';
   $response['PlayerCount'] = 1;
+
   if($response['Player9'] != '') {
     $response['PlayerCount'] = 9;
   } elseif ($response['Player8'] != '') {
@@ -42,7 +41,7 @@ if(is_post_request()) {
   $playerCount = $response['PlayerCount'];
   if($result === true) {
     $new_id = mysqli_insert_id($db);
-    $_SESSION['message'] = "The response was recorded successfully. " . print_r($result);
+    $_SESSION['message'] = "The response was recorded successfully.";
     redirect_to(url_for('/games/response-new.php'));
   } else {
     $errors = $result;
@@ -56,21 +55,24 @@ if(is_post_request()) {
   $response["Player"] = '';
   $playerCount = $_GET['playerCount'] ?? '';
 }
-
 ?>
 
 <?php $page_title = 'Record response'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
-<div id="content">
+<main>
+  <li>
+		<a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Games</a>
+	</li>
+  <li>
+		<a class="back-link" href="<?php echo url_for('/games/playby.php'); ?>">&laquo; Play games by date</a>
+	</li>
+  <li>
+		<a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; Responses</a>
+	</li>
 
-  <li><a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Games</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/games/playby.php'); ?>">&laquo; Play games by date</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; Responses</a></li>
-
-  <div class="use new">
     <h1>Record response</h1>
-    <h2>Player count</h2>
+    <h2>User count</h2>
     <form action="<?php echo url_for('/games/response-new.php'); ?>" method="get">
       <select name="playerCount">
         <?php
@@ -85,93 +87,90 @@ if(is_post_request()) {
           }
         ?>
       </select>
-      <input type="submit" value="Select player count" />
+      <input type="submit" value="Select user count" />
     </form>
 
     <form action="<?php echo url_for('/games/response-new.php'); ?>" method="post">
-      <dl>
-        <label for="Title">Game</label>
-          <select name="Title" id="Title">
-            <!-- Identifies next play by game -->
-            <?php 
-              $first_set = first_play_by(); 
-              while($first = mysqli_fetch_assoc($first_set)) {
-                $title = h($first['Title']);
-              }
-              mysqli_free_result($first_set);
-            ?>
-          <?php
-            $game_set = list_games();
-            while($game = mysqli_fetch_assoc($game_set)) {
-              echo "<option value=\"" . h($game['id']) . "\"";
-              if($title == $game['Title']) {
-                echo " selected";
-              }
-              echo ">" . h($game['Title']) . "</option>";
-            }
-            mysqli_free_result($game_set);
-          ?>
-          </select>
-      <?php
-        if ($playerCount > 1) {
-          ?>
-            <dt>
-              Players
-            </dt>
-          <?php
-        } else {
-          ?>
-            <dt>
-              Player
-            </dt>
-          <?php
-        }
-      ?>
+		
+			<label for="Title">Artifact</label>
+			<select name="Title" id="Title">
+				<!-- Identifies next play by game -->
+				<?php 
+					$first_set = first_play_by(); 
+					while($first = mysqli_fetch_assoc($first_set)) {
+						$title = h($first['Title']);
+					}
+					mysqli_free_result($first_set);
+					$game_set = list_games();
+					while($game = mysqli_fetch_assoc($game_set)) {
+						echo "<option value=\"" . h($game['id']) . "\"";
+							if($title == $game['Title']) {
+								echo " selected";
+							}
+						echo ">";
+							echo h($game['Title']);
+						echo "</option>";
+					}
+					mysqli_free_result($game_set);
+				?>
+			</select>
 
-        <dd>
-        <!-- Choose players -->
-          <select name="Player1">
-            <option value='141'>Jacob Stephens</option>
-          <?php
-            $player_set = list_players();
-            while($player = mysqli_fetch_assoc($player_set)) {
-              echo "<option value=\"" . h($player['id']) . "\"";
-              echo ">" . h($player['FirstName']) . ' ' . h($player['LastName']) . "</option>";
-            }
-            mysqli_free_result($player_set);
-          ?>
-          </select>
-        </dd>
+			<label for="PlayDate">Response Date</label>
+			<input 
+				type="date" 
+				id="PlayDate" 
+				name="PlayDate" 
+				value="<?php echo date('Y') . '-' . date('m') . '-' . date('d'); ?>"
+			/>
+
+			<label for="Users">
+				<?php
+					if ($playerCount > 1) {
+						echo 'Users';
+					} else {
+						echo 'User';
+					}
+				?>
+			</label>
+
+			<!-- Choose players -->
+			<select id="Users" name="Player1">
+				<option value='141'>Jacob Stephens</option>
+				<?php
+					$player_set = list_players();
+					while($player = mysqli_fetch_assoc($player_set)) {
+						echo "<option value=\"" . h($player['id']) . "\">";
+							echo h($player['FirstName']) . ' ' . h($player['LastName']);
+						echo "</option>";
+					}
+					mysqli_free_result($player_set);
+				?>
+			</select>
 
       <?php
         $i = 1;
         $p = 2;
-        while ($playerCount > $i) {
-          echo '<dd><select name="Player' . $p . '"><option value="">Choose a player</option>'; 
-          $player_set = list_players();
-          while($player = mysqli_fetch_assoc($player_set)) {
-            echo "<option value=\"" . h($player['id']) . "\"";
-            echo ">" . h($player['FirstName']) . ' ' . h($player['LastName']) . "</option>";
-          }
-          mysqli_free_result($player_set);            
-          echo '</select></dd>';
+        while ($playerCount > $i) { ?>
+          <select name="Player'<?php echo $p; ?>">
+            <option value="">Choose a player</option>
+            <?php
+            $player_set = list_players();
+            while($player = mysqli_fetch_assoc($player_set)) {
+              echo "<option value=\"" . h($player['id']) . "\">";
+                echo h($player['FirstName']) . ' ' . h($player['LastName']);
+              echo "</option>";
+            }
+						mysqli_free_result($player_set); ?>     
+          </select> <?php
           $i++;
           $p++;
         }
       ?>
 
-      </dl>
-      <dl>
-        <dt>Response Date</dt>
-        <dd><input type="date" name="PlayDate" value="<?php echo date('Y') . '-' . date('m') . '-' . date('d'); ?>"/></dd>
-      </dl>
-      <div id="operations">
-        <input type="submit" value="Record response" />
-      </div>
+			<input type="submit" value="Record response" />
+
     </form>
 
-  </div>
-
-</div>
+</main>
 
 <?php include(SHARED_PATH . '/staff_footer.php'); ?>
