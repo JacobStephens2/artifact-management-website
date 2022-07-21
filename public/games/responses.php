@@ -15,7 +15,7 @@ include(SHARED_PATH . '/staff_header.php');
       <a class="action" href="<?php echo url_for('/games/response-new.php'); ?>">New Use</a>
     </li>
     <li>
-      <a class="action" href="<?php echo url_for('/games/playby.php'); ?>">Play Games by Date List</a>
+      <a class="action" href="<?php echo url_for('/games/playby.php'); ?>">Use Artifacts by Date List</a>
     </li>
 
   	<table class="list">

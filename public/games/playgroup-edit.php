@@ -39,7 +39,7 @@ if(is_post_request()) {
 <div ID="content">
 
   <li><a class="back-link" href="<?php echo url_for('/games/playgroup.php'); ?>">&laquo; To playgroup</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/games/playby.php'); ?>">&laquo; To play games by date list</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/games/playby.php'); ?>">&laquo; To Use Artifacts by Date List</a></li>
 
   <div class="object edit">
     <h1>Edit playgroup player</h1>

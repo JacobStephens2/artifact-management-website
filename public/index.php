@@ -19,7 +19,7 @@ require_login();
       <li class="main-menu list-2"><a href="<?php echo url_for('/games/playgroup.php');?>">Playgroup</a></li>
       <li class="main-menu list-2"><a href="<?php echo url_for('/games/responses.php');?>">Responses</a></li>
       <li class="main-menu list-2"><a href="<?php echo url_for('/games/response-new.php');?>">New response</a></li>
-      <li class="main-menu list-2"><a href=" <?php echo url_for('/games/playby.php');?>">Play games by date list</a></li>
+      <li class="main-menu list-2"><a href=" <?php echo url_for('/games/playby.php');?>">Use Artifacts by Date List</a></li>
       <li class="main-menu list-2"><a href=" <?php echo url_for('/explore/index.php');?>">Explore games by characteristic</a></li>
       <li class="main-menu"><a href="<?php echo url_for('/reset/index.php'); ?>">Reset password</a></li>
     </ul>
