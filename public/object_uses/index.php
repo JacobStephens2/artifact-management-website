@@ -10,7 +10,7 @@ require_login();
 <?php $page_title = 'uses'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
-<div id="content">
+<main>
       <li><a class="back-link" href="<?php echo url_for('/objects/index.php'); ?>">&laquo; Objects</a></li>
       <li><a class="back-link" href="<?php echo url_for('/objects/useby.php'); ?>">&laquo; Use objects by list</a></li>
   <div class="uses listing">
@@ -47,6 +47,6 @@ require_login();
     ?>
   </div>
 
-</div>
+</main>
 
 <?php include(SHARED_PATH . '/staff_footer.php'); ?>
