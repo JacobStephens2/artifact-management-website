@@ -1,4 +1,5 @@
-<!-- Contents
+<?php
+// Contents
   // Object Uses
   // Types
   // Objects
@@ -9,9 +10,7 @@
   // Players
   // Playgroup
   // Explore
- -->
 
-<?php
 // Object Uses
   function delete_use($id) {
     global $db;
