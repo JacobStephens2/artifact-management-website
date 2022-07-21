@@ -381,6 +381,10 @@ a.action {
   margin-bottom: 0.7rem;
 }
 
+table a.action {
+  margin-bottom: 0;
+}
+
 select {
   font-size: 1.3rem;
 }
