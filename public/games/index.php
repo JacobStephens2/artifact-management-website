@@ -14,36 +14,40 @@ require_login();
 
 <main>
   <div class="objects listing">
-    <h1>Games</h1>
+    <h1>Artifacts</h1>
 
     <div class="actions">
-      <a class="action" href="<?php echo url_for('/games/new.php'); ?>">Create New Game</a>
-      <a class="action" href="<?php echo url_for('/games/playby.php'); ?>">Play games by date</a>
+      <a class="action" href="<?php echo url_for('/games/new.php'); ?>">Create New Artifact</a>
+      <a class="action" href="<?php echo url_for('/games/playby.php'); ?>">Use Artifacts By Date</a>
     </div>
 
     <form action="<?php echo url_for('/games/index.php'); ?>" method="post">
-      <dl>
-        <dt>Game type</dt>
-          <select name="type">
-            <option value="1" <?php if ($type == 1) { echo 'selected'; } ?>>All types</option>
-            <option value="board-game" <?php if ($type == 'board-game') { echo 'selected'; } ?>>Board Game</option>
-            <option value="role-playing-game" <?php if ($type == 'role-playing-game') { echo 'selected'; } ?>>Role Playing Game</option>
-            <option value="video-game" <?php if ($type == 'video-game') { echo 'selected'; } ?>>Video Game</option>
-            <option value="sport" <?php if ($type == 'sport') { echo 'selected'; } ?>>Sport</option>
-            <option value="game" <?php if ($type == 'game') { echo 'selected'; } ?>>Game</option>
-          </select>
-      </dl>
-      <div id="operations">
-        <input type="submit" value="Submit" />
-      </div>
-    </form>
+      <label for="type">Game type</label>
+      <select name="type" id="type">
+        <option value="1" <?php if ($type == 1) { echo 'selected'; } ?>>All types</option>
+        <option value="board-game" <?php if ($type == 'board-game') { echo 'selected'; } ?>>Board Game</option>
+        <option value="role-playing-game" <?php if ($type == 'role-playing-game') { echo 'selected'; } ?>>Role Playing Game</option>
+        <option value="video-game" <?php if ($type == 'video-game') { echo 'selected'; } ?>>Video Game</option>
+        <option value="sport" <?php if ($type == 'sport') { echo 'selected'; } ?>>Sport</option>
+        <option value="game" <?php if ($type == 'game') { echo 'selected'; } ?>>Game</option>
+      </select>
 
+      <input type="submit" value="Submit" />
+    </form>
 
     <?php
       if ($kept == 1) {
-        echo '<a href="' . url_for("/games/index.php") . '"><button>Show all games</button></a>';
+        echo "<span>Showing Only Artifacts Kept</span>";
+        echo '
+          <a href="' . url_for("/games/index.php") . '">
+            (Show All Artifacts)
+          </a>';
       } else {
-        echo '<a href="' . url_for("/games/index.php?kept=1") . '"><button>Show only games kept</button></a>';
+        echo "<span>Showing All Artifacts</span>";
+        echo '
+          <a href="' . url_for("/games/index.php?kept=1") . '">
+            (Show Only Artifacts Kept)
+          </a>';
       }
    ?>
 

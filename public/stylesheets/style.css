@@ -125,7 +125,7 @@ button {
   margin-top: 1.5rem;
   padding: 0.7rem 1.1rem;
   border-radius: 0.8rem;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 button:hover {
@@ -147,6 +147,10 @@ p {
 }
 
 /* Form */
+
+form {
+  margin-bottom: 0.8rem;
+}
 
 input[type="checkbox" i] {
   margin-top: 1rem;
