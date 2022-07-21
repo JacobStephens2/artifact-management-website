@@ -2,17 +2,17 @@
 require_once('../../artifacts_private/initialize.php');
 require_login();
 $use_set = find_responses_by_user_id();
-$page_title = 'Game responses';
+$page_title = 'Artifact Uses';
 include(SHARED_PATH . '/staff_header.php');
 ?>
 
 <main>
-  <a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Games List</a>
+  <a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Artifact List</a>
   <div class="uses listing">
-    <h1>Game Responses</h1>
+    <h1>Artifact Uses</h1>
 
     <li>
-      <a class="action" href="<?php echo url_for('/games/response-new.php'); ?>">New Response</a>
+      <a class="action" href="<?php echo url_for('/games/response-new.php'); ?>">New Use</a>
     </li>
     <li>
       <a class="action" href="<?php echo url_for('/games/playby.php'); ?>">Play Games by Date List</a>
