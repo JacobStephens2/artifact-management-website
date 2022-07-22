@@ -43,7 +43,7 @@ mysqli_free_result($object_set);
 <?php $page_title = 'Edit object'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
-<div id="content">
+<main>
 
   <a class="back-link" href="<?php echo url_for('/objects/index.php'); ?>">&laquo; Back to List</a>
 
@@ -92,6 +92,6 @@ mysqli_free_result($object_set);
 
   </div>
 
-</div>
+</main>
 
 <?php include(SHARED_PATH . '/staff_footer.php'); ?>

@@ -25,7 +25,6 @@ if(is_post_request()) {
     redirect_to(url_for('/players/show.php?id=' . $id));
   } else {
     $errors = $result;
-    //var_dump($errors);
   }
 
 } else {
@@ -39,7 +38,7 @@ if(is_post_request()) {
 <?php $page_title = 'Edit player'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
-<div id="content">
+<main>
 
   <li><a class="back-link" href="<?php echo url_for('/players/index.php'); ?>">&laquo; Players</a></li>
 
@@ -72,6 +71,6 @@ if(is_post_request()) {
 
   </div>
 
-</div>
+</main>
 
 <?php include(SHARED_PATH . '/staff_footer.php'); ?>

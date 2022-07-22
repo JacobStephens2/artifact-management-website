@@ -11,7 +11,7 @@ $player = find_player_by_id($id);
 <?php $page_title = 'Show player'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
-<div id="content">
+<main>
 
   <li><a class="back-link" href="<?php echo url_for('/players/index.php'); ?>">&laquo; Players</a></li>
   <li><a class="back-link" href="<?php echo url_for('/games/playgroup.php'); ?>">&laquo; Playgroup</a></li>
@@ -39,4 +39,4 @@ $player = find_player_by_id($id);
 
   </div>
 
-</div>
+</main>

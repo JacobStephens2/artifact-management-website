@@ -23,7 +23,7 @@ if(is_post_request()) {
 <?php $page_title = 'Delete game'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
-<div ID="content">
+<main>
 
   <a class="back-link" href="<?php echo url_for('/games/playgroup.php'); ?>">&laquo; Playgroup</a>
 
@@ -39,6 +39,6 @@ if(is_post_request()) {
     </form>
   </div>
 
-</div>
+</main>
 
 <?php include(SHARED_PATH . '/staff_footer.php'); ?>

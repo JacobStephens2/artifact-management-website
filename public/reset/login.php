@@ -49,7 +49,7 @@ if(is_post_request()) {
 <?php $page_title = 'Log in'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
   
-    <div id="content">
+    <main>
 
       <p>You can use this site to generate a list of use-by dates for objects. <a href="https://jacobcstephens.com" target="_blank">Jacob Stephens</a> uses this tool to track usage of their books, ensuring they use each book either in the next or previous 180 days. <a href="https://www.theminimalists.com/ninety/" target="_blank">The Minimalists' 90/90 Rule</a> inspired Jacob to create this tool.</p>
 
@@ -68,7 +68,7 @@ if(is_post_request()) {
       </form>
 
       <a href="<?php echo url_for('/reset/index.php'); ?>"><button class="reset-password-button">Reset Password</button></a>
-    </div>
+    </main>
 
 <?php include(SHARED_PATH . '/staff_footer.php'); ?>
 <div class="white-space"></div>

@@ -23,7 +23,7 @@ if(is_post_request()) {
 <?php $page_title = 'Delete response'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
-<div id="content">
+<main>
 
   <a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; Back to List</a>
 
@@ -42,6 +42,6 @@ if(is_post_request()) {
     </form>
   </div>
 
-</div>
+</main>
 
 <?php include(SHARED_PATH . '/staff_footer.php'); ?>

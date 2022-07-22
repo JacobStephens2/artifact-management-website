@@ -3,7 +3,7 @@
 <?php $page_title = 'About Use By'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
-<div id="content">
+<main>
     <p><a class="back-link" href="<?php echo url_for('/objects/useby.php'); ?>">&laquo; Back to Use By list</a></p>
   <div class="objects listing" style="padding-top: 0;">
     <h1>Details about use by dates</h1>

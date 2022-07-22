@@ -2,7 +2,6 @@
 
 <?php require_login();
 
-// $id = isset($_GET['id']) ? $_GET['id'] : '1';
 $id = $_GET['id'] ?? '1'; // PHP > 7.0
 
 $use = find_use_by_id($id);
@@ -12,7 +11,7 @@ $use = find_use_by_id($id);
 <?php $page_title = 'Show use'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
-<div id="content">
+<main>
 
  <li><a class="back-link" href="<?php echo url_for('/object_uses/index.php'); ?>">&laquo; Uses</a><li>
  <li><a class="back-link" href="<?php echo url_for('/objects/useby.php'); ?>">&laquo; Use by</a><li>
@@ -44,4 +43,4 @@ $use = find_use_by_id($id);
 
   </div>
 
-</div>
+</main>

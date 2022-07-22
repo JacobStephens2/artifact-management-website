@@ -14,7 +14,7 @@ $type = $_SESSION['type'] ?? '1';
 $game_set = choose_games_for_group($range, $type);
 ?>
 
-<div id="content">
+<main>
     <li><a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; Responses</a></li>
     <li><a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Games</a></li>
     <li><a class="back-link" href="<?php echo url_for('/games/playgroup.php'); ?>">&laquo; Playgroup</a></li>
@@ -79,6 +79,6 @@ $game_set = choose_games_for_group($range, $type);
     ?>
   </div>
 
-</div>
+</main>
 
 <?php include(SHARED_PATH . '/staff_footer.php'); ?>

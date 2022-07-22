@@ -11,7 +11,7 @@ $response = find_response_by_id($id);
 <?php $page_title = 'Show use'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
-<div id="content">
+<main>
 
   <li><a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; Responses</a></li>
   <li><a class="back-link" href="<?php echo url_for('/games/playby.php'); ?>">&laquo; Play by list</a></li>
@@ -150,4 +150,4 @@ $response = find_response_by_id($id);
 
   </div>
 
-</div>
+</main>

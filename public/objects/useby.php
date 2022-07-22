@@ -13,7 +13,7 @@ $object_set = use_objects_by_user($interval, $limit);
 ?>
 
 <!-- <div class="content" id="content"> -->
-<div id="content">
+<main>
     <li><a class="back-link" href="<?php echo url_for('/objects/index.php'); ?>">&laquo; Objects</a></li>
     <li><a class="back-link" href="<?php echo url_for('/object_uses/new.php'); ?>">&laquo; Record use</a></li>
     <li><a class="back-link" href="<?php echo url_for('/object_uses/index.php'); ?>">&laquo; Uses</a></li>
@@ -30,7 +30,6 @@ $object_set = use_objects_by_user($interval, $limit);
     </form>
 
   	<table class="list" >
-      <!-- <tr class="header" id="myHeader"> -->
       <thead id="myHeader">
         <tr>
           <th>Name</th>
@@ -45,7 +44,6 @@ $object_set = use_objects_by_user($interval, $limit);
         </tr>
       </thead>
 
-    <!-- <div class="content"> -->
       <tbody>
       <?php while($object = mysqli_fetch_assoc($object_set)) { ?>
         <tr>
@@ -67,7 +65,6 @@ $object_set = use_objects_by_user($interval, $limit);
     	  </tr>
       <?php } ?>
       </tbody>
-    <!-- </div> -->
     
   	</table>
 
@@ -76,7 +73,7 @@ $object_set = use_objects_by_user($interval, $limit);
     ?>
   </div>
 
-</div>
+</main>
 
 <script>
 // When the user scrolls the page, execute myFunction

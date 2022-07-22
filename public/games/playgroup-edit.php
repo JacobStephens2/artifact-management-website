@@ -36,7 +36,7 @@ if(is_post_request()) {
 <?php $page_title = 'Edit playgroup player'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
-<div ID="content">
+<main>
 
   <li><a class="back-link" href="<?php echo url_for('/games/playgroup.php'); ?>">&laquo; To playgroup</a></li>
   <li><a class="back-link" href="<?php echo url_for('/games/playby.php'); ?>">&laquo; To Use Artifacts by Date List</a></li>
@@ -73,6 +73,6 @@ if(is_post_request()) {
 
   </div>
 
-</div>
+</main>
 
 <?php include(SHARED_PATH . '/staff_footer.php'); ?>

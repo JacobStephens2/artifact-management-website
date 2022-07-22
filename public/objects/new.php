@@ -36,7 +36,7 @@ if(is_post_request()) {
 <?php $page_title = 'Create object'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
-<div id="content">
+<main>
 
   <a class="back-link" href="<?php echo url_for('/objects/index.php'); ?>">&laquo; Back to List</a>
 
@@ -86,6 +86,6 @@ if(is_post_request()) {
 
   </div>
 
-</div>
+</main>
 
 <?php include(SHARED_PATH . '/staff_footer.php'); ?>

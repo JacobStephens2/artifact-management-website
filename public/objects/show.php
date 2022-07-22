@@ -12,7 +12,7 @@ $object = find_object_by_id($id);
 <?php $page_title = 'Show object'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
-<div id="content">
+<main>
 
   <li><a class="back-link" href="<?php echo url_for('/objects/index.php'); ?>">&laquo; Objects</a></li>
   <li><a class="back-link" href="<?php echo url_for('/objects/useby.php'); ?>">&laquo; Use by</a></li>
@@ -49,4 +49,4 @@ $object = find_object_by_id($id);
 
   </div>
 
-</div>
+</main>
