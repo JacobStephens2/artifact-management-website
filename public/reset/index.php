@@ -1,8 +1,8 @@
 <?php
 require_once('../../artifacts_private/initialize.php');
-require("composer/vendor/autoload.php");
 
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 $currentDate = new DateTime();
