@@ -30,30 +30,12 @@ if(is_post_request()) {
 <?php $page_title = 'Record Use'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
-<div id="content">
+<main>
 
   <li><a class="back-link" href="<?php echo url_for('/object_uses/index.php'); ?>">&laquo; Objects</a><li>
   <li><a class="back-link" href="<?php echo url_for('/objects/useby.php'); ?>">&laquo; Use objects by list</a><li>
 
   <div class="use new">
-
-          <!-- form action could be action="search.php" -->
-  <!-- <br /><br />
-      <dl>
-        <dt>Search Object Names</dt>
-        <dd> -->
-          <!-- <form id="search-form"  method="GET"> -->
-            <?php 
-              // $q = isset($_GET['q']) ? $_GET['q'] : ''; 
-            ?>
-            <!-- <input id="search" type="text" name="q" value="<?php echo htmlspecialchars($q); ?>" /> -->
-            <!-- <input type="submit" value="Search" /> -->
-          <!-- </form>
-        </dd>
-      </dl>
-      <ul id="suggestions">
-      </ul> -->
-
 
     <h1>Record use</h1>
     <form action="<?php echo url_for('/object_uses/new.php'); ?>" method="post">
@@ -61,7 +43,7 @@ if(is_post_request()) {
         <dt>Object Name</dt>
         <dd>
 
-<!-- selecting object name -->
+          <!-- selecting object name -->
           <?php 
               $interval = 180;
               $limit = 1024;
@@ -98,6 +80,6 @@ if(is_post_request()) {
 
   </div>
 
-</div>
+</main>
 
 <?php include(SHARED_PATH . '/staff_footer.php'); ?>
