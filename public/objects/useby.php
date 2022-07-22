@@ -12,7 +12,6 @@ $limit = '';
 $object_set = use_objects_by_user($interval, $limit); 
 ?>
 
-<!-- <div class="content" id="content"> -->
 <main>
     <li><a class="back-link" href="<?php echo url_for('/objects/index.php'); ?>">&laquo; Objects</a></li>
     <li><a class="back-link" href="<?php echo url_for('/object_uses/new.php'); ?>">&laquo; Record use</a></li>
@@ -38,16 +37,17 @@ $object_set = use_objects_by_user($interval, $limit);
           <th>Recent</th>
           <th>Acquisition</th>
           <th>Kept</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
         </tr>
       </thead>
 
       <tbody>
       <?php while($object = mysqli_fetch_assoc($object_set)) { ?>
         <tr>
-          <td><?php echo h($object['ObjectName']); ?></td>
+          <td>
+            <a class="action" href="<?php echo url_for('/objects/edit.php?id=' . h(u($object['ID']))); ?>">
+              <?php echo h($object['ObjectName']); ?>
+            </a>
+          </td>
     	    <td><?php echo h($object['ObjectType']); ?></td>
           <td><?php echo h($object['UseBy']); ?></td>
           <td><?php echo h($object['MaxUse']); ?></td>
@@ -58,10 +58,7 @@ $object_set = use_objects_by_user($interval, $limit);
             } else {
               echo "False";
             }
-          ?></td>
-          <td><a class="action" href="<?php echo url_for('/objects/show.php?id=' . h(u($object['ID']))); ?>">View</a></td>
-          <td><a class="action" href="<?php echo url_for('/objects/edit.php?id=' . h(u($object['ID']))); ?>">Edit</a></td>
-          <td><a class="action" href="<?php echo url_for('/objects/delete.php?id=' . h(u($object['ID']))); ?>">Delete</a></td>
+          ?>
     	  </tr>
       <?php } ?>
       </tbody>
