@@ -11,7 +11,6 @@ $id = $_GET['id'];
 if(is_post_request()) {
 
   // Handle form values sent by new.php
-
   $object = [];
   $object['ID'] = $id ?? '';
   $object['ObjectName'] = $_POST['ObjectName'] ?? '';
@@ -25,7 +24,6 @@ if(is_post_request()) {
     redirect_to(url_for('/objects/show.php?id=' . $id));
   } else {
     $errors = $result;
-    //var_dump($errors);
   }
 
 } else {
@@ -56,11 +54,11 @@ mysqli_free_result($object_set);
 
     <form action="<?php echo url_for('/objects/edit.php?id=' . h(u($id))); ?>" method="post">
       <dl>
-        <dt>ObjectName</dt>
+        <dt>Object Name</dt>
         <dd><input type="text" name="ObjectName" value="<?php echo h($object['ObjectName']); ?>" /></dd>
       </dl>
       <dl>
-        <dt>ObjectType</dt>
+        <dt>Object Type</dt>
         <dd>
           <select name="ObjectType">
           <?php
@@ -77,11 +75,11 @@ mysqli_free_result($object_set);
           </select>
         </dd>
       <dl>
-        <dt>Acq</dt>
+        <dt>Acquisition Date</dt>
         <dd><input type="date" name="Acq" value="<?php echo h($object['Acq']); ?>" /></dd>
       </dl>
       <dl>
-        <dt>KeptCol</dt>
+        <dt>Kept in Collection?</dt>
         <dd>
           <input type="hidden" name="KeptCol" value="0" />
           <input type="checkbox" name="KeptCol" value="1"<?php if($object['KeptCol'] == "1") { echo " checked"; } ?> />
@@ -91,6 +89,12 @@ mysqli_free_result($object_set);
         <input type="submit" value="Save object edits" />
       </div>
     </form>
+
+    <a class="action" href="<?php echo url_for('/objects/delete.php?id=' . h(u($object['ID']))); ?>">
+      <p>
+        Delete
+      </p>
+    </a>
 
   </div>
 
