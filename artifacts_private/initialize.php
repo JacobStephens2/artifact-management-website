@@ -20,7 +20,10 @@
   // $public_end = strpos($_SERVER['SCRIPT_NAME'], '/artifacts') + 10;
   // $doc_root = substr($_SERVER['SCRIPT_NAME'], 0, $public_end);
   // define("WWW_ROOT", $doc_root);
+
   define("WWW_ROOT", '');
+
+  require_once('environment_variables.php');
 
   require_once('functions.php');
   require_once('database.php');
@@ -30,13 +33,6 @@
 
   $db = db_connect();
   $errors = [];
-
-  // use PHPMailer\PHPMailer\PHPMailer;
-  // use PHPMailer\PHPMailer\Exception;
-
-  // require 'PHPMailer/src/Exception.php';
-  // require 'PHPMailer/src/PHPMailer.php';
-  // require 'PHPMailer/src/SMTP.php';
 
 
 ?>
