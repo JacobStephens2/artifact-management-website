@@ -374,6 +374,7 @@ li {
 
 a.action {
   display: block;
+  width: fit-content;
 }
 
 table a.action {
@@ -383,6 +384,8 @@ table a.action {
 select {
   font-size: 1.3rem;
   max-width: 90vw;
+  display: block;
+  margin-bottom: 0.9rem;
 }
 
 select:hover {
