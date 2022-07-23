@@ -91,13 +91,16 @@ if(is_post_request()) {
       <dl>
         <dd><input type="hidden" name="id" value="<?php echo h($response['id']); ?>" /></dd>
       </dl>
-      <div id="operations">
-        <input type="submit" value="Edit response" />
-      </div>
+      <input type="submit" value="Edit response" />
     </form>
 
-    <a class="action" href="<?php echo url_for('/games/response-delete.php?id=' . h(u($use['id']))); ?>">
-      Delete Response
+    <a 
+      class="action" 
+      href="<?php echo url_for('/games/response-delete.php?id=' . h(u($response['id']))); ?>"
+    >
+      <button>
+        Delete Response
+      </button>
     </a>
 
   </div>
