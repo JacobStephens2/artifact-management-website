@@ -6,6 +6,7 @@ if(is_post_request()) {
   $response = [];
   $response['Title'] = $_POST['Title'] ?? '';
   $response['PlayDate'] = $_POST['PlayDate'] ?? '';
+
   $response['Player1'] = $_POST['Player1'] ?? '';
   $response['Player2'] = $_POST['Player2'] ?? '';
   $response['Player3'] = $_POST['Player3'] ?? '';
@@ -15,30 +16,13 @@ if(is_post_request()) {
   $response['Player7'] = $_POST['Player7'] ?? '';
   $response['Player8'] = $_POST['Player8'] ?? '';
   $response['Player9'] = $_POST['Player9'] ?? '';
-  $response['PlayerCount'] = 1;
 
-  if($response['Player9'] != '') {
-    $response['PlayerCount'] = 9;
-  } elseif ($response['Player8'] != '') {
-    $response['PlayerCount'] = 8;    
-  } elseif ($response['Player7'] != '') {
-    $response['PlayerCount'] = 7;
-  } elseif ($response['Player6'] != '') {
-    $response['PlayerCount'] = 6;
-  } elseif ($response['Player5'] != '') {
-    $response['PlayerCount'] = 5;
-  } elseif ($response['Player4'] != '') {
-    $response['PlayerCount'] = 4;
-  } elseif ($response['Player3'] != '') {
-    $response['PlayerCount'] = 3;
-  } elseif ($response['Player2'] != '') {    
-    $response['PlayerCount'] = 2;
-  } else {    
-    $response['PlayerCount'] = 1;
-  } 
+  $playerCount = $_GET['playerCount'] ?? 1;
 
-  $result = insert_response($response);
-  $playerCount = $response['PlayerCount'];
+  
+
+  $result = insert_response($response, $playerCount);
+
   if($result === true) {
     $new_id = mysqli_insert_id($db);
     $_SESSION['message'] = "The response was recorded successfully.";
@@ -53,7 +37,7 @@ if(is_post_request()) {
   $response["Title"] = '';
   $response["PlayDate"] = '';
   $response["Player"] = '';
-  $playerCount = $_GET['playerCount'] ?? '';
+  $playerCount = $_GET['playerCount'] ?? 1;
 }
 ?>
 
@@ -71,9 +55,12 @@ if(is_post_request()) {
 		<a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; Uses</a>
 	</li>
 
-    <h1>Record Response</h1>
+    <h1>Record Use</h1>
 
-    <form action="<?php echo url_for('/games/response-new.php'); ?>" method="get">
+    <form 
+      action="<?php echo url_for('/games/response-new.php'); ?>"
+      method="get"
+    >
 			<label for="playerCount">User Count</label>
       <select name="playerCount" id="playerCount">
         <?php
@@ -88,10 +75,10 @@ if(is_post_request()) {
           }
         ?>
       </select>
-      <input type="submit" value="Select user count" />
+      <input type="submit" value="Select User Count" />
     </form>
 
-    <form action="<?php echo url_for('/games/response-new.php'); ?>" method="post">
+    <form action="<?php echo url_for('/games/response-new.php?playerCount=' . $playerCount); ?>" method="post">
 
 			<label for="Title">Artifact</label>
 			<select name="Title" id="Title">
@@ -136,7 +123,9 @@ if(is_post_request()) {
 
 			<!-- Choose players -->
 			<select id="Users" name="Player1">
-				<option value='141'>Jacob Stephens</option>
+				<option value='141'>
+          Jacob Stephens
+        </option>
 				<?php
 					$player_set = list_players();
 					while($player = mysqli_fetch_assoc($player_set)) {
@@ -152,7 +141,7 @@ if(is_post_request()) {
         $i = 1;
         $p = 2;
         while ($playerCount > $i) { ?>
-          <select name="Player'<?php echo $p; ?>">
+          <select name="Player<?php echo $p; ?>">
             <option value="">Choose a player</option>
             <?php
             $player_set = list_players();
