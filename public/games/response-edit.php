@@ -33,7 +33,7 @@ if(is_post_request()) {
 
 ?>
 
-<?php $page_title = 'Edit Response'; ?>
+<?php $page_title = 'Edit Use'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
 <main>
@@ -41,13 +41,13 @@ if(is_post_request()) {
   <a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; Back to List</a>
 
   <div class="object edit">
-    <h1>Edit Response</h1>
+    <h1>Edit Use</h1>
 
     <?php echo display_errors($errors); ?>
 
     <form action="<?php echo url_for('/games/response-edit.php?id=' . h(u($id))); ?>" method="post">
       <dl>
-        <dt>Game</dt>
+        <dt>Artifact</dt>
         <dd>
           <select name="Title">
           <?php
@@ -65,10 +65,10 @@ if(is_post_request()) {
         </dd>
       </dl>
       <dl>
-        <dt>Player</dt>
+        <dt>User</dt>
         <dd>
           <select name="Player">
-            <option value='Invalid'>Choose a player</option>
+            <option value='Invalid'>Choose a User</option>
           <?php
             $player_set = list_players();
             while($player = mysqli_fetch_assoc($player_set)) {
@@ -85,7 +85,7 @@ if(is_post_request()) {
       </dl>
       
       <dl>
-        <dt>Play Date</dt>
+        <dt>Use Date</dt>
         <dd><input type="date" name="PlayDate" value="<?php echo h($response['PlayDate']); ?>" /></dd>
       </dl>
       <dl>
@@ -99,7 +99,7 @@ if(is_post_request()) {
       href="<?php echo url_for('/games/response-delete.php?id=' . h(u($response['id']))); ?>"
     >
       <button>
-        Delete Response
+        Delete Use
       </button>
     </a>
 
