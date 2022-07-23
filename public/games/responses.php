@@ -16,7 +16,7 @@ include(SHARED_PATH . '/staff_header.php');
     </section>
 
   	<table class="list">
-  	  <tr>
+  	  <tr id="headerRow">
         <th>Play Date</th>
         <th>Title</th>
         <th>Player</th>
