@@ -29,7 +29,7 @@ $game_set = play_by($type, $interval);
       <option value="game" <?php if ($type == 'game') { echo 'selected'; } ?>>Game</option>
     </select>
 
-    <label for="interval">Interval in days from latest or to soonest use</label>
+    <label for="interval">Interval in days from most recent or to upcoming use</label>
     <input type="number" name="interval" id="interval" value="<?php echo $interval ?>">
     
     <input type="submit" value="Submit" />
