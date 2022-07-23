@@ -52,8 +52,8 @@ if(is_post_request()) {
       
       <label for="type">Type</label>
       <select name="type" id="type">
-        <option value="video-game" selected>Video Game</option>
-        <option value="board-game">Board Game</option>
+        <option value="board-game" selected>Board Game</option>
+        <option value="video-game">Video Game</option>
         <option value="role-playing-game">Role Playing Game</option>
         <option value="sport">Sport</option>
         <option value="game">Game</option>
