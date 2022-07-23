@@ -874,7 +874,7 @@ ORDER BY UseDate DESC
 
     return $errors;
   }
-  function insert_response($response) {
+  function insert_response($response, $playerCount) {
     global $db;
 
     $errors = validate_response($response);
@@ -882,7 +882,7 @@ ORDER BY UseDate DESC
       return $errors;
     }
     
-    if ($response['PlayerCount'] >= 1) {
+    if ($playerCount >= 1) {
       $sql = "INSERT INTO responses ";
       $sql .= "(Title, PlayDate, Player, user_id) ";
       $sql .= "VALUES (";
@@ -893,7 +893,7 @@ ORDER BY UseDate DESC
       $sql .= ")";
       $result = mysqli_query($db, $sql);
     }
-    if ($response['PlayerCount'] >= 2) {
+    if ($playerCount >= 2) {
       $sql = "INSERT INTO responses ";
       $sql .= "(Title, PlayDate, Player, user_id) ";
       $sql .= "VALUES (";
@@ -904,7 +904,7 @@ ORDER BY UseDate DESC
       $sql .= ")";
       $result = mysqli_query($db, $sql);
     }
-    if ($response['PlayerCount'] >= 3) {
+    if ($playerCount >= 3) {
       $sql = "INSERT INTO responses ";
       $sql .= "(Title, PlayDate, Player, user_id) ";
       $sql .= "VALUES (";
@@ -915,7 +915,7 @@ ORDER BY UseDate DESC
       $sql .= ")";
       $result = mysqli_query($db, $sql);
     }
-    if ($response['PlayerCount'] >= 4) {
+    if ($playerCount >= 4) {
       $sql = "INSERT INTO responses ";
       $sql .= "(Title, PlayDate, Player, user_id) ";
       $sql .= "VALUES (";
@@ -926,7 +926,7 @@ ORDER BY UseDate DESC
       $sql .= ")";
       $result = mysqli_query($db, $sql);
     }
-    if ($response['PlayerCount'] >= 5) {
+    if ($playerCount >= 5) {
       $sql = "INSERT INTO responses ";
       $sql .= "(Title, PlayDate, Player, user_id) ";
       $sql .= "VALUES (";
@@ -937,7 +937,7 @@ ORDER BY UseDate DESC
       $sql .= ")";
       $result = mysqli_query($db, $sql);
     }
-    if ($response['PlayerCount'] >= 6) {
+    if ($playerCount >= 6) {
       $sql = "INSERT INTO responses ";
       $sql .= "(Title, PlayDate, Player, user_id) ";
       $sql .= "VALUES (";
@@ -948,7 +948,7 @@ ORDER BY UseDate DESC
       $sql .= ")";
       $result = mysqli_query($db, $sql);
     }
-    if ($response['PlayerCount'] >= 7) {
+    if ($playerCount >= 7) {
       $sql = "INSERT INTO responses ";
       $sql .= "(Title, PlayDate, Player, user_id) ";
       $sql .= "VALUES (";
@@ -959,7 +959,7 @@ ORDER BY UseDate DESC
       $sql .= ")";
       $result = mysqli_query($db, $sql);
     }
-    if ($response['PlayerCount'] >= 8) {
+    if ($playerCount >= 8) {
       $sql = "INSERT INTO responses ";
       $sql .= "(Title, PlayDate, Player, user_id) ";
       $sql .= "VALUES (";
@@ -970,7 +970,7 @@ ORDER BY UseDate DESC
      $sql .= ")";
       $result = mysqli_query($db, $sql);
     }
-    if ($response['PlayerCount'] >= 9) {
+    if ($playerCount >= 9) {
       $sql = "INSERT INTO responses ";
       $sql .= "(Title, PlayDate, Player, user_id) ";
       $sql .= "VALUES (";
