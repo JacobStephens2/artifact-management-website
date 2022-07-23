@@ -36,7 +36,7 @@ $game_set = play_by($type, $interval);
   </form>
 
   <table class="list">
-    <tr>
+    <tr id="headerRow">
       <th class="table-header">Name</th>
       <th class="table-header">Type</th>
       <th class="table-header">Play By</th>
