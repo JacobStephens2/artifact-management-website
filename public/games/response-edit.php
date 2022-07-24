@@ -91,7 +91,7 @@ if(is_post_request()) {
       <dl>
         <dd><input type="hidden" name="id" value="<?php echo h($response['id']); ?>" /></dd>
       </dl>
-      <input type="submit" value="Edit response" />
+      <input type="submit" value="Save response" />
     </form>
 
     <a 
