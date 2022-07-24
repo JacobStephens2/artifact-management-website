@@ -3,8 +3,8 @@
 <?php
 require_login();
 
-  $plural_page_name = 'Players';
-  $singular_page_name = 'Player';
+  $plural_page_name = 'Users';
+  $singular_page_name = 'User';
   $player_set = find_players_by_user_id();
 ?>
 

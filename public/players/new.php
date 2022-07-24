@@ -38,10 +38,10 @@ if(is_post_request()) {
 
 <main>
 
-  <a class="back-link" href="<?php echo url_for('/players/index.php'); ?>">&laquo; Players</a>
+  <a class="back-link" href="<?php echo url_for('/players/index.php'); ?>">&laquo; Users</a>
 
   <div class="object new">
-    <h1>Create player record</h1>
+    <h1>Create User Record</h1>
 
     <?php echo display_errors($errors); ?>
 
@@ -55,7 +55,7 @@ if(is_post_request()) {
         <dd><input type="text" name="LastName" value="<?php echo h($player['LastName']); ?>" /></dd>
       </dl>
       <dl>
-        <dt>Gender</dt>
+        <dt>Gender (M, F, or Other)</dt>
         <dd><input type="text" name="G" value="<?php echo h($player['G']); ?>" /></dd>
       </dl>
       <dl>
