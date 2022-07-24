@@ -11,9 +11,15 @@ require_login();
     <h2>Main Menu</h2>
     <ul>
       <li class="main-menu"><a href="<?php echo url_for('/games/index.php');?>">Artifacts</a></li>
+      <li class="main-menu list-2">
+        <a class="action" href="<?php echo url_for('/games/new.php'); ?>">Create New Artifact</a>
+      </li>
       <li class="main-menu list-2"><a href="<?php echo url_for('/players/index.php');?>">Users</a></li>
+      <li class="main-menu list-2">
+        <a class="action" href="<?php echo url_for('/players/new.php'); ?>">Add New User</a>
+      </li>
       <li class="main-menu list-2"><a href="<?php echo url_for('/games/responses.php');?>">Uses</a></li>
-      <li class="main-menu list-2"><a href="<?php echo url_for('/games/response-new.php');?>">New Use</a></li>
+      <li class="main-menu list-2"><a href="<?php echo url_for('/games/response-new.php');?>">Record Use</a></li>
       <li class="main-menu list-2"><a href=" <?php echo url_for('/games/playby.php');?>">Use Artifacts by Date List</a></li>
       <li class="main-menu list-2"><a href="<?php echo url_for('/games/playgroup.php');?>">Group</a></li>
       <li class="main-menu list-2"><a href=" <?php echo url_for('/explore/index.php');?>">Explore Artifacts by Characteristic</a></li>
