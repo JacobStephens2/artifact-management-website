@@ -33,7 +33,7 @@ if(is_post_request()) {
 
 ?>
 
-<?php $page_title = 'Add player'; ?>
+<?php $page_title = 'Add User'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
 <main>

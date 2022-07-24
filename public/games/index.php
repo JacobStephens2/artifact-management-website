@@ -9,7 +9,7 @@ require_login();
 
 ?>
 
-<?php $page_title = 'Games'; ?>
+<?php $page_title = 'Artifacts'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
 <main>

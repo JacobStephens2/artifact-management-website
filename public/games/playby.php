@@ -1,6 +1,6 @@
 <?php require_once('../../artifacts_private/initialize.php'); ?>
 <?php require_login(); ?>
-<?php $page_title = 'Play By'; ?>
+<?php $page_title = 'Use By'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
 
 <?php
