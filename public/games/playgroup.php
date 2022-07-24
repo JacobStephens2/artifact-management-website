@@ -12,18 +12,18 @@ require_login();
 
 <main>
   <div class="objects listing">
-    <h1>Playgroup</h1>
+    <h1>User Group</h1>
 
     <div class="actions">
-      <li><a class="action" href="<?php echo url_for('/games/playgroup-new.php'); ?>">Add to playgroup</a></li>
-      <li><a class="action" href="<?php echo url_for('/games/playgroup-choose.php'); ?>">Choose games for playgroup</a></li>
+      <li><a class="action" href="<?php echo url_for('/games/playgroup-new.php'); ?>">Add to User Group</a></li>
+      <li><a class="action" href="<?php echo url_for('/games/playgroup-choose.php'); ?>">Choose Games for User Group</a></li>
     </div>
 
   	<table class="list">
   	  <tr>
         <!-- <th>ID</th> -->
         <th>Name&ensp;</th>
-        <th>Playgroup id&ensp;</th>
+        <th>User Group id&ensp;</th>
   	    <th>&nbsp;</th>
   	    <th>&nbsp;</th>
         <th>&nbsp;</th>
