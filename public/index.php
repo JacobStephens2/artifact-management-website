@@ -21,7 +21,8 @@ require_login();
       <li class="main-menu list-2"><a href="<?php echo url_for('/games/responses.php');?>">Uses</a></li>
       <li class="main-menu list-2"><a href="<?php echo url_for('/games/response-new.php');?>">Record Use</a></li>
       <li class="main-menu list-2"><a href=" <?php echo url_for('/games/playby.php');?>">Use Artifacts by Date List</a></li>
-      <li class="main-menu list-2"><a href="<?php echo url_for('/games/playgroup.php');?>">Group</a></li>
+      <li class="main-menu list-2"><a href="<?php echo url_for('/games/playgroup.php');?>">User Group</a></li>
+      <li class="main-menu list-2"><a class="action" href="<?php echo url_for('/games/playgroup-choose.php'); ?>">Choose Games for User Group</a></li>
       <li class="main-menu list-2"><a href=" <?php echo url_for('/explore/index.php');?>">Explore Artifacts by Characteristic</a></li>
 
       <li class="main-menu"><a href="<?php echo url_for('/reset/index.php'); ?>">Reset password</a></li>
