@@ -88,7 +88,6 @@ if(isset($_POST["email"]) && isset($_POST["action"]) && ($_POST["action"]=="upda
   $new_password = mysqli_real_escape_string($con,$_POST["new_password"]);
   $new_password_check = mysqli_real_escape_string($con,$_POST["new_password_check"]);
   $email = $_POST["email"];
-  // $curDate = date("Y-m-d H:i:s");
   if ($new_password!=$new_password_check){
     $error.= "<p>Password do not match, both password should be same.<br /><br /></p>";
   }
