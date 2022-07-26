@@ -25,6 +25,7 @@ require_login();
       <li class="main-menu list-2"><a class="action" href="<?php echo url_for('/games/playgroup-choose.php'); ?>">Choose Games for User Group</a></li>
       <li class="main-menu list-2"><a href=" <?php echo url_for('/explore/index.php');?>">Explore Artifacts by Characteristic</a></li>
 
+      <li class="main-menu"><a href="<?php echo url_for('/uses/new.php'); ?>">Record Use v2</a></li>
       <li class="main-menu"><a href="<?php echo url_for('/reset/index.php'); ?>">Reset password</a></li>
 
       <h2>Archived Menu</h2>
