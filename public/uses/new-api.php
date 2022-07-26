@@ -6,4 +6,4 @@ header('Content-Type: application/json');
 
 $bodyRaw = file_get_contents('php://input');
 echo $bodyRaw;
-
+?>
