@@ -38,7 +38,12 @@ if(is_post_request()) {
 
 <main>
 
-  <a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Back to List</a>
+  <li>
+    <a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Back to List</a>
+  </li>
+  <li>
+    <a class="back-link" href="<?php echo url_for('/games/response-new.php'); ?>">&laquo; Create Use</a>
+  </li>
 
   <div class="object new">
     <h1>Create Artifact</h1>
