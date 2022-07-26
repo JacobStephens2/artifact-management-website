@@ -1,6 +1,7 @@
 <?php
 
-// users
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 // Performs all actions necessary to log in an admin
 function log_in_user($user) {
@@ -10,19 +11,66 @@ function log_in_user($user) {
   $_SESSION['last_login'] = time();
   $_SESSION['username'] = $user['username'];
   $_SESSION['user_group'] = $user['user_group'];
+  // Create JWT access token cookie for response 
+  $issuedAt   = new DateTimeImmutable();
+  $jwt_access_token_data = [
+      // Issued at: time when the token was generated
+      'iat'  => $issuedAt->getTimestamp(),  
+      'iss'  => $_SERVER['SERVER_NAME'], // Issuer
+      'nbf'  => $issuedAt->getTimestamp(), // Not before 
+      'exp'  => $issuedAt->modify('+60 minutes')->getTimestamp(), // Expire                      
+      'user_id' => $user['id'],
+  ];
+  $access_token = JWT::encode(
+      $jwt_access_token_data,
+      JWT_SECRET,
+      'HS256'
+  );
+
+  setcookie(
+      "access_token",         // name
+      $access_token,          // value
+      time() + (86400 * 7),   // expire, 86400 = 1 day
+      "",                     // path
+      ARTIFACTS_DOMAIN,       // domain
+      COOKIE_SECURE,         // if true, send cookie only to https requests
+      true                    // httponly
+  ); // End of JWT Access Token Cookie creation
   return true;
 }
 
-// admins
+function authenticate() {
+  $headers = apache_request_headers();
+  $response = new stdClass;
 
-// Performs all actions necessary to log in an admin
-function log_in_admin($admin) {
-// Renerating the ID protects the admin from session fixation.
-  session_regenerate_id();
-  $_SESSION['admin_id'] = $admin['id'];
-  $_SESSION['last_login'] = time();
-  $_SESSION['username'] = $admin['username'];
-  return true;
+  if ($headers['Authorization'] == ARTIFACTS_API_KEY) {
+    $response->message = 'Your API Key is valid.';
+    $response->authenticated = true;
+    return $response;
+
+  } else {
+    if (isset($_COOKIE["access_token"])) {
+      try {
+        $jwt = $_COOKIE["access_token"];
+        $key  = JWT_SECRET;
+        $decodedJWT = JWT::decode($jwt, new Key($key, 'HS256'));
+        $decodedJWT->authenticated = true;
+        return $decodedJWT;
+
+      } catch (Exception $e) {
+        $response->message = 'You have not been authenticated';
+        $response->error .= 'Caught exception: ' . $e->getMessage();
+        $response->authenticated = false;
+        return $response;
+        exit;
+
+      }
+    } else {
+      $response->message = 'You have not been authenticated';
+      return $response;
+    }
+  }
+
 }
 
 // Performs all actions necessary to log out an admin
@@ -60,17 +108,6 @@ function require_login() {
     } else {
       // Do nothing, let the rest of the page proceed
     }
-}
-
-function require_api_key() {
-  $headers = apache_request_headers();
-  if ($headers['ARTIFACTS_API_KEY'] != ARTIFACTS_API_KEY) {
-    $response = new stdClass;
-    $response->message = 'Your API Key is invalid.';
-    echo json_encode($response);
-    header('Content-Type: application/json');
-    exit;
-  }
 }
 
 function require_admin() {
