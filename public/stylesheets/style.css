@@ -94,7 +94,7 @@ h1 {
 h2 {
   font-family: 'Raleway', Arial, Helvetica, sans-serif;
   font-size: 1.4rem;
-  margin: 0 0 0.7rem 0;
+  margin: 2rem 0 0.7rem 0;
 }
 
 .main-menu h2 {
@@ -425,6 +425,11 @@ strong {
 
 .list-2 {
   padding-left: 2rem;
+}
+
+li.main-menu.list-2 {
+  width: fit-content;
+  max-width: 95vw;
 }
 
 /* Stationary scrolling header */
