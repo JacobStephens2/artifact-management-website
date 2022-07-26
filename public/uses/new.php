@@ -19,8 +19,6 @@ if(is_post_request()) {
 
   $playerCount = $_GET['playerCount'] ?? 1;
 
-  
-
   $result = insert_response($response, $playerCount);
 
   if($result === true) {
