@@ -1,8 +1,12 @@
 <?php
 require_once('../../artifacts_private/initialize.php');
-require_api_key();
-
 header('Content-Type: application/json');
+
+$authentication_response = authenticate();
+if ($authentication_response->authenticated != true) {
+  echo json_encode($authentication_response);
+  exit;
+}
 
 $game_set = list_games();
 
