@@ -37,10 +37,11 @@ if(is_post_request()) {
   $response["Player"] = '';
   $playerCount = $_GET['playerCount'] ?? 1;
 }
-?>
 
-<?php $page_title = 'Record Use'; ?>
-<?php include(SHARED_PATH . '/staff_header.php'); ?>
+$page_title = 'Record Use';
+include(SHARED_PATH . '/staff_header.php'); 
+
+?>
 
 <main>
   <li>
@@ -76,29 +77,32 @@ if(is_post_request()) {
       <input type="submit" value="Select User Count" />
     </form>
 
+    <!-- Append options to artifact select element -->
+    <script>
+      fetch('get-games-endpoint.php', {
+        credentials: 'include',
+      })
+        .then(
+          (response) => response.json()
+        )
+        .then(
+          (data => {
+            console.log(data);
+            let titleSelect = document.querySelector('select#Title');
+            let option1 = document.createElement('option');
+            option1.value = 1;
+            option1.innerText = data[0].Title;
+            titleSelect.append(option1);
+          })
+        )
+      ;
+    </script>
+
     <form action="<?php echo url_for('/games/response-new.php?playerCount=' . $playerCount); ?>" method="post">
 
+      <!-- This select gets populated by the JavaScript fetch request above -->
 			<label for="Title">Artifact</label>
 			<select name="Title" id="Title">
-				<!-- Identifies next play by game -->
-				<?php 
-					$first_set = first_play_by(); 
-					while($first = mysqli_fetch_assoc($first_set)) {
-						$title = h($first['Title']);
-					}
-					mysqli_free_result($first_set);
-					$game_set = list_games();
-					while($game = mysqli_fetch_assoc($game_set)) {
-						echo "<option value=\"" . h($game['id']) . "\"";
-							if($title == $game['Title']) {
-								echo " selected";
-							}
-						echo ">";
-							echo h($game['Title']);
-						echo "</option>";
-					}
-					mysqli_free_result($game_set);
-				?>
 			</select>
 
 			<label for="PlayDate">Response Date</label>
