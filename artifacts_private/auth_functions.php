@@ -55,10 +55,21 @@ function is_admin($user_group) {
 
 // Requires the user logging in at least be in the user group or higher
 function require_login() {
-  if($_SESSION['user_group'] < 1 ) {
-    redirect_to(url_for('/login.php'));
-  } else {
-    // Do nothing, let the rest of the page proceed
+    if($_SESSION['user_group'] < 1 ) {
+      redirect_to(url_for('/login.php'));
+    } else {
+      // Do nothing, let the rest of the page proceed
+    }
+}
+
+function require_api_key() {
+  $headers = apache_request_headers();
+  if ($headers['ARTIFACTS_API_KEY'] != ARTIFACTS_API_KEY) {
+    $response = new stdClass;
+    $response->message = 'Your API Key is invalid.';
+    echo json_encode($response);
+    header('Content-Type: application/json');
+    exit;
   }
 }
 
