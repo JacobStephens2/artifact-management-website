@@ -7,12 +7,12 @@
     
     <title>Artifacts - <?php echo h($page_title); ?></title>
     <meta charset="utf-8">
-    <link rel="shortcut icon" type="image/jpg" href="<?php echo url_for('images/favicon.ico') ?>">
-    <link rel="stylesheet" media="all" href="../../stylesheets/style.css" />
+    <link rel="shortcut icon" type="image/jpg" href="<?php echo url_for('favicon.ico') ?>">
+    <link rel="stylesheet" media="all" href="../../style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
     <?php 
       if($page_title == 'Create Use') {
-        echo '<script src="' . url_for('/js/public.js') . '"></script>';
+        echo '<script src="' . url_for('/public.js') . '"></script>';
       }
     ?>
     <!-- Global site tag (gtag.js) - Google Analytics -->
