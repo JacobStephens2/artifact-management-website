@@ -19,14 +19,12 @@ if(is_post_request()) {
 
   $playerCount = $_GET['playerCount'] ?? 1;
 
-  
-
   $result = insert_response($response, $playerCount);
 
   if($result === true) {
     $new_id = mysqli_insert_id($db);
     $_SESSION['message'] = "The response was recorded successfully.";
-    redirect_to(url_for('/games/response-new.php'));
+    redirect_to(url_for('/uses/create.php'));
   } else {
     $errors = $result;
   }
@@ -39,10 +37,11 @@ if(is_post_request()) {
   $response["Player"] = '';
   $playerCount = $_GET['playerCount'] ?? 1;
 }
-?>
 
-<?php $page_title = 'Record Use'; ?>
-<?php include(SHARED_PATH . '/staff_header.php'); ?>
+$page_title = 'Record Use';
+include(SHARED_PATH . '/header.php'); 
+
+?>
 
 <main>
   <li>
@@ -54,17 +53,11 @@ if(is_post_request()) {
   <li>
 		<a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; Uses</a>
 	</li>
-  <li>
-		<a class="back-link" href="<?php echo url_for('/games/new.php'); ?>">&laquo; Create Artifact</a>
-	</li>
-  <li>
-		<a class="back-link" href="<?php echo url_for('/players/new.php'); ?>">&laquo; Create User</a>
-	</li>
 
     <h1>Record Use</h1>
 
     <form 
-      action="<?php echo url_for('/games/response-new.php'); ?>"
+      action="<?php echo url_for('/uses/create.php'); ?>"
       method="get"
     >
 			<label for="playerCount">User Count</label>
@@ -84,29 +77,15 @@ if(is_post_request()) {
       <input type="submit" value="Select User Count" />
     </form>
 
-    <form action="<?php echo url_for('/games/response-new.php?playerCount=' . $playerCount); ?>" method="post">
+    <form action="<?php echo url_for('/uses/create.php?playerCount=' . $playerCount); ?>" method="post">
+
+      <!-- This select gets populated by the JavaScript fetch request above -->
+      <label for="SearchTitles">Search Artifacts</label>
+      <input type="text" name="SearchTitles" id="SearchTitles">
+      
 
 			<label for="Title">Artifact</label>
 			<select name="Title" id="Title">
-				<!-- Identifies next play by game -->
-				<?php 
-					$first_set = first_play_by(); 
-					while($first = mysqli_fetch_assoc($first_set)) {
-						$title = h($first['Title']);
-					}
-					mysqli_free_result($first_set);
-					$game_set = list_games();
-					while($game = mysqli_fetch_assoc($game_set)) {
-						echo "<option value=\"" . h($game['id']) . "\"";
-							if($title == $game['Title']) {
-								echo " selected";
-							}
-						echo ">";
-							echo h($game['Title']);
-						echo "</option>";
-					}
-					mysqli_free_result($game_set);
-				?>
 			</select>
 
 			<label for="PlayDate">Response Date</label>
@@ -167,6 +146,54 @@ if(is_post_request()) {
 
     </form>
 
+    <!-- Append options to artifact select element -->
+    <script defer>
+      function searchArtifacts(e) {
+        fetch('get-games-endpoint.php?query=' + e.target.value, {
+          credentials: 'include',
+        })
+          .then((response) => response.json())
+          .then(
+            (data => {
+              console.log(data);
+              const titleSelect = document.querySelector('select#Title');
+              titleSelect.innerHTML = '';
+              for (let i in data) {
+                let option = document.createElement('option');
+                option.value = data[i].id;
+                option.innerText = data[i].Title;
+                titleSelect.append(option);
+              }
+            })
+          )
+        ;
+      }
+      const searchTitlesInput = document.querySelector('input#SearchTitles');
+      searchTitlesInput.addEventListener('input', searchArtifacts);
+
+      function getArtifacts() {
+        fetch('get-games-endpoint.php', {
+          credentials: 'include',
+        })
+          .then((response) => response.json())
+          .then(
+            (data => {
+              console.log(data);
+              const titleSelect = document.querySelector('select#Title');
+              titleSelect.innerHTML = '';
+              for (let i in data) {
+                let option = document.createElement('option');
+                option.value = data[i].id;
+                option.innerText = data[i].Title;
+                titleSelect.append(option);
+              }
+            })
+          )
+        ;
+      }
+      getArtifacts();
+    </script>
+
 </main>
 
-<?php include(SHARED_PATH . '/staff_footer.php'); ?>
+<?php include(SHARED_PATH . '/footer.php'); ?>
