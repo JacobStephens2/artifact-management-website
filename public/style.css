@@ -22,7 +22,7 @@ Auto-suggest styles
 /* Fonts */
 @font-face {
   font-family: Roboto;
-  src: url(Roboto_Slab/RobotoSlab-VariableFont_wght.ttf);
+  src: url(fonts/RobotoSlab-VariableFont_wght.ttf);
   font-weight: 375;
 }
 
@@ -50,6 +50,10 @@ footer {
   background-image: linear-gradient(to right, #0093E9, #80D0C7);
   color: white;
   padding: 1rem 3rem;
+}
+
+footer h2 {
+  margin-top: 0.5rem;
 }
 
 #header,
@@ -95,10 +99,6 @@ h2 {
   font-family: 'Raleway', Arial, Helvetica, sans-serif;
   font-size: 1.4rem;
   margin: 2rem 0 0.7rem 0;
-}
-
-.main-menu h2 {
-  font-size: 2.5rem;
 }
 
 /* Lists */
