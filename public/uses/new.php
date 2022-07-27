@@ -77,30 +77,13 @@ include(SHARED_PATH . '/staff_header.php');
       <input type="submit" value="Select User Count" />
     </form>
 
-    <!-- Append options to artifact select element -->
-    <script>
-      fetch('get-games-endpoint.php', {
-        credentials: 'include',
-      })
-        .then(
-          (response) => response.json()
-        )
-        .then(
-          (data => {
-            console.log(data);
-            let titleSelect = document.querySelector('select#Title');
-            let option1 = document.createElement('option');
-            option1.value = 1;
-            option1.innerText = data[0].Title;
-            titleSelect.append(option1);
-          })
-        )
-      ;
-    </script>
-
     <form action="<?php echo url_for('/games/response-new.php?playerCount=' . $playerCount); ?>" method="post">
 
       <!-- This select gets populated by the JavaScript fetch request above -->
+      <label for="SearchTitles">Search Artifacts</label>
+      <input type="text" name="SearchTitles" id="SearchTitles">
+      
+
 			<label for="Title">Artifact</label>
 			<select name="Title" id="Title">
 			</select>
@@ -162,6 +145,32 @@ include(SHARED_PATH . '/staff_header.php');
 			<input type="submit" value="Record Use" />
 
     </form>
+
+    <!-- Append options to artifact select element -->
+    <script defer>
+      function search(e) {
+        fetch('get-games-endpoint.php?query=' + e.target.value, {
+          credentials: 'include',
+        })
+          .then((response) => response.json())
+          .then(
+            (data => {
+              console.log(data);
+              const titleSelect = document.querySelector('select#Title');
+              titleSelect.innerHTML = '';
+              for (let i in data) {
+                let option = document.createElement('option');
+                option.value = data[i].id;
+                option.innerText = data[i].Title;
+                titleSelect.append(option);
+              }
+            })
+          )
+        ;
+      }
+      const searchTitlesInput = document.querySelector('input#SearchTitles');
+      searchTitlesInput.addEventListener('input', search);
+    </script>
 
 </main>
 
