@@ -56,7 +56,7 @@ if(is_post_request()) {
 ?>
 
 <?php $page_title = 'Create object'; ?>
-<?php include(SHARED_PATH . '/staff_header.php'); ?>
+<?php include(SHARED_PATH . '/header.php'); ?>
 
 <main>
 
@@ -129,4 +129,4 @@ if(is_post_request()) {
 
 </main>
 
-<?php include(SHARED_PATH . '/staff_footer.php'); ?>
+<?php include(SHARED_PATH . '/footer.php'); ?>

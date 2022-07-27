@@ -8,7 +8,7 @@ use PHPMailer\PHPMailer\Exception;
 $currentDate = new DateTime();
 
 $page_title = 'Reset';
-include(SHARED_PATH . '/staff_header.php');
+include(SHARED_PATH . '/header.php');
 ?>
 
 <main>
@@ -132,4 +132,4 @@ include(SHARED_PATH . '/staff_header.php');
 
 </main>
 
-<?php include(SHARED_PATH . '/staff_footer.php'); ?>
+<?php include(SHARED_PATH . '/footer.php'); ?>

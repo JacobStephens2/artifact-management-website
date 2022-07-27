@@ -1,7 +1,7 @@
 <?php require_once('../../artifacts_private/initialize.php'); ?>
 <?php require_login(); ?>
 <?php $page_title = 'Choose for group'; ?>
-<?php include(SHARED_PATH . '/staff_header.php'); ?>
+<?php include(SHARED_PATH . '/header.php'); ?>
 
 <?php
 
@@ -81,4 +81,4 @@ $game_set = choose_games_for_group($range, $type);
 
 </main>
 
-<?php include(SHARED_PATH . '/staff_footer.php'); ?>
+<?php include(SHARED_PATH . '/footer.php'); ?>

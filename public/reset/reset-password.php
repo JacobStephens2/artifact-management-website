@@ -1,7 +1,7 @@
 <?php
   require_once('../../artifacts_private/initialize.php');
   $page_title = 'Reset Password';
-  include(SHARED_PATH . '/staff_header.php');
+  include(SHARED_PATH . '/header.php');
 ?>
 
 <style>

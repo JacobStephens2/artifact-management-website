@@ -41,7 +41,7 @@ mysqli_free_result($object_set);
 ?>
 
 <?php $page_title = 'Edit object'; ?>
-<?php include(SHARED_PATH . '/staff_header.php'); ?>
+<?php include(SHARED_PATH . '/header.php'); ?>
 
 <main>
 
@@ -94,4 +94,4 @@ mysqli_free_result($object_set);
 
 </main>
 
-<?php include(SHARED_PATH . '/staff_footer.php'); ?>
+<?php include(SHARED_PATH . '/footer.php'); ?>

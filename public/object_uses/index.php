@@ -8,7 +8,7 @@ require_login();
 ?>
 
 <?php $page_title = 'uses'; ?>
-<?php include(SHARED_PATH . '/staff_header.php'); ?>
+<?php include(SHARED_PATH . '/header.php'); ?>
 
 <main>
       <li><a class="back-link" href="<?php echo url_for('/objects/index.php'); ?>">&laquo; Objects</a></li>
@@ -17,7 +17,7 @@ require_login();
     <h1>Object Uses</h1>
 
     <div class="actions">
-      <li><a class="action" href="<?php echo url_for('/object_uses/new.php'); ?>">Record New Use</a></li>
+      <li><a class="action" href="<?php echo url_for('/object_uses/create.php'); ?>">Record New Use</a></li>
     </div>
 
   	<table class="list">
@@ -49,4 +49,4 @@ require_login();
 
 </main>
 
-<?php include(SHARED_PATH . '/staff_footer.php'); ?>
+<?php include(SHARED_PATH . '/footer.php'); ?>

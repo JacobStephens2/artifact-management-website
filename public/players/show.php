@@ -9,7 +9,7 @@ $player = find_player_by_id($id);
 ?>
 
 <?php $page_title = 'Show player'; ?>
-<?php include(SHARED_PATH . '/staff_header.php'); ?>
+<?php include(SHARED_PATH . '/header.php'); ?>
 
 <main>
 
@@ -19,7 +19,7 @@ $player = find_player_by_id($id);
 
   <li><a class="back-link" href="<?php echo url_for('/players/new.php'); ?>">&laquo; Create New User</a></li>
 
-  <li><a class="back-link" href="<?php echo url_for('/games/response-new.php'); ?>">&laquo; Record Use</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/uses/create.php'); ?>">&laquo; Record Use</a></li>
 
   <li><a class="action" href="<?php echo url_for('/players/edit.php?id=' . h(u($player['id']))); ?>">Edit</a></li>
 

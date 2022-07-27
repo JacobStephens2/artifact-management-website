@@ -47,7 +47,7 @@ if(is_post_request()) {
 ?>
 
 <?php $page_title = 'Log in'; ?>
-<?php include(SHARED_PATH . '/staff_header.php'); ?>
+<?php include(SHARED_PATH . '/header.php'); ?>
   
     <main>
 
@@ -70,5 +70,5 @@ if(is_post_request()) {
       <a href="<?php echo url_for('/reset/index.php'); ?>"><button class="reset-password-button">Reset Password</button></a>
     </main>
 
-<?php include(SHARED_PATH . '/staff_footer.php'); ?>
+<?php include(SHARED_PATH . '/footer.php'); ?>
 <div class="white-space"></div>

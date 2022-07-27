@@ -1,7 +1,7 @@
 <?php require_once('../../artifacts_private/initialize.php'); ?>
 <?php require_login(); ?>
 <?php $page_title = 'Use By'; ?>
-<?php include(SHARED_PATH . '/staff_header.php'); ?>
+<?php include(SHARED_PATH . '/header.php'); ?>
 
 <?php 
 if(is_post_request()) {
@@ -14,7 +14,7 @@ $object_set = use_objects_by_user($interval, $limit);
 
 <main>
     <li><a class="back-link" href="<?php echo url_for('/objects/index.php'); ?>">&laquo; Objects</a></li>
-    <li><a class="back-link" href="<?php echo url_for('/object_uses/new.php'); ?>">&laquo; Record use</a></li>
+    <li><a class="back-link" href="<?php echo url_for('/object_uses/create.php'); ?>">&laquo; Record use</a></li>
     <li><a class="back-link" href="<?php echo url_for('/object_uses/index.php'); ?>">&laquo; Uses</a></li>
   <div class="objects listing">
     <h1>Use kept objects by date</h1>
@@ -92,4 +92,4 @@ function myFunction() {
 }
 </script>
 
-<?php include(SHARED_PATH . '/staff_footer.php'); ?>
+<?php include(SHARED_PATH . '/footer.php'); ?>

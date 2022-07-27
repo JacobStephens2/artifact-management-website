@@ -28,7 +28,7 @@ if(is_post_request()) {
 ?>
 
 <?php $page_title = 'Record Use'; ?>
-<?php include(SHARED_PATH . '/staff_header.php'); ?>
+<?php include(SHARED_PATH . '/header.php'); ?>
 
 <main>
 
@@ -38,7 +38,7 @@ if(is_post_request()) {
   <div class="use new">
 
     <h1>Record use</h1>
-    <form action="<?php echo url_for('/object_uses/new.php'); ?>" method="post">
+    <form action="<?php echo url_for('/object_uses/create.php'); ?>" method="post">
       <dl>
         <dt>Object Name</dt>
         <dd>
@@ -82,4 +82,4 @@ if(is_post_request()) {
 
 </main>
 
-<?php include(SHARED_PATH . '/staff_footer.php'); ?>
+<?php include(SHARED_PATH . '/footer.php'); ?>

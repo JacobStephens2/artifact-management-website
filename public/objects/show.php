@@ -10,7 +10,7 @@ $object = find_object_by_id($id);
 ?>
 
 <?php $page_title = 'Show object'; ?>
-<?php include(SHARED_PATH . '/staff_header.php'); ?>
+<?php include(SHARED_PATH . '/header.php'); ?>
 
 <main>
 

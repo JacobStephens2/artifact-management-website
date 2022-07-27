@@ -3,7 +3,7 @@ require_once('../../artifacts_private/initialize.php');
 require_login();
 $object_set = find_objects_by_user();
 $page_title = 'objects'; 
-include(SHARED_PATH . '/staff_header.php'); 
+include(SHARED_PATH . '/header.php'); 
 ?>
 
 <main>
@@ -51,4 +51,4 @@ include(SHARED_PATH . '/staff_header.php');
 
 </main>
 
-<?php include(SHARED_PATH . '/staff_footer.php'); ?>
+<?php include(SHARED_PATH . '/footer.php'); ?>

@@ -3,7 +3,7 @@ require_once('../../artifacts_private/initialize.php');
 require_login();
 $use_set = find_responses_by_user_id();
 $page_title = 'Artifact Uses';
-include(SHARED_PATH . '/staff_header.php');
+include(SHARED_PATH . '/header.php');
 ?>
 
 <main>
@@ -11,7 +11,7 @@ include(SHARED_PATH . '/staff_header.php');
     <h1>Artifact Uses</h1>
 
     <section class="actions">
-      <a class="action" href="<?php echo url_for('/games/response-new.php'); ?>">New Use</a>
+      <a class="action" href="<?php echo url_for('/uses/create.php'); ?>">New Use</a>
       <a class="action" href="<?php echo url_for('/games/playby.php'); ?>">Use Artifacts by Date List</a>
     </section>
 
@@ -45,4 +45,4 @@ include(SHARED_PATH . '/staff_header.php');
 
 </main>
 
-<?php include(SHARED_PATH . '/staff_footer.php'); ?>
+<?php include(SHARED_PATH . '/footer.php'); ?>

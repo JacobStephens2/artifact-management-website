@@ -34,7 +34,7 @@ if(is_post_request()) {
 ?>
 
 <?php $page_title = 'Create object'; ?>
-<?php include(SHARED_PATH . '/staff_header.php'); ?>
+<?php include(SHARED_PATH . '/header.php'); ?>
 
 <main>
 
@@ -42,7 +42,7 @@ if(is_post_request()) {
     <a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Back to List</a>
   </li>
   <li>
-    <a class="back-link" href="<?php echo url_for('/games/response-new.php'); ?>">&laquo; Create Use</a>
+    <a class="back-link" href="<?php echo url_for('/uses/create.php'); ?>">&laquo; Create Use</a>
   </li>
 
   <div class="object new">
@@ -81,4 +81,4 @@ if(is_post_request()) {
 
 </main>
 
-<?php include(SHARED_PATH . '/staff_footer.php'); ?>
+<?php include(SHARED_PATH . '/footer.php'); ?>

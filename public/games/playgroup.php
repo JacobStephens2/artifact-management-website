@@ -8,7 +8,7 @@ require_login();
 ?>
 
 <?php $page_title = 'objects'; ?>
-<?php include(SHARED_PATH . '/staff_header.php'); ?>
+<?php include(SHARED_PATH . '/header.php'); ?>
 
 <main>
   <div class="objects listing">
@@ -47,4 +47,4 @@ require_login();
 
       </main>
 
-<?php include(SHARED_PATH . '/staff_footer.php'); ?>
+<?php include(SHARED_PATH . '/footer.php'); ?>

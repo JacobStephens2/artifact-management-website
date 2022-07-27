@@ -9,13 +9,13 @@ $response = find_response_by_id($id);
 ?>
 
 <?php $page_title = 'Show use'; ?>
-<?php include(SHARED_PATH . '/staff_header.php'); ?>
+<?php include(SHARED_PATH . '/header.php'); ?>
 
 <main>
 
   <li><a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; Responses</a></li>
   <li><a class="back-link" href="<?php echo url_for('/games/playby.php'); ?>">&laquo; Play by list</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/games/response-new.php'); ?>">&laquo; New response</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/uses/create.php'); ?>">&laquo; New response</a></li>
   <li><a class="action" href="<?php echo url_for('/games/response-edit.php?id=' . h(u($response['id']))); ?>">Edit</a></li>
 
   <div class="use show">

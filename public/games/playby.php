@@ -1,7 +1,7 @@
 <?php require_once('../../artifacts_private/initialize.php'); ?>
 <?php require_login(); ?>
 <?php $page_title = 'Use By'; ?>
-<?php include(SHARED_PATH . '/staff_header.php'); ?>
+<?php include(SHARED_PATH . '/header.php'); ?>
 
 <?php
 $type = $_POST['type'] ?? '1';
@@ -15,7 +15,7 @@ $game_set = play_by($type, $interval);
     
   <h1>Use Artifacts by Date</h1>
 
-  <li><a class="back-link" href="<?php echo url_for('/games/response-new.php'); ?>">Record Use</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/uses/create.php'); ?>">Record Use</a></li>
   <li><a class="back-link" href="<?php echo url_for('/objects/about-useby.php'); ?>">Learn About Use-by Date Generation</a></li>
 
   <form action="<?php echo url_for('/games/playby.php'); ?>" method="post">
@@ -63,4 +63,4 @@ $game_set = play_by($type, $interval);
 
 </main>
 
-<?php include(SHARED_PATH . '/staff_footer.php'); ?>
+<?php include(SHARED_PATH . '/footer.php'); ?>
