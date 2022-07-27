@@ -786,9 +786,9 @@ ORDER BY UseDate DESC
       exit;
     }
   }
+
   function list_games() {
     global $db;
-
     $sql = "SELECT ";
     $sql .= "games.id, ";
     $sql .= "games.Title ";
@@ -798,6 +798,23 @@ ORDER BY UseDate DESC
     confirm_result_set($result);
     return $result;
   }
+
+  function list_games_by_query($query) {
+    global $db;
+    $sql = 
+      "SELECT 
+        games.id, 
+        games.Title 
+      FROM games 
+      WHERE games.Title LIKE '%" . $query . "%'
+      ORDER BY games.Title ASC
+      LIMIT 21
+    ";
+    $result = mysqli_query($db, $sql);
+    confirm_result_set($result);
+    return $result;
+  }
+
   function play_by($type, $interval) {
     global $db;
 

@@ -8,7 +8,11 @@ if ($authentication_response->authenticated != true) {
   exit;
 }
 
-$game_set = list_games();
+if (isset($_GET['query'])) {
+  $game_set = list_games_by_query($_GET['query']);
+} else {
+  $game_set = list_games();
+}
 
 $game = mysqli_fetch_assoc($game_set);
 
