@@ -677,7 +677,6 @@ ORDER BY UseDate DESC
       $sql .= "AND type = '" . $type . "' ";
     }
     $sql .= "ORDER BY KeptCol DESC, Acq DESC ";
-    $sql .= "LIMIT 1024";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     return $result;
@@ -808,7 +807,6 @@ ORDER BY UseDate DESC
       FROM games 
       WHERE games.Title LIKE '%" . db_escape($db, $query) . "%'
       ORDER BY games.Title ASC
-      LIMIT 20
     ";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
@@ -1130,7 +1128,7 @@ ORDER BY UseDate DESC
     $sql .= "LastName ";
     $sql .= "FROM players ";
     $sql .= "WHERE user_id='" . db_escape($db, $_SESSION['user_id']) . "' ";
-    $sql .= "ORDER BY LastName ASC, ";
+    $sql .= "ORDER BY FirstName ASC, ";
     $sql .= "FirstName ASC";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
