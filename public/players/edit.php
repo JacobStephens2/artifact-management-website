@@ -57,7 +57,7 @@ if(is_post_request()) {
         <dd><input type="text" name="LastName" value="<?php echo h($player['LastName']); ?>" /></dd>
       </dl>
       <dl>
-        <dt>Gender</dt>
+        <dt>Gender (M, F, or Other)</dt>
         <dd><input type="text" name="G" value="<?php echo h($player['G']); ?>" /></dd>
       </dl>
       <dl>
