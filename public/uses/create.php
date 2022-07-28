@@ -53,6 +53,9 @@ include(SHARED_PATH . '/header.php');
   <li>
 		<a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; Uses</a>
 	</li>
+  <li>
+		<a class="back-link" href="<?php echo url_for('/players/new.php'); ?>">&laquo; Create User</a>
+	</li>
 
     <h1>Record Use</h1>
 
