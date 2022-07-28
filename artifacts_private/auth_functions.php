@@ -11,6 +11,7 @@ function log_in_user($user) {
   $_SESSION['last_login'] = time();
   $_SESSION['username'] = $user['username'];
   $_SESSION['user_group'] = $user['user_group'];
+  $_SESSION['logged_in'] = true;
   // Create JWT access token cookie for response 
   $issuedAt   = new DateTimeImmutable();
   $jwt_access_token_data = [
@@ -80,6 +81,7 @@ function log_out() {
   unset($_SESSION['last_login']);
   unset($_SESSION['username']);
   unset($_SESSION['user_group']);
+  unset($_SESSION['logged_in']);
   // session_destroy(); // optional: destroys the whole session
   return true;
 }

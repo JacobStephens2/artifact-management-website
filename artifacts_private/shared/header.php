@@ -40,8 +40,10 @@
           } elseif($_SESSION['user_group'] == 1) {
             echo '<span>User: ' . $username . '</span>';
           }
-          echo '<span><a href="' . url_for('index.php') . '">Menu</a></span>';
-          echo '<span><a href="' . url_for('logout.php') . '">Logout</a></span>';
+          if ($_SESSION['logged_in'] == true) {
+            echo '<span><a href="' . url_for('index.php') . '">Menu</a></span>';
+            echo '<span><a href="' . url_for('logout.php') . '">Logout</a></span>';
+          }
       ?>
     </nav>
 
