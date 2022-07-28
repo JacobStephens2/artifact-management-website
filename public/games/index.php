@@ -1,24 +1,21 @@
-<?php require_once('../../artifacts_private/initialize.php'); ?>
-
-<?php
+<?php 
+require_once('../../artifacts_private/initialize.php');
 require_login();
-
-  $kept = $_GET['kept'] ?? '';
-  $type = $_POST['type'] ?? '1';
-  $object_set = find_games_by_user_id($kept, $type);
-
+$kept = $_GET['kept'] ?? '';
+$type = $_POST['type'] ?? '1';
+$object_set = find_games_by_user_id($kept, $type);
+$page_title = 'Artifacts';
+include(SHARED_PATH . '/header.php'); 
 ?>
-
-<?php $page_title = 'Artifacts'; ?>
-<?php include(SHARED_PATH . '/header.php'); ?>
 
 <main>
   <div class="objects listing">
     <h1>Artifacts</h1>
 
     <div class="actions">
-      <a class="action" href="<?php echo url_for('/games/new.php'); ?>">Create New Artifact</a>
-      <a class="action" href="<?php echo url_for('/games/playby.php'); ?>">Use Artifacts By Date</a>
+      <a class="action" href="<?php echo url_for('/games/new.php'); ?>">Create Artifact</a>
+      <a class="action" href="<?php echo url_for('/games/playby.php'); ?>">Use Artifacts By Date List</a>
+      <a class="action" href="<?php echo url_for('/uses/create.php'); ?>">Record Use</a>
     </div>
 
     <form action="<?php echo url_for('/games/index.php'); ?>" method="post">
