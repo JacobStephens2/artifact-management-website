@@ -149,24 +149,33 @@ include(SHARED_PATH . '/header.php');
     <!-- Append options to artifact select element -->
     <script defer>
       function searchArtifacts(e) {
-        fetch('get-games-endpoint.php?query=' + e.target.value, {
-          credentials: 'include',
-        })
-          .then((response) => response.json())
-          .then(
-            (data => {
-              console.log(data);
-              const titleSelect = document.querySelector('select#Title');
-              titleSelect.innerHTML = '';
-              for (let i in data) {
-                let option = document.createElement('option');
-                option.value = data[i].id;
-                option.innerText = data[i].Title;
-                titleSelect.append(option);
-              }
-            })
-          )
-        ;
+        if (document.querySelector('#SearchTitles').value == '') {
+          getArtifacts();
+        } else {
+          requestBody = {
+            "query": e.target.value,
+          };
+          fetch('get-games-endpoint.php', {
+            method: 'POST',
+            credentials: 'include',
+            body: JSON.stringify(requestBody),
+          })
+            .then((response) => response.json())
+            .then(
+              (data => {
+                console.log(data);
+                const titleSelect = document.querySelector('select#Title');
+                titleSelect.innerHTML = '';
+                for (let i in data) {
+                  let option = document.createElement('option');
+                  option.value = data[i].id;
+                  option.innerText = data[i].Title;
+                  titleSelect.append(option);
+                }
+              })
+            )
+          ;
+        }
       }
       const searchTitlesInput = document.querySelector('input#SearchTitles');
       searchTitlesInput.addEventListener('input', searchArtifacts);

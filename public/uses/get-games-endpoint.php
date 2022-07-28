@@ -8,19 +8,30 @@ if ($authentication_response->authenticated != true) {
   exit;
 }
 
-if (isset($_GET['query'])) {
-  $game_set = list_games_by_query($_GET['query']);
+$requestBody = json_decode(
+  file_get_contents('php://input')
+);
+
+if (isset($requestBody->query)) {
+  $game_set = list_games_by_query($requestBody->query);
 } else {
   $game_set = list_games();
 }
 
 $game = mysqli_fetch_assoc($game_set);
 
-while($game = mysqli_fetch_assoc($game_set)) {
-  $game_array[] = $game;
-}
+if ($game_set->num_rows == 1) {
 
-echo json_encode($game_array);
+  $game_array[] = $game;
+  echo json_encode($game_array);
+
+} else {
+
+  while($game = mysqli_fetch_assoc($game_set)) {
+    $game_array[] = $game;
+  }
+  echo json_encode($game_array);
+}
 
 mysqli_free_result($game_set);
 ?>
