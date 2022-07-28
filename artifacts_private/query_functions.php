@@ -806,9 +806,9 @@ ORDER BY UseDate DESC
         games.id, 
         games.Title 
       FROM games 
-      WHERE games.Title LIKE '%" . $query . "%'
+      WHERE games.Title LIKE '%" . db_escape($db, $query) . "%'
       ORDER BY games.Title ASC
-      LIMIT 21
+      LIMIT 20
     ";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
