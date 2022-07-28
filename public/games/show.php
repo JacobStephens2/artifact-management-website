@@ -9,9 +9,9 @@ include(SHARED_PATH . '/header.php');
 
 <main>
 
-  <li><a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; To Artifact List</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/games/playby.php'); ?>">&laquo; To Use By List</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/games/new.php'); ?>">&laquo; Create New Artifact</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Artifacts</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/games/playby.php'); ?>">&laquo; Use By List</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/games/new.php'); ?>">&laquo; Create Artifact</a></li>
   <li><a class="back-link" href="<?php echo url_for('/uses/create.php?gameID=' . h(u($object['id']))); ?>">&laquo; Record Use</a></li>
   
   <h1>Title: <?php echo h($object['Title']); ?></h1>
