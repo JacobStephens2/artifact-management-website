@@ -13,9 +13,9 @@ $player = find_player_by_id($id);
 
 <main>
 
-  <li><a class="back-link" href="<?php echo url_for('/players/index.php'); ?>">&laquo; Players</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/players/index.php'); ?>">&laquo; Users</a></li>
 
-  <li><a class="back-link" href="<?php echo url_for('/games/playgroup.php'); ?>">&laquo; Playgroup</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/games/playgroup.php'); ?>">&laquo; User Group</a></li>
 
   <li><a class="back-link" href="<?php echo url_for('/players/new.php'); ?>">&laquo; Create New User</a></li>
 
