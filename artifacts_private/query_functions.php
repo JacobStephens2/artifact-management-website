@@ -1129,7 +1129,7 @@ ORDER BY UseDate DESC
     $sql .= "FROM players ";
     $sql .= "WHERE user_id='" . db_escape($db, $_SESSION['user_id']) . "' ";
     $sql .= "ORDER BY FirstName ASC, ";
-    $sql .= "FirstName ASC";
+    $sql .= "LastName ASC";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     return $result;
