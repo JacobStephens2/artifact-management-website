@@ -63,6 +63,7 @@ if(is_post_request()) {
         <option value="sport">Sport</option>
         <option value="game">Game</option>
         <option value="video">Video</option>
+        <option value="toy">Toy</option>
       </select>
       
       <label for="Acq">Acquisition Date</label>
