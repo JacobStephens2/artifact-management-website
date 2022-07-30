@@ -18,7 +18,6 @@ include(SHARED_PATH . '/header.php');
 
   	<table class="list">
   	  <tr id="headerRow">
-        <!-- <th>ID</th> -->
         <th>Name&ensp;</th>
         <th>Gender&ensp;</th>
   	    <th>Age&ensp;</th>
