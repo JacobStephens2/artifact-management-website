@@ -23,15 +23,16 @@ $game = mysqli_fetch_assoc($game_set);
 if ($game_set->num_rows == 1) {
 
   $game_array[] = $game;
-  echo json_encode($game_array);
 
 } else {
 
   while($game = mysqli_fetch_assoc($game_set)) {
     $game_array[] = $game;
   }
-  echo json_encode($game_array);
+
 }
+
+echo json_encode($game_array);
 
 mysqli_free_result($game_set);
 ?>
