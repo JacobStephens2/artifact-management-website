@@ -16,6 +16,7 @@ include(SHARED_PATH . '/header.php');
       <a class="action" href="<?php echo url_for('/games/new.php'); ?>">Create Artifact</a>
       <a class="action" href="<?php echo url_for('/games/playby.php'); ?>">Use Artifacts By Date List</a>
       <a class="action" href="<?php echo url_for('/uses/create.php'); ?>">Record Use</a>
+      <a class="action" href="<?php echo url_for('/games/responses.php'); ?>">Uses</a>
     </div>
 
     <form action="<?php echo url_for('/games/index.php'); ?>" method="post">
