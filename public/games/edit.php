@@ -40,8 +40,8 @@ if(is_post_request()) {
 
 <main>
 
-  <li><a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Artifacts</a></li>
   <li><a class="back-link" href="<?php echo url_for('/games/playby.php'); ?>">&laquo; Use Artifacts By</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Artifacts</a></li>
   <li><a class="back-link" href="<?php echo url_for('/games/playgroup-choose.php'); ?>">&laquo; Choose for Group</a></li>
   <li><a class="back-link" href="<?php echo url_for('/uses/create.php'); ?>">&laquo; Record Use</a></li>
 
@@ -69,7 +69,7 @@ if(is_post_request()) {
             <option value="vr-game" <?php if($type == 'vr-game') { echo 'selected'; } ?>>VR Game</option>
             <option value="video" <?php if($type == 'video') { echo 'selected'; } ?>>Video</option>
             <option value="toy" <?php if($type == 'toy') { echo 'selected'; } ?>>Toy</option>
-            <option value="mobile-game" <?php if($type == 'mobile-game') { echo 'selected'; } ?>>Toy</option>
+            <option value="mobile-game" <?php if($type == 'mobile-game') { echo 'selected'; } ?>>Mobile Game</option>
           </select>
 
         </dd>
