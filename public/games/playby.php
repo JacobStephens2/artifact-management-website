@@ -10,8 +10,8 @@ $game_set = play_by($type, $interval);
 ?>
 
 <main>
-  <li><a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; To Use List</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; To Artifact List</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; Uses</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Artifacts</a></li>
     
   <h1>Use Artifacts by Date</h1>
 
