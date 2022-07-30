@@ -64,6 +64,8 @@ if(is_post_request()) {
         <option value="game">Game</option>
         <option value="video">Video</option>
         <option value="toy">Toy</option>
+        <option value="vr-game">VR Game</option>
+        <option value="mobile-game">Mobile Game</option>
       </select>
       
       <label for="Acq">Acquisition Date</label>
