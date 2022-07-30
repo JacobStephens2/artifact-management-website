@@ -4,7 +4,7 @@ require_login();
 $plural_page_name = 'Users';
 $singular_page_name = 'User';
 $player_set = find_players_by_user_id();
-$page_title = 'objects';
+$page_title = 'Users';
 include(SHARED_PATH . '/header.php');
 ?>
 
