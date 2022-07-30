@@ -7,7 +7,7 @@ include(SHARED_PATH . '/header.php');
 ?>
 
 <main>
-  <a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Artifact List</a>
+  <a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Artifacts</a>
     <h1>Artifact Uses</h1>
 
     <section class="actions">
