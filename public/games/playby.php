@@ -40,6 +40,7 @@ $game_set = play_by($type, $interval);
       <th class="table-header">Name</th>
       <th class="table-header">Type</th>
       <th class="table-header">Play By</th>
+      <th class="table-header">Candidate</th>
       <th class="table-header">Recent Use</th>
       <th class="table-header">Acquisition</th>
     </tr>
@@ -53,6 +54,7 @@ $game_set = play_by($type, $interval);
         </td>
         <td class="edit"><?php echo h($game['type']); ?></td>
         <td class="edit"><?php echo h($game['PlayBy']); ?></td>
+        <td class="edit"><?php echo h($game['Candidate']); ?></td>
         <td class="edit"><?php echo h($game['MaxPlay']); ?></td>
         <td class="edit"><?php echo h($game['Acq']); ?></td>
       </tr>

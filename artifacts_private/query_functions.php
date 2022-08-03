@@ -822,6 +822,7 @@ ORDER BY UseDate DESC
         games.Title,
         games.mnp,
         games.mxp,
+        games.Candidate,
         games.ss,
         games.id,
         games.type,
