@@ -18,6 +18,7 @@ if(is_post_request()) {
   $game['Acq'] = $_POST['Acq'] ?? '';
   $game['type'] = $_POST['type'] ?? '';
   $game['KeptCol'] = $_POST['KeptCol'] ?? '';
+  $game['Candidate'] = $_POST['Candidate'] ?? '';
 
   $result = update_game($game);
   if($result === true) {
@@ -84,6 +85,15 @@ if(is_post_request()) {
           <input type="checkbox" name="KeptCol" value="1"<?php if($game['KeptCol'] == "1") { echo " checked"; } ?> />
         </dd>
       </dl>
+
+      <dl>
+        <dt>Candidate?</dt>
+        <dd>
+          <input type="hidden" name="Candidate" value="0" />
+          <input type="checkbox" name="Candidate" value="1"<?php if($game['Candidate'] == "1") { echo " checked"; } ?> />
+        </dd>
+      </dl>
+
       <div id="operations">
         <input type="submit" value="Save Edits" />
       </div>

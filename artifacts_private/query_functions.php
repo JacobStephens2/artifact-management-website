@@ -705,6 +705,7 @@ ORDER BY UseDate DESC
     $sql .= "Title='" . db_escape($db, $game['Title']) . "', ";
     $sql .= "KeptCol='" . db_escape($db, $game['KeptCol']) . "', ";
     $sql .= "Acq='" . db_escape($db, $game['Acq']) . "', ";
+    $sql .= "Candidate='" . db_escape($db, $game['Candidate']) . "', ";
     $sql .= "type='" . db_escape($db, $game['type']) . "' ";
     $sql .= "WHERE id='" . db_escape($db, $game['id']) . "' ";
     $sql .= "LIMIT 1";
@@ -720,6 +721,7 @@ ORDER BY UseDate DESC
       exit;
     }
   }
+  
   function validate_game($game) {
     $errors = [];
 
