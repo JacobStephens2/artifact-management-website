@@ -31,7 +31,7 @@
       <a class="header-link" href="/index.php">Artifact Management Tool</a>
     </header>
 
-    <nav>
+    <nav class="hideOnPrint">
       <?php
         $username = $_SESSION['username'] ?? '';
         $_SESSION['user_group'] = $_SESSION['user_group'] ?? '';

@@ -243,12 +243,11 @@ tr#headerRow {
 
 th {
   font-family: 'Raleway', Arial, Helvetica, sans-serif;
+  padding: 2px 5px;
 }
 
-td,
-th {
-  padding: 2px 5px;
-  max-width: 40ch;
+td {
+  max-width: 29ch;
 }
 
 td.playerName {
@@ -286,10 +285,7 @@ dt {
 }
 
 .table-header {
-  padding-left: 0.75rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-right: 0.75rem;
+  padding: 0.3rem 0.5rem;
 }
 
 /* Errors */
@@ -473,4 +469,26 @@ dl {
 section.actions {
   display: flex;
   gap: 1rem;
+}
+
+td.type {
+  max-width: 12ch;
+}
+
+td.date {
+  min-width: 10ch;
+}
+
+td {
+  padding: 2px 4px 1px;
+}
+
+@media print {
+  .hideOnPrint {
+    display: none;
+  }
+
+  .displayOnPrint {
+    display: block;
+  }
 }
