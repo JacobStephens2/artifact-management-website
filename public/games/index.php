@@ -51,10 +51,11 @@ include(SHARED_PATH . '/header.php');
 
   	<table class="list">
   	  <tr id="headerRow">
-        <th>Acquisition&ensp;</th>
-        <th>Type&ensp;</th>
-        <th>Kept&ensp;</th>
-        <th>Name&ensp;</th>
+        <th>Acquisition</th>
+        <th>Type</th>
+        <th>Kept</th>
+        <th>Name</th>
+        <th>Candidate</th>
   	  </tr>
 
       <?php while($object = mysqli_fetch_assoc($object_set)) { ?>
@@ -67,6 +68,7 @@ include(SHARED_PATH . '/header.php');
               <?php echo h($object['Title']); ?>
             </a>
           </td>
+          <td><?php echo h($object['Candidate']); ?></td>
     	  </tr>
       <?php } ?>
   	</table>
