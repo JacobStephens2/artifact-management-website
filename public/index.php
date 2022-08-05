@@ -78,17 +78,17 @@ include(SHARED_PATH . '/header.php');
       <ul class="list-2">
         <li>
           <a href="<?php echo url_for('/object_uses/create.php'); ?>">
-            Record Use
+            Record Object Use
           </a>
         </li>
         <li>
           <a href="<?php echo url_for('/object_uses/index.php'); ?>">
-            Uses
+            Object Uses
           </a>
         </li>
         <li>
           <a href="<?php echo url_for('/objects/useby.php'); ?>">
-            Use Artifacts by Date List
+            Use Objects by Date List
           </a>
         </li>
       </ul>
