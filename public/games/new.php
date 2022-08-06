@@ -1,8 +1,6 @@
 <?php
-
 require_once('../../artifacts_private/initialize.php');
 require_login();
-
 
 if(is_post_request()) {
 
@@ -11,7 +9,6 @@ if(is_post_request()) {
   $object['Acq'] = $_POST['Acq'] ?? '';
   $object['type'] = $_POST['type'] ?? '';
   $object['KeptCol'] = $_POST['KeptCol'] ?? '';
-
 
   $result = insert_game($object);
   if($result === true) {
@@ -30,11 +27,9 @@ if(is_post_request()) {
   $object["Acq"] = '';
   $object["KeptCol"] = '';
 }
-
+$page_title = 'Create object';
+include(SHARED_PATH . '/header.php');
 ?>
-
-<?php $page_title = 'Create object'; ?>
-<?php include(SHARED_PATH . '/header.php'); ?>
 
 <main>
 
@@ -57,7 +52,8 @@ if(is_post_request()) {
       
       <label for="type">Type</label>
       <select name="type" id="type">
-        <option value="board-game" selected>Board Game</option>
+        <option value="book" selected>Book</option>
+        <option value="board-game">Board Game</option>
         <option value="video-game">Video Game</option>
         <option value="role-playing-game">Role Playing Game</option>
         <option value="sport">Sport</option>
@@ -74,6 +70,14 @@ if(is_post_request()) {
       <label for="KeptCol">Kept in Collection (Checked Means Yes)</label>
       <input type="hidden" name="KeptCol" value="0" />
       <input type="checkbox" name="KeptCol" value="1" checked/>
+
+      <dl>
+        <dt>Candidate?</dt>
+        <dd>
+          <input type="hidden" name="Candidate" value="0" />
+          <input type="checkbox" name="Candidate" value="1"<?php if($game['Candidate'] == "1") { echo " checked"; } ?> />
+        </dd>
+      </dl>
 
       <div id="operations">
         <input type="submit" value="Create game" />
