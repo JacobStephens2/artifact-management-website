@@ -12,6 +12,13 @@ $limit = '';
 $object_set = use_objects_by_user($interval, $limit); 
 ?>
 
+<style>
+tr#header {
+    position: sticky;
+    top: 0;
+}
+</style>
+
 <main>
     <li><a class="back-link" href="<?php echo url_for('/objects/index.php'); ?>">&laquo; Objects</a></li>
     <li><a class="back-link" href="<?php echo url_for('/object_uses/create.php'); ?>">&laquo; Record use</a></li>
@@ -29,8 +36,7 @@ $object_set = use_objects_by_user($interval, $limit);
     </form>
 
   	<table class="list" >
-      <thead id="myHeader">
-        <tr>
+        <tr id="header">
           <th>Name</th>
           <th>Type</th>
           <th>Use By</th>
@@ -38,7 +44,6 @@ $object_set = use_objects_by_user($interval, $limit);
           <th>Acquisition</th>
           <th>Kept</th>
         </tr>
-      </thead>
 
       <tbody>
       <?php while($object = mysqli_fetch_assoc($object_set)) { ?>
