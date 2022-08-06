@@ -1,9 +1,8 @@
-<?php require_once('../../artifacts_private/initialize.php'); ?>
-<?php require_login(); ?>
-<?php $page_title = 'Use By'; ?>
-<?php include(SHARED_PATH . '/header.php'); ?>
-
-<?php 
+<?php
+require_once('../../artifacts_private/initialize.php');
+require_login();
+$page_title = 'Use By';
+include(SHARED_PATH . '/header.php');
 if(is_post_request()) {
   $_SESSION['interval'] = $_POST['interval'] ?? '180';
 }
