@@ -40,8 +40,8 @@ tr#header {
           <th>Type</th>
           <th>Use By</th>
           <th>Recent</th>
-          <th>Acquisition</th>
           <th>Kept</th>
+          <th>Overdue</th>
         </tr>
 
       <tbody>
@@ -55,7 +55,6 @@ tr#header {
     	    <td><?php echo h($object['ObjectType']); ?></td>
           <td><?php echo h($object['UseBy']); ?></td>
           <td><?php echo h($object['MaxUse']); ?></td>
-    	    <td><?php echo h($object['Acq']); ?></td>
           <td><?php 
             if(h($object['KeptCol']) == 1) {
               echo 'True';
@@ -63,6 +62,22 @@ tr#header {
               echo "False";
             }
           ?>
+          </td>
+          <td 
+            <?php 
+                if ($game['UseBy'] < date('Y-m-d')) {
+                  echo 'style="color: red;"';
+                }
+            ?>
+            >
+            <?php 
+                if ($game['UseBy'] < date('Y-m-d')) {
+                  echo 'Overdue';
+                } else {
+                  echo 'No';
+                }
+            ?>
+          </td>
     	  </tr>
       <?php } ?>
       </tbody>
