@@ -742,7 +742,8 @@ HAVING
 
 $sql .= "ORDER BY
     PlayBy ASC,
-    MaxPlay DESC";
+    MaxPlay DESC,
+    id ASC";
 
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
