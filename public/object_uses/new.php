@@ -38,7 +38,7 @@ if(is_post_request()) {
   <div class="use new">
 
     <h1>Record use</h1>
-    <form action="<?php echo url_for('/object_uses/create.php'); ?>" method="post">
+    <form action="<?php echo url_for('/object_uses/new.php'); ?>" method="post">
       <dl>
         <dt>Object Name</dt>
         <dd>
