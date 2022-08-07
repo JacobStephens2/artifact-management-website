@@ -27,7 +27,7 @@ tr#header {
     <p><a class="back-link" href="<?php echo url_for('/objects/about-useby.php'); ?>">Learn about use-by date generation</a></p>
 
     <form action="<?php echo url_for('/objects/useby.php'); ?>" method="post">
-      <dt>Interval from latest or to soonest play (Default = 180)</dt>
+      <dt>Interval from latest or to soonest play</dt>
           <input type="number" name="interval" value="<?php echo $interval ?>">
       <div id="operations">
         <input type="submit" value="Submit" />
