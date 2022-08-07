@@ -1,21 +1,24 @@
-<?php require_once('../../artifacts_private/initialize.php'); ?>
+<?php 
 
-<?php require_login();
+require_once('../../artifacts_private/initialize.php');
 
-// $id = isset($_GET['id']) ? $_GET['id'] : '1';
+require_login();
+
 $id = $_GET['id'] ?? '1'; // PHP > 7.0
 
 $object = find_object_by_id($id);
 
-?>
+$page_title = 'Show object';
 
-<?php $page_title = 'Show object'; ?>
-<?php include(SHARED_PATH . '/header.php'); ?>
+include(SHARED_PATH . '/header.php'); 
+
+?>
 
 <main>
 
   <li><a class="back-link" href="<?php echo url_for('/objects/index.php'); ?>">&laquo; Objects</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/objects/useby.php'); ?>">&laquo; Use by</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/object_uses/new.php'); ?>">&laquo; Use by</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/uses/create.php'); ?>">&laquo; Record use</a></li>
   <li><a class="back-link" href="<?php echo url_for('/objects/new.php'); ?>">&laquo; Add new object</a></li>
   <li><a class="action" href="<?php echo url_for('/objects/edit.php?id=' . h(u($object['ID']))); ?>">Edit</a></li>
 
