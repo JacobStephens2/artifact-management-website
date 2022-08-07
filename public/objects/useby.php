@@ -4,9 +4,9 @@ require_login();
 $page_title = 'Use By';
 include(SHARED_PATH . '/header.php');
 if(is_post_request()) {
-  $_SESSION['interval'] = $_POST['interval'] ?? '180';
+  $_SESSION['interval'] = $_POST['interval'] ?? '90';
 }
-$interval = $_SESSION['interval'] ?? '180';
+$interval = $_SESSION['interval'] ?? '90';
 $limit = '';
 $object_set = use_objects_by_user($interval, $limit); 
 ?>

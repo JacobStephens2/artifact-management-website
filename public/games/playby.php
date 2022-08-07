@@ -4,7 +4,7 @@ require_login();
 $page_title = 'Use By';
 include(SHARED_PATH . '/header.php');
 $type = $_POST['type'] ?? '1';
-$interval = $_POST['interval'] ?? '180';
+$interval = $_POST['interval'] ?? '90';
 $game_set = play_by($type, $interval);
 ?>
 
