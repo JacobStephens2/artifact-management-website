@@ -20,21 +20,21 @@ if(is_post_request()) {
 
 ?>
 
-<?php $page_title = 'Delete game'; ?>
+<?php $page_title = 'Delete Artifact'; ?>
 <?php include(SHARED_PATH . '/header.php'); ?>
 
 <main>
 
-  <a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Games</a>
+  <a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Artifacts</a>
 
   <div class="object delete">
-    <h1>Delete game</h1>
-    <p>Are you sure you want to delete this game?</p>
+    <h1>Delete artifact</h1>
+    <p>Are you sure you want to delete this artifact?</p>
     <p class="item"><?php echo h($object['Title']); ?></p>
 
     <form action="<?php echo url_for('/games/delete.php?id=' . h(u($object['id']))); ?>" method="post">
       <div id="operations">
-        <input type="submit" name="commit" value="Delete game" />
+        <input type="submit" name="commit" value="Delete Artifact" />
       </div>
     </form>
   </div>
