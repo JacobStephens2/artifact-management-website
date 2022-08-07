@@ -46,7 +46,7 @@ $game_set = play_by($type, $interval);
 
   <table class="list">
     <tr id="headerRow">
-      <th class="table-header">Name</th>
+      <th class="table-header">Name (<?php echo $game_set->num_rows; ?>)</th>
       <th class="table-header">Type</th>
       <th class="table-header">Use By</th>
       <th class="table-header">C</th>

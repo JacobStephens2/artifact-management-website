@@ -18,10 +18,10 @@ include(SHARED_PATH . '/header.php');
 
   	<table class="list">
   	  <tr id="headerRow">
-        <th>Name&ensp;</th>
-        <th>Gender&ensp;</th>
-  	    <th>Age&ensp;</th>
-        <th>&nbsp;</th>
+        <th>Name (<?php echo $player_set->num_rows; ?>)</th>
+        <th>Gender</th>
+  	    <th>Age</th>
+        <th></th>
   	  </tr>
 
       <?php while($player = mysqli_fetch_assoc($player_set)) { ?>

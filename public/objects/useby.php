@@ -19,9 +19,9 @@ tr#header {
 </style>
 
 <main>
-    <li><a class="back-link" href="<?php echo url_for('/objects/index.php'); ?>">&laquo; Objects</a></li>
-    <li><a class="back-link" href="<?php echo url_for('/object_uses/create.php'); ?>">&laquo; Record use</a></li>
-    <li><a class="back-link" href="<?php echo url_for('/object_uses/index.php'); ?>">&laquo; Uses</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/objects/index.php'); ?>">&laquo; Objects</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/object_uses/create.php'); ?>">&laquo; Record use</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/object_uses/index.php'); ?>">&laquo; Uses</a></li>
   <div class="objects listing">
     <h1>Use kept objects by date</h1>
     <p><a class="back-link" href="<?php echo url_for('/objects/about-useby.php'); ?>">Learn about use-by date generation</a></p>
@@ -36,7 +36,7 @@ tr#header {
 
   	<table class="list" >
         <tr id="header">
-          <th>Name</th>
+          <th>Name (<?php echo $object_set->num_rows; ?>)</th>
           <th>Type</th>
           <th>Use By</th>
           <th>Recent</th>

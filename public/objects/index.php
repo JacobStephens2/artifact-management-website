@@ -26,10 +26,10 @@ include(SHARED_PATH . '/header.php');
 
   	<table class="list">
   	  <tr>
-        <th>Name&ensp;</th>
-        <th>Kept&ensp;</th>
-  	    <th>Acquisition&ensp;</th>
-        <th>Type&ensp;</th>
+        <th>Name (<?php echo $object_set->num_rows; ?>)</th>
+        <th>Kept</th>
+  	    <th>Acquisition</th>
+        <th>Type</th>
   	  </tr>
 
       <?php while($object = mysqli_fetch_assoc($object_set)) { ?>

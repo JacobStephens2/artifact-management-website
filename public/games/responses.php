@@ -17,7 +17,7 @@ include(SHARED_PATH . '/header.php');
 
   	<table class="list">
   	  <tr id="headerRow">
-        <th>Play Date</th>
+        <th>Play Date (<?php echo $use_set->num_rows; ?>)</th>
         <th>Title</th>
         <th>Player</th>
   	  </tr>

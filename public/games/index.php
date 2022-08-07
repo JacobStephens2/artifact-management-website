@@ -56,7 +56,7 @@ include(SHARED_PATH . '/header.php');
         <th>Acquisition</th>
         <th>Type</th>
         <th>Kept</th>
-        <th>Name</th>
+        <th>Name (<?php echo $object_set->num_rows; ?>)</th>
         <th>C</th>
         <th>Recent Use</th>
         <th>Use By</th>
