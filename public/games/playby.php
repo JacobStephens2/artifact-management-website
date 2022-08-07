@@ -51,7 +51,7 @@ $game_set = play_by($type, $interval);
       <th class="table-header">Play By</th>
       <th class="table-header">C</th>
       <th class="table-header">Recent Use</th>
-      <th class="table-header">Acquisition</th>
+      <th class="table-header">Overdue</th>
     </tr>
 
     <?php while($game = mysqli_fetch_assoc($game_set)) { ?>
@@ -65,7 +65,21 @@ $game_set = play_by($type, $interval);
         <td class="edit date"><?php echo h($game['PlayBy']); ?></td>
         <td class="edit"><?php echo h($game['Candidate']); ?></td>
         <td class="edit date"><?php echo h($game['MaxPlay']); ?></td>
-        <td class="edit date"><?php echo h($game['Acq']); ?></td>
+        <td 
+            <?php 
+                if ($game['PlayBy'] < date('Y-m-d')) {
+                  echo 'style="color: red;"';
+                }
+            ?>
+            >
+            <?php 
+                if ($game['PlayBy'] < date('Y-m-d')) {
+                  echo 'Overdue';
+                } else {
+                  echo 'No';
+                }
+            ?>
+          </td>
       </tr>
     <?php } ?>
   </table>

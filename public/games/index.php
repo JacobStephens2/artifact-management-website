@@ -49,13 +49,15 @@ include(SHARED_PATH . '/header.php');
       }
    ?>
 
+    <p>C stands for Candidate</p>
+
   	<table class="list">
   	  <tr id="headerRow">
         <th>Acquisition</th>
         <th>Type</th>
         <th>Kept</th>
         <th>Name</th>
-        <th>Candidate</th>
+        <th>C</th>
         <th>Recent Use</th>
         <th>Use By</th>
         <th>Overdue</th>
