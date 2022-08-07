@@ -74,11 +74,9 @@ include(SHARED_PATH . '/header.php');
             </a>
           </td>
           <td><?php echo h($object['Candidate']); ?></td>
-          <td><?php echo h($object['MaxPlay']); ?></td>
-          <td>
-            <?php 
-            echo h($object['PlayBy']); 
-            ?>
+          <td class="date"><?php echo h($object['MaxPlay']); ?></td>
+          <td class="date">
+            <?php echo h($object['PlayBy']); ?>
           </td>
           <td 
             <?php 
