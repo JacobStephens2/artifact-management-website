@@ -77,7 +77,7 @@ include(SHARED_PATH . '/header.php');
 
       <ul class="list-2">
         <li>
-          <a href="<?php echo url_for('/object_uses/create.php'); ?>">
+          <a href="<?php echo url_for('/object_uses/new.php'); ?>">
             Record Object Use
           </a>
         </li>
