@@ -668,82 +668,85 @@ ORDER BY UseDate DESC
   function find_games_by_user_id($kept, $type) {
     global $db;
 
-/*
-SELECT
-    games.Title,
-    games.mnp,
-    games.mxp,
-    games.Candidate,
-    games.ss,
-    games.id,
-    games.type,
-    games.user_id,
-    games.Acq,
-    MAX(responses.PlayDate) AS MaxPlay,
-    CASE WHEN MAX(responses.PlayDate) < games.Acq THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) WHEN MAX(responses.PlayDate) IS NULL THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) ELSE DATE_ADD(
-        MAX(responses.PlayDate),
-        INTERVAL 180 DAY
-    )
-    END PlayBy,
-    games.KeptCol
-FROM
-    games
-LEFT JOIN responses ON games.id = responses.Title
-GROUP BY
-    games.Acq,
-    games.Title,
-    games.KeptCol,
-    games.mnp,
-    games.mxp,
-    games.ss,
-    games.type,
-    games.id
-HAVING
-    games.user_id = 8
-ORDER BY
-    MaxPlay ASC
-*/
+    /* Sample version of this query
+    SELECT
+        games.Title,
+        games.mnp,
+        games.mxp,
+        games.Candidate,
+        games.ss,
+        games.id,
+        games.type,
+        games.user_id,
+        games.Acq,
+        MAX(responses.PlayDate) AS MaxPlay,
+        CASE WHEN MAX(responses.PlayDate) < games.Acq THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) WHEN MAX(responses.PlayDate) IS NULL THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) ELSE DATE_ADD(
+            MAX(responses.PlayDate),
+            INTERVAL 180 DAY
+        )
+        END PlayBy,
+        games.KeptCol
+    FROM
+        games
+    LEFT JOIN responses ON games.id = responses.Title
+    GROUP BY
+        games.Acq,
+        games.Title,
+        games.KeptCol,
+        games.mnp,
+        games.mxp,
+        games.ss,
+        games.type,
+        games.id
+    HAVING
+        games.user_id = 8
+    ORDER BY
+        MaxPlay ASC
+    */
 
-$sql = "SELECT
-    games.Title,
-    games.mnp,
-    games.mxp,
-    games.Candidate,
-    games.ss,
-    games.id,
-    games.type,
-    games.user_id,
-    games.Acq,
-    MAX(responses.PlayDate) AS MaxPlay,
-    games.KeptCol,
-    CASE WHEN MAX(responses.PlayDate) < games.Acq THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) WHEN MAX(responses.PlayDate) IS NULL THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) ELSE DATE_ADD(
-        MAX(responses.PlayDate),
-        INTERVAL 180 DAY
-    )
-    END PlayBy
-FROM
-    games
-LEFT JOIN responses ON games.id = responses.Title
-GROUP BY
-    games.Acq,
-    games.Title,
-    games.KeptCol,
-    games.mnp,
-    games.mxp,
-    games.ss,
-    games.type,
-    games.id
-HAVING
-    games.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
+    $sql = "SELECT
+        games.Title,
+        games.mnp,
+        games.mxp,
+        games.Candidate,
+        games.ss,
+        games.id,
+        games.type,
+        games.user_id,
+        games.Acq,
+        MAX(responses.PlayDate) AS MaxPlay,
+        games.KeptCol,
+        CASE WHEN MAX(responses.PlayDate) < games.Acq THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) WHEN MAX(responses.PlayDate) IS NULL THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) ELSE DATE_ADD(
+            MAX(responses.PlayDate),
+            INTERVAL 180 DAY
+        )
+        END PlayBy
+    FROM
+        games
+    LEFT JOIN responses ON games.id = responses.Title
+    GROUP BY
+        games.Acq,
+        games.Title,
+        games.KeptCol,
+        games.mnp,
+        games.mxp,
+        games.ss,
+        games.type,
+        games.id
+    HAVING
+        games.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
 
-    if ($kept == 1) { 
-      $sql .= "AND games.KeptCol = 1 "; 
-    }
+        if ($kept == 1) { 
+          $sql .= "AND games.KeptCol = 1 "; 
+        }
 
-$sql .= "ORDER BY
-    PlayBy ASC,
-    MaxPlay DESC,
-    id ASC";
+    $sql .= "
+        ORDER BY
+        games.KeptCol DESC,
+        PlayBy ASC,
+        MaxPlay DESC,
+        id ASC
+    ";
 
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
@@ -885,41 +888,41 @@ $sql .= "ORDER BY
   function play_by($type, $interval) {
     global $db;
 
-/*
-SELECT
-    games.Title,
-    games.mnp,
-    games.mxp,
-    games.Candidate,
-    games.ss,
-    games.id,
-    games.type,
-    games.user_id,
-    CASE WHEN MAX(responses.PlayDate) < games.Acq THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) WHEN MAX(responses.PlayDate) IS NULL THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) ELSE DATE_ADD(
-        MAX(responses.PlayDate),
-        INTERVAL 180 DAY
-    )
-END PlayBy,
-games.Acq,
-MAX(responses.PlayDate) AS MaxPlay,
-games.KeptCol
-FROM
-    games
-LEFT JOIN responses ON games.id = responses.Title
-GROUP BY
+    /* Sample output of this query
+    SELECT
+        games.Title,
+        games.mnp,
+        games.mxp,
+        games.Candidate,
+        games.ss,
+        games.id,
+        games.type,
+        games.user_id,
+        CASE WHEN MAX(responses.PlayDate) < games.Acq THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) WHEN MAX(responses.PlayDate) IS NULL THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) ELSE DATE_ADD(
+            MAX(responses.PlayDate),
+            INTERVAL 180 DAY
+        )
+    END PlayBy,
     games.Acq,
-    games.Title,
-    games.KeptCol,
-    games.mnp,
-    games.mxp,
-    games.ss,
-    games.type,
-    games.id
-HAVING
-    games.user_id = 8 AND games.KeptCol = 1
-ORDER BY
-    PlayBy ASC
-*/
+    MAX(responses.PlayDate) AS MaxPlay,
+    games.KeptCol
+    FROM
+        games
+    LEFT JOIN responses ON games.id = responses.Title
+    GROUP BY
+        games.Acq,
+        games.Title,
+        games.KeptCol,
+        games.mnp,
+        games.mxp,
+        games.ss,
+        games.type,
+        games.id
+    HAVING
+        games.user_id = 8 AND games.KeptCol = 1
+    ORDER BY
+        PlayBy ASC
+    */
 
     $sql ="SELECT 
         games.Title,
