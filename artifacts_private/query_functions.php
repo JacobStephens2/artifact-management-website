@@ -1184,7 +1184,7 @@ ORDER BY UseDate DESC
     $sql .= "games.Title DESC, ";
     $sql .= "players.LastName ASC, ";
     $sql .= "players.FirstName ASC ";
-    $sql .= "LIMIT 4000";
+    $sql .= "LIMIT 9999";
 
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
@@ -1289,7 +1289,6 @@ ORDER BY UseDate DESC
 
   function find_players_by_user_id() {
     global $db;
-
     $sql = "SELECT * FROM players ";
     $sql .= "WHERE user_id='" . db_escape($db, $_SESSION['user_id']) . "' ";
     $sql .= "ORDER BY id";
@@ -1297,6 +1296,7 @@ ORDER BY UseDate DESC
     confirm_result_set($result);
     return $result;
   }
+
   function insert_player($player) {
     global $db;
 
