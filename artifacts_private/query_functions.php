@@ -137,6 +137,37 @@ ORDER BY UseDate DESC
   function use_objects_by_user($interval, $limit) {
     global $db;
 
+    /* A formatted version of the following query:
+    SELECT
+        objects.ID,
+        objects.user_id,
+        objects.ObjectName,
+        TYPES.ObjectType,
+        CASE WHEN MAX(use_table.UseDate) > objects.Acq THEN DATE_ADD(
+            MAX(use_table.UseDate),
+            INTERVAL 180 DAY
+        ) ELSE DATE_ADD(objects.Acq, INTERVAL 90 DAY)
+    END UseBy,
+    objects.KeptCol,
+    objects.Acq,
+    MAX(use_table.UseDate) AS MaxUse
+    FROM
+        objects
+    LEFT JOIN use_table ON objects.ID = use_table.ObjectName
+    LEFT JOIN TYPES ON objects.ObjectType = TYPES.ID
+    GROUP BY
+        objects.ObjectName,
+        objects.Acq,
+        objects.KeptCol,
+        objects.ID,
+        TYPES.ObjectType
+    HAVING
+        objects.KeptCol = 1 AND objects.user_id = '8'
+    ORDER BY
+        UseBy ASC
+    LIMIT 1024
+    */
+
     $sql = "SELECT ";
     $sql .=   "objects.ID, ";
     $sql .=   "objects.user_id, ";
