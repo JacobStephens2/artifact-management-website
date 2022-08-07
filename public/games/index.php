@@ -58,6 +58,7 @@ include(SHARED_PATH . '/header.php');
         <th>Candidate</th>
         <th>Recent Use</th>
         <th>Use By</th>
+        <th>Overdue</th>
   	  </tr>
 
       <?php while($object = mysqli_fetch_assoc($object_set)) { ?>
@@ -72,14 +73,31 @@ include(SHARED_PATH . '/header.php');
           </td>
           <td><?php echo h($object['Candidate']); ?></td>
           <td><?php echo h($object['MaxPlay']); ?></td>
-          <td><?php echo h($object['PlayBy']); ?></td>
+          <td>
+            <?php 
+            echo h($object['PlayBy']); 
+            ?>
+          </td>
+          <td 
+            <?php 
+                if ($object['PlayBy'] < date('Y-m-d')) {
+                  echo 'style="color: red;"';
+                }
+            ?>
+            >
+            <?php 
+                if ($object['PlayBy'] < date('Y-m-d')) {
+                  echo 'Overdue';
+                } else {
+                  echo 'No';
+                }
+            ?>
+          </td>
     	  </tr>
       <?php } ?>
   	</table>
 
-    <?php
-      mysqli_free_result($object_set);
-    ?>
+    <?php mysqli_free_result($object_set); ?>
   </div>
 
 </main>
