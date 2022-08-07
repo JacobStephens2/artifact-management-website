@@ -11,7 +11,6 @@ $id = $_GET['id'];
 if(is_post_request()) {
 
   // Handle form values sent by new.php
-
   $game = [];
   $game['id'] = $id ?? '';
   $game['Title'] = $_POST['Title'] ?? '';
@@ -29,15 +28,14 @@ if(is_post_request()) {
   }
 
 } else {
-
   $game = find_game_by_id($id);
-
 }
 
-?>
+$page_title = h($game['Title']); 
 
-<?php $page_title = 'Edit game'; ?>
-<?php include(SHARED_PATH . '/header.php'); ?>
+include(SHARED_PATH . '/header.php'); 
+
+?>
 
 <main>
 

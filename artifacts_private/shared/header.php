@@ -5,7 +5,7 @@
 <html lang="en">
   <head>
     
-    <title>Artifacts - <?php echo h($page_title); ?></title>
+    <title><?php echo h($page_title); ?> - Artifacts</title>
     <meta charset="utf-8">
     <link rel="shortcut icon" type="image/jpg" href="<?php echo url_for('favicon.ico') ?>">
     <link rel="stylesheet" media="all" href="../../style.css" />
