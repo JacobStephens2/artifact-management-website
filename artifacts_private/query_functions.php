@@ -93,7 +93,6 @@ ORDER BY UseDate DESC
     $sql .= "'" . db_escape($db, $use['UseDate']) . "'";
     $sql .= ")";
 
-    echo $sql;
     $result = mysqli_query($db, $sql);
     // For INSERT statements, $result is true/false
     if($result) {
@@ -681,6 +680,11 @@ SELECT
     games.user_id,
     games.Acq,
     MAX(responses.PlayDate) AS MaxPlay,
+    CASE WHEN MAX(responses.PlayDate) < games.Acq THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) WHEN MAX(responses.PlayDate) IS NULL THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) ELSE DATE_ADD(
+        MAX(responses.PlayDate),
+        INTERVAL 180 DAY
+    )
+    END PlayBy,
     games.KeptCol
 FROM
     games
@@ -697,7 +701,7 @@ GROUP BY
 HAVING
     games.user_id = 8
 ORDER BY
-    MaxPlay DESC
+    MaxPlay ASC
 */
 
 $sql = "SELECT
@@ -711,7 +715,12 @@ $sql = "SELECT
     games.user_id,
     games.Acq,
     MAX(responses.PlayDate) AS MaxPlay,
-    games.KeptCol
+    games.KeptCol,
+    CASE WHEN MAX(responses.PlayDate) < games.Acq THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) WHEN MAX(responses.PlayDate) IS NULL THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) ELSE DATE_ADD(
+        MAX(responses.PlayDate),
+        INTERVAL 180 DAY
+    )
+    END PlayBy
 FROM
     games
 LEFT JOIN responses ON games.id = responses.Title
@@ -725,11 +734,16 @@ GROUP BY
     games.type,
     games.id
 HAVING
-    games.user_id = " . db_escape($db, $_SESSION['user_id']) . "
-ORDER BY
+    games.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
+
+    if ($kept == 1) { 
+      $sql .= "AND games.KeptCol = 1 "; 
+    }
+
+$sql .= "ORDER BY
+    PlayBy ASC,
     MaxPlay DESC";
 
-    echo $sql . '<br/>';
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     return $result;
@@ -762,7 +776,6 @@ ORDER BY
     $sql .= "type='" . db_escape($db, $game['type']) . "' ";
     $sql .= "WHERE id='" . db_escape($db, $game['id']) . "' ";
     $sql .= "LIMIT 1";
-    echo $sql . "<br /><br />";
     $result = mysqli_query($db, $sql);
     // For UPDATE statements, $result is true/false
     if($result) {
@@ -935,7 +948,6 @@ ORDER BY
       $sql .= "AND type = '" . $type . "' ";
     }
     $sql .= "ORDER BY PlayBy ASC";
-    echo $sql;
     $result = mysqli_query($db, $sql);
       confirm_result_set($result);
       return $result;
@@ -1284,7 +1296,6 @@ ORDER BY
     $sql .= "Age='" . db_escape($db, $player['Age']) . "' ";
     $sql .= "WHERE id='" . db_escape($db, $player['id']) . "' ";
     $sql .= "LIMIT 1";
-    echo $sql . "<br /><br />";
     $result = mysqli_query($db, $sql);
     // For UPDATE statements, $result is true/false
     if($result) {
@@ -1404,7 +1415,6 @@ function update_playgroup_player($playgroupplayer) {
     $sql .= "FullName='" . db_escape($db, $playgroupplayer['FullName']) . "' ";
     $sql .= "WHERE ID='" . db_escape($db, $playgroupplayer['ID']) . "' ";
     $sql .= "LIMIT 1";
-    echo $sql . "<br /><br />";
     $result = mysqli_query($db, $sql);
     // For UPDATE statements, $result is true/false
     if($result) {
