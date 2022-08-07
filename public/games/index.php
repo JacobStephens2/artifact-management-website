@@ -56,6 +56,7 @@ include(SHARED_PATH . '/header.php');
         <th>Kept</th>
         <th>Name</th>
         <th>Candidate</th>
+        <th>Recent Use</th>
   	  </tr>
 
       <?php while($object = mysqli_fetch_assoc($object_set)) { ?>
@@ -69,6 +70,7 @@ include(SHARED_PATH . '/header.php');
             </a>
           </td>
           <td><?php echo h($object['Candidate']); ?></td>
+          <td><?php echo h($object['MaxPlay']); ?></td>
     	  </tr>
       <?php } ?>
   	</table>
