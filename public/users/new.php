@@ -3,51 +3,49 @@
 require_once('../../artifacts_private/initialize.php');
 require_login();
 
-if(!isset($_GET['id'])) {
-  redirect_to(url_for('/players/index.php'));
-}
-$id = $_GET['id'];
 
 if(is_post_request()) {
 
-  // Handle form values sent by new.php
-
   $player = [];
-  $player['id'] = $id ?? '';
   $player['FirstName'] = $_POST['FirstName'] ?? '';
   $player['LastName'] = $_POST['LastName'] ?? '';
   $player['G'] = $_POST['G'] ?? '';
   $player['Age'] = $_POST['Age'] ?? '';
 
-  $result = update_player($player);
+
+  $result = insert_player($player);
   if($result === true) {
-    $_SESSION['message'] = 'The player was updated successfully.';
-    redirect_to(url_for('/players/show.php?id=' . $id));
+    $new_id = mysqli_insert_id($db);
+    $_SESSION['message'] = 'The player record was created successfully.';
+    redirect_to(url_for('/users/show.php?id=' . $new_id));
   } else {
     $errors = $result;
   }
 
 } else {
-
-  $player = find_player_by_id($id);
-
+  // display the blank form
+  $player = [];
+  $player["FirstName"] = '';
+  $player["LastName"] = '';
+  $player["G"] = '';
+  $player["Age"] = '';
 }
 
 ?>
 
-<?php $page_title = 'Edit player'; ?>
+<?php $page_title = 'Add User'; ?>
 <?php include(SHARED_PATH . '/header.php'); ?>
 
 <main>
 
-  <li><a class="back-link" href="<?php echo url_for('/players/index.php'); ?>">&laquo; Players</a></li>
+  <a class="back-link" href="<?php echo url_for('/users/index.php'); ?>">&laquo; Users</a>
 
-  <div class="object edit">
-    <h1>Edit player</h1>
+  <div class="object new">
+    <h1>Create User Record</h1>
 
     <?php echo display_errors($errors); ?>
 
-    <form action="<?php echo url_for('/players/edit.php?id=' . h(u($id))); ?>" method="post">
+    <form action="<?php echo url_for('/users/new.php'); ?>" method="post">
       <dl>
         <dt>First Name</dt>
         <dd><input type="text" name="FirstName" value="<?php echo h($player['FirstName']); ?>" /></dd>
@@ -65,7 +63,7 @@ if(is_post_request()) {
         <dd><input type="text" name="Age" value="<?php echo h($player['Age']); ?>" /></dd>
       </dl>
       <div id="operations">
-        <input type="submit" value="Save player edits" />
+        <input type="submit" value="Add player" />
       </div>
     </form>
 

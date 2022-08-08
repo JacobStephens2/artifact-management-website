@@ -1,18 +1,20 @@
-<?php require_once('../../artifacts_private/initialize.php'); ?>
+<?php 
 
-<?php
+require_once('../../artifacts_private/initialize.php');
+
 require_login();
 
-  $kept = $_POST['kept'] ?? '';
-  $type = $_POST['type'] ?? '1';
-  $allGames = $_POST['allGames'] ?? '';
-  $favCt = $_POST['favCt'] ?? '';
-  $object_set = find_games_by_characteristic($kept, $type, $allGames, $favCt);
+$kept = $_POST['kept'] ?? '';
+$type = $_POST['type'] ?? '1';
+$allGames = $_POST['allGames'] ?? '';
+$favCt = $_POST['favCt'] ?? '';
+$object_set = find_games_by_characteristic($kept, $type, $allGames, $favCt);
+
+$page_title = 'Explore games';
+
+include(SHARED_PATH . '/header.php');
 
 ?>
-
-<?php $page_title = 'Explore games'; ?>
-<?php include(SHARED_PATH . '/header.php'); ?>
 
 <main>
   <div class="objects listing">
@@ -53,11 +55,8 @@ require_login();
       </div>
     </form>
 
-
-
   	<table class="list">
   	  <tr>
-        <!-- <th>ID</th> -->
         <th>Name&ensp;</th>
         <th>Kept&ensp;</th>
         <th>Type&ensp;</th>
@@ -88,9 +87,7 @@ require_login();
       <?php } ?>
   	</table>
 
-    <?php
-      mysqli_free_result($object_set);
-    ?>
+    <?php mysqli_free_result($object_set); ?>
   </div>
 
 </main>

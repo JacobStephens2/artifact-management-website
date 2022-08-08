@@ -33,7 +33,7 @@ require_login();
         <tr>
           <td><?php echo h($object['FirstName']) . ' ' . h($object['LastName']); ?></td>
           <td><?php echo h($object['ID']); ?></td>
-          <td><a class="table-action" href="<?php echo url_for('/players/show.php?id=' . h(u($object['playerID']))); ?>">View</a></td>
+          <td><a class="table-action" href="<?php echo url_for('/users/show.php?id=' . h(u($object['playerID']))); ?>">View</a></td>
           <td><a class="table-action" href="<?php echo url_for('/artifacts/playgroup-edit.php?ID=' . h(u($object['ID']))); ?>">Edit</a></td>
           <td><a class="table-action" href="<?php echo url_for('/artifacts/playgroup-delete.php?ID=' . h(u($object['ID']))); ?>">Delete</a></td>
     	  </tr>

@@ -13,15 +13,15 @@ $player = find_player_by_id($id);
 
 <main>
 
-  <li><a class="back-link" href="<?php echo url_for('/players/index.php'); ?>">&laquo; Users</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/users/index.php'); ?>">&laquo; Users</a></li>
 
   <li><a class="back-link" href="<?php echo url_for('/artifacts/playgroup.php'); ?>">&laquo; User Group</a></li>
 
-  <li><a class="back-link" href="<?php echo url_for('/players/new.php'); ?>">&laquo; Create New User</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/users/new.php'); ?>">&laquo; Create New User</a></li>
 
   <li><a class="back-link" href="<?php echo url_for('/uses/create.php'); ?>">&laquo; Record Use</a></li>
 
-  <li><a class="action" href="<?php echo url_for('/players/edit.php?id=' . h(u($player['id']))); ?>">Edit</a></li>
+  <li><a class="action" href="<?php echo url_for('/users/edit.php?id=' . h(u($player['id']))); ?>">Edit</a></li>
 
   <div class="object show">
 

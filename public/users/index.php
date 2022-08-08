@@ -13,7 +13,7 @@ include(SHARED_PATH . '/header.php');
     <h1><?php echo $plural_page_name; ?></h1>
 
     <div class="actions">
-      <a class="action" href="<?php echo url_for('/players/new.php'); ?>">Add New <?php echo $singular_page_name; ?></a>
+      <a class="action" href="<?php echo url_for('/users/new.php'); ?>">Add New <?php echo $singular_page_name; ?></a>
     </div>
 
   	<table class="list">
@@ -27,13 +27,13 @@ include(SHARED_PATH . '/header.php');
       <?php while($player = mysqli_fetch_assoc($player_set)) { ?>
         <tr>
           <td>
-            <a class="table-action" href="<?php echo url_for('/players/edit.php?id=' . h(u($player['id']))); ?>">
+            <a class="table-action" href="<?php echo url_for('/users/edit.php?id=' . h(u($player['id']))); ?>">
               <?php echo h($player['FirstName']) . ' ' . h($player['LastName']); ?>
             </a>
           </td>
     	    <td><?php echo h($player['G']); ?></td>
     	    <td><?php echo h($player['Age']); ?></td>
-          <td><a class="table-action" href="<?php echo url_for('/players/delete.php?id=' . h(u($player['id']))); ?>">Delete</a></td>
+          <td><a class="table-action" href="<?php echo url_for('/users/delete.php?id=' . h(u($player['id']))); ?>">Delete</a></td>
     	  </tr>
       <?php } ?>
   	</table>

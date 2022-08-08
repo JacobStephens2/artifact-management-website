@@ -4,7 +4,7 @@ require_once('../../artifacts_private/initialize.php');
 require_login();
 
 if(!isset($_GET['id'])) {
-  redirect_to(url_for('/players/index.php'));
+  redirect_to(url_for('/users/index.php'));
 }
 $id = $_GET['id'];
 
@@ -12,7 +12,7 @@ if(is_post_request()) {
 
   $result = delete_player($id);
   $_SESSION['message'] = 'The player was deleted successfully.';
-  redirect_to(url_for('/players/index.php'));
+  redirect_to(url_for('/users/index.php'));
 
 } else {
   $player = find_player_by_id($id);
@@ -25,14 +25,14 @@ if(is_post_request()) {
 
 <main>
 
-  <a class="back-link" href="<?php echo url_for('/players/index.php'); ?>">&laquo; Back to List</a>
+  <a class="back-link" href="<?php echo url_for('/users/index.php'); ?>">&laquo; Back to List</a>
 
   <div class="object delete">
     <h1>Delete player</h1>
     <p>Are you sure you want to delete this player?</p>
     <p class="item"><?php echo h($player['FirstName']) . ' ' . h($player['LastName']); ?></p>
 
-    <form action="<?php echo url_for('/players/delete.php?id=' . h(u($player['id']))); ?>" method="post">
+    <form action="<?php echo url_for('/users/delete.php?id=' . h(u($player['id']))); ?>" method="post">
       <div id="operations">
         <input type="submit" name="commit" value="Delete player" />
       </div>

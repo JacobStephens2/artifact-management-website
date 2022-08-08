@@ -23,12 +23,12 @@ include(SHARED_PATH . '/header.php');
             Create New Artifact
           </a>
         </li>
-        <li><a href="<?php echo url_for('/players/index.php');?>">
+        <li><a href="<?php echo url_for('/users/index.php');?>">
           Users
           </a>
         </li>
         <li>
-          <a class="action" href="<?php echo url_for('/players/new.php'); ?>">
+          <a class="action" href="<?php echo url_for('/users/new.php'); ?>">
             Add New User
           </a>
         </li>
