@@ -57,17 +57,17 @@ include(SHARED_PATH . '/header.php');
 
   	<table class="list">
   	  <tr>
-        <th>Name&ensp;</th>
-        <th>Kept&ensp;</th>
-        <th>Type&ensp;</th>
-        <th>Min players&ensp;</th>
-        <th>Max players&ensp;</th>
-        <th>Sweet spot&ensp;</th>
-        <th>Year&ensp;</th>
-        <th>Weight&ensp;</th>
-        <th>Fav Ct&ensp;</th>
-        <th>Age&ensp;</th>
-        <th>BGG Rat&ensp;</th>
+        <th>Name</th>
+        <th>Kept</th>
+        <th>Type</th>
+        <th>Min players</th>
+        <th>Max players</th>
+        <th>Sweet spot</th>
+        <th>Year</th>
+        <th>Weight</th>
+        <th>Fav Ct</th>
+        <th>Age</th>
+        <th>BGG Rat</th>
   	  </tr>
 
       <?php while($object = mysqli_fetch_assoc($object_set)) { ?>
