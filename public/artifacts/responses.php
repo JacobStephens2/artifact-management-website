@@ -7,12 +7,12 @@ include(SHARED_PATH . '/header.php');
 ?>
 
 <main>
-  <a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Artifacts</a>
+  <a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Artifacts</a>
     <h1>Artifact Uses</h1>
 
     <section class="actions">
       <a class="action" href="<?php echo url_for('/uses/create.php'); ?>">New Use</a>
-      <a class="action" href="<?php echo url_for('/games/playby.php'); ?>">Use Artifacts by Date List</a>
+      <a class="action" href="<?php echo url_for('/artifacts/playby.php'); ?>">Use Artifacts by Date List</a>
     </section>
 
   	<table class="list">
@@ -25,7 +25,7 @@ include(SHARED_PATH . '/header.php');
       <?php while($use = mysqli_fetch_assoc($use_set)) { ?>
         <tr>
           <td class="date">
-            <a class="action" href="<?php echo url_for('/games/response-edit.php?id=' . h(u($use['id']))); ?>">
+            <a class="action" href="<?php echo url_for('/artifacts/response-edit.php?id=' . h(u($use['id']))); ?>">
               <?php echo h($use['PlayDate']); ?>
             </a>
           </td>

@@ -14,7 +14,7 @@ if(is_post_request()) {
   if($result === true) {
     $new_id = mysqli_insert_id($db);
     $_SESSION['message'] = 'The object was created successfully.';
-    redirect_to(url_for('/games/show.php?id=' . $new_id));
+    redirect_to(url_for('/artifacts/show.php?id=' . $new_id));
   } else {
     $errors = $result;
   }
@@ -34,7 +34,7 @@ include(SHARED_PATH . '/header.php');
 <main>
 
   <li>
-    <a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Back to List</a>
+    <a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Back to List</a>
   </li>
   <li>
     <a class="back-link" href="<?php echo url_for('/uses/create.php'); ?>">&laquo; Create Use</a>
@@ -45,7 +45,7 @@ include(SHARED_PATH . '/header.php');
 
     <?php echo display_errors($errors); ?>
 
-    <form action="<?php echo url_for('/games/new.php'); ?>" method="post">
+    <form action="<?php echo url_for('/artifacts/new.php'); ?>" method="post">
 
       <label for="Title">Name</label>
       <input type="text" name="Title" id="Title" value="<?php echo h($object['Title']); ?>" /></dd>

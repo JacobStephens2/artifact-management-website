@@ -4,7 +4,7 @@ require_once('../../artifacts_private/initialize.php');
 require_login();
 
 if(!isset($_GET['id'])) {
-  redirect_to(url_for('/games/responses.php'));
+  redirect_to(url_for('/artifacts/responses.php'));
 }
 $id = $_GET['id'];
 
@@ -12,7 +12,7 @@ if(is_post_request()) {
 
   $result = delete_response($id);
   $_SESSION['message'] = 'The response was deleted successfully.';
-  redirect_to(url_for('/games/responses.php'));
+  redirect_to(url_for('/artifacts/responses.php'));
 
 } else {
   $use = find_response_by_id($id);
@@ -25,7 +25,7 @@ if(is_post_request()) {
 
 <main>
 
-  <a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; Back to List</a>
+  <a class="back-link" href="<?php echo url_for('/artifacts/responses.php'); ?>">&laquo; Back to List</a>
 
   <div class="response-delete">
     <h1>Delete Use</h1>
@@ -35,7 +35,7 @@ if(is_post_request()) {
     <p class="item">Game: <?php echo h($use['Title']); ?></p>
     <p class="item">Player: <?php echo h($use['FirstName']) . ' ' . h($use['LastName']); ?></p>
 
-    <form action="<?php echo url_for('/games/response-delete.php?id=' . h(u($use['id']))); ?>" method="post">
+    <form action="<?php echo url_for('/artifacts/response-delete.php?id=' . h(u($use['id']))); ?>" method="post">
       <div id="operations">
         <input type="submit" name="commit" value="Delete Use" />
       </div>

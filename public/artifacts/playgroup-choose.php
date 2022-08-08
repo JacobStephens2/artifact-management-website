@@ -15,16 +15,16 @@ $game_set = choose_games_for_group($range, $type);
 ?>
 
 <main>
-    <li><a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; Responses</a></li>
-    <li><a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Games</a></li>
-    <li><a class="back-link" href="<?php echo url_for('/games/playgroup.php'); ?>">&laquo; Playgroup</a></li>
+    <li><a class="back-link" href="<?php echo url_for('/artifacts/responses.php'); ?>">&laquo; Responses</a></li>
+    <li><a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Games</a></li>
+    <li><a class="back-link" href="<?php echo url_for('/artifacts/playgroup.php'); ?>">&laquo; Playgroup</a></li>
   <div class="objects listing">
     <h1>Choose games for playgroup</h1>
     <p>The dates represent the most recent instance of the type of response indicated by the column header. SS = sweet spot, Mnp = minimum player count, Mxp = maximum player count.</p>
     ***
 
     <!-- Parameters form -->
-    <form action="<?php echo url_for('/games/playgroup-choose.php'); ?>" method="post">
+    <form action="<?php echo url_for('/artifacts/playgroup-choose.php'); ?>" method="post">
       <dl>
         <dt>Show all games matching count of playgroup</dt>
           <input type="hidden" name="range" value="false" />
@@ -62,7 +62,7 @@ $game_set = choose_games_for_group($range, $type);
       <?php while($game = mysqli_fetch_assoc($game_set)) { ?>
         <tr>
     	    <td class="edit"><?php echo h($game['title']); ?></td>
-          <td><a class="table-action" href="<?php echo url_for('/games/edit.php?id=' . h(u($game['id']))); ?>">Edit</a></td>
+          <td><a class="table-action" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($game['id']))); ?>">Edit</a></td>
     	    <td class="edit"><?php echo h($game['FirstName']) . ' ' . h($game['LastName']); ?></td>
     	    <td class="edit"><?php echo h($game['ss']); ?></td>
           <td class="edit"><?php echo h($game['MnP']); ?></td>

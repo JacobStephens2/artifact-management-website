@@ -12,14 +12,14 @@ include(SHARED_PATH . '/header.php');
 
     <ul class="main-menu">
       <li>
-        <a href="<?php echo url_for('/games/index.php');?>">
+        <a href="<?php echo url_for('/artifacts/index.php');?>">
           Artifacts
         </a>
       </li>
 
       <ul class="list-2">
         <li>
-          <a class="action" href="<?php echo url_for('/games/new.php'); ?>">
+          <a class="action" href="<?php echo url_for('/artifacts/new.php'); ?>">
             Create New Artifact
           </a>
         </li>
@@ -33,7 +33,7 @@ include(SHARED_PATH . '/header.php');
           </a>
         </li>
         <li>
-          <a href="<?php echo url_for('/games/responses.php');?>">
+          <a href="<?php echo url_for('/artifacts/responses.php');?>">
             Uses
           </a>
         </li>
@@ -43,17 +43,17 @@ include(SHARED_PATH . '/header.php');
           </a>
         </li>
         <li>
-          <a href=" <?php echo url_for('/games/playby.php');?>">
+          <a href=" <?php echo url_for('/artifacts/playby.php');?>">
             Use Artifacts by Date List
           </a>
         </li>
         <li>
-          <a href="<?php echo url_for('/games/playgroup.php');?>">
+          <a href="<?php echo url_for('/artifacts/playgroup.php');?>">
             User Group
           </a>
         </li>
         <li>
-          <a class="action" href="<?php echo url_for('/games/playgroup-choose.php'); ?>">
+          <a class="action" href="<?php echo url_for('/artifacts/playgroup-choose.php'); ?>">
             Choose Games for User Group
           </a>
         </li>

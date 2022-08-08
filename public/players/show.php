@@ -15,7 +15,7 @@ $player = find_player_by_id($id);
 
   <li><a class="back-link" href="<?php echo url_for('/players/index.php'); ?>">&laquo; Users</a></li>
 
-  <li><a class="back-link" href="<?php echo url_for('/games/playgroup.php'); ?>">&laquo; User Group</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/artifacts/playgroup.php'); ?>">&laquo; User Group</a></li>
 
   <li><a class="back-link" href="<?php echo url_for('/players/new.php'); ?>">&laquo; Create New User</a></li>
 

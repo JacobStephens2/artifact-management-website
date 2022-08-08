@@ -19,8 +19,8 @@ require_login();
     <h1>Games</h1>
 
     <div class="actions">
-      <a class="action" href="<?php echo url_for('/games/new.php'); ?>">Create New Game</a>
-      <a class="action" href="<?php echo url_for('/games/playby.php'); ?>">Play games by date</a>
+      <a class="action" href="<?php echo url_for('/artifacts/new.php'); ?>">Create New Game</a>
+      <a class="action" href="<?php echo url_for('/artifacts/playby.php'); ?>">Play games by date</a>
     </div>
 
     <form action="<?php echo url_for('/explore/index.php'); ?>" method="post">

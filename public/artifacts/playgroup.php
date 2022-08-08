@@ -15,8 +15,8 @@ require_login();
     <h1>User Group</h1>
 
     <div class="actions">
-      <li><a class="action" href="<?php echo url_for('/games/playgroup-new.php'); ?>">Add to User Group</a></li>
-      <li><a class="action" href="<?php echo url_for('/games/playgroup-choose.php'); ?>">Choose Games for User Group</a></li>
+      <li><a class="action" href="<?php echo url_for('/artifacts/playgroup-new.php'); ?>">Add to User Group</a></li>
+      <li><a class="action" href="<?php echo url_for('/artifacts/playgroup-choose.php'); ?>">Choose Games for User Group</a></li>
     </div>
 
   	<table class="list">
@@ -34,8 +34,8 @@ require_login();
           <td><?php echo h($object['FirstName']) . ' ' . h($object['LastName']); ?></td>
           <td><?php echo h($object['ID']); ?></td>
           <td><a class="table-action" href="<?php echo url_for('/players/show.php?id=' . h(u($object['playerID']))); ?>">View</a></td>
-          <td><a class="table-action" href="<?php echo url_for('/games/playgroup-edit.php?ID=' . h(u($object['ID']))); ?>">Edit</a></td>
-          <td><a class="table-action" href="<?php echo url_for('/games/playgroup-delete.php?ID=' . h(u($object['ID']))); ?>">Delete</a></td>
+          <td><a class="table-action" href="<?php echo url_for('/artifacts/playgroup-edit.php?ID=' . h(u($object['ID']))); ?>">Edit</a></td>
+          <td><a class="table-action" href="<?php echo url_for('/artifacts/playgroup-delete.php?ID=' . h(u($object['ID']))); ?>">Delete</a></td>
     	  </tr>
       <?php } ?>
   	</table>

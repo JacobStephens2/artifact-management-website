@@ -19,7 +19,7 @@ if(is_post_request()) {
   if($result === true) {
     $new_id = mysqli_insert_id($db);
     $_SESSION['message'] = 'The playgroup was successfully expanded.';
-    redirect_to(url_for('/games/playgroup.php'));
+    redirect_to(url_for('/artifacts/playgroup.php'));
   } else {
     $errors = $result;
   }
@@ -42,7 +42,7 @@ if(is_post_request()) {
   $result = insert_playgroup($object);
   if($result === true) {
     $_SESSION['message'] = 'The object was created successfully.';
-    redirect_to(url_for('/games/playgroup.php'));
+    redirect_to(url_for('/artifacts/playgroup.php'));
   } else {
     $errors = $result;
   }
@@ -60,10 +60,10 @@ if(is_post_request()) {
 
 <main>
 
-  <a class="back-link" href="<?php echo url_for('/games/playgroup.php'); ?>">&laquo; Back to List</a>
+  <a class="back-link" href="<?php echo url_for('/artifacts/playgroup.php'); ?>">&laquo; Back to List</a>
 
   <h2>Player count</h2>
-    <form action="<?php echo url_for('/games/playgroup-new.php'); ?>" method="get">
+    <form action="<?php echo url_for('/artifacts/playgroup-new.php'); ?>" method="get">
       <select name="playerCount">
         <?php
           $i = 1;
@@ -86,7 +86,7 @@ if(is_post_request()) {
 
     <?php echo display_errors($errors); ?>
 
-    <form action="<?php echo url_for('/games/playgroup-new.php'); ?>" method="post">
+    <form action="<?php echo url_for('/artifacts/playgroup-new.php'); ?>" method="post">
       <dl>
         <dd>
         <select name="Player1">

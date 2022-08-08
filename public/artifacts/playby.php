@@ -10,8 +10,8 @@ $game_set = play_by($type, $interval);
 
 <main>
   <div class="hideOnPrint">
-    <li><a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; Uses</a></li>
-    <li><a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Artifacts</a></li>
+    <li><a class="back-link" href="<?php echo url_for('/artifacts/responses.php'); ?>">&laquo; Uses</a></li>
+    <li><a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Artifacts</a></li>
   </div>
 
   <h1>Use Artifacts by Date</h1>
@@ -21,7 +21,7 @@ $game_set = play_by($type, $interval);
     <li><a class="back-link" href="<?php echo url_for('/objects/about-useby.php'); ?>">Learn About Use-by Date Generation</a></li>
   </div>
   
-  <form action="<?php echo url_for('/games/playby.php'); ?>" method="post">
+  <form action="<?php echo url_for('/artifacts/playby.php'); ?>" method="post">
       <div class="hideOnPrint">
         <label for="type">Artifact Type</label>
         <select name="type" id="type">
@@ -57,7 +57,7 @@ $game_set = play_by($type, $interval);
     <?php while($game = mysqli_fetch_assoc($game_set)) { ?>
       <tr>
         <td class="edit">
-          <a class="action edit" href="<?php echo url_for('/games/edit.php?id=' . h(u($game['id']))); ?>">
+          <a class="action edit" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($game['id']))); ?>">
           <?php echo h($game['Title']); ?></a>
           </a>
         </td>

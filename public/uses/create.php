@@ -45,13 +45,13 @@ include(SHARED_PATH . '/header.php');
 
 <main>
   <li>
-		<a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Artifacts</a>
+		<a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Artifacts</a>
 	</li>
   <li>
-		<a class="back-link" href="<?php echo url_for('/games/playby.php'); ?>">&laquo; Use Artifacts By Date</a>
+		<a class="back-link" href="<?php echo url_for('/artifacts/playby.php'); ?>">&laquo; Use Artifacts By Date</a>
 	</li>
   <li>
-		<a class="back-link" href="<?php echo url_for('/games/responses.php'); ?>">&laquo; Uses</a>
+		<a class="back-link" href="<?php echo url_for('/artifacts/responses.php'); ?>">&laquo; Uses</a>
 	</li>
   <li>
 		<a class="back-link" href="<?php echo url_for('/players/new.php'); ?>">&laquo; Create User</a>

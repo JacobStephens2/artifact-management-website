@@ -4,7 +4,7 @@ require_once('../../artifacts_private/initialize.php');
 require_login();
 
 if(!isset($_GET['ID'])) {
-  redirect_to(url_for('/games/playgroup.php'));
+  redirect_to(url_for('/artifacts/playgroup.php'));
 }
 $ID = $_GET['ID'];
 
@@ -19,7 +19,7 @@ if(is_post_request()) {
   $result = update_playgroup_player($playgroupplayer);
   if($result === true) {
     $_SESSION['message'] = 'The playgroup player was updated successfully.';
-    redirect_to(url_for('/games/playgroup.php?'));
+    redirect_to(url_for('/artifacts/playgroup.php?'));
   } else {
     $errors = $result;
     //var_dump($errors);
@@ -38,15 +38,15 @@ if(is_post_request()) {
 
 <main>
 
-  <li><a class="back-link" href="<?php echo url_for('/games/playgroup.php'); ?>">&laquo; To playgroup</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/games/playby.php'); ?>">&laquo; To Use Artifacts by Date List</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/artifacts/playgroup.php'); ?>">&laquo; To playgroup</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/artifacts/playby.php'); ?>">&laquo; To Use Artifacts by Date List</a></li>
 
   <div class="object edit">
     <h1>Edit playgroup player</h1>
 
     <?php echo display_errors($errors); ?>
 
-    <form action="<?php echo url_for('/games/playgroup-edit.php?ID=' . h(u($ID))); ?>" method="post">
+    <form action="<?php echo url_for('/artifacts/playgroup-edit.php?ID=' . h(u($ID))); ?>" method="post">
     <dl>
         <dt>Player</dt>
         <dd>

@@ -4,7 +4,7 @@ require_once('../../artifacts_private/initialize.php');
 require_login();
 
 if(!isset($_GET['id'])) {
-  redirect_to(url_for('/games/index.php'));
+  redirect_to(url_for('/artifacts/index.php'));
 }
 $id = $_GET['id'];
 
@@ -22,7 +22,7 @@ if(is_post_request()) {
   $result = update_game($game);
   if($result === true) {
     $_SESSION['message'] = 'The game was updated successfully.';
-    redirect_to(url_for('/games/edit.php?id=' . $id));
+    redirect_to(url_for('/artifacts/edit.php?id=' . $id));
   } else {
     $errors = $result;
   }
@@ -39,10 +39,10 @@ include(SHARED_PATH . '/header.php');
 
 <main>
 
-  <li><a class="back-link" href="<?php echo url_for('/games/playby.php'); ?>">&laquo; Use Artifacts By</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Artifacts</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/games/new.php'); ?>">&laquo; New Artifact</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/games/playgroup-choose.php'); ?>">&laquo; Choose for Group</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/artifacts/playby.php'); ?>">&laquo; Use Artifacts By</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Artifacts</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/artifacts/new.php'); ?>">&laquo; New Artifact</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/artifacts/playgroup-choose.php'); ?>">&laquo; Choose for Group</a></li>
   <li><a class="back-link" href="<?php echo url_for('/uses/create.php'); ?>">&laquo; Record Use</a></li>
 
   <div class="object edit">
@@ -50,7 +50,7 @@ include(SHARED_PATH . '/header.php');
 
     <?php echo display_errors($errors); ?>
 
-    <form action="<?php echo url_for('/games/edit.php?id=' . h(u($id))); ?>" method="post">
+    <form action="<?php echo url_for('/artifacts/edit.php?id=' . h(u($id))); ?>" method="post">
       <dl>
         <dt>Title</dt>
         <dd><input type="text" name="Title" value="<?php echo h($game['Title']); ?>" /></dd>
@@ -98,7 +98,7 @@ include(SHARED_PATH . '/header.php');
       </div>
     </form>
 
-    <a class="action" href="<?php echo url_for('/games/delete.php?id=' . h(u($_REQUEST['id']))); ?>">
+    <a class="action" href="<?php echo url_for('/artifacts/delete.php?id=' . h(u($_REQUEST['id']))); ?>">
       <p>Delete <?php echo h($game['Title']); ?></p>
     </a>
 

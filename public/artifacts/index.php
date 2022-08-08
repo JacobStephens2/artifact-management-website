@@ -13,13 +13,13 @@ include(SHARED_PATH . '/header.php');
     <h1>Artifacts</h1>
 
     <div class="actions">
-      <a class="action" href="<?php echo url_for('/games/new.php'); ?>">Create Artifact</a>
-      <a class="action" href="<?php echo url_for('/games/playby.php'); ?>">Use Artifacts By Date List</a>
+      <a class="action" href="<?php echo url_for('/artifacts/new.php'); ?>">Create Artifact</a>
+      <a class="action" href="<?php echo url_for('/artifacts/playby.php'); ?>">Use Artifacts By Date List</a>
       <a class="action" href="<?php echo url_for('/uses/create.php'); ?>">Record Use</a>
-      <a class="action" href="<?php echo url_for('/games/responses.php'); ?>">Uses</a>
+      <a class="action" href="<?php echo url_for('/artifacts/responses.php'); ?>">Uses</a>
     </div>
 
-    <form action="<?php echo url_for('/games/index.php'); ?>" method="post">
+    <form action="<?php echo url_for('/artifacts/index.php'); ?>" method="post">
       <label for="type">Game type</label>
       <select name="type" id="type">
         <option value="1" <?php if ($type == 1) { echo 'selected'; } ?>>All types</option>
@@ -37,13 +37,13 @@ include(SHARED_PATH . '/header.php');
       if ($kept == 1) {
         echo "<span>Showing Only Artifacts Kept</span>";
         echo '
-          <a href="' . url_for("/games/index.php") . '">
+          <a href="' . url_for("/artifacts/index.php") . '">
             (Show All Artifacts)
           </a>';
       } else {
         echo "<span>Showing All Artifacts</span>";
         echo '
-          <a href="' . url_for("/games/index.php?kept=1") . '">
+          <a href="' . url_for("/artifacts/index.php?kept=1") . '">
             (Show Only Artifacts Kept)
           </a>';
       }
@@ -69,7 +69,7 @@ include(SHARED_PATH . '/header.php');
     	    <td><?php echo h($object['type']); ?></td>
           <td><?php echo $object['KeptCol'] == 1 ? 'true' : 'false'; ?></td>
           <td>
-            <a class="table-action" href="<?php echo url_for('/games/edit.php?id=' . h(u($object['id']))); ?>">  
+            <a class="table-action" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($object['id']))); ?>">  
               <?php echo h($object['Title']); ?>
             </a>
           </td>

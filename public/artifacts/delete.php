@@ -4,7 +4,7 @@ require_once('../../artifacts_private/initialize.php');
 require_login();
 
 if(!isset($_GET['id'])) {
-  redirect_to(url_for('/games/index.php'));
+  redirect_to(url_for('/artifacts/index.php'));
 }
 $id = $_GET['id'];
 
@@ -12,7 +12,7 @@ if(is_post_request()) {
 
   $result = delete_game($id);
   $_SESSION['message'] = 'The game was deleted successfully.';
-  redirect_to(url_for('/games/index.php'));
+  redirect_to(url_for('/artifacts/index.php'));
 
 } else {
   $object = find_game_by_id($id);
@@ -25,14 +25,14 @@ if(is_post_request()) {
 
 <main>
 
-  <a class="back-link" href="<?php echo url_for('/games/index.php'); ?>">&laquo; Artifacts</a>
+  <a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Artifacts</a>
 
   <div class="object delete">
     <h1>Delete artifact</h1>
     <p>Are you sure you want to delete this artifact?</p>
     <p class="item"><?php echo h($object['Title']); ?></p>
 
-    <form action="<?php echo url_for('/games/delete.php?id=' . h(u($object['id']))); ?>" method="post">
+    <form action="<?php echo url_for('/artifacts/delete.php?id=' . h(u($object['id']))); ?>" method="post">
       <div id="operations">
         <input type="submit" name="commit" value="Delete Artifact" />
       </div>

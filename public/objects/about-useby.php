@@ -4,7 +4,7 @@
 <?php include(SHARED_PATH . '/header.php'); ?>
 
 <main>
-  <p><a class="back-link" href="<?php echo url_for('/games/playby.php'); ?>">&laquo; Back to Artifact Use List</a></p>
+  <p><a class="back-link" href="<?php echo url_for('/artifacts/playby.php'); ?>">&laquo; Back to Artifact Use List</a></p>
   <?php include(SHARED_PATH . '/about.html'); ?>
 </main>
 
