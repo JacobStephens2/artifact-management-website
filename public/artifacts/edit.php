@@ -38,6 +38,7 @@ include(SHARED_PATH . '/header.php');
   <li><a class="back-link" href="<?php echo url_for('/artifacts/new.php'); ?>">&laquo; New Artifact</a></li>
   <li><a class="back-link" href="<?php echo url_for('/artifacts/playgroup-choose.php'); ?>">&laquo; Choose for Group</a></li>
   <li><a class="back-link" href="<?php echo url_for('/uses/create.php'); ?>">&laquo; Record Use</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/artifacts/responses.php'); ?>">&laquo; Uses</a></li>
 
   <div class="object edit">
     <h1>Edit Artifact</h1>
