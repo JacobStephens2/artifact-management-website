@@ -23,6 +23,7 @@ include(SHARED_PATH . '/header.php');
             Create New Artifact
           </a>
         </li>
+        
         <li><a href="<?php echo url_for('/users/index.php');?>">
           Users
           </a>
@@ -64,42 +65,22 @@ include(SHARED_PATH . '/header.php');
         </li>
       </ul>
 
-      <li class="main-menu"><a href="<?php echo url_for('/reset/index.php'); ?>">Reset password</a></li>
-
-
-      <h2>Archived Menu</h2>
-
-      <li class="main-menu">
-        <a href="<?php echo url_for('/objects/index.php'); ?>">
-          Objects
-        </a>
+      <li class="main-menu"><a href="<?php echo url_for('/archive.php'); ?>">Archived Pages</a></li>
+      <li 
+        class="main-menu" 
+        style="margin-top: 0.5rem"
+        >
+        <a href="<?php echo url_for('/reset/index.php'); ?>">Reset password</a>
       </li>
 
-      <ul class="list-2">
-        <li>
-          <a href="<?php echo url_for('/object_uses/new.php'); ?>">
-            Record Object Use
-          </a>
-        </li>
-        <li>
-          <a href="<?php echo url_for('/object_uses/index.php'); ?>">
-            Object Uses
-          </a>
-        </li>
-        <li>
-          <a href="<?php echo url_for('/objects/useby.php'); ?>">
-            Use Objects by Date List
-          </a>
-        </li>
-      </ul>
-    </ul>
-
-    <p>You can use this site to generate a list of use-by dates for objects. 
+    <p>
+      You can use this site to generate a list of use-by dates for objects. 
       <a href="https://jacobstephens.net" target="_blank">Jacob Stephens</a> 
-      uses this tool to track usage of their books, ensuring they use each book 
-      either in the next or previous 180 days. 
+      uses this tool to track usage of books, games, movies, equipment, and more, ensuring use for each 
+      either in the next or previous 90 days. 
       <a href="https://www.theminimalists.com/ninety/" target="_blank">The Minimalists' 90/90 Rule</a> 
-      inspired Jacob to create this tool.</p>
+      inspired Jacob to create this&nbsp;tool.
+    </p>
 
   </div>
 
