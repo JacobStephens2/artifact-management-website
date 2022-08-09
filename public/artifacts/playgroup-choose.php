@@ -1,34 +1,33 @@
-<?php require_once('../../artifacts_private/initialize.php'); ?>
-<?php require_login(); ?>
-<?php $page_title = 'Choose for group'; ?>
-<?php include(SHARED_PATH . '/header.php'); ?>
-
-<?php
+<?php require_once('../../artifacts_private/initialize.php');
+require_login();
+$page_title = 'Choose for group';
+include(SHARED_PATH . '/header.php');
 
 if(is_post_request()) {
-  $_SESSION['range'] = $_POST['range'] ?? 'false';
+  $_SESSION['range'] = $_POST['range'] ?? 'true';
   $_SESSION['type'] = $_POST['type'] ?? '1';
 }
-$range = $_SESSION['range'] ?? 'false';
+$range = $_SESSION['range'] ?? 'true';
 $type = $_SESSION['type'] ?? '1';
 $game_set = choose_games_for_group($range, $type);
 ?>
 
 <main>
     <li><a class="back-link" href="<?php echo url_for('/artifacts/responses.php'); ?>">&laquo; Responses</a></li>
-    <li><a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Games</a></li>
-    <li><a class="back-link" href="<?php echo url_for('/artifacts/playgroup.php'); ?>">&laquo; Playgroup</a></li>
+    <li><a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Artifacts</a></li>
+    <li><a class="back-link" href="<?php echo url_for('/artifacts/playgroup.php'); ?>">&laquo; User group</a></li>
   <div class="objects listing">
-    <h1>Choose artifacts for playgroup</h1>
-    <p>The dates represent the most recent instance of the type of response indicated by the column header. SS = sweet spot, Mnp = minimum player count, Mxp = maximum player count.</p>
-    ***
+    <h1>Choose Artifacts for User Group</h1>
+    <p>
+      The dates represent the most recent instance of the type of response indicated by the column header. SS = sweet spot, Mnp = minimum player count, Mxp = maximum player count.
+    </p>
 
     <!-- Parameters form -->
     <form action="<?php echo url_for('/artifacts/playgroup-choose.php'); ?>" method="post">
       <dl>
-        <dt>Show all artifacts matching count of playgroup</dt>
+        <dt>Show all artifacts matching count of user group (Uncheck to show sweet spot matches only)</dt>
           <input type="hidden" name="range" value="false" />
-          <input type="checkbox" name="range" value="true"<?php if($range == 'true') { echo " checked"; } ?> />
+          <input type="checkbox" name="range" value="true" <?php if($range == 'true') { echo " checked"; } ?> />
       </dl>
       <dl>
         <dt>Artifact type</dt>
