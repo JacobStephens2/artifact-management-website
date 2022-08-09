@@ -40,7 +40,7 @@ $object_set = use_objects_by_user($interval, $limit);
       <tbody>
       <?php while($object = mysqli_fetch_assoc($object_set)) { ?>
         <tr>
-          <td>
+          <td class="name">
             <a class="action" href="<?php echo url_for('/objects/edit.php?id=' . h(u($object['ID']))); ?>">
               <?php echo h($object['ObjectName']); ?>
             </a>
