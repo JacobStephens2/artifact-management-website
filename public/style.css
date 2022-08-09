@@ -492,3 +492,8 @@ td {
     max-width: 29ch;
   }
 }
+
+tr#header {
+  position: sticky;
+  top: 0;
+}
