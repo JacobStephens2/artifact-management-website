@@ -11,13 +11,6 @@ $limit = '';
 $object_set = use_objects_by_user($interval, $limit); 
 ?>
 
-<style>
-tr#header {
-    position: sticky;
-    top: 0;
-}
-</style>
-
 <main>
   <li><a class="back-link" href="<?php echo url_for('/objects/index.php'); ?>">&laquo; Objects</a></li>
   <li><a class="back-link" href="<?php echo url_for('/object_uses/new.php'); ?>">&laquo; Record use</a></li>
@@ -84,31 +77,9 @@ tr#header {
     
   	</table>
 
-    <?php
-      mysqli_free_result($object_set);
-    ?>
+    <?php mysqli_free_result($object_set); ?>
   </div>
 
 </main>
-
-<script>
-// When the user scrolls the page, execute myFunction
-window.onscroll = function() {myFunction()};
-
-// Get the header
-var header = document.getElementById("myHeader");
-
-// Get the offset position of the navbar
-var sticky = header.offsetTop;
-
-// Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
-function myFunction() {
-  if (window.pageYOffset > sticky) {
-    header.classList.add("sticky");
-  } else {
-    header.classList.remove("sticky");
-  }
-}
-</script>
 
 <?php include(SHARED_PATH . '/footer.php'); ?>
