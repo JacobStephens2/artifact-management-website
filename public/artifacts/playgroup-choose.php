@@ -19,19 +19,19 @@ $game_set = choose_games_for_group($range, $type);
     <li><a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Games</a></li>
     <li><a class="back-link" href="<?php echo url_for('/artifacts/playgroup.php'); ?>">&laquo; Playgroup</a></li>
   <div class="objects listing">
-    <h1>Choose games for playgroup</h1>
+    <h1>Choose artifacts for playgroup</h1>
     <p>The dates represent the most recent instance of the type of response indicated by the column header. SS = sweet spot, Mnp = minimum player count, Mxp = maximum player count.</p>
     ***
 
     <!-- Parameters form -->
     <form action="<?php echo url_for('/artifacts/playgroup-choose.php'); ?>" method="post">
       <dl>
-        <dt>Show all games matching count of playgroup</dt>
+        <dt>Show all artifacts matching count of playgroup</dt>
           <input type="hidden" name="range" value="false" />
           <input type="checkbox" name="range" value="true"<?php if($range == 'true') { echo " checked"; } ?> />
       </dl>
       <dl>
-        <dt>Game type</dt>
+        <dt>Artifact type</dt>
           <select name="type">
             <option value="1" <?php if ($_SESSION['type'] == 1) { echo 'selected'; } ?>>All types</option>
             <option value="board-game" <?php if ($_SESSION['type'] == 'board-game') { echo 'selected'; } ?>>Board Game</option>

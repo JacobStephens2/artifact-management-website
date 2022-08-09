@@ -10,7 +10,7 @@ $allGames = $_POST['allGames'] ?? '';
 $favCt = $_POST['favCt'] ?? '';
 $object_set = find_games_by_characteristic($kept, $type, $allGames, $favCt);
 
-$page_title = 'Explore games';
+$page_title = 'Explore Artifacts';
 
 include(SHARED_PATH . '/header.php');
 
@@ -18,7 +18,7 @@ include(SHARED_PATH . '/header.php');
 
 <main>
   <div class="objects listing">
-    <h1>Games</h1>
+    <h1>Artifacts by Characteristic</h1>
 
     <div class="actions">
       <a class="action" href="<?php echo url_for('/artifacts/new.php'); ?>">Create New Game</a>
@@ -27,7 +27,7 @@ include(SHARED_PATH . '/header.php');
 
     <form action="<?php echo url_for('/explore/index.php'); ?>" method="post">
       <dl>
-        <dt>Game type</dt>
+        <dt>Artifact Type</dt>
           <select name="type">
             <option value="1" <?php if ($type == '1') { echo 'selected'; } ?>>All types</option>
             <option value="board-game" <?php if ($type == 'board-game') { echo 'selected'; } ?>>Board Game</option>
@@ -36,11 +36,11 @@ include(SHARED_PATH . '/header.php');
             <option value="sport" <?php if ($type == 'sport') { echo 'selected'; } ?>>Sport</option>
             <option value="game" <?php if ($type == 'game') { echo 'selected'; } ?>>Game</option>
           </select>
-        <dt>Include games from Jacob
+        <dt>Include artifacts from Jacob
           <input type="hidden" name="allGames" value="1" />
           <input type="checkbox" name="allGames" value="true"<?php if($allGames == 'true') { echo " checked"; } ?> />
         </dt>
-        <dt>Show only kept games
+        <dt>Show only kept artifacts
           <input type="hidden" name="kept" value="" />
           <input type="checkbox" name="kept" value="true"<?php if($kept == 'true') { echo " checked"; } ?> />
         </dt>
