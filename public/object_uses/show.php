@@ -15,7 +15,7 @@ $use = find_use_by_id($id);
 
  <li><a class="back-link" href="<?php echo url_for('/object_uses/index.php'); ?>">&laquo; Uses</a><li>
  <li><a class="back-link" href="<?php echo url_for('/objects/useby.php'); ?>">&laquo; Use by</a><li>
- <li><a class="back-link" href="<?php echo url_for('/object_uses/create.php'); ?>">&laquo; New use</a><li>
+ <li><a class="back-link" href="<?php echo url_for('/object_uses/new.php'); ?>">&laquo; New use</a><li>
  <li><a class="action" href="<?php echo url_for('/object_uses/edit.php?id=' . h(u($use['ID']))); ?>">Edit</a><li>
 
   <div class="use show">
