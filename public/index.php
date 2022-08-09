@@ -10,37 +10,18 @@ include(SHARED_PATH . '/header.php');
 
     <h1>Main Menu</h1>
 
-    <ul class="main-menu">
+    <!-- Artifacts -->
+    <ul>
       <li>
         <a href="<?php echo url_for('/artifacts/index.php');?>">
           Artifacts
         </a>
       </li>
 
-      <ul class="list-2">
+      <ul>
         <li>
           <a class="action" href="<?php echo url_for('/artifacts/new.php'); ?>">
             Create New Artifact
-          </a>
-        </li>
-        
-        <li><a href="<?php echo url_for('/users/index.php');?>">
-          Users
-          </a>
-        </li>
-        <li>
-          <a class="action" href="<?php echo url_for('/users/new.php'); ?>">
-            Add New User
-          </a>
-        </li>
-        <li>
-          <a href="<?php echo url_for('/artifacts/responses.php');?>">
-            Uses
-          </a>
-        </li>
-        <li>
-          <a href="<?php echo url_for('/uses/create.php');?>">
-            Record Use
           </a>
         </li>
         <li>
@@ -48,30 +29,69 @@ include(SHARED_PATH . '/header.php');
             Use Artifacts by Date List
           </a>
         </li>
-        <li>
-          <a href="<?php echo url_for('/artifacts/playgroup.php');?>">
-            User Group
-          </a>
-        </li>
-        <li>
-          <a class="action" href="<?php echo url_for('/artifacts/playgroup-choose.php'); ?>">
-            Choose Games for User Group
-          </a>
-        </li>
+
         <li>
           <a href=" <?php echo url_for('/explore/index.php');?>">
             Explore Artifacts by Characteristic
           </a>
         </li>
       </ul>
+    </ul>
 
+    <!-- Uses -->
+    <ul>
+      <li>
+        <a href="<?php echo url_for('/artifacts/responses.php');?>">
+          Uses
+        </a>
+      </li>
+
+      <ul>
+        <li>
+          <a href="<?php echo url_for('/uses/create.php');?>">
+            Record Use
+          </a>
+        </li>
+      </ul>
+    </ul>
+
+    <!-- Users -->
+    <ul>
+      <li><a href="<?php echo url_for('/users/index.php');?>">
+        Users
+        </a>
+      </li>
+
+      <ul>
+        <li>
+          <a class="action" href="<?php echo url_for('/users/new.php'); ?>">
+            Add New User
+          </a>
+        </li>
+
+        <li>
+          <a href="<?php echo url_for('/artifacts/playgroup.php');?>">
+            User Group
+          </a>
+        </li>
+
+        <li>
+          <a class="action" href="<?php echo url_for('/artifacts/playgroup-choose.php'); ?>">
+            Choose Artifacts for User Group
+          </a>
+        </li>
+      </ul>
+    </ul>
+
+    <ul>
       <li class="main-menu"><a href="<?php echo url_for('/archive.php'); ?>">Archived Pages</a></li>
-      <li 
-        class="main-menu" 
-        style="margin-top: 0.5rem"
-        >
+    </ul>
+    
+    <ul>
+      <li class="main-menu">
         <a href="<?php echo url_for('/reset/index.php'); ?>">Reset password</a>
       </li>
+    </ul>
 
     <p>
       You can use this site to generate a list of use-by dates for objects. 
