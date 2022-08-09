@@ -33,7 +33,7 @@ include(SHARED_PATH . '/header.php');
 ?>
 
 <main>
-  <li><a class="back-link" href="<?php echo url_for('/artifacts/playby.php'); ?>">&laquo; Use Artifacts By</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/artifacts/useby.php'); ?>">&laquo; Use Artifacts By</a></li>
   <li><a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Artifacts</a></li>
   <li><a class="back-link" href="<?php echo url_for('/artifacts/new.php'); ?>">&laquo; New Artifact</a></li>
   <li><a class="back-link" href="<?php echo url_for('/artifacts/playgroup-choose.php'); ?>">&laquo; Choose for Group</a></li>

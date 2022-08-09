@@ -43,7 +43,7 @@ include(SHARED_PATH . '/header.php');
           </a>
         </li>
         <li>
-          <a href=" <?php echo url_for('/artifacts/playby.php');?>">
+          <a href=" <?php echo url_for('/artifacts/useby.php');?>">
             Use Artifacts by Date List
           </a>
         </li>

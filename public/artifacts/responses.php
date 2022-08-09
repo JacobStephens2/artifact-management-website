@@ -12,7 +12,7 @@ include(SHARED_PATH . '/header.php');
 
     <section class="actions">
       <a class="action" href="<?php echo url_for('/uses/create.php'); ?>">New Use</a>
-      <a class="action" href="<?php echo url_for('/artifacts/playby.php'); ?>">Use Artifacts by Date List</a>
+      <a class="action" href="<?php echo url_for('/artifacts/useby.php'); ?>">Use Artifacts by Date List</a>
     </section>
 
   	<table class="list">

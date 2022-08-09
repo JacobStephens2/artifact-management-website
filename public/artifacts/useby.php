@@ -21,7 +21,7 @@ $game_set = play_by($type, $interval);
     <li><a class="back-link" href="<?php echo url_for('/objects/about-useby.php'); ?>">Learn About Use-by Date Generation</a></li>
   </div>
   
-  <form action="<?php echo url_for('/artifacts/playby.php'); ?>" method="post">
+  <form action="<?php echo url_for('/artifacts/useby.php'); ?>" method="post">
       <div class="hideOnPrint">
         <label for="type">Artifact Type</label>
         <select name="type" id="type">

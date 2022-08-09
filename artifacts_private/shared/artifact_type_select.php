@@ -72,6 +72,13 @@
   </option>
   
   <option 
+    value="book" 
+    <?php if($type=='book' ) { echo 'selected' ; } ?>
+    >
+    Book
+  </option>
+
+  <option 
     value="other" 
     <?php if($type=='other' ) { echo 'selected' ; } ?>
     >
