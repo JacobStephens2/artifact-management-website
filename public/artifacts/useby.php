@@ -47,11 +47,11 @@ $game_set = play_by($type, $interval);
   <table class="list">
     <tr id="headerRow">
       <th class="table-header">Name (<?php echo $game_set->num_rows; ?>)</th>
-      <th class="table-header">Type</th>
-      <th class="table-header">Use By</th>
       <th class="table-header">C</th>
-      <th class="table-header">Recent Use</th>
       <th class="table-header">Overdue</th>
+      <th class="table-header">Use By</th>
+      <th class="table-header">Recent Use</th>
+      <th class="table-header">Type</th>
     </tr>
 
     <?php while($game = mysqli_fetch_assoc($game_set)) { ?>
@@ -61,25 +61,25 @@ $game_set = play_by($type, $interval);
           <?php echo h($game['Title']); ?></a>
           </a>
         </td>
-        <td class="edit type"><?php echo h($game['type']); ?></td>
-        <td class="edit date"><?php echo h($game['PlayBy']); ?></td>
         <td class="edit"><?php echo h($game['Candidate']); ?></td>
-        <td class="edit date"><?php echo h($game['MaxPlay']); ?></td>
         <td 
-            <?php 
-                if ($game['PlayBy'] < date('Y-m-d')) {
-                  echo 'style="color: red;"';
-                }
-            ?>
-            >
-            <?php 
-                if ($game['PlayBy'] < date('Y-m-d')) {
-                  echo 'Overdue';
-                } else {
-                  echo 'No';
-                }
-            ?>
-          </td>
+          <?php 
+              if ($game['PlayBy'] < date('Y-m-d')) {
+                echo 'style="color: red;"';
+              }
+              ?>
+          >
+          <?php 
+              if ($game['PlayBy'] < date('Y-m-d')) {
+                echo 'Overdue';
+              } else {
+                echo 'No';
+              }
+              ?>
+        </td>
+        <td class="edit date"><?php echo h($game['PlayBy']); ?></td>
+        <td class="edit date"><?php echo h($game['MaxPlay']); ?></td>
+        <td class="edit type"><?php echo h($game['type']); ?></td>
       </tr>
     <?php } ?>
   </table>
