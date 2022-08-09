@@ -20,7 +20,7 @@ tr#header {
 
 <main>
   <li><a class="back-link" href="<?php echo url_for('/objects/index.php'); ?>">&laquo; Objects</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/object_uses/create.php'); ?>">&laquo; Record use</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/object_uses/new.php'); ?>">&laquo; Record use</a></li>
   <li><a class="back-link" href="<?php echo url_for('/object_uses/index.php'); ?>">&laquo; Uses</a></li>
   <div class="objects listing">
     <h1>Use kept objects by date</h1>
@@ -65,13 +65,13 @@ tr#header {
           </td>
           <td 
             <?php 
-                if ($game['UseBy'] < date('Y-m-d')) {
+                if ($object['UseBy'] < date('Y-m-d')) {
                   echo 'style="color: red;"';
                 }
             ?>
             >
             <?php 
-                if ($game['UseBy'] < date('Y-m-d')) {
+                if ($object['UseBy'] < date('Y-m-d')) {
                   echo 'Overdue';
                 } else {
                   echo 'No';
