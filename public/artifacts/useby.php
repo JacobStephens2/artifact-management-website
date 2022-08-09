@@ -11,7 +11,9 @@ $game_set = play_by($type, $interval);
 <main>
   <div class="hideOnPrint">
     <li><a class="back-link" href="<?php echo url_for('/artifacts/responses.php'); ?>">&laquo; Uses</a></li>
+    <li><a class="back-link" href="<?php echo url_for('/uses/create.php'); ?>">&laquo; Record Use</a></li>
     <li><a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Artifacts</a></li>
+    <li><a class="back-link" href="<?php echo url_for('/artifacts/new.php'); ?>">&laquo; Create Artifact</a></li>
   </div>
 
   <h1>Use Artifacts by Date</h1>
