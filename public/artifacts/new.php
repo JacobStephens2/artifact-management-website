@@ -50,19 +50,10 @@ include(SHARED_PATH . '/header.php');
       <label for="Title">Name</label>
       <input type="text" name="Title" id="Title" value="<?php echo h($object['Title']); ?>" /></dd>
       
-      <label for="type">Type</label>
-      <select name="type" id="type">
-        <option value="book" selected>Book</option>
-        <option value="board-game">Board Game</option>
-        <option value="video-game">Video Game</option>
-        <option value="role-playing-game">Role Playing Game</option>
-        <option value="sport">Sport</option>
-        <option value="game">Game</option>
-        <option value="video">Video</option>
-        <option value="toy">Toy</option>
-        <option value="vr-game">VR Game</option>
-        <option value="mobile-game">Mobile Game</option>
-      </select>
+      <?php 
+      $type = ''; 
+      include(SHARED_PATH . '/artifact_type_select.php'); 
+      ?>
       
       <label for="Acq">Acquisition Date</label>
       <input type="date" name="Acq" id="Acq" value="<?php echo date('Y') . '-' . date('m') . '-' . date('d'); ?>"/>
