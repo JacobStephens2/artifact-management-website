@@ -34,7 +34,7 @@ include(SHARED_PATH . '/header.php');
 <main>
 
   <li>
-    <a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Back to List</a>
+    <a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Artifacts</a>
   </li>
   <li>
     <a class="back-link" href="<?php echo url_for('/uses/create.php'); ?>">&laquo; Create Use</a>

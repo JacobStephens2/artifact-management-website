@@ -732,7 +732,10 @@ ORDER BY UseDate DESC
     HAVING
         games.user_id = 8
     ORDER BY
-        MaxPlay ASC
+        games.KeptCol DESC,
+        MaxPlay DESC,
+        PlayBy ASC,
+        id ASC
     */
 
     $sql = "SELECT
@@ -767,15 +770,17 @@ ORDER BY UseDate DESC
     HAVING
         games.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
 
-        if ($kept == 1) { 
+        if ( $kept == 'yes') { 
           $sql .= "AND games.KeptCol = 1 "; 
+        } elseif ( $kept == 'no' ) {
+          $sql .= "AND games.KeptCol = 0 "; 
         }
 
     $sql .= "
         ORDER BY
         games.KeptCol DESC,
-        PlayBy ASC,
         MaxPlay DESC,
+        PlayBy ASC,
         id ASC
     ";
 

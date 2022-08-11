@@ -1,7 +1,7 @@
 <?php 
 require_once('../../artifacts_private/initialize.php');
 require_login();
-$kept = $_GET['kept'] ?? '';
+$kept = $_GET['kept'] ?? 'all';
 $type = $_POST['type'] ?? '1';
 $object_set = find_games_by_user_id($kept, $type);
 $page_title = 'Artifacts';
@@ -34,18 +34,33 @@ include(SHARED_PATH . '/header.php');
     </form>
 
     <?php
-      if ($kept == 1) {
-        echo "<span>Showing Only Artifacts Kept</span>";
+      if ($kept != 'all') {
         echo '
-          <a href="' . url_for("/artifacts/index.php") . '">
-            (Show All Artifacts)
-          </a>';
-      } else {
-        echo "<span>Showing All Artifacts</span>";
+          <li>
+          <a href="' . url_for("/artifacts/index.php?kept=all") . '">
+            Show All Artifacts
+          </a>
+          </li>
+          ';
+      } 
+      if ( $kept != 'yes' ) {
         echo '
-          <a href="' . url_for("/artifacts/index.php?kept=1") . '">
-            (Show Only Artifacts Kept)
-          </a>';
+          <li>
+          <a href="' . url_for("/artifacts/index.php?kept=yes") . '">
+            Show Only Artifacts Kept
+          </a>
+          </li>
+          ';
+      }
+
+      if ( $kept != 'no') {
+        echo '
+        <li>
+        <a href="' . url_for("/artifacts/index.php?kept=no") . '">
+          Show Only Artifacts Not Kept
+        </a>
+        </li>
+        ';
       }
    ?>
 
