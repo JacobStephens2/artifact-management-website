@@ -66,14 +66,39 @@ $artifact_set = use_by($type, $interval);
           <?php echo h($artifact['Title']); ?></a>
           </a>
         </td>
-        <td class="edit"><?php echo h($artifact['Candidate']); ?></td>
-        <td><?php echo h($artifact['UsedRecUserCt']); ?></td>
+        
+        <td>
+          <?php 
+              if ($artifact['Candidate'] < 1) {
+                echo '';
+              } else {
+                echo $artifact['Candidate'];
+              }
+          ?>
+        </td>
+
+        <td
+          <?php 
+              if ( $artifact['UsedRecUserCt'] != 1 ) {
+                echo 'style="color: red;"';
+              }
+          ?>
+          >
+          <?php 
+          if ( $artifact['UsedRecUserCt'] != 1 ) {
+            echo 'No';
+          } else {
+            echo 'Yes';
+          } 
+          ?>
+        </td>
+
         <td 
           <?php 
               if ($artifact['PlayBy'] < date('Y-m-d')) {
                 echo 'style="color: red;"';
               }
-              ?>
+          ?>
           >
           <?php 
               if ($artifact['PlayBy'] < date('Y-m-d')) {
@@ -81,7 +106,7 @@ $artifact_set = use_by($type, $interval);
               } else {
                 echo 'No';
               }
-              ?>
+            ?>
         </td>
         <td class="edit date"><?php echo h($artifact['PlayBy']); ?></td>
         <td class="edit date"><?php echo h($artifact['MaxPlay']); ?></td>

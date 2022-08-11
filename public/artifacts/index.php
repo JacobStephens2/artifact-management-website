@@ -4,7 +4,7 @@ require_login();
 $kept = $_GET['kept'] ?? 'all';
 $type = $_POST['type'] ?? '1';
 $interval = $_POST['interval'] ?? '180';
-$object_set = find_games_by_user_id($kept, $type, $interval);
+$artifact_set = find_games_by_user_id($kept, $type, $interval);
 $page_title = 'Artifacts';
 include(SHARED_PATH . '/header.php'); 
 ?>
@@ -82,29 +82,29 @@ include(SHARED_PATH . '/header.php');
         <th>O</th>
         <th>C</th>
         <th>U</th>
-        <th>Name (<?php echo $object_set->num_rows; ?>)</th>
+        <th>Name (<?php echo $artifact_set->num_rows; ?>)</th>
         <th>Acquisition Date</th>
         <th>Recent Use</th>
         <th>Use By</th>
   	  </tr>
 
-      <?php while($object = mysqli_fetch_assoc($object_set)) { ?>
+      <?php while($artifact = mysqli_fetch_assoc($artifact_set)) { ?>
         <tr>
-          <td><?php echo h($object['Acq']); ?></td>
+          <td><?php echo h($artifact['Acq']); ?></td>
     	    
-          <td><?php echo h($object['type']); ?></td>
+          <td><?php echo h($artifact['type']); ?></td>
 
-          <td><?php echo $object['KeptCol'] == 1 ? 'true' : 'false'; ?></td>
+          <td><?php echo $artifact['KeptCol'] == 1 ? 'true' : 'false'; ?></td>
 
           <td 
             <?php 
-                if ($object['UseBy'] < date('Y-m-d')) {
+                if ($artifact['UseBy'] < date('Y-m-d')) {
                   echo 'style="color: red;"';
                 }
             ?>
             >
             <?php 
-                if ($object['UseBy'] < date('Y-m-d')) {
+                if ($artifact['UseBy'] < date('Y-m-d')) {
                   echo 'Yes';
                 } else {
                   echo 'No';
@@ -112,29 +112,51 @@ include(SHARED_PATH . '/header.php');
             ?>
           </td>
 
-          <td><?php echo h($object['Candidate']); ?></td>
+          <td>
+            <?php 
+                if ($artifact['Candidate'] < 1) {
+                  echo '';
+                } else {
+                  echo $artifact['Candidate'];
+                }
+            ?>
+          </td>
           
-          <td><?php echo h($object['UsedRecUserCt']); ?></td>
+          <td
+            <?php 
+                if ( $artifact['UsedRecUserCt'] != 1 ) {
+                  echo 'style="color: red;"';
+                }
+            ?>
+            >
+            <?php 
+            if ( $artifact['UsedRecUserCt'] != 1 ) {
+              echo 'No';
+            } else {
+              echo 'Yes';
+            } 
+            ?>
+          </td>
 
           <td>
-            <a class="table-action" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($object['id']))); ?>">  
-              <?php echo h($object['Title']); ?>
+            <a class="table-action" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($artifact['id']))); ?>">  
+              <?php echo h($artifact['Title']); ?>
             </a>
           </td>
 
-          <td><?php echo h($object['Acq']); ?></td>
+          <td><?php echo h($artifact['Acq']); ?></td>
 
-          <td class="date"><?php echo h($object['MaxPlay']); ?></td>
+          <td class="date"><?php echo h($artifact['MaxPlay']); ?></td>
           
           <td class="date">
-            <?php echo h($object['UseBy']); ?>
+            <?php echo h($artifact['UseBy']); ?>
           </td>
           
     	  </tr>
       <?php } ?>
   	</table>
 
-    <?php mysqli_free_result($object_set); ?>
+    <?php mysqli_free_result($artifact_set); ?>
   </div>
 
 </main>
