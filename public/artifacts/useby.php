@@ -4,7 +4,7 @@ require_login();
 $page_title = 'Use By';
 include(SHARED_PATH . '/header.php');
 $type = $_POST['type'] ?? '1';
-$interval = $_POST['interval'] ?? '90';
+$interval = $_POST['interval'] ?? '180';
 $artifact_set = use_by($type, $interval);
 ?>
 
@@ -45,13 +45,15 @@ $artifact_set = use_by($type, $interval);
     </form>
 
   <p>C stands for Candidate</p>
+  <p>U stands for used at recommended user count or used fully through at non-recommended count</p>
+  <p>O stands for Overdue</p>
 
   <table class="list">
     <tr id="headerRow">
       <th class="table-header">Name (<?php echo $artifact_set->num_rows; ?>)</th>
       <th class="table-header">C</th>
       <th class="table-header">U</th>
-      <th class="table-header">Overdue</th>
+      <th class="table-header">O</th>
       <th class="table-header">Use By</th>
       <th class="table-header">Recent Use</th>
       <th class="table-header">Type</th>
@@ -75,7 +77,7 @@ $artifact_set = use_by($type, $interval);
           >
           <?php 
               if ($artifact['PlayBy'] < date('Y-m-d')) {
-                echo 'Overdue';
+                echo 'Yes';
               } else {
                 echo 'No';
               }
