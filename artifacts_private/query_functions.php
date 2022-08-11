@@ -743,6 +743,7 @@ ORDER BY UseDate DESC
         games.mnp,
         games.mxp,
         games.Candidate,
+        games.UsedRecUserCt,
         games.ss,
         games.id,
         games.type,
@@ -750,11 +751,19 @@ ORDER BY UseDate DESC
         games.Acq,
         MAX(responses.PlayDate) AS MaxPlay,
         games.KeptCol,
-        CASE WHEN MAX(responses.PlayDate) < games.Acq THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) WHEN MAX(responses.PlayDate) IS NULL THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) ELSE DATE_ADD(
-            MAX(responses.PlayDate),
-            INTERVAL 180 DAY
-        )
-        END PlayBy
+        CASE 
+          WHEN 
+            MAX(responses.PlayDate) < games.Acq 
+            THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) 
+          WHEN 
+            MAX(responses.PlayDate) IS NULL AND games.Acq IS NULL
+            THEN DATE_ADD(CURRENT_DATE, INTERVAL 90 DAY) 
+          WHEN 
+            MAX(responses.PlayDate) IS NULL 
+            THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) 
+          ELSE 
+            DATE_ADD(MAX(responses.PlayDate), INTERVAL 180 DAY)
+        END UseBy
     FROM
         games
     LEFT JOIN responses ON games.id = responses.Title
@@ -778,9 +787,10 @@ ORDER BY UseDate DESC
 
     $sql .= "
         ORDER BY
-        games.KeptCol DESC,
+        UseBy ASC,
         MaxPlay DESC,
-        PlayBy ASC,
+        Acq DESC,
+        games.KeptCol DESC,
         id ASC
     ";
 
@@ -800,21 +810,22 @@ ORDER BY UseDate DESC
     mysqli_free_result($result);
     return $subject; // returns an assoc. array
   }
-  function update_game($game) {
+  function update_artifact($artifact) {
     global $db;
 
-    $errors = validate_game($game);
+    $errors = validate_game($artifact);
     if(!empty($errors)) {
       return $errors;
     }
 
     $sql = "UPDATE games SET ";
-    $sql .= "Title='" . db_escape($db, $game['Title']) . "', ";
-    $sql .= "KeptCol='" . db_escape($db, $game['KeptCol']) . "', ";
-    $sql .= "Acq='" . db_escape($db, $game['Acq']) . "', ";
-    $sql .= "Candidate='" . db_escape($db, $game['Candidate']) . "', ";
-    $sql .= "type='" . db_escape($db, $game['type']) . "' ";
-    $sql .= "WHERE id='" . db_escape($db, $game['id']) . "' ";
+    $sql .= "Title='" . db_escape($db, $artifact['Title']) . "', ";
+    $sql .= "KeptCol='" . db_escape($db, $artifact['KeptCol']) . "', ";
+    $sql .= "Acq='" . db_escape($db, $artifact['Acq']) . "', ";
+    $sql .= "Candidate='" . db_escape($db, $artifact['Candidate']) . "', ";
+    $sql .= "UsedRecUserCt='" . db_escape($db, $artifact['UsedRecUserCt']) . "', ";
+    $sql .= "type='" . db_escape($db, $artifact['type']) . "' ";
+    $sql .= "WHERE id='" . db_escape($db, $artifact['id']) . "' ";
     $sql .= "LIMIT 1";
     $result = mysqli_query($db, $sql);
     // For UPDATE statements, $result is true/false
@@ -828,19 +839,19 @@ ORDER BY UseDate DESC
     }
   }
   
-  function validate_game($game) {
+  function validate_game($artifact) {
     $errors = [];
 
     // Title
-    if(is_blank($game['Title'])) {
+    if(is_blank($artifact['Title'])) {
       $errors[] = "Title cannot be blank.";
-    } elseif(!has_length($game['Title'], ['min' => 2, 'max' => 255])) {
+    } elseif(!has_length($artifact['Title'], ['min' => 2, 'max' => 255])) {
       $errors[] = "Title must be between 2 and 255 characters.";
     }
 
     // KeptCol
     // Make sure we are working with a string
-    $visible_str = (string) $game['KeptCol'];
+    $visible_str = (string) $artifact['KeptCol'];
     if(!has_inclusion_of($visible_str, ["0","1"])) {
       $errors[] = "Kept must be true or false.";
     }
