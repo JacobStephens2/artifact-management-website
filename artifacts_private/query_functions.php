@@ -756,9 +756,6 @@ ORDER BY UseDate DESC
             MAX(responses.PlayDate) < games.Acq 
             THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) 
           WHEN 
-            MAX(responses.PlayDate) IS NULL AND games.Acq IS NULL
-            THEN DATE_ADD(CURRENT_DATE, INTERVAL 90 DAY) 
-          WHEN 
             MAX(responses.PlayDate) IS NULL 
             THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) 
           ELSE 
@@ -787,7 +784,7 @@ ORDER BY UseDate DESC
 
     $sql .= "
         ORDER BY
-        UseBy ASC,
+        UseBy DESC,
         MaxPlay DESC,
         Acq DESC,
         games.KeptCol DESC,
