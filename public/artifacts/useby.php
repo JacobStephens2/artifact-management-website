@@ -50,13 +50,13 @@ $artifact_set = use_by($type, $interval);
 
   <table class="list">
     <tr id="headerRow">
-      <th class="table-header">Name (<?php echo $artifact_set->num_rows; ?>)</th>
-      <th class="table-header">C</th>
-      <th class="table-header">U</th>
-      <th class="table-header">O</th>
-      <th class="table-header">Use By</th>
-      <th class="table-header">Recent Use</th>
-      <th class="table-header">Type</th>
+      <th>Name (<?php echo $artifact_set->num_rows; ?>)</th>
+      <th>C</th>
+      <th>U</th>
+      <th>O</th>
+      <th>Use By</th>
+      <th class="hideOnPrint">Recent Use</th>
+      <th>Type</th>
     </tr>
 
     <?php while($artifact = mysqli_fetch_assoc($artifact_set)) { ?>
@@ -108,9 +108,9 @@ $artifact_set = use_by($type, $interval);
               }
             ?>
         </td>
-        <td class="edit date"><?php echo h($artifact['PlayBy']); ?></td>
-        <td class="edit date"><?php echo h($artifact['MaxPlay']); ?></td>
-        <td class="edit type"><?php echo h($artifact['type']); ?></td>
+        <td class="date"><?php echo h($artifact['PlayBy']); ?></td>
+        <td class="date hideOnPrint"><?php echo h($artifact['MaxPlay']); ?></td>
+        <td class="type"><?php echo h($artifact['type']); ?></td>
       </tr>
     <?php } ?>
   </table>
