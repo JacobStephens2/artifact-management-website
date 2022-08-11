@@ -11,14 +11,15 @@ if(!isset($_GET['id'])) {
 $id = $_GET['id'];
 if(is_post_request()) {
   // Handle form values sent by new.php
-  $game = [];
-  $game['id'] = $id ?? '';
-  $game['Title'] = $_POST['Title'] ?? '';
-  $game['Acq'] = $_POST['Acq'] ?? '';
-  $game['type'] = $_POST['type'] ?? '';
-  $game['KeptCol'] = $_POST['KeptCol'] ?? '';
-  $game['Candidate'] = $_POST['Candidate'] ?? '';
-  $result = update_game($game);
+  $artifact = [];
+  $artifact['id'] = $id ?? '';
+  $artifact['Title'] = $_POST['Title'] ?? '';
+  $artifact['Acq'] = $_POST['Acq'] ?? '';
+  $artifact['type'] = $_POST['type'] ?? '';
+  $artifact['KeptCol'] = $_POST['KeptCol'] ?? '';
+  $artifact['Candidate'] = $_POST['Candidate'] ?? '';
+  $artifact['UsedRecUserCt'] = $_POST['UsedRecUserCt'] ?? '';
+  $result = update_artifact($artifact);
   if($result === true) {
     $_SESSION['message'] = 'The game was updated successfully.';
     redirect_to(url_for('/artifacts/edit.php?id=' . $id));
@@ -26,9 +27,9 @@ if(is_post_request()) {
     $errors = $result;
   }
 } else {
-  $game = find_game_by_id($id);
+  $artifact = find_game_by_id($id);
 }
-$page_title = h($game['Title']); 
+$page_title = h($artifact['Title']); 
 include(SHARED_PATH . '/header.php'); 
 ?>
 
@@ -47,29 +48,35 @@ include(SHARED_PATH . '/header.php');
 
     <form action="<?php echo url_for('/artifacts/edit.php?id=' . h(u($id))); ?>" method="post">
       <label for="Title">Title</dt>
-      <input type="text" name="Title" id="Title" value="<?php echo h($game['Title']); ?>" />
+      <input type="text" name="Title" id="Title" value="<?php echo h($artifact['Title']); ?>" />
 
       <?php 
-      $type = $game['type']; 
+      $type = $artifact['type']; 
       require_once(SHARED_PATH . '/artifact_type_select.php'); 
       ?>
 
       <label for="Acq">Acquisition Date</label>
-      <input type="date" name="Acq" id="Acq" value="<?php echo h($game['Acq']); ?>" />
+      <input type="date" name="Acq" id="Acq" value="<?php echo h($artifact['Acq']); ?>" />
       
-      <label for="KeptCol" >Kept in Collection? (Checked Indicates Kept)</label>
+      <p>Checked indicates true:</p>
+
+      <label for="KeptCol" >Kept in Collection?</label>
       <input type="hidden" name="KeptCol" value="0" />
-      <input type="checkbox" name="KeptCol" id="KeptCol" value="1"<?php if($game['KeptCol'] == "1") { echo " checked"; } ?> />
+      <input type="checkbox" name="KeptCol" id="KeptCol" value="1"<?php if($artifact['KeptCol'] == "1") { echo " checked"; } ?> />
 
       <label for="Candidate">Candidate?</label>
       <input type="hidden" name="Candidate" value="0" />
-      <input type="checkbox" name="Candidate" id="Candidate" value="1"<?php if($game['Candidate'] == "1") { echo " checked"; } ?> />
+      <input type="checkbox" name="Candidate" id="Candidate" value="1"<?php if($artifact['Candidate'] == "1") { echo " checked"; } ?> />
+
+      <label for="UsedRecUserCt">Used at recommended user count? <br/>Or fully used through at non recommended count?</label>
+      <input type="hidden" name="UsedRecUserCt" value="0" />
+      <input type="checkbox" name="UsedRecUserCt" id="UsedRecUserCt" value="1"<?php if($artifact['UsedRecUserCt'] == "1") { echo " checked"; } ?> />
 
       <input type="submit" value="Save Edits" />
     </form>
 
     <a class="action" href="<?php echo url_for('/artifacts/delete.php?id=' . h(u($_REQUEST['id']))); ?>">
-      <p>Delete <?php echo h($game['Title']); ?></p>
+      <p>Delete <?php echo h($artifact['Title']); ?></p>
     </a>
 
   </div>
