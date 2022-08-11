@@ -929,7 +929,7 @@ ORDER BY UseDate DESC
     return $result;
   }
 
-  function play_by($type, $interval) {
+  function use_by($type, $interval) {
     global $db;
 
     /* Sample output of this query
@@ -973,6 +973,7 @@ ORDER BY UseDate DESC
         games.mnp,
         games.mxp,
         games.Candidate,
+        games.UsedRecUserCt,
         games.ss,
         games.id,
         games.type,

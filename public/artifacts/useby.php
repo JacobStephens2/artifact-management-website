@@ -5,7 +5,7 @@ $page_title = 'Use By';
 include(SHARED_PATH . '/header.php');
 $type = $_POST['type'] ?? '1';
 $interval = $_POST['interval'] ?? '90';
-$game_set = play_by($type, $interval);
+$artifact_set = use_by($type, $interval);
 ?>
 
 <main>
@@ -48,45 +48,47 @@ $game_set = play_by($type, $interval);
 
   <table class="list">
     <tr id="headerRow">
-      <th class="table-header">Name (<?php echo $game_set->num_rows; ?>)</th>
+      <th class="table-header">Name (<?php echo $artifact_set->num_rows; ?>)</th>
       <th class="table-header">C</th>
+      <th class="table-header">U</th>
       <th class="table-header">Overdue</th>
       <th class="table-header">Use By</th>
       <th class="table-header">Recent Use</th>
       <th class="table-header">Type</th>
     </tr>
 
-    <?php while($game = mysqli_fetch_assoc($game_set)) { ?>
+    <?php while($artifact = mysqli_fetch_assoc($artifact_set)) { ?>
       <tr>
         <td class="edit">
-          <a class="action edit" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($game['id']))); ?>">
-          <?php echo h($game['Title']); ?></a>
+          <a class="action edit" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($artifact['id']))); ?>">
+          <?php echo h($artifact['Title']); ?></a>
           </a>
         </td>
-        <td class="edit"><?php echo h($game['Candidate']); ?></td>
+        <td class="edit"><?php echo h($artifact['Candidate']); ?></td>
+        <td><?php echo h($artifact['UsedRecUserCt']); ?></td>
         <td 
           <?php 
-              if ($game['PlayBy'] < date('Y-m-d')) {
+              if ($artifact['PlayBy'] < date('Y-m-d')) {
                 echo 'style="color: red;"';
               }
               ?>
           >
           <?php 
-              if ($game['PlayBy'] < date('Y-m-d')) {
+              if ($artifact['PlayBy'] < date('Y-m-d')) {
                 echo 'Overdue';
               } else {
                 echo 'No';
               }
               ?>
         </td>
-        <td class="edit date"><?php echo h($game['PlayBy']); ?></td>
-        <td class="edit date"><?php echo h($game['MaxPlay']); ?></td>
-        <td class="edit type"><?php echo h($game['type']); ?></td>
+        <td class="edit date"><?php echo h($artifact['PlayBy']); ?></td>
+        <td class="edit date"><?php echo h($artifact['MaxPlay']); ?></td>
+        <td class="edit type"><?php echo h($artifact['type']); ?></td>
       </tr>
     <?php } ?>
   </table>
 
-  <?php mysqli_free_result($game_set); ?>
+  <?php mysqli_free_result($artifact_set); ?>
 
 </main>
 
