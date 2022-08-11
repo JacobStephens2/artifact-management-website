@@ -64,7 +64,8 @@ include(SHARED_PATH . '/header.php');
       }
    ?>
 
-    <p>C stands for Candidate</p>
+    <p>C stands for candidate</p>
+    <p>U stands for used at recommended user count or used fully through at non-recommended count</p>
 
   	<table class="list">
   	  <tr id="headerRow">
@@ -73,7 +74,9 @@ include(SHARED_PATH . '/header.php');
         <th>Kept</th>
         <th>Name (<?php echo $object_set->num_rows; ?>)</th>
         <th>C</th>
+        <th>U</th>
         <th>Recent Use</th>
+        <th>Acquisition Date</th>
         <th>Use By</th>
         <th>Overdue</th>
   	  </tr>
@@ -81,27 +84,38 @@ include(SHARED_PATH . '/header.php');
       <?php while($object = mysqli_fetch_assoc($object_set)) { ?>
         <tr>
           <td><?php echo h($object['Acq']); ?></td>
-    	    <td><?php echo h($object['type']); ?></td>
+    	    
+          <td><?php echo h($object['type']); ?></td>
+          
           <td><?php echo $object['KeptCol'] == 1 ? 'true' : 'false'; ?></td>
+
           <td>
             <a class="table-action" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($object['id']))); ?>">  
               <?php echo h($object['Title']); ?>
             </a>
           </td>
+
           <td><?php echo h($object['Candidate']); ?></td>
+          
+          <td><?php echo h($object['UsedRecUserCt']); ?></td>
+
+          <td><?php echo h($object['Acq']); ?></td>
+
           <td class="date"><?php echo h($object['MaxPlay']); ?></td>
+          
           <td class="date">
-            <?php echo h($object['PlayBy']); ?>
+            <?php echo h($object['UseBy']); ?>
           </td>
+          
           <td 
             <?php 
-                if ($object['PlayBy'] < date('Y-m-d')) {
+                if ($object['UseBy'] < date('Y-m-d')) {
                   echo 'style="color: red;"';
                 }
             ?>
             >
             <?php 
-                if ($object['PlayBy'] < date('Y-m-d')) {
+                if ($object['UseBy'] < date('Y-m-d')) {
                   echo 'Overdue';
                 } else {
                   echo 'No';
