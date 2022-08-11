@@ -864,12 +864,20 @@ ORDER BY UseDate DESC
     }
 
     $sql = "INSERT INTO games ";
-    $sql .= "(Title, Acq, type, KeptCol, user_id) ";
+    $sql .= "(Title, 
+              Acq, 
+              type, 
+              KeptCol, 
+              Candidate, 
+              UsedRecUserCt, 
+              user_id) ";
     $sql .= "VALUES (";
     $sql .= "'" . db_escape($db, $object['Title']) . "',";
     $sql .= "'" . db_escape($db, $object['Acq']) . "',";
     $sql .= "'" . db_escape($db, $object['type']) . "',";
     $sql .= "'" . db_escape($db, $object['KeptCol']) . "',";
+    $sql .= "'" . db_escape($db, $object['Candidate']) . "',";
+    $sql .= "'" . db_escape($db, $object['UsedRecUserCt']) . "',";
     $sql .= "'" . db_escape($db, $_SESSION['user_id']) . "'";
     $sql .= ")";
     $result = mysqli_query($db, $sql);

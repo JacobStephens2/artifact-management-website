@@ -4,13 +4,15 @@ require_login();
 
 if(is_post_request()) {
 
-  $object = [];
-  $object['Title'] = $_POST['Title'] ?? '';
-  $object['Acq'] = $_POST['Acq'] ?? '';
-  $object['type'] = $_POST['type'] ?? '';
-  $object['KeptCol'] = $_POST['KeptCol'] ?? '';
+  $artifact = [];
+  $artifact['Title'] = $_POST['Title'] ?? '';
+  $artifact['Acq'] = $_POST['Acq'] ?? '';
+  $artifact['type'] = $_POST['type'] ?? '';
+  $artifact['KeptCol'] = $_POST['KeptCol'] ?? '';
+  $artifact['Candidate'] = $_POST['Candidate'] ?? '';
+  $artifact['UsedRecUserCt'] = $_POST['UsedRecUserCt'] ?? '';
 
-  $result = insert_game($object);
+  $result = insert_game($artifact);
   if($result === true) {
     $new_id = mysqli_insert_id($db);
     $_SESSION['message'] = 'The object was created successfully.';
@@ -21,13 +23,16 @@ if(is_post_request()) {
 
 } else {
   // display the blank form
-  $object = [];
-  $object["Title"] = '';
-  $object["type"] = '';
-  $object["Acq"] = '';
-  $object["KeptCol"] = '';
+  $artifact = [];
+  $artifact["Title"] = '';
+  $artifact["type"] = '';
+  $artifact["Acq"] = '';
+  $artifact["KeptCol"] = '';
+  $artifact["Candidate"] = '';
+  $artifact["UsedRecUserCt"] = '';
 }
-$page_title = 'Create object';
+
+$page_title = 'Create Artifact';
 include(SHARED_PATH . '/header.php');
 ?>
 
@@ -48,7 +53,7 @@ include(SHARED_PATH . '/header.php');
     <form action="<?php echo url_for('/artifacts/new.php'); ?>" method="post">
 
       <label for="Title">Name</label>
-      <input type="text" name="Title" id="Title" value="<?php echo h($object['Title']); ?>" /></dd>
+      <input type="text" name="Title" id="Title" value="<?php echo h($artifact['Title']); ?>" /></dd>
       
       <?php 
       $type = ''; 
@@ -61,17 +66,16 @@ include(SHARED_PATH . '/header.php');
       <label for="KeptCol">Kept in Collection (Checked Means Yes)</label>
       <input type="hidden" name="KeptCol" value="0" />
       <input type="checkbox" name="KeptCol" value="1" checked/>
+      
+      <label for="Candidate">Candidate?</label>
+      <input type="text" name="Candidate" id="Candidate" value="<?php echo $artifact['Candidate']; ?>" />
 
-      <dl>
-        <dt>Candidate?</dt>
-        <dd>
-          <input type="hidden" name="Candidate" value="0" />
-          <input type="checkbox" name="Candidate" value="1"<?php if($game['Candidate'] == "1") { echo " checked"; } ?> />
-        </dd>
-      </dl>
+      <label for="UsedRecUserCt">Used at recommended user count or completely through at non recommended user count</label>
+      <input type="hidden" name="UsedRecUserCt" value="0" />
+      <input type="checkbox" name="UsedRecUserCt" value="1" checked/>
 
       <div id="operations">
-        <input type="submit" value="Create game" />
+        <input type="submit" value="Create Artifact" />
       </div>
     </form>
 
