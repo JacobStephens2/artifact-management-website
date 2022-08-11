@@ -80,8 +80,8 @@ include(SHARED_PATH . '/header.php');
         <th>Type</th>
         <th>Kept</th>
         <th>O</th>
-        <th>C</th>
         <th>U</th>
+        <th>C</th>
         <th>Name (<?php echo $artifact_set->num_rows; ?>)</th>
         <th>Acquisition Date</th>
         <th>Recent Use</th>
@@ -111,16 +111,6 @@ include(SHARED_PATH . '/header.php');
                 }
             ?>
           </td>
-
-          <td>
-            <?php 
-                if ($artifact['Candidate'] < 1) {
-                  echo '';
-                } else {
-                  echo $artifact['Candidate'];
-                }
-            ?>
-          </td>
           
           <td
             <?php 
@@ -135,6 +125,16 @@ include(SHARED_PATH . '/header.php');
             } else {
               echo 'Yes';
             } 
+            ?>
+          </td>
+
+          <td>
+            <?php 
+                if ($artifact['Candidate'] < 1) {
+                  echo '';
+                } else {
+                  echo $artifact['Candidate'];
+                }
             ?>
           </td>
 
