@@ -65,7 +65,7 @@ include(SHARED_PATH . '/header.php');
       <input type="checkbox" name="KeptCol" id="KeptCol" value="1"<?php if($artifact['KeptCol'] == "1") { echo " checked"; } ?> />
 
       <label for="Candidate">Candidate?</label>
-      <input type="number" name="Candidate" id="Candidate" value="1"<?php echo $artifact['Candidate'] ?> />
+      <input type="text" name="Candidate" id="Candidate" value="<?php echo $artifact['Candidate'] ?>" />
 
       <label for="UsedRecUserCt">Used at recommended user count? <br/>Or fully used through at non recommended count?</label>
       <input type="hidden" name="UsedRecUserCt" value="0" />
