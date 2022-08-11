@@ -3,7 +3,8 @@ require_once('../../artifacts_private/initialize.php');
 require_login();
 $kept = $_GET['kept'] ?? 'all';
 $type = $_POST['type'] ?? '1';
-$object_set = find_games_by_user_id($kept, $type);
+$interval = $_POST['interval'] ?? '180';
+$object_set = find_games_by_user_id($kept, $type, $interval);
 $page_title = 'Artifacts';
 include(SHARED_PATH . '/header.php'); 
 ?>
@@ -29,6 +30,11 @@ include(SHARED_PATH . '/header.php');
         <option value="sport" <?php if ($type == 'sport') { echo 'selected'; } ?>>Sport</option>
         <option value="game" <?php if ($type == 'game') { echo 'selected'; } ?>>Game</option>
       </select>
+      
+      <div class="displayOnPrint">
+        <label for="interval">Interval in days from most recent or to upcoming use</label>
+        <input type="number" name="interval" id="interval" value="<?php echo $interval ?>">
+      </div>
 
       <input type="submit" value="Submit" />
     </form>
@@ -66,19 +72,20 @@ include(SHARED_PATH . '/header.php');
 
     <p>C stands for candidate</p>
     <p>U stands for used at recommended user count or used fully through at non-recommended count</p>
+    <p>O stands for overdue</p>
 
   	<table class="list">
   	  <tr id="headerRow">
         <th>Acquisition</th>
         <th>Type</th>
         <th>Kept</th>
-        <th>Name (<?php echo $object_set->num_rows; ?>)</th>
+        <th>O</th>
         <th>C</th>
         <th>U</th>
-        <th>Recent Use</th>
+        <th>Name (<?php echo $object_set->num_rows; ?>)</th>
         <th>Acquisition Date</th>
+        <th>Recent Use</th>
         <th>Use By</th>
-        <th>Overdue</th>
   	  </tr>
 
       <?php while($object = mysqli_fetch_assoc($object_set)) { ?>
@@ -86,27 +93,9 @@ include(SHARED_PATH . '/header.php');
           <td><?php echo h($object['Acq']); ?></td>
     	    
           <td><?php echo h($object['type']); ?></td>
-          
+
           <td><?php echo $object['KeptCol'] == 1 ? 'true' : 'false'; ?></td>
 
-          <td>
-            <a class="table-action" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($object['id']))); ?>">  
-              <?php echo h($object['Title']); ?>
-            </a>
-          </td>
-
-          <td><?php echo h($object['Candidate']); ?></td>
-          
-          <td><?php echo h($object['UsedRecUserCt']); ?></td>
-
-          <td><?php echo h($object['Acq']); ?></td>
-
-          <td class="date"><?php echo h($object['MaxPlay']); ?></td>
-          
-          <td class="date">
-            <?php echo h($object['UseBy']); ?>
-          </td>
-          
           <td 
             <?php 
                 if ($object['UseBy'] < date('Y-m-d')) {
@@ -116,12 +105,31 @@ include(SHARED_PATH . '/header.php');
             >
             <?php 
                 if ($object['UseBy'] < date('Y-m-d')) {
-                  echo 'Overdue';
+                  echo 'Yes';
                 } else {
                   echo 'No';
                 }
             ?>
           </td>
+
+          <td><?php echo h($object['Candidate']); ?></td>
+          
+          <td><?php echo h($object['UsedRecUserCt']); ?></td>
+
+          <td>
+            <a class="table-action" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($object['id']))); ?>">  
+              <?php echo h($object['Title']); ?>
+            </a>
+          </td>
+
+          <td><?php echo h($object['Acq']); ?></td>
+
+          <td class="date"><?php echo h($object['MaxPlay']); ?></td>
+          
+          <td class="date">
+            <?php echo h($object['UseBy']); ?>
+          </td>
+          
     	  </tr>
       <?php } ?>
   	</table>

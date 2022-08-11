@@ -696,7 +696,7 @@ ORDER BY UseDate DESC
     return $result;
   }
 
-  function find_games_by_user_id($kept, $type) {
+  function find_games_by_user_id($kept, $type, $interval) {
     global $db;
 
     /* Sample version of this query
@@ -748,19 +748,19 @@ ORDER BY UseDate DESC
         games.id,
         games.type,
         games.user_id,
-        games.Acq,
-        MAX(responses.PlayDate) AS MaxPlay,
-        games.KeptCol,
         CASE 
           WHEN 
             MAX(responses.PlayDate) < games.Acq 
-            THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) 
+            THEN DATE_ADD(games.Acq, INTERVAL " . $interval . " DAY) 
           WHEN 
             MAX(responses.PlayDate) IS NULL 
-            THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) 
+            THEN DATE_ADD(games.Acq, INTERVAL " . $interval . " DAY) 
           ELSE 
-            DATE_ADD(MAX(responses.PlayDate), INTERVAL 180 DAY)
-        END UseBy
+            DATE_ADD(MAX(responses.PlayDate), INTERVAL " . $interval * 2 . " DAY)
+          END UseBy,
+        MAX(responses.PlayDate) AS MaxPlay,
+        games.Acq,
+        games.KeptCol
     FROM
         games
     LEFT JOIN responses ON games.id = responses.Title
@@ -978,26 +978,30 @@ ORDER BY UseDate DESC
         games.id,
         games.type,
         games.user_id,
-        CASE ";
-    $sql .= "WHEN MAX(responses.PlayDate) < games.Acq THEN DATE_ADD(games.Acq, INTERVAL " . $interval . " DAY) ";
-    $sql .= "WHEN MAX(responses.PlayDate) IS NULL THEN DATE_ADD(games.Acq, INTERVAL " . $interval . " DAY) ";
-    $sql .= "ELSE DATE_ADD(MAX(responses.PlayDate), INTERVAL " .  $interval * 2 . " DAY)";
-    $sql .= "END PlayBy,
-        games.Acq,
+        CASE 
+          WHEN MAX(responses.PlayDate) < games.Acq 
+            THEN DATE_ADD(games.Acq, INTERVAL " . $interval . " DAY)
+          WHEN MAX(responses.PlayDate) IS NULL 
+          THEN DATE_ADD(games.Acq, INTERVAL " . $interval . " DAY) 
+          ELSE 
+          DATE_ADD(MAX(responses.PlayDate), INTERVAL " .  $interval * 2 . " DAY)
+          END PlayBy,
         MAX(responses.PlayDate) AS MaxPlay,
+        games.Acq,
         games.KeptCol
       FROM games
         LEFT JOIN responses ON games.id = responses.Title
       GROUP BY games.Acq,
         games.Title,
-        games.KeptCol, games.mnp, games.mxp, games.ss, games.type, games.id ";
-    $sql .= "HAVING games.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
-    $sql .= "AND games.KeptCol = 1 ";
-    if ($type != '1') {
-      $sql .= "AND type = '" . $type . "' ";
-    }
-    $sql .= "ORDER BY PlayBy ASC";
-    $result = mysqli_query($db, $sql);
+        games.KeptCol, games.mnp, games.mxp, games.ss, games.type, games.id 
+      HAVING games.user_id = " . db_escape($db, $_SESSION['user_id']) . "
+      AND games.KeptCol = 1 ";
+      if ($type != '1') {
+        $sql .= "AND type = '" . $type . "' ";
+      }
+      $sql .= "ORDER BY PlayBy ASC";
+
+      $result = mysqli_query($db, $sql);
       confirm_result_set($result);
       return $result;
   }
