@@ -38,13 +38,6 @@ include(SHARED_PATH . '/header.php');
 
 <main>
 
-  <li>
-    <a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Artifacts</a>
-  </li>
-  <li>
-    <a class="back-link" href="<?php echo url_for('/uses/create.php'); ?>">&laquo; Create Use</a>
-  </li>
-
   <div class="object new">
     <h1>Create Artifact</h1>
 

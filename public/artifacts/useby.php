@@ -9,19 +9,10 @@ $artifact_set = use_by($type, $interval);
 ?>
 
 <main>
-  <div class="hideOnPrint">
-    <li><a class="back-link" href="<?php echo url_for('/artifacts/responses.php'); ?>">&laquo; Uses</a></li>
-    <li><a class="back-link" href="<?php echo url_for('/uses/create.php'); ?>">&laquo; Record Use</a></li>
-    <li><a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Artifacts</a></li>
-    <li><a class="back-link" href="<?php echo url_for('/artifacts/new.php'); ?>">&laquo; Create Artifact</a></li>
-  </div>
 
   <h1>Use Artifacts by Date</h1>
 
-  <div class="hideOnPrint">
-    <li><a class="back-link" href="<?php echo url_for('/uses/create.php'); ?>">Record Use</a></li>
-    <li><a class="back-link" href="<?php echo url_for('/objects/about-useby.php'); ?>">Learn About Use-by Date Generation</a></li>
-  </div>
+  <a class="hideOnPrint" href="<?php echo url_for('/objects/about-useby.php'); ?>">Learn About Use-by Date Generation</a>
   
   <form action="<?php echo url_for('/artifacts/useby.php'); ?>" method="post">
       <div class="hideOnPrint">

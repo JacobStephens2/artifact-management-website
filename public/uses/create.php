@@ -44,18 +44,6 @@ include(SHARED_PATH . '/header.php');
 ?>
 
 <main>
-  <li>
-		<a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Artifacts</a>
-	</li>
-  <li>
-		<a class="back-link" href="<?php echo url_for('/artifacts/useby.php'); ?>">&laquo; Use Artifacts By Date</a>
-	</li>
-  <li>
-		<a class="back-link" href="<?php echo url_for('/artifacts/responses.php'); ?>">&laquo; Uses</a>
-	</li>
-  <li>
-		<a class="back-link" href="<?php echo url_for('/users/new.php'); ?>">&laquo; Create User</a>
-	</li>
 
     <h1>Record Use</h1>
 

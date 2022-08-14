@@ -1,8 +1,6 @@
 <?php
-
 require_once('../../artifacts_private/initialize.php');
 require_login();
-
 
 if(is_post_request()) {
 
@@ -38,7 +36,6 @@ if(is_post_request()) {
 
 <main>
 
-  <a class="back-link" href="<?php echo url_for('/users/index.php'); ?>">&laquo; Users</a>
 
   <div class="object new">
     <h1>Create User Record</h1>

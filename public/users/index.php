@@ -1,8 +1,6 @@
 <?php 
 require_once('../../artifacts_private/initialize.php');
 require_login();
-$plural_page_name = 'Users';
-$singular_page_name = 'User';
 $player_set = find_players_by_user_id();
 $page_title = 'Users';
 include(SHARED_PATH . '/header.php');
@@ -10,11 +8,7 @@ include(SHARED_PATH . '/header.php');
 
 <main>
   <div class="objects listing">
-    <h1><?php echo $plural_page_name; ?></h1>
-
-    <div class="actions">
-      <a class="action" href="<?php echo url_for('/users/new.php'); ?>">Add New <?php echo $singular_page_name; ?></a>
-    </div>
+    <h1>Users</h1>
 
   	<table class="list">
   	  <tr id="headerRow">

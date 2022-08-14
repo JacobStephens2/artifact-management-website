@@ -7,13 +7,7 @@ include(SHARED_PATH . '/header.php');
 ?>
 
 <main>
-  <a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Artifacts</a>
     <h1>Artifact Uses</h1>
-
-    <section class="actions">
-      <a class="action" href="<?php echo url_for('/uses/create.php'); ?>">New Use</a>
-      <a class="action" href="<?php echo url_for('/artifacts/useby.php'); ?>">Use Artifacts by Date List</a>
-    </section>
 
   	<table class="list">
   	  <tr id="headerRow">

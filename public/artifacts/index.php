@@ -13,13 +13,6 @@ include(SHARED_PATH . '/header.php');
   <div class="objects listing">
     <h1>Artifacts</h1>
 
-    <div class="actions">
-      <a class="action" href="<?php echo url_for('/artifacts/new.php'); ?>">Create Artifact</a>
-      <a class="action" href="<?php echo url_for('/artifacts/useby.php'); ?>">Use Artifacts By Date List</a>
-      <a class="action" href="<?php echo url_for('/uses/create.php'); ?>">Record Use</a>
-      <a class="action" href="<?php echo url_for('/artifacts/responses.php'); ?>">Uses</a>
-    </div>
-
     <form action="<?php echo url_for('/artifacts/index.php'); ?>" method="post">
       <label for="type">Game type</label>
       <select name="type" id="type">
