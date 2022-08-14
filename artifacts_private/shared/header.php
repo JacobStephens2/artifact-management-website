@@ -53,24 +53,24 @@
             echo '<span><a href="' . url_for('index.php') . '">Menu</a></span>';
             echo '<span><a href="' . url_for('logout.php') . '">Logout</a></span>';
             ?>
-            <a href="<?php echo url_for('/artifacts/index.php'); ?>">
-              Artifacts
-            </a>
-          
-            <a href="<?php echo url_for('/artifacts/new.php'); ?>">
-              Create Artifact
-            </a>
-          
             <a href="<?php echo url_for('/artifacts/useby.php'); ?>">
               Use Artifacts By Date
             </a>
-          
+
             <a href="<?php echo url_for('/artifacts/responses.php'); ?>">
               Uses
             </a>
           
             <a href="<?php echo url_for('/uses/create.php'); ?>">
               Record Use
+            </a>
+
+            <a href="<?php echo url_for('/artifacts/index.php'); ?>">
+              Artifacts
+            </a>
+          
+            <a href="<?php echo url_for('/artifacts/new.php'); ?>">
+              Create Artifact
             </a>
 
             <a href="<?php echo url_for('/users/index.php'); ?>">
