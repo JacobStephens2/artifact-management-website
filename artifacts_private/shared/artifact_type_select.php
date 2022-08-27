@@ -21,6 +21,13 @@
     >
     Video Game
   </option>
+
+  <option 
+    value="film" 
+    <?php if($type=='film' ) { echo 'selected' ; } ?>
+    >
+    Film
+  </option>
   
   <option 
     value="sport" 
