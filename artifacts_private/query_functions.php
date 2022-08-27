@@ -821,7 +821,9 @@ ORDER BY UseDate DESC
     $sql .= "Acq='" . db_escape($db, $artifact['Acq']) . "', ";
     $sql .= "Candidate='" . db_escape($db, $artifact['Candidate']) . "', ";
     $sql .= "UsedRecUserCt='" . db_escape($db, $artifact['UsedRecUserCt']) . "', ";
-    $sql .= "type='" . db_escape($db, $artifact['type']) . "' ";
+    $sql .= "type='" . db_escape($db, $artifact['type']) . "', ";
+    $sql .= "MnP='" . db_escape($db, $artifact['MnP']) . "', ";
+    $sql .= "MxP='" . db_escape($db, $artifact['MxP']) . "' ";
     $sql .= "WHERE id='" . db_escape($db, $artifact['id']) . "' ";
     $sql .= "LIMIT 1";
     $result = mysqli_query($db, $sql);
