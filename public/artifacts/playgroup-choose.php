@@ -23,33 +23,23 @@ $usergroup = find_playgroup_by_user_id();
 
     <!-- Parameters form -->
     <form action="<?php echo url_for('/artifacts/playgroup-choose.php'); ?>" method="post">
-      <dl>
-        <dt>Show all artifacts matching count of user group (Uncheck to show all uses by user)</dt>
-          <input type="hidden" name="range" value="false" />
-          <input type="checkbox" name="range" value="true" <?php if($range == 'true') { echo " checked"; } ?> />
-      </dl>
-      <dl>
-        <dt>Artifact type</dt>
-          <select name="type">
-            <option value="1" <?php if ($_SESSION['type'] == 1) { echo 'selected'; } ?>>All types</option>
-            <option value="board-game" <?php if ($_SESSION['type'] == 'board-game') { echo 'selected'; } ?>>Board Game</option>
-            <option value="role-playing-game" <?php if ($_SESSION['type'] == 'role-playing-game') { echo 'selected'; } ?>>Role Playing Game</option>
-            <option value="video-game" <?php if ($_SESSION['type'] == 'video-game') { echo 'selected'; } ?>>Video Game</option>
-            <option value="sport" <?php if ($_SESSION['type'] == 'sport') { echo 'selected'; } ?>>Sport</option>
-            <option value="game" <?php if ($_SESSION['type'] == 'game') { echo 'selected'; } ?>>Game</option>
-          </select>
-      </dl>
-      <div id="operations">
-        <input type="submit" value="Submit" />
-      </div>
-    </form>
 
-    <style>
-      tr.header-row {
-        position: sticky;
-        top: 0;
-      }
-    </style>
+        <label for="range">Show only artifacts matching count of user group (Unchecked shows all uses of each user)</label>
+        <input type="hidden" name="range" value="false" />
+        <input type="checkbox" id="range" name="range" value="true" <?php if($range == 'true') { echo " checked"; } ?> />
+
+        <label for="type">Artifact type</label>
+        <select id="type" name="type">
+          <option value="1" <?php if ($_SESSION['type'] == 1) { echo 'selected'; } ?>>All types</option>
+          <option value="board-game" <?php if ($_SESSION['type'] == 'board-game') { echo 'selected'; } ?>>Board Game</option>
+          <option value="role-playing-game" <?php if ($_SESSION['type'] == 'role-playing-game') { echo 'selected'; } ?>>Role Playing Game</option>
+          <option value="video-game" <?php if ($_SESSION['type'] == 'video-game') { echo 'selected'; } ?>>Video Game</option>
+          <option value="sport" <?php if ($_SESSION['type'] == 'sport') { echo 'selected'; } ?>>Sport</option>
+          <option value="game" <?php if ($_SESSION['type'] == 'game') { echo 'selected'; } ?>>Game</option>
+        </select>
+
+        <input type="submit" value="Submit" />
+    </form>
 
   	<table class="list">
   	  <tr class="header-row">
