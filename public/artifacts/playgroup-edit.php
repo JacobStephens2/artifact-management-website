@@ -1,15 +1,11 @@
 <?php
-
 require_once('../../artifacts_private/initialize.php');
 require_login();
-
 if(!isset($_GET['ID'])) {
   redirect_to(url_for('/artifacts/playgroup.php'));
 }
 $ID = $_GET['ID'];
-
 if(is_post_request()) {
-
   // Handle form values sent by new.php
 
   $playgroupplayer = [];
@@ -33,22 +29,22 @@ if(is_post_request()) {
 
 ?>
 
-<?php $page_title = 'Edit playgroup player'; ?>
+<?php $page_title = 'Edit Group User'; ?>
 <?php include(SHARED_PATH . '/header.php'); ?>
 
 <main>
 
-  <li><a class="back-link" href="<?php echo url_for('/artifacts/playgroup.php'); ?>">&laquo; To playgroup</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/artifacts/playgroup.php'); ?>">&laquo; To Group</a></li>
   <li><a class="back-link" href="<?php echo url_for('/artifacts/useby.php'); ?>">&laquo; To Use Artifacts by Date List</a></li>
 
   <div class="object edit">
-    <h1>Edit playgroup player</h1>
+    <h1><?php echo $page_title; ?></h1>
 
     <?php echo display_errors($errors); ?>
 
     <form action="<?php echo url_for('/artifacts/playgroup-edit.php?ID=' . h(u($ID))); ?>" method="post">
     <dl>
-        <dt>Player</dt>
+        <dt>User</dt>
         <dd>
           <select name="FullName">
             <option value='Invalid'>Choose a player</option>
