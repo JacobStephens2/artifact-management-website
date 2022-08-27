@@ -19,23 +19,15 @@ include(SHARED_PATH . '/header.php');
   	  <tr>
         <th>Name (<?php echo $object_set->num_rows; ?>)</th>
         <th>User Group ID&ensp;</th>
-  	    <th></th>
-  	    <th></th>
         <th></th>
   	  </tr>
 
       <?php while($object = mysqli_fetch_assoc($object_set)) { ?>
         <tr>
           <td><?php echo h($object['FirstName']) . ' ' . h($object['LastName']); ?></td>
-          <td><?php echo h($object['ID']); ?></td>
-          <td>
-            <a class="table-action" href="<?php echo url_for('/users/show.php?id=' . h(u($object['playerID']))); ?>">
-              View
-            </a>
-          </td>
           <td>
             <a class="table-action" href="<?php echo url_for('/artifacts/playgroup-edit.php?ID=' . h(u($object['ID']))); ?>">
-              Edit
+              <?php echo h($object['ID']); ?>
             </a>
           </td>
           <td>    
