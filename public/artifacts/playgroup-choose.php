@@ -10,6 +10,7 @@ if(is_post_request()) {
 $range = $_SESSION['range'] ?? 'true';
 $type = $_SESSION['type'] ?? '1';
 $game_set = choose_games_for_group($range, $type);
+$usergroup = find_playgroup_by_user_id();
 ?>
 
 <main>
@@ -17,7 +18,7 @@ $game_set = choose_games_for_group($range, $type);
     <li><a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Artifacts</a></li>
     <li><a class="back-link" href="<?php echo url_for('/artifacts/playgroup.php'); ?>">&laquo; User group</a></li>
   <div class="objects listing">
-    <h1>Choose Artifacts for User Group</h1>
+    <h1>Choose Artifacts for Group of <?php echo $usergroup->num_rows; ?> Users</h1>
     <p>
       The dates represent the most recent instance of the type of response indicated by the column header. SS = sweet spot, Mnp = minimum player count, Mxp = maximum player count.
     </p>
