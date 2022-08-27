@@ -51,7 +51,6 @@ $usergroup = find_playgroup_by_user_id();
         <th class="table-header">MxT</th>
   	    <th class="table-header">Play</th>
   	    <th class="table-header">Aversion</th>
-  	    <th class="table-header">Pass</th>
   	    <th class="table-header">Type</th>
   	  </tr>
 
@@ -73,7 +72,6 @@ $usergroup = find_playgroup_by_user_id();
             </a>
           </td>
           <td class="edit"><?php echo h($game['MaxOfAversionDate']); ?></td>
-          <td class="edit"><?php echo h($game['MaxOfPassDate']); ?></td>
           <td class="edit"><?php echo h($game['type']); ?></td>
     	  </tr>
       <?php } ?>
