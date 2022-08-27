@@ -44,27 +44,42 @@ $usergroup = find_playgroup_by_user_id();
       </div>
     </form>
 
+    <style>
+      tr.header-row {
+        position: sticky;
+        top: 0;
+      }
+    </style>
+
   	<table class="list">
-  	  <tr>
+  	  <tr class="header-row">
         <th class="table-header">Artifact</th>
   	    <th class="table-header">Player</th>
         <th class="table-header">SS</th>
-        <th class="table-header">Mnp</th>
-        <th class="table-header">Mxp</th>
+        <th class="table-header">MnP</th>
+        <th class="table-header">MxP</th>
+        <th class="table-header">MxT</th>
   	    <th class="table-header">Play</th>
   	    <th class="table-header">Aversion</th>
+  	    <th class="table-header">Pass</th>
   	    <th class="table-header">Type</th>
   	  </tr>
 
       <?php while($game = mysqli_fetch_assoc($game_set)) { ?>
         <tr>
-          <td class="edit"><?php echo h($game['title']); ?></td>
+          <td class="edit">
+            <a class="table-action" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($game['id']))); ?>">
+              <?php echo h($game['title']); ?>
+            </a>
+          </td>
     	    <td class="edit"><?php echo h($game['FirstName']) . ' ' . h($game['LastName']); ?></td>
-    	    <td class="edit"><?php echo h($game['ss']); ?></td>
+    	    <td class="edit"><?php echo ltrim(h($game['ss']), '0'); ?></td>
           <td class="edit"><?php echo h($game['MnP']); ?></td>
           <td class="edit"><?php echo h($game['MxP']); ?></td>
+          <td class="edit"><?php echo h($game['MxT']); ?></td>
           <td class="edit"><?php echo h($game['MaxOfPlayDate']); ?></td>
           <td class="edit"><?php echo h($game['MaxOfAversionDate']); ?></td>
+          <td class="edit"><?php echo h($game['MaxOfPassDate']); ?></td>
           <td class="edit"><?php echo h($game['type']); ?></td>
     	  </tr>
       <?php } ?>
