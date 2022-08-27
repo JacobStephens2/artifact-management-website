@@ -80,6 +80,15 @@
             <a href="<?php echo url_for('/users/new.php'); ?>">
               Create User
             </a>
+
+            <a href="<?php echo url_for('/artifacts/aversions.php'); ?>">
+              Aversions
+            </a>
+
+            <a href="<?php echo url_for('/artifacts/aversion-new.php'); ?>">
+              Record Aversion
+            </a>
+
             <?php
           }
       ?>

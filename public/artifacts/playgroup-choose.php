@@ -1,8 +1,8 @@
-<?php require_once('../../artifacts_private/initialize.php');
+<?php
+require_once('../../artifacts_private/initialize.php');
 require_login();
 $page_title = 'Choose for group';
 include(SHARED_PATH . '/header.php');
-
 if(is_post_request()) {
   $_SESSION['range'] = $_POST['range'] ?? 'true';
   $_SESSION['type'] = $_POST['type'] ?? '1';
@@ -61,7 +61,9 @@ $game_set = choose_games_for_group($range, $type);
       <?php while($game = mysqli_fetch_assoc($game_set)) { ?>
         <tr>
     	    <td class="edit"><?php echo h($game['title']); ?></td>
-          <td><a class="table-action" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($game['id']))); ?>">Edit</a></td>
+          <td>
+            <a class="table-action" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($game['id']))); ?>">Edit</a>
+          </td>
     	    <td class="edit"><?php echo h($game['FirstName']) . ' ' . h($game['LastName']); ?></td>
     	    <td class="edit"><?php echo h($game['ss']); ?></td>
           <td class="edit"><?php echo h($game['MnP']); ?></td>
@@ -73,9 +75,7 @@ $game_set = choose_games_for_group($range, $type);
       <?php } ?>
   	</table>
 
-    <?php
-      mysqli_free_result($game_set);
-    ?>
+    <?php mysqli_free_result($game_set); ?>
   </div>
 
 </main>

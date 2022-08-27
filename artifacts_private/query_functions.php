@@ -1054,6 +1054,7 @@ ORDER BY UseDate DESC
 
     return $errors;
   }
+
   function insert_response($response, $playerCount) {
     global $db;
 
@@ -1171,6 +1172,125 @@ ORDER BY UseDate DESC
       exit;
     }  
   }
+  
+  function insert_aversion($response, $playerCount) {
+    global $db;
+
+    $errors = validate_response($response);
+    if(!empty($errors)) {
+      return $errors;
+    }
+    
+    if ($playerCount >= 1) {
+      $sql = "INSERT INTO responses ";
+      $sql .= "(Title, AversionDate, Player, user_id) ";
+      $sql .= "VALUES (";
+      $sql .= "'" . db_escape($db, $response['Title']) . "', ";
+      $sql .= "'" . db_escape($db, $response['AversionDate']) . "', ";
+      $sql .= "'" . db_escape($db, $response['Player1']) . "', ";
+      $sql .= "'" . db_escape($db, $_SESSION['user_id']) . "'";
+      $sql .= ")";
+      $result = mysqli_query($db, $sql);
+    }
+    if ($playerCount >= 2) {
+      $sql = "INSERT INTO responses ";
+      $sql .= "(Title, AversionDate, Player, user_id) ";
+      $sql .= "VALUES (";
+      $sql .= "'" . db_escape($db, $response['Title']) . "', ";
+      $sql .= "'" . db_escape($db, $response['AversionDate']) . "', ";
+      $sql .= "'" . db_escape($db, $response['Player2']) . "', ";
+      $sql .= "'" . db_escape($db, $_SESSION['user_id']) . "'";
+      $sql .= ")";
+      $result = mysqli_query($db, $sql);
+    }
+    if ($playerCount >= 3) {
+      $sql = "INSERT INTO responses ";
+      $sql .= "(Title, AversionDate, Player, user_id) ";
+      $sql .= "VALUES (";
+      $sql .= "'" . db_escape($db, $response['Title']) . "', ";
+      $sql .= "'" . db_escape($db, $response['AversionDate']) . "', ";
+      $sql .= "'" . db_escape($db, $response['Player3']) . "', ";
+      $sql .= "'" . db_escape($db, $_SESSION['user_id']) . "'";
+      $sql .= ")";
+      $result = mysqli_query($db, $sql);
+    }
+    if ($playerCount >= 4) {
+      $sql = "INSERT INTO responses ";
+      $sql .= "(Title, AversionDate, Player, user_id) ";
+      $sql .= "VALUES (";
+      $sql .= "'" . db_escape($db, $response['Title']) . "', ";
+      $sql .= "'" . db_escape($db, $response['AversionDate']) . "', ";
+      $sql .= "'" . db_escape($db, $response['Player4']) . "', ";
+      $sql .= "'" . db_escape($db, $_SESSION['user_id']) . "'";
+      $sql .= ")";
+      $result = mysqli_query($db, $sql);
+    }
+    if ($playerCount >= 5) {
+      $sql = "INSERT INTO responses ";
+      $sql .= "(Title, AversionDate, Player, user_id) ";
+      $sql .= "VALUES (";
+      $sql .= "'" . db_escape($db, $response['Title']) . "', ";
+      $sql .= "'" . db_escape($db, $response['AversionDate']) . "', ";
+      $sql .= "'" . db_escape($db, $response['Player5']) . "', ";
+      $sql .= "'" . db_escape($db, $_SESSION['user_id']) . "'";
+      $sql .= ")";
+      $result = mysqli_query($db, $sql);
+    }
+    if ($playerCount >= 6) {
+      $sql = "INSERT INTO responses ";
+      $sql .= "(Title, AversionDate, Player, user_id) ";
+      $sql .= "VALUES (";
+      $sql .= "'" . db_escape($db, $response['Title']) . "', ";
+      $sql .= "'" . db_escape($db, $response['AversionDate']) . "', ";
+      $sql .= "'" . db_escape($db, $response['Player6']) . "', ";
+      $sql .= "'" . db_escape($db, $_SESSION['user_id']) . "'";
+      $sql .= ")";
+      $result = mysqli_query($db, $sql);
+    }
+    if ($playerCount >= 7) {
+      $sql = "INSERT INTO responses ";
+      $sql .= "(Title, AversionDate, Player, user_id) ";
+      $sql .= "VALUES (";
+      $sql .= "'" . db_escape($db, $response['Title']) . "', ";
+      $sql .= "'" . db_escape($db, $response['AversionDate']) . "', ";
+      $sql .= "'" . db_escape($db, $response['Player7']) . "', ";
+      $sql .= "'" . db_escape($db, $_SESSION['user_id']) . "'";
+      $sql .= ")";
+      $result = mysqli_query($db, $sql);
+    }
+    if ($playerCount >= 8) {
+      $sql = "INSERT INTO responses ";
+      $sql .= "(Title, AversionDate, Player, user_id) ";
+      $sql .= "VALUES (";
+      $sql .= "'" . db_escape($db, $response['Title']) . "', ";
+      $sql .= "'" . db_escape($db, $response['AversionDate']) . "', ";
+      $sql .= "'" . db_escape($db, $response['Player8']) . "', ";
+       $sql .= "'" . db_escape($db, $_SESSION['user_id']) . "'";
+     $sql .= ")";
+      $result = mysqli_query($db, $sql);
+    }
+    if ($playerCount >= 9) {
+      $sql = "INSERT INTO responses ";
+      $sql .= "(Title, AversionDate, Player, user_id) ";
+      $sql .= "VALUES (";
+      $sql .= "'" . db_escape($db, $response['Title']) . "', ";
+      $sql .= "'" . db_escape($db, $response['AversionDate']) . "', ";
+      $sql .= "'" . db_escape($db, $response['Player9']) . "', ";
+      $sql .= "'" . db_escape($db, $_SESSION['user_id']) . "'";
+      $sql .= ")";
+      $result = mysqli_query($db, $sql);
+    }
+    // For INSERT statements, $result is true/false
+    if($result) {
+      return true;
+    } else {
+      // INSERT failed
+      echo mysqli_error($db);
+      db_disconnect($db);
+      exit;
+    }  
+  }
+
   function find_all_responses() {
     global $db;
 
@@ -1216,6 +1336,32 @@ ORDER BY UseDate DESC
     confirm_result_set($result);
     return $result;
   }
+
+    function find_aversions_by_user_id() {
+    global $db;
+
+    $sql = "SELECT ";
+    $sql .= "games.Title, ";
+    $sql .= "responses.id, ";
+    $sql .= "players.FirstName, ";
+    $sql .= "players.LastName, ";
+    $sql .= "responses.AversionDate ";
+    $sql .= "FROM responses ";
+    $sql .= "LEFT JOIN games ON responses.Title = games.id ";
+    $sql .= "LEFT JOIN players ON responses.Player = players.id ";
+    $sql .= "WHERE responses.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
+    $sql .= "AND responses.AversionDate > 0 ";
+    $sql .= "ORDER BY responses.AversionDate DESC, ";
+    $sql .= "games.Title DESC, ";
+    $sql .= "players.LastName ASC, ";
+    $sql .= "players.FirstName ASC ";
+    $sql .= "LIMIT 9999";
+
+    $result = mysqli_query($db, $sql);
+    confirm_result_set($result);
+    return $result;
+  }
+
   function find_response_by_id($id) {
     global $db;
 
