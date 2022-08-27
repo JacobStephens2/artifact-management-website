@@ -1315,6 +1315,7 @@ ORDER BY UseDate DESC
     confirm_result_set($result);
     return $result;
   }
+
   function find_responses_by_user_id() {
     global $db;
 
@@ -1339,97 +1340,99 @@ ORDER BY UseDate DESC
     return $result;
   }
 
-    function find_aversions_by_user_id() {
-    global $db;
+  function find_aversions_by_user_id() {
+  global $db;
 
-    $sql = "SELECT ";
-    $sql .= "games.Title, ";
-    $sql .= "responses.id, ";
-    $sql .= "players.FirstName, ";
-    $sql .= "players.LastName, ";
-    $sql .= "responses.AversionDate ";
-    $sql .= "FROM responses ";
-    $sql .= "LEFT JOIN games ON responses.Title = games.id ";
-    $sql .= "LEFT JOIN players ON responses.Player = players.id ";
-    $sql .= "WHERE responses.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
-    $sql .= "AND responses.AversionDate > 0 ";
-    $sql .= "ORDER BY responses.AversionDate DESC, ";
-    $sql .= "games.Title DESC, ";
-    $sql .= "players.LastName ASC, ";
-    $sql .= "players.FirstName ASC ";
-    $sql .= "LIMIT 9999";
+  $sql = "SELECT ";
+  $sql .= "games.Title, ";
+  $sql .= "responses.id, ";
+  $sql .= "players.FirstName, ";
+  $sql .= "players.LastName, ";
+  $sql .= "responses.AversionDate ";
+  $sql .= "FROM responses ";
+  $sql .= "LEFT JOIN games ON responses.Title = games.id ";
+  $sql .= "LEFT JOIN players ON responses.Player = players.id ";
+  $sql .= "WHERE responses.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
+  $sql .= "AND responses.AversionDate > 0 ";
+  $sql .= "ORDER BY responses.AversionDate DESC, ";
+  $sql .= "games.Title DESC, ";
+  $sql .= "players.LastName ASC, ";
+  $sql .= "players.FirstName ASC ";
+  $sql .= "LIMIT 9999";
 
-    $result = mysqli_query($db, $sql);
-    confirm_result_set($result);
-    return $result;
+  $result = mysqli_query($db, $sql);
+  confirm_result_set($result);
+  return $result;
+}
+
+function find_response_by_id($id) {
+  global $db;
+
+  $sql = "SELECT ";
+  $sql .= "games.Title, ";
+  $sql .= "games.id AS gameid, ";
+  $sql .= "responses.PlayDate, ";
+  $sql .= "responses.Player, ";
+  $sql .= "players.FirstName, ";
+  $sql .= "players.LastName, ";
+  $sql .= "responses.Title AS responsetitle, ";
+  $sql .= "responses.id ";
+  $sql .= "FROM responses ";
+  $sql .= "LEFT JOIN players ON responses.Player = players.id ";
+  $sql .= "LEFT JOIN games ON responses.Title = games.id ";
+  $sql .= "WHERE responses.id='" . db_escape($db, $id) . "' ";
+  $result = mysqli_query($db, $sql);
+  confirm_result_set($result);
+  $subject = mysqli_fetch_assoc($result);
+  mysqli_free_result($result);
+  return $subject; // returns an assoc. array
+}
+
+function update_response($object) {
+  global $db;
+
+  $errors = validate_response($object);
+  if(!empty($errors)) {
+    return $errors;
   }
 
-  function find_response_by_id($id) {
-    global $db;
+  $sql = "UPDATE responses SET ";
+  $sql .= "Title='" . db_escape($db, $object['Title']) . "', ";
+  $sql .= "PlayDate='" . db_escape($db, $object['PlayDate']) . "', ";
+  $sql .= "Player='" . db_escape($db, $object['Player']) . "' ";
+  $sql .= "WHERE id='" . db_escape($db, $object['id']) . "' ";
+  $sql .= "LIMIT 1;";
 
-    $sql = "SELECT ";
-    $sql .= "games.Title, ";
-    $sql .= "games.id AS gameid, ";
-    $sql .= "responses.PlayDate, ";
-    $sql .= "responses.Player, ";
-    $sql .= "players.FirstName, ";
-    $sql .= "players.LastName, ";
-    $sql .= "responses.Title AS responsetitle, ";
-    $sql .= "responses.id ";
-    $sql .= "FROM responses ";
-    $sql .= "LEFT JOIN players ON responses.Player = players.id ";
-    $sql .= "LEFT JOIN games ON responses.Title = games.id ";
-    $sql .= "WHERE responses.id='" . db_escape($db, $id) . "' ";
-    $result = mysqli_query($db, $sql);
-    confirm_result_set($result);
-    $subject = mysqli_fetch_assoc($result);
-    mysqli_free_result($result);
-    return $subject; // returns an assoc. array
+  $result = mysqli_query($db, $sql);
+  // For UPDATE statements, $result is true/false
+  if($result) {
+    return true;
+  } else {
+    // UPDATE failed
+    echo mysqli_error($db);
+    db_disconnect($db);
+    exit;
   }
-  function update_response($object) {
-    global $db;
+}
 
-    $errors = validate_response($object);
-    if(!empty($errors)) {
-      return $errors;
-    }
+function delete_response($id) {
+  global $db;
 
-    $sql = "UPDATE responses SET ";
-    $sql .= "Title='" . db_escape($db, $object['Title']) . "', ";
-    $sql .= "PlayDate='" . db_escape($db, $object['PlayDate']) . "', ";
-    $sql .= "Player='" . db_escape($db, $object['Player']) . "' ";
-    $sql .= "WHERE id='" . db_escape($db, $object['id']) . "' ";
-    $sql .= "LIMIT 1;";
+  $sql = "DELETE FROM responses ";
+  $sql .= "WHERE id='" . db_escape($db, $id) . "' ";
+  $sql .= "LIMIT 1";
+  $result = mysqli_query($db, $sql);
 
-    $result = mysqli_query($db, $sql);
-    // For UPDATE statements, $result is true/false
-    if($result) {
-      return true;
-    } else {
-      // UPDATE failed
-      echo mysqli_error($db);
-      db_disconnect($db);
-      exit;
-    }
+  // For DELETE statements, $result is true/false
+  if($result) {
+    return true;
+  } else {
+    // DELETE failed
+    echo mysqli_error($db);
+    db_disconnect($db);
+    exit;
   }
-  function delete_response($id) {
-    global $db;
-
-    $sql = "DELETE FROM responses ";
-    $sql .= "WHERE id='" . db_escape($db, $id) . "' ";
-    $sql .= "LIMIT 1";
-    $result = mysqli_query($db, $sql);
-
-    // For DELETE statements, $result is true/false
-    if($result) {
-      return true;
-    } else {
-      // DELETE failed
-      echo mysqli_error($db);
-      db_disconnect($db);
-      exit;
-    }
-  }
+}
 
 // Players
   function list_players() {
@@ -1538,13 +1541,13 @@ ORDER BY UseDate DESC
 // Playgroup
 
 function count_playgroup() {
-global $db;
-$sql = "SELECT count(*) FROM playgroup";
-$result = mysqli_query($db, $sql);
-confirm_result_set($result);
-$subject = mysqli_fetch_assoc($result);
-mysqli_free_result($result);
-return $subject; // returns an assoc. array
+  global $db;
+  $sql = "SELECT count(*) FROM playgroup";
+  $result = mysqli_query($db, $sql);
+  confirm_result_set($result);
+  $subject = mysqli_fetch_assoc($result);
+  mysqli_free_result($result);
+  return $subject; // returns an assoc. array
 }
 
 function choose_games_for_group($range, $type) {
@@ -1566,52 +1569,53 @@ function choose_games_for_group($range, $type) {
   players.LastName,
   players.G,
   players.Priority,
+  responses.id AS ResponseID,
   Max(responses.AversionDate) AS MaxOfAversionDate,
   Max(responses.PlayDate) AS MaxOfPlayDate,
   Max(responses.PassDate) AS MaxOfPassDate,
   Max(responses.RequestDate) AS MaxOfRequestDate
-FROM (
-      players
-      LEFT JOIN (
-          games
-          LEFT JOIN responses ON games.ID = responses.Title
-      ) ON players.ID = responses.Player
-  )
-  INNER JOIN playgroup ON players.ID = playgroup.FullName
-GROUP BY 
-  games.Title,
-  games.MnP,
-  games.Age,
-  games.MxP,
-  games.id,
-  games.type,
-  games.user_id,
-  players.FirstName,
-  players.LastName,
-  playgroup.FullName,
-  games.FavCt,
-  players.G,
-  players.Priority 
-HAVING
-keptcol = 1 ";
-$sql .= "AND games.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
-if ($range == 'true') {
-  $sql .= "AND games.mnp <= " . $playgroup_count['count(*)'] . " ";
-  $sql .= "AND games.mxp >= " . $playgroup_count['count(*)'] . " ";
-}
-if ($type != '1') {
-  $sql .= "AND games.type = '" . $type . "' ";
-}
-$sql .= "ORDER BY 
-  players.G,
-  players.Priority DESC,
-  Max(responses.AversionDate) ASC,
-  Max(responses.PlayDate) DESC,
-  Max(responses.PassDate) ASC,
-  Max(responses.RequestDate) DESC
-  ";  
+  FROM (
+        players
+        LEFT JOIN (
+            games
+            LEFT JOIN responses ON games.ID = responses.Title
+        ) ON players.ID = responses.Player
+    )
+    INNER JOIN playgroup ON players.ID = playgroup.FullName
+  GROUP BY 
+    games.Title,
+    games.MnP,
+    games.Age,
+    games.MxP,
+    games.id,
+    games.type,
+    games.user_id,
+    players.FirstName,
+    players.LastName,
+    playgroup.FullName,
+    games.FavCt,
+    players.G,
+    players.Priority 
+  HAVING
+  keptcol = 1 ";
+  $sql .= "AND games.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
+  if ($range == 'true') {
+    $sql .= "AND games.mnp <= " . $playgroup_count['count(*)'] . " ";
+    $sql .= "AND games.mxp >= " . $playgroup_count['count(*)'] . " ";
+  }
+  if ($type != '1') {
+    $sql .= "AND games.type = '" . $type . "' ";
+  }
+  $sql .= "ORDER BY 
+    players.G,
+    players.Priority DESC,
+    Max(responses.AversionDate) ASC,
+    Max(responses.PlayDate) DESC,
+    Max(responses.PassDate) ASC,
+    Max(responses.RequestDate) DESC
+    ";  
 
-  $result = mysqli_query($db, $sql);
+    $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     return $result;
 }
