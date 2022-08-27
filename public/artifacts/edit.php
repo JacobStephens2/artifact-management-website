@@ -9,6 +9,7 @@ if(!isset($_GET['id'])) {
   redirect_to(url_for('/artifacts/index.php'));
 }
 $id = $_GET['id'];
+
 if(is_post_request()) {
   // Handle form values sent by new.php
   $artifact = [];
@@ -19,6 +20,8 @@ if(is_post_request()) {
   $artifact['KeptCol'] = $_POST['KeptCol'] ?? '';
   $artifact['Candidate'] = $_POST['Candidate'] ?? '';
   $artifact['UsedRecUserCt'] = $_POST['UsedRecUserCt'] ?? '';
+  $artifact['MnP'] = $_POST['MnP'] ?? '';
+  $artifact['MxP'] = $_POST['MxP'] ?? '';
   $result = update_artifact($artifact);
   if($result === true) {
     $_SESSION['message'] = 'The game was updated successfully.';
@@ -34,12 +37,6 @@ include(SHARED_PATH . '/header.php');
 ?>
 
 <main>
-  <li><a class="back-link" href="<?php echo url_for('/artifacts/useby.php'); ?>">&laquo; Use Artifacts By</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Artifacts</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/artifacts/new.php'); ?>">&laquo; New Artifact</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/artifacts/playgroup-choose.php'); ?>">&laquo; Choose for Group</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/uses/create.php'); ?>">&laquo; Record Use</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/artifacts/responses.php'); ?>">&laquo; Uses</a></li>
 
   <div class="object edit">
     <h1>Edit Artifact</h1>
@@ -55,19 +52,26 @@ include(SHARED_PATH . '/header.php');
       require_once(SHARED_PATH . '/artifact_type_select.php'); 
       ?>
 
+      <label for="MnP">Minimum User Count</label>
+      <input type="number" name="MnP" id="MnP" value="<?php echo $artifact['MnP'] ?>">
+
+      <label for="MxP">Maximum User Count</label>
+      <input type="number" name="MxP" id="MxP" value="<?php echo $artifact['MxP'] ?>">
+
       <label for="Acq">Acquisition Date</label>
       <input type="date" name="Acq" id="Acq" value="<?php echo h($artifact['Acq']); ?>" />
       
-      <p>Checked indicates true:</p>
-
-      <label for="KeptCol" >Kept in Collection?</label>
+      <label for="KeptCol" >Kept in Collection? (Checked means yes)</label>
       <input type="hidden" name="KeptCol" value="0" />
       <input type="checkbox" name="KeptCol" id="KeptCol" value="1"<?php if($artifact['KeptCol'] == "1") { echo " checked"; } ?> />
 
       <label for="Candidate">Candidate?</label>
       <input type="text" name="Candidate" id="Candidate" value="<?php echo $artifact['Candidate'] ?>" />
 
-      <label for="UsedRecUserCt">Used at recommended user count? <br/>Or fully used through at non recommended count?</label>
+      <label for="UsedRecUserCt">
+        Used at recommended user count?<br/>
+        Or fully used through at non recommended count? (Checked means yes)
+      </label>
       <input type="hidden" name="UsedRecUserCt" value="0" />
       <input type="checkbox" name="UsedRecUserCt" id="UsedRecUserCt" value="1"<?php if($artifact['UsedRecUserCt'] == "1") { echo " checked"; } ?> />
 
