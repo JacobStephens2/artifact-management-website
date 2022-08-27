@@ -1596,8 +1596,6 @@ $sql .= "AND games.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
 if ($range == 'true') {
   $sql .= "AND games.mnp <= " . $playgroup_count['count(*)'] . " ";
   $sql .= "AND games.mxp >= " . $playgroup_count['count(*)'] . " ";
-} else {
-  $sql .= "AND games.ss = " . $playgroup_count['count(*)'] . " ";
 }
 if ($type != '1') {
   $sql .= "AND games.type = '" . $type . "' ";
@@ -1608,7 +1606,8 @@ $sql .= "ORDER BY
   Max(responses.AversionDate) ASC,
   Max(responses.PlayDate) DESC,
   Max(responses.PassDate) ASC,
-  Max(responses.RequestDate) DESC";
+  Max(responses.RequestDate) DESC
+  ";  
 
   $result = mysqli_query($db, $sql);
     confirm_result_set($result);

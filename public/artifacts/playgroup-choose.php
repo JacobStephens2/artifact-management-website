@@ -4,18 +4,16 @@ require_login();
 $page_title = 'Choose for group';
 include(SHARED_PATH . '/header.php');
 if(is_post_request()) {
-  $_SESSION['range'] = $_POST['range'] ?? 'true';
+  $_SESSION['range'] = $_POST['range'] ?? 'false';
   $_SESSION['type'] = $_POST['type'] ?? '1';
 }
-$range = $_SESSION['range'] ?? 'true';
+$range = $_SESSION['range'] ?? 'false';
 $type = $_SESSION['type'] ?? '1';
 $game_set = choose_games_for_group($range, $type);
 $usergroup = find_playgroup_by_user_id();
 ?>
 
 <main>
-    <li><a class="back-link" href="<?php echo url_for('/artifacts/responses.php'); ?>">&laquo; Responses</a></li>
-    <li><a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Artifacts</a></li>
     <li><a class="back-link" href="<?php echo url_for('/artifacts/playgroup.php'); ?>">&laquo; User group</a></li>
   <div class="objects listing">
     <h1>Choose Artifacts for Group of <?php echo $usergroup->num_rows; ?> Users</h1>
@@ -26,7 +24,7 @@ $usergroup = find_playgroup_by_user_id();
     <!-- Parameters form -->
     <form action="<?php echo url_for('/artifacts/playgroup-choose.php'); ?>" method="post">
       <dl>
-        <dt>Show all artifacts matching count of user group (Uncheck to show sweet spot matches only)</dt>
+        <dt>Show all artifacts matching count of user group (Uncheck to show all uses by user)</dt>
           <input type="hidden" name="range" value="false" />
           <input type="checkbox" name="range" value="true" <?php if($range == 'true') { echo " checked"; } ?> />
       </dl>
@@ -48,8 +46,7 @@ $usergroup = find_playgroup_by_user_id();
 
   	<table class="list">
   	  <tr>
-        <th class="table-header">Game</th>
-  	    <th class="table-header">Edit</th>
+        <th class="table-header">Artifact</th>
   	    <th class="table-header">Player</th>
         <th class="table-header">SS</th>
         <th class="table-header">Mnp</th>
@@ -61,10 +58,7 @@ $usergroup = find_playgroup_by_user_id();
 
       <?php while($game = mysqli_fetch_assoc($game_set)) { ?>
         <tr>
-    	    <td class="edit"><?php echo h($game['title']); ?></td>
-          <td>
-            <a class="table-action" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($game['id']))); ?>">Edit</a>
-          </td>
+          <td class="edit"><?php echo h($game['title']); ?></td>
     	    <td class="edit"><?php echo h($game['FirstName']) . ' ' . h($game['LastName']); ?></td>
     	    <td class="edit"><?php echo h($game['ss']); ?></td>
           <td class="edit"><?php echo h($game['MnP']); ?></td>

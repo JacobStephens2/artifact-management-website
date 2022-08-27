@@ -53,8 +53,9 @@
             echo '<span><a href="' . url_for('index.php') . '">Menu</a></span>';
             echo '<span><a href="' . url_for('logout.php') . '">Logout</a></span>';
             ?>
+            
             <a href="<?php echo url_for('/artifacts/useby.php'); ?>">
-              Use Artifacts By Date
+              Use&nbsp;Artifacts&nbsp;By&nbsp;Date
             </a>
 
             <a href="<?php echo url_for('/artifacts/responses.php'); ?>">
@@ -62,7 +63,7 @@
             </a>
           
             <a href="<?php echo url_for('/uses/create.php'); ?>">
-              Record Use
+              Record&nbsp;Use
             </a>
 
             <a href="<?php echo url_for('/artifacts/index.php'); ?>">
@@ -70,7 +71,7 @@
             </a>
           
             <a href="<?php echo url_for('/artifacts/new.php'); ?>">
-              Create Artifact
+              Create&nbsp;Artifact
             </a>
 
             <a href="<?php echo url_for('/users/index.php'); ?>">
@@ -78,7 +79,7 @@
             </a>
 
             <a href="<?php echo url_for('/users/new.php'); ?>">
-              Create User
+              Create&nbsp;User
             </a>
 
             <a href="<?php echo url_for('/artifacts/aversions.php'); ?>">
@@ -86,7 +87,15 @@
             </a>
 
             <a href="<?php echo url_for('/artifacts/aversion-new.php'); ?>">
-              Record Aversion
+              Record&nbsp;Aversion
+            </a>
+
+            <a href="<?php echo url_for('/artifacts/playgroup.php'); ?>">
+              Group
+            </a>
+
+            <a href="<?php echo url_for('/artifacts/playgroup-choose.php'); ?>">
+              Choose&nbsp;for&nbsp;Group
             </a>
 
             <?php

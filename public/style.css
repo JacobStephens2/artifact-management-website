@@ -65,6 +65,7 @@ footer h2 {
 
 nav {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.8rem;
   margin-left: 3rem;
   margin-bottom: 0.7rem;
