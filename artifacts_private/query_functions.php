@@ -1550,7 +1550,7 @@ function count_playgroup() {
   return $subject; // returns an assoc. array
 }
 
-function choose_games_for_group($range, $type) {
+function choose_games_for_group($range, $type, $kept = 0) {
   global $db;
   $playgroup_count = count_playgroup();
 
@@ -1596,15 +1596,17 @@ function choose_games_for_group($range, $type) {
     games.FavCt,
     players.G,
     players.Priority 
-  HAVING
-  keptcol = 1 ";
-  $sql .= "AND games.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
+  HAVING ";
+  $sql .= " games.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
   if ($range == 'true') {
     $sql .= "AND games.mnp <= " . $playgroup_count['count(*)'] . " ";
     $sql .= "AND games.mxp >= " . $playgroup_count['count(*)'] . " ";
   }
   if ($type != '1') {
     $sql .= "AND games.type = '" . $type . "' ";
+  }
+  if ($kept == 1) {
+    $sql .= " AND keptcol = 1 ";
   }
   $sql .= "ORDER BY 
     players.G,
