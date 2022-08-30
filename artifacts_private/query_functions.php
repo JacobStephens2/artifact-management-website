@@ -939,6 +939,23 @@ ORDER BY UseDate DESC
     return $result;
   }
 
+  function list_users_by_query($query) {
+    global $db;
+    $sql = 
+      "SELECT 
+        players.id, 
+        players.FirstName,
+        players.LastName 
+      FROM players 
+      WHERE players.FirstName LIKE '%" . db_escape($db, $query) . "%'
+      ORDER BY players.FirstName ASC,
+      LastName ASC
+    ";
+    $result = mysqli_query($db, $sql);
+    confirm_result_set($result);
+    return $result;
+  }
+
   function use_by($type, $interval) {
     global $db;
 
