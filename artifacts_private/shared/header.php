@@ -49,7 +49,7 @@
           } elseif($_SESSION['user_group'] == 1) {
             echo '<span>User: ' . $username . '</span>';
           }
-          if ($_SESSION['logged_in'] == true) {
+          if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
             echo '<span><a href="' . url_for('index.php') . '">Menu</a></span>';
             echo '<span><a href="' . url_for('logout.php') . '">Logout</a></span>';
             ?>
