@@ -5,17 +5,14 @@ document.addEventListener("DOMContentLoaded", function () {
   var search = document.getElementById("search");
 
   function suggestionsToList(items) {
-    // <li><a href="search.php?q=alpha">Alpha</a></li>
 
     var output = "";
 
     for (i = 0; i < items.length; i++) {
       output += "<li>";
-      // output += "<option>";
       output += '<a href="search.php?q=' + items[i] + '">';
       output += items[i];
       output += "</a>";
-      // output += "</option>";
       output += "</li>";
     }
 
@@ -32,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var q = search.value;
 
     if (q.length < 3) {
-     suggestions.style.display = "none";
+      suggestions.style.display = "none";
       return;
     }
 
@@ -43,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (xhr.readyState == 4 && xhr.status == 200) {
         var result = xhr.responseText;
         console.log("Result: " + result);
-        
+
         var json = JSON.parse(result);
         showSuggestions(json);
       }
