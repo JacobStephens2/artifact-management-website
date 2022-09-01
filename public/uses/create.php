@@ -146,7 +146,7 @@ include(SHARED_PATH . '/header.php');
           requestBody = {
             "query": e.target.value,
           };
-          fetch('get-games-endpoint.php', {
+          fetch('https://<?php echo API_ORIGIN; ?>/artifacts.php', {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(requestBody),
@@ -154,13 +154,12 @@ include(SHARED_PATH . '/header.php');
             .then((response) => response.json())
             .then(
               (data => {
-                console.log(data);
                 const titleSelect = document.querySelector('select#Title');
                 titleSelect.innerHTML = '';
-                for (let i in data) {
+                for (let i = 0; i < data.artifacts.length; i++) {
                   let option = document.createElement('option');
-                  option.value = data[i].id;
-                  option.innerText = data[i].Title;
+                  option.value = data.artifacts[i].id;
+                  option.innerText = data.artifacts[i].Title;
                   titleSelect.append(option);
                 }
               })
@@ -172,19 +171,19 @@ include(SHARED_PATH . '/header.php');
       searchTitlesInput.addEventListener('input', searchArtifacts);
 
       function getArtifacts() {
-        fetch('get-games-endpoint.php', {
+        fetch('https://<?php echo API_ORIGIN; ?>/artifacts.php', {
+          method: 'GET',
           credentials: 'include',
         })
           .then((response) => response.json())
           .then(
             (data => {
-              console.log(data);
               const titleSelect = document.querySelector('select#Title');
               titleSelect.innerHTML = '';
-              for (let i in data) {
+              for (let i = 0; i < data.artifacts.length; i++) {
                 let option = document.createElement('option');
-                option.value = data[i].id;
-                option.innerText = data[i].Title;
+                option.value = data.artifacts[i].id;
+                option.innerText = data.artifacts[i].Title;
                 titleSelect.append(option);
               }
             })

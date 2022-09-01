@@ -44,34 +44,30 @@ function authenticate() {
   $headers = apache_request_headers();
   $response = new stdClass;
 
-  if ($headers['Authorization'] == ARTIFACTS_API_KEY) {
-    $response->message = 'Your API Key is valid.';
-    $response->authenticated = true;
-    return $response;
+  if (isset($_COOKIE["access_token"])) {
+    try {
+      $jwt = $_COOKIE["access_token"];
+      $key  = JWT_SECRET;
+      $decodedJWT = JWT::decode($jwt, new Key($key, 'HS256'));
+      $decodedJWT->authenticated = true;
+      return $decodedJWT;
 
+    } catch (Exception $e) {
+      $response->message = 'You have not been authenticated';
+      $response->error .= 'Caught exception: ' . $e->getMessage();
+      $response->authenticated = false;
+      return $response;
+    }
   } else {
-    if (isset($_COOKIE["access_token"])) {
-      try {
-        $jwt = $_COOKIE["access_token"];
-        $key  = JWT_SECRET;
-        $decodedJWT = JWT::decode($jwt, new Key($key, 'HS256'));
-        $decodedJWT->authenticated = true;
-        return $decodedJWT;
-
-      } catch (Exception $e) {
-        $response->message = 'You have not been authenticated';
-        $response->error .= 'Caught exception: ' . $e->getMessage();
-        $response->authenticated = false;
-        return $response;
-        exit;
-
-      }
+    if ($headers['Authorization'] == ARTIFACTS_API_KEY) {
+      $response->message = 'Your API Key is valid.';
+      $response->authenticated = true;
+      return $response;
     } else {
       $response->message = 'You have not been authenticated';
       return $response;
     }
   }
-
 }
 
 // Performs all actions necessary to log out an admin
