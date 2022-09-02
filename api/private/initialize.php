@@ -14,5 +14,6 @@ DatabaseObject::set_database($database);
 
 // Classes that extend DatabaseObject
 require_once('classes/Artifact.class.php');
+require_once('classes/User.class.php');
 
 ?>

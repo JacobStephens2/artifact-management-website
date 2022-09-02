@@ -77,28 +77,31 @@ include(SHARED_PATH . '/header.php');
 
 			<label for="Title">Artifact</label>
 			<select name="Title" id="Title">
-			</select>
+      </select>
+      
+      <label for="PlayDate">Response Date</label>
+      <input 
+        type="date" 
+        id="PlayDate" 
+        name="PlayDate" 
+        value="<?php echo date('Y') . '-' . date('m') . '-' . date('d'); ?>"
+      />
 
-			<label for="PlayDate">Response Date</label>
-			<input 
-				type="date" 
-				id="PlayDate" 
-				name="PlayDate" 
-				value="<?php echo date('Y') . '-' . date('m') . '-' . date('d'); ?>"
-			/>
+      <label for="Users">
+        <?php
+          if ($playerCount > 1) {
+            echo 'Users';
+          } else {
+            echo 'User';
+          }
+        ?>
+      </label>
 
-			<label for="Users">
-				<?php
-					if ($playerCount > 1) {
-						echo 'Users';
-					} else {
-						echo 'User';
-					}
-				?>
-			</label>
+      <label for="SearchUser1">Search Users</label>
+      <input type="text" name="SearchUser1" id="SearchUser1">
 
 			<!-- Choose players -->
-			<select id="Users" name="Player1">
+			<select id="User1" name="Player1">
 				<option value='141'>
           Jacob Stephens
         </option>
@@ -112,12 +115,46 @@ include(SHARED_PATH . '/header.php');
 					mysqli_free_result($player_set);
 				?>
 			</select>
+      <script>
+        function searchUsers(e) {
+          if (document.querySelector('#SearchUser1').value == '') {
+            getArtifacts();
+          } else {
+            requestBody = {
+              "query": e.target.value,
+            };
+            fetch('https://<?php echo API_ORIGIN; ?>/users.php', {
+              method: 'POST',
+              credentials: 'include',
+              body: JSON.stringify(requestBody),
+            })
+              .then((response) => response.json())
+              .then(
+                (data => {
+                  const userSelect = document.querySelector('select#User1');
+                  userSelect.innerHTML = '';
+                  for (let i = 0; i < data.users.length; i++) {
+                    let option = document.createElement('option');
+                    option.value = data.users[i].id;
+                    option.innerText = data.users[i].FullName;
+                    userSelect.append(option);
+                  }
+                })
+              )
+            ;
+          }
+        }
+        const searchUsersInput = document.querySelector('input#SearchUser1');
+        searchUsersInput.addEventListener('input', searchUsers);
+      </script>
 
       <?php
         $i = 1;
         $p = 2;
         while ($playerCount > $i) { ?>
-          <select name="Player<?php echo $p; ?>">
+          <input type="text" name="SearchUser<?php echo $p; ?>" id="SearchUser<?php echo $p; ?>">
+
+          <select id="User<?php echo $p; ?>" name="Player<?php echo $p; ?>">
             <option value="">Choose a player</option>
             <?php
             $player_set = list_players();
@@ -127,7 +164,41 @@ include(SHARED_PATH . '/header.php');
               echo "</option>";
             }
 						mysqli_free_result($player_set); ?>     
-          </select> <?php
+          </select>
+
+          <script>
+            function searchUsers(e) {
+              if (document.querySelector('#SearchUser<?php echo $p; ?>').value == '') {
+                getArtifacts();
+              } else {
+                requestBody = {
+                  "query": e.target.value,
+                };
+                fetch('https://<?php echo API_ORIGIN; ?>/users.php', {
+                  method: 'POST',
+                  credentials: 'include',
+                  body: JSON.stringify(requestBody),
+                })
+                  .then((response) => response.json())
+                  .then(
+                    (data => {
+                      const userSelect = document.querySelector('select#User<?php echo $p; ?>');
+                      userSelect.innerHTML = '';
+                      for (let i = 0; i < data.users.length; i++) {
+                        let option = document.createElement('option');
+                        option.value = data.users[i].id;
+                        option.innerText = data.users[i].FullName;
+                        userSelect.append(option);
+                      }
+                    })
+                  )
+                ;
+              }
+            }
+            const searchUser<?php echo $p; ?>Input = document.querySelector('input#SearchUser<?php echo $p; ?>');
+            searchUser<?php echo $p; ?>Input.addEventListener('input', searchUsers);
+          </script>
+          <?php
           $i++;
           $p++;
         }
@@ -137,7 +208,7 @@ include(SHARED_PATH . '/header.php');
 
     </form>
 
-    <!-- Append options to artifact select element -->
+    <!-- Append options to artifact and user select elements -->
     <script defer>
       function searchArtifacts(e) {
         if (document.querySelector('#SearchTitles').value == '') {
