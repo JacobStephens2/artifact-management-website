@@ -1,4 +1,4 @@
-<?php require_once('../../artifacts_private/initialize.php'); ?>
+<?php require_once('../../private/initialize.php'); ?>
 <?php require_login(); ?>
 <?php $page_title = 'About Use By'; ?>
 <?php include(SHARED_PATH . '/header.php'); ?>

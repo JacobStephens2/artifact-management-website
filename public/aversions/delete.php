@@ -1,5 +1,5 @@
 <?php
-require_once('../../artifacts_private/initialize.php');
+require_once('../../private/initialize.php');
 require_login();
 
 if(!isset($_GET['id'])) {
@@ -23,8 +23,6 @@ include(SHARED_PATH . '/header.php');
 
 <main>
 
-  <a class="back-link" href="<?php echo url_for('/artifacts/responses.php'); ?>">&laquo; Back to List</a>
-
   <div class="response-delete">
     <h1><?php echo $page_title; ?></h1>
     <p>Are you sure you want to delete this aversion?</p>
@@ -34,7 +32,7 @@ include(SHARED_PATH . '/header.php');
     <p class="item">Player: <?php echo h($use['FirstName']) . ' ' . h($use['LastName']); ?></p>
 
     <form 
-      action="<?php echo url_for('/artifacts/aversion-delete.php?id=' . h(u($use['id']))); ?>" 
+      action="<?php echo url_for('/aversions/delete.php?id=' . h(u($use['id']))); ?>" 
       method="post"
       >
       <div id="operations">

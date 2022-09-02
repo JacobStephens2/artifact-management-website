@@ -1394,6 +1394,7 @@ function find_response_by_id($id) {
   $sql .= "players.FirstName, ";
   $sql .= "players.LastName, ";
   $sql .= "responses.Title AS responsetitle, ";
+  $sql .= "responses.AversionDate, ";
   $sql .= "responses.id ";
   $sql .= "FROM responses ";
   $sql .= "LEFT JOIN players ON responses.Player = players.id ";

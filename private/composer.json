@@ -1,5 +1,5 @@
 {
-    "name": "jacob/artifacts_private",
+    "name": "jacob/private",
     "autoload": {
         "psr-4": {
             "Jacob\\ArtifactsPrivate\\": "src/"

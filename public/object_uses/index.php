@@ -1,5 +1,5 @@
 <?php 
-require_once('../../artifacts_private/initialize.php');
+require_once('../../private/initialize.php');
 require_login();
 $use_set = find_all_uses();
 $page_title = 'uses';

@@ -17,12 +17,6 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
 
-    <?php 
-      if($page_title == 'Create Use') {
-        echo '<script src="' . url_for('/public.js') . '"></script>';
-      }
-    ?>
-
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VW7XFDFLF9"></script>
     <script>
@@ -82,11 +76,11 @@
               Create&nbsp;User
             </a>
 
-            <a href="<?php echo url_for('/artifacts/aversions.php'); ?>">
+            <a href="<?php echo url_for('/aversions/index.php'); ?>">
               Aversions
             </a>
 
-            <a href="<?php echo url_for('/artifacts/aversion-new.php'); ?>">
+            <a href="<?php echo url_for('/aversions/new.php'); ?>">
               Record&nbsp;Aversion
             </a>
 

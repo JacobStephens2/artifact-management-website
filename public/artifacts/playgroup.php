@@ -1,5 +1,5 @@
 <?php
-require_once('../../artifacts_private/initialize.php');
+require_once('../../private/initialize.php');
 require_login();
 $object_set = find_playgroup_by_user_id();
 $page_title = 'User Group';

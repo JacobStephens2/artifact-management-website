@@ -1,6 +1,6 @@
 <?php
 
-require_once('../../artifacts_private/initialize.php');
+require_once('../../private/initialize.php');
 require_login();
 
 if(!isset($_GET['id'])) {
@@ -24,8 +24,6 @@ if(is_post_request()) {
 <?php include(SHARED_PATH . '/header.php'); ?>
 
 <main>
-
-  <a class="back-link" href="<?php echo url_for('/artifacts/responses.php'); ?>">&laquo; Back to List</a>
 
   <div class="response-delete">
     <h1>Delete Use</h1>

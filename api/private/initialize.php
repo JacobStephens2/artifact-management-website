@@ -1,10 +1,10 @@
 <?php
 
-require_once('../artifacts_private/environment_variables.php');
+require_once('../private/environment_variables.php');
 
-require_once('../artifacts_private/vendor/autoload.php');
+require_once('../private/vendor/autoload.php');
 
-require_once('../artifacts_private/auth_functions.php');
+require_once('../private/auth_functions.php');
 
 include_once('database_functions.php');
 $database = db_connect();

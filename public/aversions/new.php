@@ -1,5 +1,5 @@
 <?php
-require_once('../../artifacts_private/initialize.php');
+require_once('../../private/initialize.php');
 require_login();
 
 if(is_post_request()) {
@@ -48,7 +48,7 @@ include(SHARED_PATH . '/header.php');
     <h1><?php echo $page_title; ?></h1>
 
     <form 
-      action="<?php echo url_for('/artifacts/aversion-create.php'); ?>"
+      action="<?php echo url_for('/aversions/create.php'); ?>"
       method="get"
     >
 			<label for="playerCount">User Count</label>
@@ -68,7 +68,7 @@ include(SHARED_PATH . '/header.php');
       <input type="submit" value="Select User Count" />
     </form>
 
-    <form action="<?php echo url_for('/artifacts/aversion-new.php?playerCount=' . $playerCount); ?>" method="post">
+    <form action="<?php echo url_for('/aversions/new.php?playerCount=' . $playerCount); ?>" method="post">
 
       <!-- This select gets populated by the JavaScript fetch request above -->
       <label for="SearchTitles">Search Artifacts</label>
@@ -146,7 +146,7 @@ include(SHARED_PATH . '/header.php');
             "query": e.target.value,
             
           };
-          fetch('/uses/get-games-endpoint.php', {
+          fetch('https://<?php echo API_ORIGIN; ?>/artifacts.php', {
             method: 'POST',
             credentials: 'include',
             body: JSON.stringify(requestBody),
@@ -154,13 +154,12 @@ include(SHARED_PATH . '/header.php');
             .then((response) => response.json())
             .then(
               (data => {
-                console.log(data);
                 const titleSelect = document.querySelector('select#Title');
                 titleSelect.innerHTML = '';
-                for (let i in data) {
+                for (let i = 0; i < data.artifacts.length; i++) {
                   let option = document.createElement('option');
-                  option.value = data[i].id;
-                  option.innerText = data[i].Title;
+                  option.value = data.artifacts[i].id;
+                  option.innerText = data.artifacts[i].Title;
                   titleSelect.append(option);
                 }
               })
@@ -172,19 +171,18 @@ include(SHARED_PATH . '/header.php');
       searchTitlesInput.addEventListener('input', searchArtifacts);
 
       function getArtifacts() {
-        fetch('/uses/get-games-endpoint.php', {
+        fetch('https://<?php echo API_ORIGIN; ?>/artifacts.php', {
           credentials: 'include',
         })
           .then((response) => response.json())
           .then(
             (data => {
-              console.log(data);
               const titleSelect = document.querySelector('select#Title');
               titleSelect.innerHTML = '';
               for (let i in data) {
                 let option = document.createElement('option');
-                option.value = data[i].id;
-                option.innerText = data[i].Title;
+                option.value = data.artifacts[i].id;
+                option.innerText = data.artifacts[i].Title;
                 titleSelect.append(option);
               }
             })

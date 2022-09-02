@@ -1,5 +1,5 @@
 <?php 
-require_once('../../artifacts_private/initialize.php');
+require_once('../../private/initialize.php');
 require_login();
 $use_set = find_aversions_by_user_id();
 $page_title = 'Artifact Aversions';
@@ -19,7 +19,7 @@ include(SHARED_PATH . '/header.php');
       <?php while($use = mysqli_fetch_assoc($use_set)) { ?>
         <tr>
           <td class="date">
-            <a class="action" href="<?php echo url_for('/artifacts/aversion-edit.php?id=' . h(u($use['id']))); ?>">
+            <a class="action" href="<?php echo url_for('/aversions/edit.php?id=' . h(u($use['id']))); ?>">
               <?php echo h($use['AversionDate']); ?>
             </a>
           </td>

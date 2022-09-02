@@ -1,5 +1,5 @@
 <?php 
-require_once('../../artifacts_private/initialize.php');
+require_once('../../private/initialize.php');
 require_login();
 $object_set = find_objects_by_user();
 $page_title = 'objects'; 

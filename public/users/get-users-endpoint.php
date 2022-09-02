@@ -1,5 +1,5 @@
 <?php
-require_once('../../artifacts_private/initialize.php');
+require_once('../../private/initialize.php');
 header('Content-Type: application/json');
 
 $authentication_response = authenticate();

@@ -1,5 +1,5 @@
 <?php
-require_once('../../artifacts_private/initialize.php');
+require_once('../../private/initialize.php');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;

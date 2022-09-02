@@ -1,5 +1,5 @@
 <?php
-require_once('../../artifacts_private/initialize.php');
+require_once('../../private/initialize.php');
 require_login();
 if(!isset($_GET['ID'])) {
   redirect_to(url_for('/artifacts/playgroup.php'));
