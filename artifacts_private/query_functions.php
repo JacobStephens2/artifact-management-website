@@ -1338,7 +1338,8 @@ ORDER BY UseDate DESC
 
     $sql = "SELECT ";
     $sql .= "games.Title, ";
-    $sql .= "responses.id, ";
+    $sql .= "games.id AS gameID, ";
+    $sql .= "responses.id AS responseID, ";
     $sql .= "players.FirstName, ";
     $sql .= "players.LastName, ";
     $sql .= "responses.PlayDate ";
