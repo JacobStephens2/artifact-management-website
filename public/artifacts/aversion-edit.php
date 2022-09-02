@@ -1,5 +1,4 @@
 <?php
-
 require_once('../../artifacts_private/initialize.php');
 require_login();
 
@@ -22,26 +21,22 @@ if(is_post_request()) {
     redirect_to(url_for('/artifacts/response-show.php?id=' . $id));
   } else {
     $errors = $result;
-    //var_dump($errors);
   }
-
 } else {
-
   $response = find_response_by_id($id);
-
 }
 
-?>
+$page_title = 'Edit Aversion';
+include(SHARED_PATH . '/header.php');
 
-<?php $page_title = 'Edit Use'; ?>
-<?php include(SHARED_PATH . '/header.php'); ?>
+?>
 
 <main>
 
   <a class="back-link" href="<?php echo url_for('/artifacts/responses.php'); ?>">&laquo; Back to List</a>
 
   <div class="object edit">
-    <h1>Edit Use</h1>
+    <h1><?php echo $page_title; ?></h1>
 
     <?php echo display_errors($errors); ?>
 
@@ -85,8 +80,8 @@ if(is_post_request()) {
       </dl>
       
       <dl>
-        <dt>Use Date</dt>
-        <dd><input type="date" name="PlayDate" value="<?php echo h($response['PlayDate']); ?>" /></dd>
+        <dt>Aversion Date</dt>
+        <dd><input type="date" name="AversionDate" value="<?php echo h($response['AversionDate']); ?>" /></dd>
       </dl>
       <dl>
         <dd><input type="hidden" name="id" value="<?php echo h($response['id']); ?>" /></dd>
@@ -99,7 +94,7 @@ if(is_post_request()) {
       href="<?php echo url_for('/artifacts/response-delete.php?id=' . h(u($response['id']))); ?>"
     >
       <button>
-        Delete Use
+        Delete Aversion
       </button>
     </a>
 
