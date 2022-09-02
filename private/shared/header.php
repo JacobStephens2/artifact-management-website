@@ -52,7 +52,7 @@
               Use&nbsp;Artifacts&nbsp;By&nbsp;Date
             </a>
 
-            <a href="<?php echo url_for('/artifacts/responses.php'); ?>">
+            <a href="<?php echo url_for('/uses/index.php'); ?>">
               Uses
             </a>
           
@@ -84,11 +84,11 @@
               Record&nbsp;Aversion
             </a>
 
-            <a href="<?php echo url_for('/artifacts/playgroup.php'); ?>">
+            <a href="<?php echo url_for('/playgroup/index.php'); ?>">
               Group
             </a>
 
-            <a href="<?php echo url_for('/artifacts/playgroup-choose.php'); ?>">
+            <a href="<?php echo url_for('/playgroup/choose.php'); ?>">
               Choose&nbsp;for&nbsp;Group
             </a>
 

@@ -16,7 +16,6 @@ $usergroup = find_playgroup_by_user_id();
 ?>
 
 <main>
-    <li><a class="back-link" href="<?php echo url_for('/artifacts/playgroup.php'); ?>">&laquo; User group</a></li>
   <div class="objects listing">
     <h1>Choose Artifacts for Group of <?php echo $usergroup->num_rows; ?> Users</h1>
     <p>
@@ -24,7 +23,7 @@ $usergroup = find_playgroup_by_user_id();
     </p>
 
     <!-- Parameters form -->
-    <form action="<?php echo url_for('/artifacts/playgroup-choose.php'); ?>" method="post">
+    <form action="<?php echo url_for('/playgroup/choose.php'); ?>" method="post">
 
         <label for="range">Show only artifacts matching count of user group</label>
         <input type="hidden" name="range" value="false" />
@@ -73,7 +72,7 @@ $usergroup = find_playgroup_by_user_id();
           <td class="edit"><?php echo h($game['MxP']); ?></td>
           <td class="edit"><?php echo h($game['MxT']); ?></td>
           <td class="edit">
-            <a class="table-action" href="<?php echo url_for('/artifacts/response-edit.php?id=' . h(u($game['ResponseID']))); ?>">
+            <a class="table-action" href="<?php echo url_for('/uses/edit.php?id=' . h(u($game['ResponseID']))); ?>">
               <?php echo h($game['MaxOfPlayDate']); ?>
             </a>
           </td>

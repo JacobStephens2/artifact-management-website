@@ -11,8 +11,8 @@ include(SHARED_PATH . '/header.php');
     <h1><?php echo $page_title; ?></h1>
 
     <div class="actions">
-      <li><a class="action" href="<?php echo url_for('/artifacts/playgroup-new.php'); ?>">Add to User Group</a></li>
-      <li><a class="action" href="<?php echo url_for('/artifacts/playgroup-choose.php'); ?>">Choose Games for User Group</a></li>
+      <li><a class="action" href="<?php echo url_for('/playgroup/new.php'); ?>">Add to User Group</a></li>
+      <li><a class="action" href="<?php echo url_for('/playgroup/choose.php'); ?>">Choose Games for User Group</a></li>
     </div>
 
   	<table class="list">
@@ -26,13 +26,13 @@ include(SHARED_PATH . '/header.php');
         <tr>
           <td><?php echo h($object['FirstName']) . ' ' . h($object['LastName']); ?></td>
           <td>
-            <a class="table-action" href="<?php echo url_for('/artifacts/playgroup-edit.php?ID=' . h(u($object['ID']))); ?>">
+            <a class="table-action" href="<?php echo url_for('/playgroup/edit.php?ID=' . h(u($object['ID']))); ?>">
               <?php echo h($object['ID']); ?>
             </a>
           </td>
           <td>    
-            <a class="table-action" href="<?php echo url_for('/artifacts/playgroup-delete.php?ID=' . h(u($object['ID']))); ?>">
-              Delete
+            <a class="table-action" href="<?php echo url_for('/playgroup/delete.php?ID=' . h(u($object['ID']))); ?>">
+              Remove
             </a>
           </td>
     	  </tr>

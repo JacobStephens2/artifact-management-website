@@ -48,7 +48,7 @@ if (
             The link is invalid/expired. Either you did not copy the correct link from the email, or you have already used the key in which case it is deactivated.
           </p>
           <p>
-            <a href="https://artifact-minimalism.site/reset/index.php">Click here</a> to reset password.
+            <a href="https://artifact-minimalism.site/reset-password/index.php">Click here</a> to reset password.
           </p>';
       } else {
         $row = mysqli_fetch_assoc($query);

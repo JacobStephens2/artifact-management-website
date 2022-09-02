@@ -13,7 +13,7 @@ $response = find_response_by_id($id);
 
 <main>
 
-  <li><a class="action" href="<?php echo url_for('/artifacts/response-edit.php?id=' . h(u($response['id']))); ?>">Edit</a></li>
+  <li><a class="action" href="<?php echo url_for('/uses/edit.php?id=' . h(u($response['id']))); ?>">Edit</a></li>
 
   <div class="use show">
 

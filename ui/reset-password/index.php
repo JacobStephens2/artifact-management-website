@@ -72,7 +72,7 @@ include(SHARED_PATH . '/header.php');
          $output='<p>Dear user,</p>';
          $output.='<p>Please click on the following link to reset your password.</p>';
          $output.='<p>-------------------------------------------------------------</p>';
-         $output.='<p><a href="https://artifact-minimalism.site/reset/reset-password.php?key='.$key.'&email='.$email.'&action=reset" target="_blank">https://artifact-minimalism.site/reset/reset-password.php?key='.$key.'&email='.$email.'&action=reset</a></p>'; 
+         $output.='<p><a href="https://artifact-minimalism.site/reset-password/reset-password.php?key='.$key.'&email='.$email.'&action=reset" target="_blank">https://artifact-minimalism.site/reset-password/reset-password.php?key='.$key.'&email='.$email.'&action=reset</a></p>'; 
          $output.='<p>-------------------------------------------------------------</p>';
          $output.='<p>Copy the link to your browser. The link will expire after 1 day.</p>';
          $output.='<p>If you did not request this reset password email, no action is needed. Your password will not be reset.</p>';   

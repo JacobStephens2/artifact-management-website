@@ -4,7 +4,7 @@ require_once('../../private/initialize.php');
 require_login();
 
 if(!isset($_GET['id'])) {
-  redirect_to(url_for('/artifacts/responses.php'));
+  redirect_to(url_for('/uses/index.php'));
 }
 $id = $_GET['id'];
 
@@ -19,7 +19,7 @@ if(is_post_request()) {
   $result = update_response($response);
   if($result === true) {
     $_SESSION['message'] = 'The object was updated successfully.';
-    redirect_to(url_for('/artifacts/response-show.php?id=' . $id));
+    redirect_to(url_for('/uses/show.php?id=' . $id));
   } else {
     $errors = $result;
     //var_dump($errors);
@@ -43,7 +43,7 @@ if(is_post_request()) {
 
     <?php echo display_errors($errors); ?>
 
-    <form action="<?php echo url_for('/artifacts/response-edit.php?id=' . h(u($id))); ?>" method="post">
+    <form action="<?php echo url_for('/uses/edit.php?id=' . h(u($id))); ?>" method="post">
       <dl>
         <dt>Artifact</dt>
         <dd>
@@ -94,7 +94,7 @@ if(is_post_request()) {
 
     <a 
       class="action" 
-      href="<?php echo url_for('/artifacts/response-delete.php?id=' . h(u($response['id']))); ?>"
+      href="<?php echo url_for('/uses/delete.php?id=' . h(u($response['id']))); ?>"
     >
       <button>
         Delete Use

@@ -19,7 +19,7 @@ include(SHARED_PATH . '/header.php');
       <?php while($use = mysqli_fetch_assoc($use_set)) { ?>
         <tr>
           <td class="date">
-            <a class="action" href="<?php echo url_for('/artifacts/response-edit.php?id=' . h(u($use['responseID']))); ?>">
+            <a class="action" href="<?php echo url_for('/uses/edit.php?id=' . h(u($use['responseID']))); ?>">
               <?php echo h($use['PlayDate']); ?>
             </a>
           </td>

@@ -41,7 +41,7 @@ include(SHARED_PATH . '/header.php');
     <!-- Uses -->
     <ul>
       <li>
-        <a href="<?php echo url_for('/artifacts/responses.php');?>">
+        <a href="<?php echo url_for('/uses/index.php');?>">
           Uses
         </a>
       </li>
@@ -70,13 +70,13 @@ include(SHARED_PATH . '/header.php');
         </li>
 
         <li>
-          <a href="<?php echo url_for('/artifacts/playgroup.php');?>">
+          <a href="<?php echo url_for('/playgroup/index.php');?>">
             User Group
           </a>
         </li>
 
         <li>
-          <a class="action" href="<?php echo url_for('/artifacts/playgroup-choose.php'); ?>">
+          <a class="action" href="<?php echo url_for('/playgroup/choose.php'); ?>">
             Choose Artifacts for User Group
           </a>
         </li>
@@ -89,7 +89,7 @@ include(SHARED_PATH . '/header.php');
     
     <ul>
       <li class="main-menu">
-        <a href="<?php echo url_for('/reset/index.php'); ?>">Reset password</a>
+        <a href="<?php echo url_for('/reset-password/index.php'); ?>">Reset password</a>
       </li>
     </ul>
 
