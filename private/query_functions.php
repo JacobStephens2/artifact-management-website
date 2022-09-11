@@ -1497,10 +1497,11 @@ function delete_response($id) {
     global $db;
 
     $sql = "INSERT INTO players ";
-    $sql .= "(FirstName, LastName, G, Age, user_id) ";
+    $sql .= "(FirstName, LastName, FullName, G, Age, user_id) ";
     $sql .= "VALUES (";
     $sql .= "'" . db_escape($db, $player['FirstName']) . "',";
     $sql .= "'" . db_escape($db, $player['LastName']) . "',";
+    $sql .= "'" . db_escape($db, $player['FirstName']) . " " . db_escape($db, $player['LastName']) . "',";
     $sql .= "'" . db_escape($db, $player['G']) . "',";
     $sql .= "'" . db_escape($db, $player['Age']) . "',";
     $sql .= "'" . db_escape($db, $_SESSION['user_id']) . "'";
