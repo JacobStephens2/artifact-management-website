@@ -1347,6 +1347,7 @@ ORDER BY UseDate DESC
     $sql .= "LEFT JOIN games ON responses.Title = games.id ";
     $sql .= "LEFT JOIN players ON responses.Player = players.id ";
     $sql .= "WHERE responses.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
+    $sql .= "AND responses.PlayDate IS NOT NULL ";
     $sql .= "ORDER BY responses.PlayDate DESC, ";
     $sql .= "games.Title DESC, ";
     $sql .= "players.LastName ASC, ";
@@ -1618,6 +1619,7 @@ function choose_games_for_group($range, $type, $kept = 0) {
     players.Priority 
   HAVING ";
   $sql .= " games.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
+  $sql .= "AND MaxOfPlayDate IS NOT NULL OR MaxOfAversionDate IS NOT NULL ";
   if ($range == 'true') {
     $sql .= "AND games.mnp <= " . $playgroup_count['count(*)'] . " ";
     $sql .= "AND games.mxp >= " . $playgroup_count['count(*)'] . " ";
@@ -1636,10 +1638,9 @@ function choose_games_for_group($range, $type, $kept = 0) {
     Max(responses.PassDate) ASC,
     Max(responses.RequestDate) DESC
     ";  
-
-    $result = mysqli_query($db, $sql);
-    confirm_result_set($result);
-    return $result;
+  $result = mysqli_query($db, $sql);
+  confirm_result_set($result);
+  return $result;
 }
 
 function update_playgroup_player($playgroupplayer) {
