@@ -1,5 +1,4 @@
 <?php
-
 require_once('../../private/initialize.php');
 require_login();
 
@@ -18,22 +17,21 @@ if(is_post_request()) {
   $object = find_playgroup_player_by_id($ID);
 }
 
-?>
+$page_title = 'Remove User From Group';
+include(SHARED_PATH . '/header.php');
 
-<?php $page_title = 'Delete game'; ?>
-<?php include(SHARED_PATH . '/header.php'); ?>
+?>
 
 <main>
 
-
   <div class="object delete">
-    <h1>Remove player from playgroup</h1>
-    <p>Are you sure you want to remove this player from the playgroup?</p>
+    <h1><?php echo $page_title; ?></h1>
+    <p>Are you sure you want to remove this user from the group?</p>
     <p class="item"><?php echo h($object['FirstName']) . ' ' . h($object['LastName']); ?></p>
 
     <form action="<?php echo url_for('/playgroup/delete.php?ID=' . h(u($object['ID']))); ?>" method="post">
       <div ID="operations">
-        <input type="submit" name="commit" value="Remove player from playgroup" />
+        <input type="submit" name="commit" value="Remove User From Group" />
       </div>
     </form>
   </div>

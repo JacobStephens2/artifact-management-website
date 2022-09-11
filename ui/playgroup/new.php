@@ -1,5 +1,4 @@
 <?php
-
 require_once('../../private/initialize.php');
 require_login();
 
@@ -32,8 +31,6 @@ if(is_post_request()) {
 
 }
 
-
-
 if(is_post_request()) {
 
   $object = [];
@@ -53,14 +50,13 @@ if(is_post_request()) {
   $object["FullName"] = '';
 }
 
+$page_title = 'Add User to Group';
+include(SHARED_PATH . '/header.php');
 ?>
-
-<?php $page_title = 'Create object'; ?>
-<?php include(SHARED_PATH . '/header.php'); ?>
 
 <main>
 
-  <h2>Player count</h2>
+  <h2>User Count</h2>
     <form action="<?php echo url_for('/playgroup/new.php'); ?>" method="get">
       <select name="playerCount">
         <?php
@@ -75,12 +71,12 @@ if(is_post_request()) {
           }
         ?>
       </select>
-      <input type="submit" value="Select player count" />
+      <input type="submit" value="Select User Count" />
     </form>
 
 
   <div class="object new">
-    <h1>Add to playgroup</h1>
+    <h1>Add to group</h1>
 
     <?php echo display_errors($errors); ?>
 

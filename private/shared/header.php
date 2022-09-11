@@ -1,4 +1,4 @@
-<?php if ( ! isset($page_title) ) { $page_title = 'Artifacts'; } ?>
+<?php if ( ! isset($page_title) ) { $page_title = 'Artifact Manager'; } ?>
 
 <!DOCTYPE html>
 
@@ -6,7 +6,7 @@
   <head>
     
     <title>
-      <?php echo h($page_title); ?> - Artifact Management Tool
+      <?php echo h($page_title); ?> - Artifact Manager
     </title>
 
     <meta charset="utf-8">
@@ -31,7 +31,7 @@
 
   <body>
     <header>
-      <a class="header-link" href="/index.php">Artifact Management Tool</a>
+      <a class="header-link" href="/index.php">Artifact Manager</a>
     </header>
 
     <nav class="hideOnPrint">
