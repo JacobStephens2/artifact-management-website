@@ -1564,7 +1564,7 @@ function delete_response($id) {
 
 function count_playgroup() {
   global $db;
-  $sql = "SELECT count(*) FROM playgroup";
+  $sql = "SELECT count(*) AS count FROM playgroup";
   $result = mysqli_query($db, $sql);
   confirm_result_set($result);
   $subject = mysqli_fetch_assoc($result);
@@ -1620,10 +1620,10 @@ function choose_games_for_group($range, $type, $kept = 0) {
     players.Priority 
   HAVING ";
   $sql .= " games.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
-  $sql .= "AND MaxOfPlayDate IS NOT NULL OR MaxOfAversionDate IS NOT NULL ";
+  $sql .= "AND ( MaxOfPlayDate IS NOT NULL OR MaxOfAversionDate IS NOT NULL ) ";
   if ($range == 'true') {
-    $sql .= "AND games.mnp <= " . $playgroup_count['count(*)'] . " ";
-    $sql .= "AND games.mxp >= " . $playgroup_count['count(*)'] . " ";
+    $sql .= "AND games.MnP <= " . $playgroup_count['count'] . " ";
+    $sql .= "AND games.MxP >= " . $playgroup_count['count'] . " ";
   }
   if ($type != '1') {
     $sql .= "AND games.type = '" . $type . "' ";

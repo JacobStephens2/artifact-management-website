@@ -21,7 +21,6 @@ $usergroup = find_playgroup_by_user_id();
     <p>
       The dates represent the most recent instance of the type of response indicated by the column header. SS = sweet spot, Mnp = minimum player count, Mxp = maximum player count.
     </p>
-
     <!-- Parameters form -->
     <form action="<?php echo url_for('/playgroup/choose.php'); ?>" method="post">
 
