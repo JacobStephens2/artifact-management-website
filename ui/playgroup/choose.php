@@ -29,8 +29,8 @@ $usergroup = find_playgroup_by_user_id();
         <input type="checkbox" id="range" name="range" value="true" <?php if($range == 'true') { echo " checked"; } ?> />
 
         <label for="kept">Show only artifacts kept</label>
-        <input type="hidden" name="kept" value="false" />
-        <input type="checkbox" id="kept" name="kept" value="0" <?php if($kept == 1) { echo " checked"; } ?> />
+        <input type="hidden" name="kept" value="0" />
+        <input type="checkbox" id="kept" name="kept" value="1" <?php if($kept == 1) { echo " checked"; } ?> />
 
         <label for="type">Artifact type</label>
         <select id="type" name="type">
