@@ -26,7 +26,7 @@ class User extends DatabaseObject {
     $sql .= "WHERE FullName IS NOT NULL ";
     $sql .= "ORDER BY FullName ASC ";
     $sql .= "LIMIT 1000";
-
+    
     $result = self::$database->query($sql);
     if ($result->num_rows > 0) {
       while($record = $result->fetch_assoc()) {

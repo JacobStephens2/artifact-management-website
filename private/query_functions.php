@@ -822,6 +822,7 @@ ORDER BY UseDate DESC
     $sql .= "Candidate='" . db_escape($db, $artifact['Candidate']) . "', ";
     $sql .= "UsedRecUserCt='" . db_escape($db, $artifact['UsedRecUserCt']) . "', ";
     $sql .= "type='" . db_escape($db, $artifact['type']) . "', ";
+    $sql .= "SS='" . db_escape($db, $artifact['SS']) . "', ";
     $sql .= "MnP='" . db_escape($db, $artifact['MnP']) . "', ";
     $sql .= "MxP='" . db_escape($db, $artifact['MxP']) . "' ";
     $sql .= "WHERE id='" . db_escape($db, $artifact['id']) . "' ";
