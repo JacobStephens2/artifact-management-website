@@ -45,15 +45,17 @@ $usergroup = find_playgroup_by_user_id();
         <input type="submit" value="Submit" />
     </form>
 
+    <p><?php echo $game_set->num_rows; ?> results</p>
+
   	<table class="list">
   	  <tr class="header-row">
         <th class="table-header">Artifact</th>
-  	    <th class="table-header">Player</th>
+  	    <th class="table-header">User</th>
         <th class="table-header">SS</th>
         <th class="table-header">MnP</th>
         <th class="table-header">MxP</th>
         <th class="table-header">MxT</th>
-  	    <th class="table-header">Play</th>
+  	    <th class="table-header">Use</th>
   	    <th class="table-header">Aversion</th>
   	    <th class="table-header">Type</th>
   	  </tr>
@@ -65,7 +67,11 @@ $usergroup = find_playgroup_by_user_id();
               <?php echo h($game['title']); ?>
             </a>
           </td>
-    	    <td class="edit"><?php echo h($game['FirstName']) . ' ' . h($game['LastName']); ?></td>
+    	    <td class="edit">
+            <a class="table-action" href="<?php echo url_for('/users/edit.php?id=' . h(u($game['PlayerID']))); ?>">
+              <?php echo h($game['FirstName']) . ' ' . h($game['LastName']); ?>
+            </a>
+          </td>
     	    <td class="edit"><?php echo ltrim(h($game['ss']), '0'); ?></td>
           <td class="edit"><?php echo h($game['MnP']); ?></td>
           <td class="edit"><?php echo h($game['MxP']); ?></td>
@@ -75,7 +81,10 @@ $usergroup = find_playgroup_by_user_id();
               <?php echo h($game['MaxOfPlayDate']); ?>
             </a>
           </td>
-          <td class="edit"><?php echo h($game['MaxOfAversionDate']); ?></td>
+          <td class="edit">
+            <a class="table-action" href="<?php echo url_for('/aversions/edit.php?id=' . h(u($game['ResponseID']))); ?>">
+              <?php echo h($game['MaxOfAversionDate']); ?></td>
+            </a>
           <td class="edit"><?php echo h($game['type']); ?></td>
     	  </tr>
       <?php } ?>

@@ -1587,6 +1587,7 @@ function choose_games_for_group($range, $type, $kept = 0) {
   games.type,
   games.KeptCol,
   playgroup.FullName,
+  players.id AS PlayerID,
   players.FirstName,
   players.LastName,
   players.G,
