@@ -76,7 +76,7 @@ $usergroup = find_playgroup_by_user_id();
           <td class="edit"><?php echo h($game['MnP']); ?></td>
           <td class="edit"><?php echo h($game['MxP']); ?></td>
           <td class="edit"><?php echo h($game['MxT']); ?></td>
-          <td class="edit">
+          <td class="edit date">
             <a class="table-action" href="<?php echo url_for('/uses/edit.php?id=' . h(u($game['ResponseID']))); ?>">
               <?php echo h($game['MaxOfPlayDate']); ?>
             </a>

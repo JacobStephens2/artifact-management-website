@@ -22,6 +22,8 @@ if(is_post_request()) {
   $artifact['UsedRecUserCt'] = $_POST['UsedRecUserCt'] ?? '';
   $artifact['MnP'] = $_POST['MnP'] ?? '';
   $artifact['MxP'] = $_POST['MxP'] ?? '';
+  $artifact['MnT'] = $_POST['MnT'] ?? '';
+  $artifact['MxT'] = $_POST['MxT'] ?? '';
   $artifact['SS'] = $_POST['SS'] ?? '';
   $result = update_artifact($artifact);
   if($result === true) {
@@ -54,13 +56,19 @@ include(SHARED_PATH . '/header.php');
       ?>
 
       <label for="SS">Sweet Spot</label>
-      <input type="number" name="SS" id="SS" value="<?php echo $artifact['SS']; ?>">
+      <input type="text" name="SS" id="SS" value="<?php echo $artifact['SS']; ?>">
 
       <label for="MnP">Minimum User Count</label>
       <input type="number" name="MnP" id="MnP" value="<?php echo $artifact['MnP']; ?>">
 
       <label for="MxP">Maximum User Count</label>
       <input type="number" name="MxP" id="MxP" value="<?php echo $artifact['MxP']; ?>">
+
+      <label for="MnT">Minimum Time</label>
+      <input type="number" name="MnT" id="MnT" value="<?php echo $artifact['MnT']; ?>">
+
+      <label for="MxT">Maxiumum Time</label>
+      <input type="number" name="MxT" id="MxT" value="<?php echo $artifact['MxT']; ?>">
 
       <label for="Acq">Acquisition Date</label>
       <input type="date" name="Acq" id="Acq" value="<?php echo h($artifact['Acq']); ?>" />
