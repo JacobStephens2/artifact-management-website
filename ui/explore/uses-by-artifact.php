@@ -10,7 +10,8 @@ include(SHARED_PATH . '/header.php');
 
 $getUseCountsByPlayerSQL = "SELECT 
   COUNT('responses.PlayDate') AS CountOfUses, 
-  games.Title
+  games.Title AS ArtifactTitle,
+  responses.Title AS ArtifactID
   FROM responses
   JOIN games ON games.id = responses.Title
   WHERE responses.Player = " . $_SESSION['player_id'] . "
@@ -49,7 +50,9 @@ if (substr($_SESSION['FullName'], -1, 1) == 's') {
           <?php echo $usesByPlayerArray['CountOfUses']; ?>
         </td>
         <td>
-          <?php echo $usesByPlayerArray['Title']; ?>
+          <a href="/artifacts/edit.php?id=<?php echo $usesByPlayerArray['ArtifactID']; ?>">
+            <?php echo $usesByPlayerArray['ArtifactTitle']; ?>
+          </a>
         </td>
       </tr>
     <?php } ?>
