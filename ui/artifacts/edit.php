@@ -46,7 +46,15 @@ include(SHARED_PATH . '/header.php');
 
     <?php echo display_errors($errors); ?>
 
-    <form action="<?php echo url_for('/artifacts/edit.php?id=' . h(u($id))); ?>" method="post">
+    <button id="editFormDisplayButton">
+      Toggle Edit Form Display
+    </button>
+
+    <form 
+      action="<?php echo url_for('/artifacts/edit.php?id=' . h(u($id))); ?>" 
+      method="post"
+      id="editForm"
+      >
       <label for="Title">Title</dt>
       <input type="text" name="Title" id="Title" value="<?php echo h($artifact['Title']); ?>" />
 
@@ -90,10 +98,6 @@ include(SHARED_PATH . '/header.php');
       <input type="submit" value="Save Edits" />
     </form>
 
-    <a class="action" href="<?php echo url_for('/artifacts/delete.php?id=' . h(u($_REQUEST['id']))); ?>">
-      <p>Delete <?php echo h($artifact['Title']); ?></p>
-    </a>
-
   </div>
 
   <section>
@@ -128,6 +132,26 @@ include(SHARED_PATH . '/header.php');
     </table>
   </section>
 
+  <a class="action" href="<?php echo url_for('/artifacts/delete.php?id=' . h(u($_REQUEST['id']))); ?>">
+    <p>Delete <?php echo h($artifact['Title']); ?></p>
+  </a>
+
 </main>
+
+<script>
+  let editForm = document.querySelector('#editForm');
+
+  function toggleEditFormDisplay() {
+    if (editForm.style.display == 'none') {
+        editForm.style.display = 'block';
+    } else {
+        editForm.style.display = 'none';
+    }
+  }
+
+  let editFormDisplayButton = document.querySelector('#editFormDisplayButton');
+
+  editFormDisplayButton.addEventListener('click', toggleEditFormDisplay);
+</script>
 
 <?php include(SHARED_PATH . '/footer.php'); ?>

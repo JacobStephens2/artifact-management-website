@@ -133,6 +133,14 @@ button:hover {
   cursor: pointer;
 }
 
+button#editFormDisplayButton {
+  margin-top: 0.2rem;
+  margin-bottom: 0;
+  font-size: 0.8rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.7rem;
+}
+
 .reset-password-button {
   margin-top: 3rem;
   margin-bottom: 2rem;
