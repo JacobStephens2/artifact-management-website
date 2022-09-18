@@ -40,11 +40,9 @@ if(is_post_request()) {
 
 $page_title = 'Record Use';
 include(SHARED_PATH . '/header.php'); 
-
 ?>
 
 <main>
-
     <script>
       function getArtifacts() {
         fetch('https://<?php echo API_ORIGIN; ?>/artifacts.php', {
@@ -126,8 +124,8 @@ include(SHARED_PATH . '/header.php');
 
 			<!-- Choose players -->
 			<select id="User1" name="Player1">
-				<option value='141'>
-          Jacob Stephens
+				<option value='<?php echo $_SESSION['player_id']; ?>'>
+          <?php echo $_SESSION['FullName']; ?>
         </option>
 				<?php
 					$player_set = list_players();
