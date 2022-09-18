@@ -96,6 +96,38 @@ include(SHARED_PATH . '/header.php');
 
   </div>
 
+  <section>
+    <?php
+    $findUsesOfArtifactByUserSQL = "SELECT
+      responses.PlayDate,
+      responses.id
+      FROM responses
+      WHERE responses.Title = " . $artifact['id'] . "
+      AND responses.Player = " . $_SESSION['player_id'] . "
+      ORDER BY responses.PlayDate DESC
+    ";
+    $usesOfArtifactByUserResultObject = mysqli_query($db, $findUsesOfArtifactByUserSQL);
+    ?>
+    <h2>
+      <?php echo $usesOfArtifactByUserResultObject->num_rows; ?> 
+      Uses of <?php echo h($artifact['Title']); ?>
+    </h2>
+    <table>
+      <tr>
+        <th>Use Date</th>
+      <tr>
+      <?php foreach ($usesOfArtifactByUserResultObject as $usesOfArtifactByUserArray) { ?>        
+        <tr>
+          <td>
+            <a href="/uses/edit.php?id=<?php echo $usesOfArtifactByUserArray['id']; ?>">
+              <?php echo $usesOfArtifactByUserArray['PlayDate']; ?>
+            </a>
+          </td>
+        </tr>
+      <?php } ?>
+    </table>
+  </section>
+
 </main>
 
 <?php include(SHARED_PATH . '/footer.php'); ?>
