@@ -42,7 +42,7 @@ include(SHARED_PATH . '/header.php');
 <main>
 
   <div class="object edit">
-    <h1>Edit Artifact</h1>
+    <h1>Edit <?php echo h($artifact['Title']); ?></h1>
 
     <?php echo display_errors($errors); ?>
 
