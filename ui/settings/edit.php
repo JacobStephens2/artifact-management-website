@@ -71,6 +71,11 @@ $userArray = mysqli_fetch_assoc($userResult);
     <input type="submit" value="Update Settings">
   </form>
 
+  <a href="<?php echo url_for('/reset-password/index.php'); ?>">
+    <p>Reset password</p>
+  </a>
+
+
 </main>
 
 <?php include(SHARED_PATH . '/footer.php'); ?>

@@ -38,14 +38,18 @@
       <?php
         $username = $_SESSION['username'] ?? '';
         $_SESSION['user_group'] = $_SESSION['user_group'] ?? '';
-          if($_SESSION['user_group'] == 2) {
-            echo '<span>Admin: ' . $username . '</span>';
-          } elseif($_SESSION['user_group'] == 1) {
-            echo '<span>User: ' . $username . '</span>';
-          }
+          ?>
+          <a href="<?php echo url_for('/settings/edit.php'); ?>">
+            <?php
+            if($_SESSION['user_group'] == 2) {
+              echo '<span>Admin: ' . $username . '</span>';
+            } elseif($_SESSION['user_group'] == 1) {
+                echo '<span>User: ' . $username . '</span>';
+            }
+            ?>
+          </a>
+          <?php
           if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-            echo '<span><a href="' . url_for('index.php') . '">Menu</a></span>';
-            echo '<span><a href="' . url_for('logout.php') . '">Logout</a></span>';
             ?>
             
             <a href="<?php echo url_for('/artifacts/useby.php'); ?>">
@@ -97,6 +101,8 @@
             </a>
 
             <?php
+            echo '<span><a href="' . url_for('logout.php') . '">Logout</a></span>';
+
           }
       ?>
         
