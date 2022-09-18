@@ -92,6 +92,10 @@
               Choose&nbsp;for&nbsp;Group
             </a>
 
+            <a href="<?php echo url_for('/explore/uses-by-artifact.php'); ?>">
+              Uses By Artifact
+            </a>
+
             <?php
           }
       ?>
