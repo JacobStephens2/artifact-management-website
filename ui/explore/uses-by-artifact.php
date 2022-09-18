@@ -8,17 +8,17 @@ $page_title = 'Uses By Artifact';
 
 include(SHARED_PATH . '/header.php');
 
-$getUsesByPlayerSQL = "SELECT 
-  COUNT('responses.PlayDate') AS Uses, 
+$getUseCountsByPlayerSQL = "SELECT 
+  COUNT('responses.PlayDate') AS CountOfUses, 
   games.Title
   FROM responses
   JOIN games ON games.id = responses.Title
   WHERE responses.Player = " . $_SESSION['player_id'] . "
   GROUP BY responses.Title
-  ORDER BY Uses DESC
+  ORDER BY CountOfUses DESC
 ";
 
-$usesByPlayerResultObject = mysqli_query($db, $getUsesByPlayerSQL);
+$usesByPlayerResultObject = mysqli_query($db, $getUseCountsByPlayerSQL);
 
 // find the last letter of the name
 // and set fitting punctuation
@@ -36,13 +36,25 @@ if (substr($_SESSION['FullName'], -1, 1) == 's') {
     <?php echo $_SESSION['FullName'] . $possessivePunctuation . $page_title; ?>
   </h1>
 
-  <pre>
-    <?php
-    foreach ($usesByPlayerResultObject as $usesByPlayerArray) {
-      print_r($usesByPlayerArray); 
-    }
-    ?>
-  </pre>
+  <table>
+
+    <tr>
+      <th>Uses</th>
+      <th>Artifact</th>
+    </tr>
+
+    <?php foreach ($usesByPlayerResultObject as $usesByPlayerArray) { ?>
+      <tr>
+        <td>
+          <?php echo $usesByPlayerArray['CountOfUses']; ?>
+        </td>
+        <td>
+          <?php echo $usesByPlayerArray['Title']; ?>
+        </td>
+      </tr>
+    <?php } ?>
+
+  </table>
 
 </main>
 
