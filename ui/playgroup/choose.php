@@ -67,7 +67,7 @@ $usergroup = find_playgroup_by_user_id();
               <?php echo h($game['title']); ?>
             </a>
           </td>
-    	    <td class="edit">
+    	    <td class="edit name">
             <a class="table-action" href="<?php echo url_for('/users/edit.php?id=' . h(u($game['PlayerID']))); ?>">
               <?php echo h($game['FirstName']) . ' ' . h($game['LastName']); ?>
             </a>

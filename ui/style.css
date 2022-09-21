@@ -493,6 +493,10 @@ td {
   border: 1px solid;
 }
 
+td.name {
+  width: 16ch;
+}
+
 @media print {
   .hideOnPrint {
     display: none;
