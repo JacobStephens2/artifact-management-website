@@ -35,10 +35,15 @@
     </header>
 
     <nav class="hideOnPrint">
-        <a href="<?php echo url_for('/settings/edit.php'); ?>">
-          <?php echo '<span>' . $_SESSION['FullName'] . '</span>'; ?>
-        </a>
         <?php
+        if(isset($_SESSION['FullName'])) {
+          ?>
+          <a href="<?php echo url_for('/settings/edit.php'); ?>">
+            <?php echo '<span>' . $_SESSION['FullName'] . '</span>'; ?>
+          </a>
+          <?php
+        }
+
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
           ?>
           
