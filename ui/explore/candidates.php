@@ -32,6 +32,7 @@ $resultObject = mysqli_query($db, $sql);
     <tr>
       <th>User Count</th>
       <th>Artifact</th>
+      <th>Type</th>
     </tr>
 
     <?php foreach ($resultObject as $row) { ?>
@@ -43,6 +44,9 @@ $resultObject = mysqli_query($db, $sql);
           <a href="/artifacts/edit.php?id=<?php echo $row['id']; ?>">
             <?php echo $row['Title']; ?>
           </a>
+        </td>
+        <td>
+          <?php echo $row['type']; ?>
         </td>
       </tr>
     <?php } ?>
