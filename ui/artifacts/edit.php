@@ -35,6 +35,19 @@ if(is_post_request()) {
 } else {
   $artifact = find_game_by_id($id);
 }
+
+$sweetSpotsSQL = "SELECT
+  sweetspots.id AS id,
+  games.Title AS Title,
+  sweetspots.SwS AS SwS
+  FROM sweetspots
+  JOIN games ON games.id = sweetspots.Title
+  WHERE sweetspots.Title = " . $id . "
+  ORDER BY games.Title ASC
+";
+
+$sweetSpotsResultObject = mysqli_query($db, $sweetSpotsSQL);
+
 $page_title = h($artifact['Title']); 
 include(SHARED_PATH . '/header.php'); 
 ?>
@@ -63,8 +76,45 @@ include(SHARED_PATH . '/header.php');
       require_once(SHARED_PATH . '/artifact_type_select.php'); 
       ?>
 
-      <label for="SS">Sweet Spot</label>
+      <label for="SS">Sweet Spot(s)</label>
       <input type="text" name="SS" id="SS" value="<?php echo $artifact['SS']; ?>">
+
+      <section id="sweetSpots">
+        <?php
+        foreach ($sweetSpotsResultObject as $row) {
+          ?>
+          <div>
+            <input 
+              class="sweetSpot"
+              type="number" 
+              name="SwS<?php echo $row['id']; ?>" 
+              id="SS<?php echo $row['id']; ?>" 
+              value="<?php echo $row['SwS']; ?>"
+            >
+            <button class="sweetSpot">-</button>
+          </div>
+          <?php
+        }
+        ?>
+      </section>
+      <button 
+        id="addSweetSpot"
+        class="sweetSpot"
+        style="display: block;"
+        >
+        +
+      </button>
+      <script>
+        let sweetSpotSection = document.querySelector('section#sweetSpots');
+        function addSweetSpotInput(event) {
+          event.preventDefault();
+          let newInput = document.createElement('input');
+          newInput.classList.add('sweetSpot');
+          sweetSpotSection.appendChild(newInput);
+        }
+        document.querySelector('button#addSweetSpot').addEventListener('click', addSweetSpotInput);
+      </script>
+
 
       <label for="MnP">Minimum User Count</label>
       <input type="number" name="MnP" id="MnP" value="<?php echo $artifact['MnP']; ?>">

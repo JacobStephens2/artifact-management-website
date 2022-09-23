@@ -524,3 +524,13 @@ tr.header-row {
   position: sticky;
   top: 0;
 }
+
+button.sweetSpot {
+  margin-top: 0.6rem;
+  margin-bottom: 0;
+  padding: 0.5rem 0.9rem;
+}
+
+input.sweetSpot {
+  display: inline;
+}
