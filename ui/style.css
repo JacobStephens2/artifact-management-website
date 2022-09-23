@@ -500,7 +500,7 @@ tr#header {
 }
 
 td.name {
-  max-width: 40ch;
+  width: fit-content;
 }
 
 tr.header-row {
