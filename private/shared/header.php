@@ -90,6 +90,10 @@
             Uses By Artifact
           </a>
 
+          <a href="<?php echo url_for('/explore/candidates.php'); ?>">
+            Candidates
+          </a>
+
           <?php
           echo '<span><a href="' . url_for('logout.php') . '">Logout</a></span>';
 
