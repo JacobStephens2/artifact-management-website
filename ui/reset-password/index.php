@@ -120,7 +120,7 @@ include(SHARED_PATH . '/header.php');
       }
    } else { ?>
 
-      <form method="post" action="" name="reset"><br /><br />
+      <form method="post" action="" name="reset">
          <label for="email">
             Enter Your Email Address
          </label>

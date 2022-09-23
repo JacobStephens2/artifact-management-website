@@ -35,65 +35,65 @@
     </header>
 
     <nav class="hideOnPrint">
-      <?php
-        $username = $_SESSION['username'] ?? '';
-        $_SESSION['user_group'] = $_SESSION['user_group'] ?? '';
-          if($_SESSION['user_group'] == 2) {
-            echo '<span>Admin: ' . $username . '</span>';
-          } elseif($_SESSION['user_group'] == 1) {
-            echo '<span>User: ' . $username . '</span>';
-          }
-          if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-            echo '<span><a href="' . url_for('index.php') . '">Menu</a></span>';
-            echo '<span><a href="' . url_for('logout.php') . '">Logout</a></span>';
-            ?>
-            
-            <a href="<?php echo url_for('/artifacts/useby.php'); ?>">
-              Use&nbsp;Artifacts&nbsp;By&nbsp;Date
-            </a>
-
-            <a href="<?php echo url_for('/uses/index.php'); ?>">
-              Uses
-            </a>
+        <a href="<?php echo url_for('/settings/edit.php'); ?>">
+          <?php echo '<span>' . $_SESSION['FullName'] . '</span>'; ?>
+        </a>
+        <?php
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+          ?>
           
-            <a href="<?php echo url_for('/uses/create.php'); ?>">
-              Record&nbsp;Use
-            </a>
+          <a href="<?php echo url_for('/artifacts/useby.php'); ?>">
+            Use&nbsp;Artifacts&nbsp;By&nbsp;Date
+          </a>
 
-            <a href="<?php echo url_for('/artifacts/index.php'); ?>">
-              Artifacts
-            </a>
-          
-            <a href="<?php echo url_for('/artifacts/new.php'); ?>">
-              Create&nbsp;Artifact
-            </a>
+          <a href="<?php echo url_for('/uses/index.php'); ?>">
+            Uses
+          </a>
+        
+          <a href="<?php echo url_for('/uses/create.php'); ?>">
+            Record&nbsp;Use
+          </a>
 
-            <a href="<?php echo url_for('/users/index.php'); ?>">
-              Users
-            </a>
+          <a href="<?php echo url_for('/artifacts/index.php'); ?>">
+            Artifacts
+          </a>
+        
+          <a href="<?php echo url_for('/artifacts/new.php'); ?>">
+            Create&nbsp;Artifact
+          </a>
 
-            <a href="<?php echo url_for('/users/new.php'); ?>">
-              Create&nbsp;User
-            </a>
+          <a href="<?php echo url_for('/users/index.php'); ?>">
+            Users
+          </a>
 
-            <a href="<?php echo url_for('/aversions/index.php'); ?>">
-              Aversions
-            </a>
+          <a href="<?php echo url_for('/users/new.php'); ?>">
+            Create&nbsp;User
+          </a>
 
-            <a href="<?php echo url_for('/aversions/new.php'); ?>">
-              Record&nbsp;Aversion
-            </a>
+          <a href="<?php echo url_for('/aversions/index.php'); ?>">
+            Aversions
+          </a>
 
-            <a href="<?php echo url_for('/playgroup/index.php'); ?>">
-              Group
-            </a>
+          <a href="<?php echo url_for('/aversions/new.php'); ?>">
+            Record&nbsp;Aversion
+          </a>
 
-            <a href="<?php echo url_for('/playgroup/choose.php'); ?>">
-              Choose&nbsp;for&nbsp;Group
-            </a>
+          <a href="<?php echo url_for('/playgroup/index.php'); ?>">
+            Group
+          </a>
 
-            <?php
-          }
+          <a href="<?php echo url_for('/playgroup/choose.php'); ?>">
+            Choose&nbsp;for&nbsp;Group
+          </a>
+
+          <a href="<?php echo url_for('/explore/uses-by-artifact.php'); ?>">
+            Uses By Artifact
+          </a>
+
+          <?php
+          echo '<span><a href="' . url_for('logout.php') . '">Logout</a></span>';
+
+        }
       ?>
         
     </nav>

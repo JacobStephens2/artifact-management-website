@@ -5,9 +5,21 @@ use Firebase\JWT\Key;
 
 // Performs all actions necessary to log in an admin
 function log_in_user($user) {
-// Renerating the ID protects the admin from session fixation.
+  // Renerating the ID protects the admin from session fixation.
   session_regenerate_id();
+
+  global $db;
+  $getPlayerSQL = "SELECT 
+    *
+    FROM players
+    WHERE id = " . $user['player_id']
+  ;
+  $playerResultObject = mysqli_query($db, $getPlayerSQL);
+  $playerArray = mysqli_fetch_assoc($playerResultObject);
+
+  $_SESSION['FullName'] = $playerArray['FullName'];
   $_SESSION['user_id'] = $user['id'];
+  $_SESSION['player_id'] = $user['player_id'];
   $_SESSION['last_login'] = time();
   $_SESSION['username'] = $user['username'];
   $_SESSION['user_group'] = $user['user_group'];

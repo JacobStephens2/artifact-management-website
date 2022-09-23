@@ -40,17 +40,39 @@ if(is_post_request()) {
 
 $page_title = 'Record Use';
 include(SHARED_PATH . '/header.php'); 
-
 ?>
 
 <main>
+    <script>
+      function getArtifacts() {
+        fetch('https://<?php echo API_ORIGIN; ?>/artifacts.php', {
+          method: 'GET',
+          credentials: 'include',
+        })
+          .then((response) => response.json())
+          .then(
+            (data => {
+              const titleSelect = document.querySelector('select#Title');
+              titleSelect.innerHTML = '';
+              for (let i = 0; i < data.artifacts.length; i++) {
+                let option = document.createElement('option');
+                option.value = data.artifacts[i].id;
+                option.innerText = data.artifacts[i].Title;
+                titleSelect.append(option);
+              }
+            })
+          )
+        ;
+      }
+    </script>
 
     <h1>Record Use</h1>
 
-    <form 
+    <!-- Player count form -->
+    <form
       action="<?php echo url_for('/uses/create.php'); ?>"
       method="get"
-    >
+      >
 			<label for="playerCount">User Count</label>
       <select name="playerCount" id="playerCount">
         <?php
@@ -68,12 +90,12 @@ include(SHARED_PATH . '/header.php');
       <input type="submit" value="Select User Count" />
     </form>
 
+    <!-- Create use form -->
     <form action="<?php echo url_for('/uses/create.php?playerCount=' . $playerCount); ?>" method="post">
 
       <!-- This select gets populated by the JavaScript fetch request above -->
       <label for="SearchTitles">Search Artifacts</label>
       <input type="text" name="SearchTitles" id="SearchTitles">
-      
 
 			<label for="Title">Artifact</label>
 			<select name="Title" id="Title">
@@ -102,8 +124,8 @@ include(SHARED_PATH . '/header.php');
 
 			<!-- Choose players -->
 			<select id="User1" name="Player1">
-				<option value='141'>
-          Jacob Stephens
+				<option value='<?php echo $_SESSION['player_id']; ?>'>
+          <?php echo $_SESSION['FullName']; ?>
         </option>
 				<?php
 					$player_set = list_players();
@@ -116,33 +138,30 @@ include(SHARED_PATH . '/header.php');
 				?>
 			</select>
       <script>
+        getArtifacts();
         function searchUsers(e) {
-          if (document.querySelector('#SearchUser1').value == '') {
-            getArtifacts();
-          } else {
-            requestBody = {
-              "query": e.target.value,
-            };
-            fetch('https://<?php echo API_ORIGIN; ?>/users.php', {
-              method: 'POST',
-              credentials: 'include',
-              body: JSON.stringify(requestBody),
-            })
-              .then((response) => response.json())
-              .then(
-                (data => {
-                  const userSelect = document.querySelector('select#User1');
-                  userSelect.innerHTML = '';
-                  for (let i = 0; i < data.users.length; i++) {
-                    let option = document.createElement('option');
-                    option.value = data.users[i].id;
-                    option.innerText = data.users[i].FullName;
-                    userSelect.append(option);
-                  }
-                })
-              )
-            ;
-          }
+          requestBody = {
+            "query": e.target.value,
+          };
+          fetch('https://<?php echo API_ORIGIN; ?>/users.php', {
+            method: 'POST',
+            credentials: 'include',
+            body: JSON.stringify(requestBody),
+          })
+            .then((response) => response.json())
+            .then(
+              (data => {
+                const userSelect = document.querySelector('select#User1');
+                userSelect.innerHTML = '';
+                for (let i = 0; i < data.users.length; i++) {
+                  let option = document.createElement('option');
+                  option.value = data.users[i].id;
+                  option.innerText = data.users[i].FullName;
+                  userSelect.append(option);
+                }
+              })
+            )
+          ;
         }
         const searchUsersInput = document.querySelector('input#SearchUser1');
         searchUsersInput.addEventListener('input', searchUsers);
@@ -167,10 +186,8 @@ include(SHARED_PATH . '/header.php');
           </select>
 
           <script>
+            getArtifacts();
             function searchUsers(e) {
-              if (document.querySelector('#SearchUser<?php echo $p; ?>').value == '') {
-                getArtifacts();
-              } else {
                 requestBody = {
                   "query": e.target.value,
                 };
@@ -193,7 +210,6 @@ include(SHARED_PATH . '/header.php');
                     })
                   )
                 ;
-              }
             }
             const searchUser<?php echo $p; ?>Input = document.querySelector('input#SearchUser<?php echo $p; ?>');
             searchUser<?php echo $p; ?>Input.addEventListener('input', searchUsers);
@@ -210,41 +226,15 @@ include(SHARED_PATH . '/header.php');
 
     <!-- Append options to artifact and user select elements -->
     <script defer>
+      getArtifacts();
       function searchArtifacts(e) {
-        if (document.querySelector('#SearchTitles').value == '') {
-          getArtifacts();
-        } else {
-          requestBody = {
-            "query": e.target.value,
-          };
-          fetch('https://<?php echo API_ORIGIN; ?>/artifacts.php', {
-            method: 'POST',
-            credentials: 'include',
-            body: JSON.stringify(requestBody),
-          })
-            .then((response) => response.json())
-            .then(
-              (data => {
-                const titleSelect = document.querySelector('select#Title');
-                titleSelect.innerHTML = '';
-                for (let i = 0; i < data.artifacts.length; i++) {
-                  let option = document.createElement('option');
-                  option.value = data.artifacts[i].id;
-                  option.innerText = data.artifacts[i].Title;
-                  titleSelect.append(option);
-                }
-              })
-            )
-          ;
-        }
-      }
-      const searchTitlesInput = document.querySelector('input#SearchTitles');
-      searchTitlesInput.addEventListener('input', searchArtifacts);
-
-      function getArtifacts() {
+        requestBody = {
+          "query": e.target.value,
+        };
         fetch('https://<?php echo API_ORIGIN; ?>/artifacts.php', {
-          method: 'GET',
+          method: 'POST',
           credentials: 'include',
+          body: JSON.stringify(requestBody),
         })
           .then((response) => response.json())
           .then(
@@ -261,6 +251,9 @@ include(SHARED_PATH . '/header.php');
           )
         ;
       }
+      const searchTitlesInput = document.querySelector('input#SearchTitles');
+      searchTitlesInput.addEventListener('input', searchArtifacts);
+
       getArtifacts();
     </script>
 

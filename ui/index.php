@@ -35,6 +35,12 @@ include(SHARED_PATH . '/header.php');
             Explore Artifacts by Characteristic
           </a>
         </li>
+
+        <li>
+          <a href="<?php echo url_for('/explore/uses-by-artifact.php'); ?>">
+            Uses By Artifact
+          </a>
+        </li>
       </ul>
     </ul>
 
@@ -88,6 +94,11 @@ include(SHARED_PATH . '/header.php');
     </ul>
     
     <ul>
+      <li>
+        <a href="<?php echo url_for('/settings/edit.php'); ?>">
+          Settings
+        </a>
+      </li>
       <li class="main-menu">
         <a href="<?php echo url_for('/reset-password/index.php'); ?>">Reset password</a>
       </li>

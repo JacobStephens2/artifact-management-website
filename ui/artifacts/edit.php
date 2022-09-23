@@ -22,6 +22,8 @@ if(is_post_request()) {
   $artifact['UsedRecUserCt'] = $_POST['UsedRecUserCt'] ?? '';
   $artifact['MnP'] = $_POST['MnP'] ?? '';
   $artifact['MxP'] = $_POST['MxP'] ?? '';
+  $artifact['MnT'] = $_POST['MnT'] ?? '';
+  $artifact['MxT'] = $_POST['MxT'] ?? '';
   $artifact['SS'] = $_POST['SS'] ?? '';
   $result = update_artifact($artifact);
   if($result === true) {
@@ -40,11 +42,19 @@ include(SHARED_PATH . '/header.php');
 <main>
 
   <div class="object edit">
-    <h1>Edit Artifact</h1>
+    <h1>Edit <?php echo h($artifact['Title']); ?></h1>
 
     <?php echo display_errors($errors); ?>
 
-    <form action="<?php echo url_for('/artifacts/edit.php?id=' . h(u($id))); ?>" method="post">
+    <button id="editFormDisplayButton">
+      Toggle Edit Form Display
+    </button>
+
+    <form 
+      action="<?php echo url_for('/artifacts/edit.php?id=' . h(u($id))); ?>" 
+      method="post"
+      id="editForm"
+      >
       <label for="Title">Title</dt>
       <input type="text" name="Title" id="Title" value="<?php echo h($artifact['Title']); ?>" />
 
@@ -54,13 +64,19 @@ include(SHARED_PATH . '/header.php');
       ?>
 
       <label for="SS">Sweet Spot</label>
-      <input type="number" name="SS" id="SS" value="<?php echo $artifact['SS']; ?>">
+      <input type="text" name="SS" id="SS" value="<?php echo $artifact['SS']; ?>">
 
       <label for="MnP">Minimum User Count</label>
       <input type="number" name="MnP" id="MnP" value="<?php echo $artifact['MnP']; ?>">
 
       <label for="MxP">Maximum User Count</label>
       <input type="number" name="MxP" id="MxP" value="<?php echo $artifact['MxP']; ?>">
+
+      <label for="MnT">Minimum Time</label>
+      <input type="number" name="MnT" id="MnT" value="<?php echo $artifact['MnT']; ?>">
+
+      <label for="MxT">Maxiumum Time</label>
+      <input type="number" name="MxT" id="MxT" value="<?php echo $artifact['MxT']; ?>">
 
       <label for="Acq">Acquisition Date</label>
       <input type="date" name="Acq" id="Acq" value="<?php echo h($artifact['Acq']); ?>" />
@@ -82,12 +98,60 @@ include(SHARED_PATH . '/header.php');
       <input type="submit" value="Save Edits" />
     </form>
 
-    <a class="action" href="<?php echo url_for('/artifacts/delete.php?id=' . h(u($_REQUEST['id']))); ?>">
-      <p>Delete <?php echo h($artifact['Title']); ?></p>
-    </a>
-
   </div>
 
+  <section>
+    <?php
+    $findUsesOfArtifactByUserSQL = "SELECT
+      responses.PlayDate,
+      responses.id
+      FROM responses
+      WHERE responses.Title = " . $artifact['id'] . "
+      AND responses.Player = " . $_SESSION['player_id'] . "
+      ORDER BY responses.PlayDate DESC
+    ";
+    $usesOfArtifactByUserResultObject = mysqli_query($db, $findUsesOfArtifactByUserSQL);
+    ?>
+    <h2>
+      <?php echo $usesOfArtifactByUserResultObject->num_rows; ?> 
+      Uses of <?php echo h($artifact['Title']); ?>
+    </h2>
+    <table>
+      <tr>
+        <th>Use Date</th>
+      <tr>
+      <?php foreach ($usesOfArtifactByUserResultObject as $usesOfArtifactByUserArray) { ?>        
+        <tr>
+          <td>
+            <a href="/uses/edit.php?id=<?php echo $usesOfArtifactByUserArray['id']; ?>">
+              <?php echo $usesOfArtifactByUserArray['PlayDate']; ?>
+            </a>
+          </td>
+        </tr>
+      <?php } ?>
+    </table>
+  </section>
+
+  <a class="action" href="<?php echo url_for('/artifacts/delete.php?id=' . h(u($_REQUEST['id']))); ?>">
+    <p>Delete <?php echo h($artifact['Title']); ?></p>
+  </a>
+
 </main>
+
+<script>
+  let editForm = document.querySelector('#editForm');
+
+  function toggleEditFormDisplay() {
+    if (editForm.style.display == 'none') {
+        editForm.style.display = 'block';
+    } else {
+        editForm.style.display = 'none';
+    }
+  }
+
+  let editFormDisplayButton = document.querySelector('#editFormDisplayButton');
+
+  editFormDisplayButton.addEventListener('click', toggleEditFormDisplay);
+</script>
 
 <?php include(SHARED_PATH . '/footer.php'); ?>

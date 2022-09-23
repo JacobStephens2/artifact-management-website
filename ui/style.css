@@ -28,7 +28,7 @@ Auto-suggest styles
 
 /* HTML */
 html {
-  font-family: 'Roboto', serif;
+  font-family: "Roboto", serif;
 }
 
 /* Body */
@@ -39,7 +39,7 @@ body {
 
 /* Header and Footer */
 header {
-  background-image: linear-gradient(to right, #0093E9, #80D0C7);
+  background-image: linear-gradient(to right, #0093e9, #80d0c7);
   padding: 1.1rem 3rem;
   margin: 0;
   color: white;
@@ -47,7 +47,7 @@ header {
 }
 
 footer {
-  background-image: linear-gradient(to right, #0093E9, #80D0C7);
+  background-image: linear-gradient(to right, #0093e9, #80d0c7);
   color: white;
   padding: 1rem 3rem;
 }
@@ -58,7 +58,7 @@ footer h2 {
 
 #header,
 #footer {
-  background: #30395C;
+  background: #30395c;
 }
 
 /* Navigation */
@@ -66,7 +66,8 @@ footer h2 {
 nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.1rem;
+  column-gap: 1.3rem;
+  row-gap: 0.4rem;
   margin-left: 3rem;
   margin-bottom: 0.7rem;
   margin-top: 0.7rem;
@@ -82,7 +83,7 @@ nav a:hover {
 
 nav ul {
   padding-left: 3rem;
-  font-family: 'Raleway', Arial, Helvetica, sans-serif;
+  font-family: "Raleway", Arial, Helvetica, sans-serif;
 }
 
 ul {
@@ -91,13 +92,13 @@ ul {
 
 /* Headings */
 h1 {
-  font-family: 'Raleway', Arial, Helvetica, sans-serif;
+  font-family: "Raleway", Arial, Helvetica, sans-serif;
   font-size: 1.7rem;
   margin: 0.8rem 0 0.5rem 0;
 }
 
 h2 {
-  font-family: 'Raleway', Arial, Helvetica, sans-serif;
+  font-family: "Raleway", Arial, Helvetica, sans-serif;
   font-size: 1.4rem;
   margin: 2rem 0 0.7rem 0;
 }
@@ -116,11 +117,10 @@ div h1 {
   margin-bottom: 0.9rem;
 }
 
-
 /* Buttons */
 button {
   color: white;
-  background: #0093E9;
+  background: #0093e9;
   border: white;
   margin-bottom: 0.5rem;
   margin-top: 1.5rem;
@@ -130,8 +130,16 @@ button {
 }
 
 button:hover {
-  background: #80D0C7;
+  background: #80d0c7;
   cursor: pointer;
+}
+
+button#editFormDisplayButton {
+  margin-top: 0.2rem;
+  margin-bottom: 0;
+  font-size: 0.8rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.7rem;
 }
 
 .reset-password-button {
@@ -160,7 +168,7 @@ input[type="checkbox" i] {
 }
 
 input[type="submit"] {
-  background: #0093E9;
+  background: #0093e9;
   color: #ffffff;
   border: #ffffff;
   border-radius: 0.8rem;
@@ -182,7 +190,7 @@ input[type="text"] {
 }
 
 .submit {
-  background: #0093E9;
+  background: #0093e9;
   color: #ffffff;
   border: #ffffff;
   border-radius: 4rem;
@@ -196,21 +204,21 @@ input[type="text"] {
 }
 
 .submit:hover {
-  background: #80D0C7;
+  background: #80d0c7;
 }
 
 /* Page Content */
 #page-content {
-  background: #DDF1FF;
+  background: #ddf1ff;
 }
 
 /* Anchors */
 a {
-  color: #0093E9;
+  color: #0093e9;
 }
 
 a:hover {
-  color: #80D0C7;
+  color: #80d0c7;
 }
 
 /* Search */
@@ -232,9 +240,9 @@ table.list tr td {
 }
 
 table.list tr th {
-  background: #0093E9;
+  background: #0093e9;
   color: white;
-  border: 1px solid #0093E9;
+  border: 1px solid #0093e9;
 }
 
 tr#headerRow {
@@ -243,8 +251,13 @@ tr#headerRow {
 }
 
 th {
-  font-family: 'Raleway', Arial, Helvetica, sans-serif;
+  font-family: "Raleway", Arial, Helvetica, sans-serif;
   padding: 2px 5px;
+  text-align: left;
+  position: sticky;
+  top: 0;
+  background: black;
+  color: ivory;
 }
 
 td.playerName {
@@ -271,7 +284,7 @@ table.list tr td {
 }
 
 table.list tr th {
-  background: #0093E9;
+  background: #0093e9;
   color: white;
   text-align: left;
 }
@@ -303,9 +316,9 @@ dt {
 /* Session Messages */
 
 #message {
-  color: #0093E9;
+  color: #0093e9;
   background: white;
-  border: 2px solid #0093E9;
+  border: 2px solid #0093e9;
   padding: 0.7rem 3rem;
   margin-bottom: 0.6rem;
 }
@@ -314,13 +327,13 @@ dt {
 
 ul#suggestions li a {
   display: block;
-  background: #CCC;
+  background: #ccc;
   color: #000;
   text-decoration: none;
 }
 
 ul#suggestions li a:hover {
-  background: #AAA;
+  background: #aaa;
 }
 
 .white-space {
@@ -386,7 +399,7 @@ select:hover {
 }
 
 input {
-  font-family: 'Roboto', serif;
+  font-family: "Roboto", serif;
   font-size: 1.3rem;
   display: block;
 }
@@ -405,7 +418,6 @@ input[type="checkbox" i] {
 strong {
   font-size: 2rem;
 }
-
 
 .header-link {
   text-decoration: none;
@@ -434,7 +446,7 @@ li.main-menu.list-2 {
   width: 100%;
   border: 1px solid #999999;
   font-size: 4.5rem;
-  background: #0093E9;
+  background: #0093e9;
   color: white;
   font-size: 4rem;
 }
@@ -478,6 +490,11 @@ td.date {
 
 td {
   padding: 2px 4px 1px;
+  border: 1px solid;
+}
+
+td.name {
+  width: 16ch;
 }
 
 @media print {
