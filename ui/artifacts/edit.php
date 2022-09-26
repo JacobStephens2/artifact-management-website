@@ -79,22 +79,22 @@ include(SHARED_PATH . '/header.php');
       <label for="SS">Sweet Spot(s)</label>
       <input type="text" name="SS" id="SS" value="<?php echo $artifact['SS']; ?>">
 
-      <section id="sweetSpots">
+      <!-- <section id="sweetSpots">
         <?php
-        foreach ($sweetSpotsResultObject as $row) {
+       // foreach ($sweetSpotsResultObject as $row) {
           ?>
           <div>
             <input 
               class="sweetSpot"
               type="number" 
-              name="SwS<?php echo $row['id']; ?>" 
-              id="SS<?php echo $row['id']; ?>" 
-              value="<?php echo $row['SwS']; ?>"
+              name="SwS<?php //echo $row['id']; ?>" 
+              id="SS<?php //echo $row['id']; ?>" 
+              value="<?php //echo $row['SwS']; ?>"
             >
             <button class="sweetSpot">-</button>
           </div>
           <?php
-        }
+        //}
         ?>
       </section>
       <button 
@@ -113,7 +113,7 @@ include(SHARED_PATH . '/header.php');
           sweetSpotSection.appendChild(newInput);
         }
         document.querySelector('button#addSweetSpot').addEventListener('click', addSweetSpotInput);
-      </script>
+      </script> -->
 
 
       <label for="MnP">Minimum User Count</label>
