@@ -50,7 +50,7 @@ if(is_post_request()) {
 <?php include(SHARED_PATH . '/header.php'); ?>
   
     <main>
-      <p>You can use this site to generate a list of use-by dates for objects. <a href="https://jacobstephens.net" target="_blank">Jacob Stephens</a> uses this tool to track usage of their books, ensuring they use each book either in the next or previous 180 days. <a href="https://www.theminimalists.com/ninety/" target="_blank">The Minimalists' 90/90 Rule</a> inspired Jacob to create this tool.</p>
+      <p>You can use this site to generate a list of use-by dates for objects. <a href="https://jacobstephens.net" target="_blank">Jacob Stephens</a> uses this tool to track usage of their books, ensuring they use each book either in the next or previous 180 days. <a href="https://www.theminimalists.com/ninety/" target="_blank">The Minimalists' 90/90 Rule</a> inspired Jacob to create this&nbsp;tool.</p>
 
       <a href="<?php echo url_for('/register.php'); ?>"><button type="button">Create an account</button></a>
 
