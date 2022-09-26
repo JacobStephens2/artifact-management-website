@@ -34,12 +34,14 @@ $usergroup = find_playgroup_by_user_id();
 
         <label for="type">Artifact type</label>
         <select id="type" name="type">
+          <?php if (!isset($_SESSION['type'])) { $_SESSION['type'] = 1; } ?>
           <option value="1" <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 1) { echo 'selected'; } ?>>All types</option>
           <option value="board-game" <?php if ($_SESSION['type'] == 'board-game') { echo 'selected'; } ?>>Board Game</option>
           <option value="role-playing-game" <?php if ($_SESSION['type'] == 'role-playing-game') { echo 'selected'; } ?>>Role Playing Game</option>
           <option value="video-game" <?php if ($_SESSION['type'] == 'video-game') { echo 'selected'; } ?>>Video Game</option>
           <option value="sport" <?php if ($_SESSION['type'] == 'sport') { echo 'selected'; } ?>>Sport</option>
           <option value="game" <?php if ($_SESSION['type'] == 'game') { echo 'selected'; } ?>>Game</option>
+          <option value="equipment" <?php if ($_SESSION['type'] == 'equipment') { echo 'selected'; } ?>>Equipment</option>
         </select>
 
         <input type="submit" value="Submit" />
