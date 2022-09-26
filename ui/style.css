@@ -493,10 +493,6 @@ td {
   border: 1px solid;
 }
 
-td.name {
-  width: 16ch;
-}
-
 @media print {
   .hideOnPrint {
     display: none;
@@ -517,7 +513,7 @@ tr#header {
 }
 
 td.name {
-  width: fit-content;
+  width: 18ch;
 }
 
 tr.header-row {
