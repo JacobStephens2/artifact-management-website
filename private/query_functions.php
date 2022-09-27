@@ -869,13 +869,20 @@ ORDER BY UseDate DESC
     }
 
     $sql = "INSERT INTO games ";
-    $sql .= "(Title, 
+    $sql .= "(
+              Title, 
               Acq, 
               type, 
               KeptCol, 
               Candidate, 
               UsedRecUserCt, 
-              user_id) ";
+              SS,
+              MnT,
+              MxT,
+              MnP,
+              MxP,
+              user_id
+              ) ";
     $sql .= "VALUES (";
     $sql .= "'" . db_escape($db, $object['Title']) . "',";
     $sql .= "'" . db_escape($db, $object['Acq']) . "',";
@@ -883,6 +890,11 @@ ORDER BY UseDate DESC
     $sql .= "'" . db_escape($db, $object['KeptCol']) . "',";
     $sql .= "'" . db_escape($db, $object['Candidate']) . "',";
     $sql .= "'" . db_escape($db, $object['UsedRecUserCt']) . "',";
+    $sql .= "'" . db_escape($db, $object['SS']) . "',";
+    $sql .= "'" . db_escape($db, $object['MnT']) . "',";
+    $sql .= "'" . db_escape($db, $object['MxT']) . "',";
+    $sql .= "'" . db_escape($db, $object['MnP']) . "',";
+    $sql .= "'" . db_escape($db, $object['MxP']) . "',";
     $sql .= "'" . db_escape($db, $_SESSION['user_id']) . "'";
     $sql .= ")";
     $result = mysqli_query($db, $sql);

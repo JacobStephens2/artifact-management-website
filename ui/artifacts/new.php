@@ -11,6 +11,11 @@ if(is_post_request()) {
   $artifact['KeptCol'] = $_POST['KeptCol'] ?? '';
   $artifact['Candidate'] = $_POST['Candidate'] ?? '';
   $artifact['UsedRecUserCt'] = $_POST['UsedRecUserCt'] ?? '';
+  ($_POST['MnT'] == '') ? $artifact['MnT'] = 5 : $artifact['MnT'] = $_POST['MnT'];
+  ($_POST['MxT'] == '') ? $artifact['MxT'] = 240 : $artifact['MxT'] = $_POST['MxT'];
+  ($_POST['MnP'] == '') ? $artifact['MnP'] = 5 : $artifact['MnP'] = $_POST['MnP'];
+  ($_POST['MxP'] == '') ? $artifact['MxP'] = 240 : $artifact['MxP'] = $_POST['MxP'];
+  ($_POST['SS'] == '') ? $artifact['SS'] = 1 : $artifact['SS'] = $_POST['SS'];
 
   $result = insert_game($artifact);
   if($result === true) {
@@ -55,6 +60,21 @@ include(SHARED_PATH . '/header.php');
       
       <label for="Acq">Acquisition Date</label>
       <input type="date" name="Acq" id="Acq" value="<?php echo date('Y') . '-' . date('m') . '-' . date('d'); ?>"/>
+
+      <label for="SS">Sweet Spot(s)</label>
+      <input type="text" name="SS" id="SS" value="">
+
+      <label for="MnP">Minimum User Count</label>
+      <input type="number" name="MnP" id="MnP" value="">
+
+      <label for="MxP">Maximum User Count</label>
+      <input type="number" name="MxP" id="MxP" value="">
+
+      <label for="MnT">Minimum Time</label>
+      <input type="number" name="MnT" id="MnT" value="">
+
+      <label for="MxT">Maxiumum Time</label>
+      <input type="number" name="MxT" id="MxT" value="">
 
       <label for="KeptCol">Kept in Collection (Checked Means Yes)</label>
       <input type="hidden" name="KeptCol" value="0" />
