@@ -527,6 +527,15 @@ button.sweetSpot {
   padding: 0.5rem 0.9rem;
 }
 
+div.sweetSpot {
+  margin-top: 0.5rem;
+}
+
 input.sweetSpot {
+  display: inline;
+  margin-right: 0.5rem;
+}
+
+button.sweetSpot {
   display: inline;
 }

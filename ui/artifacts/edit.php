@@ -79,22 +79,24 @@ include(SHARED_PATH . '/header.php');
       <label for="SS">Sweet Spot(s)</label>
       <input type="text" name="SS" id="SS" value="<?php echo $artifact['SS']; ?>">
 
-      <!-- <section id="sweetSpots">
+      <section id="sweetSpots">
         <?php
-       // foreach ($sweetSpotsResultObject as $row) {
+        $i = 0;
+        foreach ($sweetSpotsResultObject as $row) {
           ?>
           <div>
             <input 
               class="sweetSpot"
               type="number" 
-              name="SwS<?php //echo $row['id']; ?>" 
-              id="SS<?php //echo $row['id']; ?>" 
-              value="<?php //echo $row['SwS']; ?>"
+              name="SwS[<?php echo $i; ?>]" 
+              id="SS<?php echo $row['id']; ?>" 
+              value="<?php echo $row['SwS']; ?>"
             >
             <button class="sweetSpot">-</button>
           </div>
           <?php
-        //}
+          $i++;
+        }
         ?>
       </section>
       <button 
@@ -104,17 +106,8 @@ include(SHARED_PATH . '/header.php');
         >
         +
       </button>
-      <script>
-        let sweetSpotSection = document.querySelector('section#sweetSpots');
-        function addSweetSpotInput(event) {
-          event.preventDefault();
-          let newInput = document.createElement('input');
-          newInput.classList.add('sweetSpot');
-          sweetSpotSection.appendChild(newInput);
-        }
-        document.querySelector('button#addSweetSpot').addEventListener('click', addSweetSpotInput);
-      </script> -->
 
+      <script defer src="edit.js"></script>
 
       <label for="MnP">Minimum User Count</label>
       <input type="number" name="MnP" id="MnP" value="<?php echo $artifact['MnP']; ?>">
