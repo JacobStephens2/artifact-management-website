@@ -20,11 +20,11 @@ if(is_post_request()) {
   $artifact['KeptCol'] = $_POST['KeptCol'] ?? '';
   $artifact['Candidate'] = $_POST['Candidate'] ?? '';
   $artifact['UsedRecUserCt'] = $_POST['UsedRecUserCt'] ?? '';
-  $artifact['MnP'] = $_POST['MnP'] ?? '';
-  $artifact['MxP'] = $_POST['MxP'] ?? '';
-  $artifact['MnT'] = $_POST['MnT'] ?? '';
-  $artifact['MxT'] = $_POST['MxT'] ?? '';
-  $artifact['SS'] = $_POST['SS'] ?? '';
+  ($_POST['MnT'] == '') ? $artifact['MnT'] = 5 : $artifact['MnT'] = $_POST['MnT'];
+  ($_POST['MxT'] == '') ? $artifact['MxT'] = 240 : $artifact['MxT'] = $_POST['MxT'];
+  ($_POST['MnP'] == '') ? $artifact['MnP'] = 5 : $artifact['MnP'] = $_POST['MnP'];
+  ($_POST['MxP'] == '') ? $artifact['MxP'] = 240 : $artifact['MxP'] = $_POST['MxP'];
+  ($_POST['SS'] == '') ? $artifact['SS'] = 1 : $artifact['SS'] = $_POST['SS'];
   $result = update_artifact($artifact);
   if($result === true) {
     $_SESSION['message'] = 'The game was updated successfully.';
