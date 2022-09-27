@@ -4,6 +4,7 @@ function addSweetSpotInputAndButton(event) {
 
   let input = document.createElement("input");
   input.setAttribute("id", "SwS" + inputs.length);
+  input.setAttribute("name", "SwS[" + inputs.length + "]");
   input.classList.add("sweetSpot");
 
   let button = document.createElement("button");
