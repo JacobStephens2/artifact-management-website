@@ -15,7 +15,7 @@ if(is_post_request()) {
   $artifact = [];
   $artifact['id'] = $id ?? '';
   $artifact['Title'] = $_POST['Title'] ?? '';
-  $artifact['Acq'] = $_POST['Acq'] ?? '';
+  $artifact['Acq'] = $_POST['Acq'] ?? date('Y-m-d');
   $artifact['type'] = $_POST['type'] ?? '';
   $artifact['KeptCol'] = $_POST['KeptCol'] ?? '';
   $artifact['Candidate'] = $_POST['Candidate'] ?? '';
@@ -27,7 +27,7 @@ if(is_post_request()) {
   ($_POST['SS'] == '') ? $artifact['SS'] = 1 : $artifact['SS'] = $_POST['SS'];
   $result = update_artifact($artifact);
   if($result === true) {
-    $_SESSION['message'] = 'The game was updated successfully.';
+    $_SESSION['message'] = 'The artifact was updated successfully.';
     redirect_to(url_for('/artifacts/edit.php?id=' . $id));
   } else {
     $errors = $result;
@@ -79,33 +79,39 @@ include(SHARED_PATH . '/header.php');
       <label for="SS">Sweet Spot(s)</label>
       <input type="text" name="SS" id="SS" value="<?php echo $artifact['SS']; ?>">
 
-      <section id="sweetSpots">
-        <?php
-        $i = 0;
-        foreach ($sweetSpotsResultObject as $row) {
-          ?>
-          <div>
-            <input 
-              class="sweetSpot"
-              type="number" 
-              name="SwS[<?php echo $i; ?>]" 
-              id="SS<?php echo $row['id']; ?>" 
-              value="<?php echo $row['SwS']; ?>"
-            >
-            <button class="sweetSpot">-</button>
-          </div>
-          <?php
-          $i++;
-        }
+      <?php 
+      if (SWEET_SPOT_BUTTONS_ON == true) {
         ?>
-      </section>
-      <button 
-        id="addSweetSpot"
-        class="sweetSpot"
-        style="display: block;"
-        >
-        +
-      </button>
+        <section id="sweetSpots">
+          <?php
+          $i = 0;
+          foreach ($sweetSpotsResultObject as $row) {
+            ?>
+            <div>
+              <input 
+                class="sweetSpot"
+                type="number" 
+                name="SwS[<?php echo $i; ?>]" 
+                id="SS<?php echo $row['id']; ?>" 
+                value="<?php echo $row['SwS']; ?>"
+              >
+              <button class="sweetSpot">-</button>
+            </div>
+            <?php
+            $i++;
+          }
+          ?>
+        </section>
+        <button 
+          id="addSweetSpot"
+          class="sweetSpot"
+          style="display: block;"
+          >
+          +
+        </button>
+        <?php
+      }
+      ?>
 
       <script defer src="edit.js"></script>
 
