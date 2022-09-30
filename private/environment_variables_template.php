@@ -23,6 +23,10 @@ define(
 define("ARTIFACTS_DOMAIN", "artifact-minimalism.site");
 
 define("COOKIE_SECURE", true);
-?>
+
+define("API_ORIGIN", "api.artifact-minimalism.site");
+define("REQUEST_ORIGIN", "artifact-minimalism.site");
+
+define("SWEET_SPOT_BUTTONS_ON", false);
 
 ?>
