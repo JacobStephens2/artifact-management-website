@@ -44,6 +44,15 @@ if(is_post_request()) {
   
 }
 
+if (isset($_REQUEST['action'])) { 
+  $action = $_REQUEST['action'];
+} else {
+  $action = '';
+}
+if ($action == 'logout') {
+  log_out();
+}
+
 ?>
 
 <?php $page_title = 'Log in'; ?>

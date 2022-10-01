@@ -66,7 +66,6 @@ function authenticate() {
 
     } catch (Exception $e) {
       $response->message = 'You have not been authenticated';
-      $response->error .= 'Caught exception: ' . $e->getMessage();
       $response->authenticated = false;
       return $response;
     }

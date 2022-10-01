@@ -52,13 +52,17 @@ include(SHARED_PATH . '/header.php');
           .then((response) => response.json())
           .then(
             (data => {
-              const titleSelect = document.querySelector('select#Title');
-              titleSelect.innerHTML = '';
-              for (let i = 0; i < data.artifacts.length; i++) {
-                let option = document.createElement('option');
-                option.value = data.artifacts[i].id;
-                option.innerText = data.artifacts[i].Title;
-                titleSelect.append(option);
+              if (data.authenticated == false) {
+                location.href = "/login.php?action=logout";
+              } else {
+                const titleSelect = document.querySelector('select#Title');
+                titleSelect.innerHTML = '';
+                for (let i = 0; i < data.artifacts.length; i++) {
+                  let option = document.createElement('option');
+                  option.value = data.artifacts[i].id;
+                  option.innerText = data.artifacts[i].Title;
+                  titleSelect.append(option);
+                }
               }
             })
           )
@@ -239,13 +243,17 @@ include(SHARED_PATH . '/header.php');
           .then((response) => response.json())
           .then(
             (data => {
-              const titleSelect = document.querySelector('select#Title');
-              titleSelect.innerHTML = '';
-              for (let i = 0; i < data.artifacts.length; i++) {
-                let option = document.createElement('option');
-                option.value = data.artifacts[i].id;
-                option.innerText = data.artifacts[i].Title;
-                titleSelect.append(option);
+              if (data.authenticated == false) {
+                location.href = "/login.php";
+              } else {
+                const titleSelect = document.querySelector('select#Title');
+                titleSelect.innerHTML = '';
+                for (let i = 0; i < data.artifacts.length; i++) {
+                  let option = document.createElement('option');
+                  option.value = data.artifacts[i].id;
+                  option.innerText = data.artifacts[i].Title;
+                  titleSelect.append(option);
+                }
               }
             })
           )
