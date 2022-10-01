@@ -18,15 +18,18 @@ $response = find_response_by_id($id);
   <div class="use show">
 
     <div class="attributes">
-      <dl>
-        <dt>Game: <?php echo h($response['Title']); ?></dt>
-      </dl>
-      <dl>
-        <dt>Date of play: <?php echo h($response['PlayDate']); ?></dt>
-      </dl>
+      
+      <h2>Game: <?php echo h($response['Title']); ?></h2>
+
+      <h2>Date of play: <?php echo h($response['PlayDate']); ?></h2>
+
+      <h2>Note</h2>
+      <p id="note">
+        <?php echo h($response['Note']); ?>
+      </p>
       <!-- GET variable approach to passing player id from new page to show -->
       <a href="/uses/edit.php?id=<?php echo $_REQUEST['id']; ?>">
-        View user of this response
+        Edit Response
       </a>
     </div>
     <br />

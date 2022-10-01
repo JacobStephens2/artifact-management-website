@@ -1,5 +1,4 @@
 <?php
-
 require_once('../../private/initialize.php');
 require_login();
 
@@ -15,24 +14,22 @@ if(is_post_request()) {
   $response['Title'] = $_POST['Title'] ?? '';
   $response['PlayDate'] = $_POST['PlayDate'] ?? '';
   $response['Player'] = $_POST['Player'] ?? '';
+  $response['Note'] = $_POST['Note'] ?? '';
 
   $result = update_response($response);
   if($result === true) {
-    $_SESSION['message'] = 'The object was updated successfully.';
-    redirect_to(url_for('/uses/show.php?id=' . $id));
+    $_SESSION['message'] = 'The use was updated successfully.';
   } else {
     $errors = $result;
   }
-
-} else {
-
   $response = find_response_by_id($id);
 
+} else {
+  $response = find_response_by_id($id);
 }
 
 $page_title = 'Edit Use';
 include(SHARED_PATH . '/header.php'); 
-
 ?>
 
 <main>
@@ -51,15 +48,15 @@ include(SHARED_PATH . '/header.php');
       <label for="Title">Artifact</label>
       <select id="Title" name="Title">
         <?php
-          $type_set = list_games();
-          while($type = mysqli_fetch_assoc($type_set)) {
-            echo "<option value=\"" . h($type['id']) . "\"";
-            if($response["responsetitle"] == $type['id']) {
+          $artifact_set = list_games();
+          while($artifact = mysqli_fetch_assoc($artifact_set)) {
+            echo "<option value=\"" . h($artifact['id']) . "\"";
+            if($response["responsetitle"] == $artifact['id']) {
               echo " selected";
             }
-            echo ">" . h($type['Title']) . "</option>";
+            echo ">" . h($artifact['Title']) . "</option>";
           }
-          mysqli_free_result($type_set);
+          mysqli_free_result($artifact_set);
         ?>
       </select>
 
@@ -86,6 +83,14 @@ include(SHARED_PATH . '/header.php');
         name="PlayDate" 
         value="<?php echo h($response['PlayDate']); ?>" 
       />
+
+      <label for="Note">Note</label>
+      <textarea 
+        name="Note" 
+        id="Note" 
+        cols="30" 
+        rows="10"
+        ><?php echo h($response['Note']); ?></textarea>
       
       <input type="hidden" name="id" value="<?php echo h($response['id']); ?>" /></dd>
 

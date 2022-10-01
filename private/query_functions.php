@@ -1407,6 +1407,7 @@ function find_response_by_id($id) {
   $sql .= "games.id AS gameid, ";
   $sql .= "responses.PlayDate, ";
   $sql .= "responses.Player, ";
+  $sql .= "responses.Note AS Note, ";
   $sql .= "players.FirstName, ";
   $sql .= "players.LastName, ";
   $sql .= "responses.Title AS responsetitle, ";
@@ -1434,6 +1435,7 @@ function update_response($object) {
   $sql = "UPDATE responses SET ";
   $sql .= "Title='" . db_escape($db, $object['Title']) . "', ";
   $sql .= "PlayDate='" . db_escape($db, $object['PlayDate']) . "', ";
+  $sql .= "Note='" . db_escape($db, $object['Note']) . "', ";
   $sql .= "Player='" . db_escape($db, $object['Player']) . "' ";
   $sql .= "WHERE id='" . db_escape($db, $object['id']) . "' ";
   $sql .= "LIMIT 1;";
