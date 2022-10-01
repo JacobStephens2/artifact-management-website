@@ -30,65 +30,67 @@ if(is_post_request()) {
 
 }
 
-?>
+$page_title = 'Edit Use';
+include(SHARED_PATH . '/header.php'); 
 
-<?php $page_title = 'Edit Use'; ?>
-<?php include(SHARED_PATH . '/header.php'); ?>
+?>
 
 <main>
 
   <div class="object edit">
+
     <h1>Edit Use</h1>
 
     <?php echo display_errors($errors); ?>
 
-    <form action="<?php echo url_for('/uses/edit.php?id=' . h(u($id))); ?>" method="post">
-      <dl>
-        <dt>Artifact</dt>
-        <dd>
-          <select name="Title">
-          <?php
-            $type_set = list_games();
-            while($type = mysqli_fetch_assoc($type_set)) {
-              echo "<option value=\"" . h($type['id']) . "\"";
-              if($response["responsetitle"] == $type['id']) {
-                echo " selected";
-              }
-              echo ">" . h($type['Title']) . "</option>";
+    <form 
+      action="<?php echo url_for('/uses/edit.php?id=' . h(u($id))); ?>" 
+      method="post"
+      >
+
+      <label for="Title">Artifact</label>
+      <select id="Title" name="Title">
+        <?php
+          $type_set = list_games();
+          while($type = mysqli_fetch_assoc($type_set)) {
+            echo "<option value=\"" . h($type['id']) . "\"";
+            if($response["responsetitle"] == $type['id']) {
+              echo " selected";
             }
-            mysqli_free_result($type_set);
-          ?>
-          </select>
-        </dd>
-      </dl>
-      <dl>
-        <dt>User</dt>
-        <dd>
-          <select name="Player">
-            <option value='Invalid'>Choose a User</option>
-          <?php
-            $player_set = list_players();
-            while($player = mysqli_fetch_assoc($player_set)) {
-              echo "<option value=\"" . h($player['id']) . "\"";
-              if($response["Player"] == $player['id']) {
-                echo " selected";
-              }
-              echo ">" . h($player['FirstName']) . ' ' . h($player['LastName']) . "</option>";
+            echo ">" . h($type['Title']) . "</option>";
+          }
+          mysqli_free_result($type_set);
+        ?>
+      </select>
+
+      <label for="user">User</dt>
+      <select id="user" name="Player">
+        <option value='Invalid'>Choose a User</option>
+        <?php
+          $player_set = list_players();
+          while($player = mysqli_fetch_assoc($player_set)) {
+            echo "<option value=\"" . h($player['id']) . "\"";
+            if($response["Player"] == $player['id']) {
+              echo " selected";
             }
-            mysqli_free_result($player_set);
-          ?>
-          </select>
-        </dd>
-      </dl>
+            echo ">" . h($player['FirstName']) . ' ' . h($player['LastName']) . "</option>";
+          }
+          mysqli_free_result($player_set);
+        ?>
+      </select>
       
-      <dl>
-        <dt>Use Date</dt>
-        <dd><input type="date" name="PlayDate" value="<?php echo h($response['PlayDate']); ?>" /></dd>
-      </dl>
-      <dl>
-        <dd><input type="hidden" name="id" value="<?php echo h($response['id']); ?>" /></dd>
-      </dl>
+      <label for="UseDate">Use Date</dt>
+      <input 
+        type="date" 
+        id="UseDate" 
+        name="PlayDate" 
+        value="<?php echo h($response['PlayDate']); ?>" 
+      />
+      
+      <input type="hidden" name="id" value="<?php echo h($response['id']); ?>" /></dd>
+
       <input type="submit" value="Save response" />
+
     </form>
 
     <a 
