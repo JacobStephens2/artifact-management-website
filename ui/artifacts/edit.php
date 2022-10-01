@@ -162,8 +162,10 @@ include(SHARED_PATH . '/header.php');
     $usesOfArtifactByUserResultObject = mysqli_query($db, $findUsesOfArtifactByUserSQL);
     ?>
     <h2>
+      You have recorded
       <?php echo $usesOfArtifactByUserResultObject->num_rows; ?> 
-      Uses of <?php echo h($artifact['Title']); ?>
+      uses of
+      <?php echo h($artifact['Title']); ?>
     </h2>
     <table>
       <tr>
@@ -181,9 +183,12 @@ include(SHARED_PATH . '/header.php');
     </table>
   </section>
 
-  <a class="action" href="<?php echo url_for('/artifacts/delete.php?id=' . h(u($_REQUEST['id']))); ?>">
-    <p>Delete <?php echo h($artifact['Title']); ?></p>
-  </a>
+  <p>
+    <a class="action" href="<?php echo url_for('/artifacts/delete.php?id=' . h(u($_REQUEST['id']))); ?>">
+      Delete 
+      <?php echo h($artifact['Title']); ?>
+    </a>
+  </p>
 
 </main>
 
