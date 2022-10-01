@@ -24,7 +24,14 @@ include(SHARED_PATH . '/header.php');
 
       <?php while($object = mysqli_fetch_assoc($object_set)) { ?>
         <tr>
-          <td><?php echo h($object['FirstName']) . ' ' . h($object['LastName']); ?></td>
+          <td>
+            <a 
+              class="table-action" 
+              href="<?php echo url_for('/users/edit.php?id=' . h(u($object['playerID']))); ?>"
+              >
+              <?php echo h($object['FirstName']) . ' ' . h($object['LastName']); ?>
+            </a>
+          </td>
           <td>
             <a class="table-action" href="<?php echo url_for('/playgroup/edit.php?ID=' . h(u($object['ID']))); ?>">
               <?php echo h($object['ID']); ?>
