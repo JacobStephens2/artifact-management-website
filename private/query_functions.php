@@ -1701,7 +1701,12 @@ function update_playgroup_player($playgroupplayer) {
   function find_playgroup_by_user_id() {
     global $db;
 
-    $sql = "SELECT playgroup.ID, playgroup.FullName, players.FirstName, players.LastName, players.id AS playerID ";
+    $sql = "SELECT 
+      playgroup.ID, 
+      playgroup.FullName, 
+      players.FirstName, 
+      players.LastName, 
+      players.id AS playerID ";
     $sql .= "FROM playgroup LEFT JOIN players ON playgroup.FullName = players.id ";
     $sql .= "WHERE playgroup.user_id = '" . db_escape($db, $_SESSION['user_id']) . "'";
     $result = mysqli_query($db, $sql);
