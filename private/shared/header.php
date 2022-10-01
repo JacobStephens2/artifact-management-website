@@ -36,7 +36,7 @@
 
     <nav class="hideOnPrint">
         <?php
-        if(isset($_SESSION['FullName'])) {
+        if(isset($_SESSION['logged_in']) && isset($_SESSION['FullName'])) {
           ?>
           <a href="<?php echo url_for('/settings/edit.php'); ?>">
             <?php echo '<span>' . $_SESSION['FullName'] . '</span>'; ?>
