@@ -11,21 +11,25 @@ include(SHARED_PATH . '/header.php');
 
   <div class="object show">
 
-    <h1>Name: <?php echo h($player['FirstName']) . ' ' . h($player['LastName']); ?></h1>
+    <h1>
+      Name: <?php echo h($player['FirstName']) . ' ' . h($player['LastName']); ?>
+    </h1>
 
-    <div class="attributes">
-      <dl>
-        <dt>Gender</dt>
-        <dd><?php echo h($player['G']); ?></dd>
-      </dl>
-      <dl>
-        <dt>Age</dt>
-        <dd><?php echo h($player['Age']); ?></dd>
-      </dl>
-    </div>
+    <dl>
+      <dt>Gender</dt>
+      <dd><?php echo h($player['G']); ?></dd>
+    </dl>
+    <dl>
+      <dt>Age</dt>
+      <dd><?php echo h($player['Age']); ?></dd>
+    </dl>
 
-    <hr />
+    <a href="/users/edit.php?id=<?php echo $_REQUEST['id']; ?>">
+      Edit User
+    </a>
 
   </div>
 
 </main>
+
+<?php include(SHARED_PATH . '/footer.php'); ?>
