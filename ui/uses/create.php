@@ -6,6 +6,7 @@ if(is_post_request()) {
   $response = [];
   $response['Title'] = $_POST['Title'] ?? '';
   $response['PlayDate'] = $_POST['PlayDate'] ?? '';
+  $response['Note'] = $_POST['Note'] ?? '';
 
   $response['Player1'] = $_POST['Player1'] ?? '';
   $response['Player2'] = $_POST['Player2'] ?? '';
@@ -214,6 +215,14 @@ include(SHARED_PATH . '/header.php');
           $p++;
         }
       ?>
+
+      <label for="Note">Note</label>
+      <textarea 
+        cols="30" 
+        rows="5"
+        name="Note" 
+        id="Note"
+        ></textarea>
 
 			<input type="submit" value="Record Use" />
 

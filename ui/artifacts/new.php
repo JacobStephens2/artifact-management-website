@@ -11,6 +11,7 @@ if(is_post_request()) {
   $artifact['KeptCol'] = $_POST['KeptCol'] ?? '';
   $artifact['Candidate'] = $_POST['Candidate'] ?? '';
   $artifact['UsedRecUserCt'] = $_POST['UsedRecUserCt'] ?? '';
+  $artifact['Notes'] = $_POST['Notes'] ?? '';
   ($_POST['MnT'] == '') ? $artifact['MnT'] = 5 : $artifact['MnT'] = $_POST['MnT'];
   ($_POST['MxT'] == '') ? $artifact['MxT'] = 240 : $artifact['MxT'] = $_POST['MxT'];
   ($_POST['MnP'] == '') ? $artifact['MnP'] = 5 : $artifact['MnP'] = $_POST['MnP'];
@@ -86,6 +87,9 @@ include(SHARED_PATH . '/header.php');
       <label for="UsedRecUserCt">Used at recommended user count or completely through at non recommended user count</label>
       <input type="hidden" name="UsedRecUserCt" value="0" />
       <input type="checkbox" name="UsedRecUserCt" value="1" checked/>
+
+      <label for="Notes">Notes</label>
+      <textarea name="Notes" id="Notes" cols="30" rows="5"></textarea>
 
       <div id="operations">
         <input type="submit" value="Create Artifact" />

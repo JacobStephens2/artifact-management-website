@@ -19,9 +19,8 @@ if(is_post_request()) {
   $artifact['type'] = $_POST['type'] ?? '';
   $artifact['KeptCol'] = $_POST['KeptCol'] ?? '';
   $artifact['Candidate'] = $_POST['Candidate'] ?? '';
-  $artifact['Notes'] = $_POST['Notes'] ?? '';
   $artifact['UsedRecUserCt'] = $_POST['UsedRecUserCt'] ?? '';
-  $artifact['Notes'] = $_POST['Notes'] ?? '';
+  $artifact['Note'] = $_POST['Note'] ?? '';
   ($_POST['MnT'] == '') ? $artifact['MnT'] = 5 : $artifact['MnT'] = $_POST['MnT'];
   ($_POST['MxT'] == '') ? $artifact['MxT'] = 240 : $artifact['MxT'] = $_POST['MxT'];
   ($_POST['MnP'] == '') ? $artifact['MnP'] = 5 : $artifact['MnP'] = $_POST['MnP'];
@@ -148,18 +147,18 @@ include(SHARED_PATH . '/header.php');
       <input type="checkbox" name="UsedRecUserCt" id="UsedRecUserCt" value="1"<?php if($artifact['UsedRecUserCt'] == "1") { echo " checked"; } ?> />
 
       <?php 
-      if (!isset($artifact['Note'])) { 
-        $artifact['Note'] = '';
+      if (!isset($artifact['Notes'])) { 
+        $artifact['Notes'] = '';
       }
       ?>
 
-      <label for="Note">Note</label>
+      <label for="Notes">Notes</label>
       <textarea 
         name="Notes" 
-        id="Note" 
+        id="Notes" 
         cols="30" 
         rows="10"
-        ><?php echo h($artifact['Note']); ?></textarea>
+        ><?php echo h($artifact['Notes']); ?></textarea>
 
       <input type="submit" value="Save Edits" />
     </form>

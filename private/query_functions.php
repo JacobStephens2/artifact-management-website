@@ -872,6 +872,7 @@ ORDER BY UseDate DESC
     $sql = "INSERT INTO games ";
     $sql .= "(
               Title, 
+              Notes,
               Acq, 
               type, 
               KeptCol, 
@@ -886,6 +887,7 @@ ORDER BY UseDate DESC
               ) ";
     $sql .= "VALUES (";
     $sql .= "'" . db_escape($db, $object['Title']) . "',";
+    $sql .= "'" . db_escape($db, $object['Notes']) . "',";
     $sql .= "'" . db_escape($db, $object['Acq']) . "',";
     $sql .= "'" . db_escape($db, $object['type']) . "',";
     $sql .= "'" . db_escape($db, $object['KeptCol']) . "',";
@@ -1100,9 +1102,10 @@ ORDER BY UseDate DESC
     
     if ($playerCount >= 1) {
       $sql = "INSERT INTO responses ";
-      $sql .= "(Title, PlayDate, Player, user_id) ";
+      $sql .= "(Title, Note, PlayDate, Player, user_id) ";
       $sql .= "VALUES (";
       $sql .= "'" . db_escape($db, $response['Title']) . "', ";
+      $sql .= "'" . db_escape($db, $response['Note']) . "', ";
       $sql .= "'" . db_escape($db, $response['PlayDate']) . "', ";
       $sql .= "'" . db_escape($db, $response['Player1']) . "', ";
       $sql .= "'" . db_escape($db, $_SESSION['user_id']) . "'";
