@@ -20,7 +20,7 @@ if(is_post_request()) {
   $artifact['KeptCol'] = $_POST['KeptCol'] ?? '';
   $artifact['Candidate'] = $_POST['Candidate'] ?? '';
   $artifact['UsedRecUserCt'] = $_POST['UsedRecUserCt'] ?? '';
-  $artifact['Note'] = $_POST['Note'] ?? '';
+  $artifact['Notes'] = $_POST['Notes'] ?? '';
   ($_POST['MnT'] == '') ? $artifact['MnT'] = 5 : $artifact['MnT'] = $_POST['MnT'];
   ($_POST['MxT'] == '') ? $artifact['MxT'] = 240 : $artifact['MxT'] = $_POST['MxT'];
   ($_POST['MnP'] == '') ? $artifact['MnP'] = 5 : $artifact['MnP'] = $_POST['MnP'];
