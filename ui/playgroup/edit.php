@@ -60,7 +60,7 @@ if(is_post_request()) {
         </dd>
       </dl>
       <div ID="operations">
-        <input type="submit" value="Save playgroup player edit" />
+        <input type="submit" value="Save group user edit" />
       </div>
     </form>
 
