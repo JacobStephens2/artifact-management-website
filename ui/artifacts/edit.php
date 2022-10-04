@@ -19,7 +19,9 @@ if(is_post_request()) {
   $artifact['type'] = $_POST['type'] ?? '';
   $artifact['KeptCol'] = $_POST['KeptCol'] ?? '';
   $artifact['Candidate'] = $_POST['Candidate'] ?? '';
+  $artifact['Notes'] = $_POST['Notes'] ?? '';
   $artifact['UsedRecUserCt'] = $_POST['UsedRecUserCt'] ?? '';
+  $artifact['Notes'] = $_POST['Notes'] ?? '';
   ($_POST['MnT'] == '') ? $artifact['MnT'] = 5 : $artifact['MnT'] = $_POST['MnT'];
   ($_POST['MxT'] == '') ? $artifact['MxT'] = 240 : $artifact['MxT'] = $_POST['MxT'];
   ($_POST['MnP'] == '') ? $artifact['MnP'] = 5 : $artifact['MnP'] = $_POST['MnP'];
@@ -32,6 +34,7 @@ if(is_post_request()) {
   } else {
     $errors = $result;
   }
+  $artifact = find_game_by_id($id);
 } else {
   $artifact = find_game_by_id($id);
 }
@@ -144,6 +147,20 @@ include(SHARED_PATH . '/header.php');
       <input type="hidden" name="UsedRecUserCt" value="0" />
       <input type="checkbox" name="UsedRecUserCt" id="UsedRecUserCt" value="1"<?php if($artifact['UsedRecUserCt'] == "1") { echo " checked"; } ?> />
 
+      <?php 
+      if (!isset($artifact['Note'])) { 
+        $artifact['Note'] = '';
+      }
+      ?>
+
+      <label for="Note">Note</label>
+      <textarea 
+        name="Notes" 
+        id="Note" 
+        cols="30" 
+        rows="10"
+        ><?php echo h($artifact['Note']); ?></textarea>
+
       <input type="submit" value="Save Edits" />
     </form>
 
@@ -169,7 +186,7 @@ include(SHARED_PATH . '/header.php');
     </h2>
     <table>
       <tr>
-        <th>Use Date</th>
+        <th>Use Date (<?php echo $usesOfArtifactByUserResultObject->num_rows; ?>)</th>
       <tr>
       <?php foreach ($usesOfArtifactByUserResultObject as $usesOfArtifactByUserArray) { ?>        
         <tr>
