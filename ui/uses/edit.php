@@ -98,16 +98,16 @@ include(SHARED_PATH . '/header.php');
 
     </form>
 
-    <a 
-      class="action" 
-      href="<?php echo url_for('/uses/delete.php?id=' . h(u($response['id']))); ?>"
-    >
-      <button>
-        Delete Use
-      </button>
-    </a>
-
   </div>
+
+  <a 
+    class="action" 
+    href="<?php echo url_for('/uses/delete.php?id=' . h(u($response['id']))); ?>"
+  >
+    <button>
+      Delete Use
+    </button>
+  </a>
 
 </main>
 
