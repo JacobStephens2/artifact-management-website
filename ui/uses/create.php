@@ -98,12 +98,12 @@ include(SHARED_PATH . '/header.php');
     <form action="<?php echo url_for('/uses/create.php?playerCount=' . $playerCount); ?>" method="post">
 
       <!-- This select gets populated by the JavaScript fetch request above -->
-      <label for="SearchTitles">Search Artifacts</label>
-      <input type="text" name="SearchTitles" id="SearchTitles">
-
-			<label for="Title">Artifact</label>
+      <label for="Title">Artifact</label>
 			<select name="Title" id="Title">
       </select>
+
+      <label for="SearchTitles">Search Artifacts</label>
+      <input type="text" name="SearchTitles" id="SearchTitles">
       
       <label for="PlayDate">Response Date</label>
       <input 
@@ -112,16 +112,6 @@ include(SHARED_PATH . '/header.php');
         name="PlayDate" 
         value="<?php echo date('Y') . '-' . date('m') . '-' . date('d'); ?>"
       />
-
-      <label for="Users">
-        <?php
-          if ($playerCount > 1) {
-            echo 'Users';
-          } else {
-            echo 'User';
-          }
-        ?>
-      </label>
 
       <label for="SearchUser1">Search Users</label>
       <input type="text" name="SearchUser1" id="SearchUser1">
@@ -141,6 +131,7 @@ include(SHARED_PATH . '/header.php');
 					mysqli_free_result($player_set);
 				?>
 			</select>
+
       <script>
         getArtifacts();
         function searchUsers(e) {
