@@ -44,32 +44,8 @@ include(SHARED_PATH . '/header.php');
 ?>
 
 <main>
-    <script>
-      function getArtifacts() {
-        fetch('https://<?php echo API_ORIGIN; ?>/artifacts.php', {
-          method: 'GET',
-          credentials: 'include',
-        })
-          .then((response) => response.json())
-          .then(
-            (data => {
-              if (data.authenticated == false) {
-                location.href = "/login.php?action=logout";
-              } else {
-                const titleSelect = document.querySelector('select#Title');
-                titleSelect.innerHTML = '';
-                for (let i = 0; i < data.artifacts.length; i++) {
-                  let option = document.createElement('option');
-                  option.value = data.artifacts[i].id;
-                  option.innerText = data.artifacts[i].Title;
-                  titleSelect.append(option);
-                }
-              }
-            })
-          )
-        ;
-      }
-    </script>
+    <script type="module" src="modules/getArtifacts.js"></script>
+    <script type="module" src="modules/searchArtifacts.js"></script>
 
     <h1>Record Use</h1>
 
@@ -134,7 +110,6 @@ include(SHARED_PATH . '/header.php');
 			</select>
 
       <script>
-        getArtifacts();
         function searchUsers(e) {
           requestBody = {
             "query": e.target.value,
@@ -182,7 +157,6 @@ include(SHARED_PATH . '/header.php');
           </select>
 
           <script>
-            getArtifacts();
             function searchUsers(e) {
                 requestBody = {
                   "query": e.target.value,
@@ -227,43 +201,6 @@ include(SHARED_PATH . '/header.php');
 			<input type="submit" value="Record Use" />
 
     </form>
-
-    <!-- Append options to artifact and user select elements -->
-    <script defer>
-      getArtifacts();
-      function searchArtifacts(e) {
-        requestBody = {
-          "query": e.target.value,
-        };
-        fetch('https://<?php echo API_ORIGIN; ?>/artifacts.php', {
-          method: 'POST',
-          credentials: 'include',
-          body: JSON.stringify(requestBody),
-        })
-          .then((response) => response.json())
-          .then(
-            (data => {
-              if (data.authenticated == false) {
-                location.href = "/login.php";
-              } else {
-                const titleSelect = document.querySelector('select#Title');
-                titleSelect.innerHTML = '';
-                for (let i = 0; i < data.artifacts.length; i++) {
-                  let option = document.createElement('option');
-                  option.value = data.artifacts[i].id;
-                  option.innerText = data.artifacts[i].Title;
-                  titleSelect.append(option);
-                }
-              }
-            })
-          )
-        ;
-      }
-      const searchTitlesInput = document.querySelector('input#SearchTitles');
-      searchTitlesInput.addEventListener('input', searchArtifacts);
-
-      getArtifacts();
-    </script>
 
 </main>
 
