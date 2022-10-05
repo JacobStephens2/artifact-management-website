@@ -65,52 +65,7 @@
     $subject = mysqli_fetch_assoc($result);
     mysqli_free_result($result);
     return $subject; // returns an assoc. array
-  }
-  function insert_use($use) {
-    global $db;
-
-    $errors = validate_use($use);
-    if(!empty($errors)) {
-      return $errors;
-    }
-    
-/*
-SELECT
-objects.ObjectName,
-use_table.UseDate,
-objects.user_id,
-use_table.ID
-FROM use_table
-LEFT JOIN objects ON objects.ID = use_table.ObjectName 
-ORDER BY UseDate DESC
-*/
-
-    $sql = "INSERT INTO use_table ";
-    $sql .= "(ObjectName, user_id, UseDate) ";
-    $sql .= "VALUES (";
-    $sql .= "'" . db_escape($db, $use['ObjectName']) . "',";
-    $sql .= "'" . db_escape($db, $_SESSION['user_id']) . "',";
-    $sql .= "'" . db_escape($db, $use['UseDate']) . "'";
-    $sql .= ")";
-
-    $result = mysqli_query($db, $sql);
-    // For INSERT statements, $result is true/false
-    if($result) {
-      return true;
-    } else {
-      // INSERT failed
-      echo mysqli_error($db);
-      db_disconnect($db);
-      exit;
-    }
-  }
-  function validate_use($use) {
-    $errors = [];
-
-    // UseDate
-
-    return $errors;
-  }
+  } 
 
 // Types
   function find_all_types() {

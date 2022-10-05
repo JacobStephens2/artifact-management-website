@@ -113,6 +113,13 @@ include(SHARED_PATH . '/header.php');
       inspired Jacob to create this&nbsp;tool.
     </p>
 
+    <h2>Under Development</h2>
+    <ul>
+      <li>
+        <a href="/uses/new.php">Record Use</a>
+      </li>
+    </ul>
+
   </div>
 
 </main>
