@@ -7,6 +7,7 @@ include(SHARED_PATH . '/header.php');
 
 <script type="module" src="modules/getArtifacts.js"></script>
 <script type="module" src="modules/searchArtifacts.js"></script>
+<script type="module" src="modules/getUsers.js"></script>
 
 <main>
 
@@ -27,6 +28,28 @@ include(SHARED_PATH . '/header.php');
 
     <label for="SearchTitles">Search Artifacts</label>
     <input type="text" name="SearchTitles" id="SearchTitles">
+
+    <label for="Users">Users</label>
+    <section id="sweetSpots">
+      <div>
+        <input type="hidden" name="User[0]" value="<?php echo $_SESSION['player_id']; ?>">
+        <input 
+          class="sweetSpot"
+          type="text" 
+          name="User[0][Name]" 
+          id="User0" 
+          value="<?php echo $_SESSION['FullName']; ?>"
+        >
+      </div>
+    </section>
+
+    <button 
+      id="addSweetSpot"
+      class="sweetSpot"
+      style="display: block;"
+      >
+      +
+    </button>
 
     <input type="submit" value="Submit">
 
