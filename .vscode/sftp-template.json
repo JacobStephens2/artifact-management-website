@@ -20,7 +20,7 @@
     },
     {
         "name": "Private Production Server",
-        "context": "artifacts_private",
+        "context": "private",
         "host": "",
         "protocol": "ftp",
         "port": 21,

@@ -74,10 +74,13 @@ yarn-error.log
 # Yarn Integrity file
 .yarn-integrity
 
+#Other
 .htaccess
 error_log
 
 Roboto_Slab
 .vscode/sftp.json
-artifacts_private/environment_variables.php
-artifacts_private/vendor
+private/environment_variables.php
+private/vendor
+api/private/vendor
+api/vendor
