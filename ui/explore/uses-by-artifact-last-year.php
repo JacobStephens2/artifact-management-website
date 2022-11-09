@@ -4,7 +4,7 @@ require_once('../../private/initialize.php');
 
 require_login();
 
-$page_title = 'Uses By Artifact';
+$page_title = 'Uses By Artifact Over Last 365 Days';
 
 include(SHARED_PATH . '/header.php');
 
@@ -15,6 +15,7 @@ $getUseCountsByPlayerSQL = "SELECT
   FROM responses
   JOIN games ON games.id = responses.Title
   WHERE responses.Player = " . $_SESSION['player_id'] . "
+  AND responses.PlayDate > DATE_SUB(NOW(), INTERVAL 365 DAY)
   GROUP BY responses.Title
   ORDER BY CountOfUses DESC
 ";
@@ -37,8 +38,8 @@ if (substr($_SESSION['FullName'], -1, 1) == 's') {
     <?php echo $_SESSION['FullName'] . $possessivePunctuation . $page_title; ?>
   </h1>
 
-  <a href="uses-by-artifact-last-year.php">
-    <p>Uses over last 365 days</p>
+  <a href="uses-by-artifact.php">
+    <p>All Uses By Artifact</p>
   </a>
 
   <table>
