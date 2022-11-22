@@ -151,7 +151,7 @@ include(SHARED_PATH . '/header.php');
           <input type="text" name="SearchUser<?php echo $p; ?>" id="SearchUser<?php echo $p; ?>">
 
           <select id="User<?php echo $p; ?>" name="Player<?php echo $p; ?>">
-            <option value="">Choose a player</option>
+            <option value="0">Choose a player</option>
             <?php
             $player_set = list_players();
             while($player = mysqli_fetch_assoc($player_set)) {
