@@ -60,7 +60,13 @@ include(SHARED_PATH . '/header.php');
       ?>
       
       <label for="Acq">Acquisition Date</label>
-      <input type="date" name="Acq" id="Acq" value="<?php echo date('Y') . '-' . date('m') . '-' . date('d'); ?>"/>
+      <input type="date" name="Acq" id="Acq" value="<?php 
+      $tz = 'America/New_York';
+      $timestamp = time();
+      $dt = new DateTime("now", new DateTimeZone($tz)); //first argument "must" be a string
+      $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+      echo $dt->format('Y') . '-' . $dt->format('m') . '-' . $dt->format('d'); 
+      ?>"/>
 
       <label for="SS">Sweet Spot(s)</label>
       <input type="text" name="SS" id="SS" value="">
