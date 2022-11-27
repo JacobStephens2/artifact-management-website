@@ -42,6 +42,9 @@ $usergroup = find_playgroup_by_user_id();
           <option value="sport" <?php if ($_SESSION['type'] == 'sport') { echo 'selected'; } ?>>Sport</option>
           <option value="game" <?php if ($_SESSION['type'] == 'game') { echo 'selected'; } ?>>Game</option>
           <option value="equipment" <?php if ($_SESSION['type'] == 'equipment') { echo 'selected'; } ?>>Equipment</option>
+          <option value="drink" <?php if ($_SESSION['type'] == 'drink') { echo 'selected'; } ?>>Drink</option>
+          <option value="food" <?php if ($_SESSION['type'] == 'food') { echo 'selected'; } ?>>Food</option>
+          <option value="other" <?php if ($_SESSION['type'] == 'other') { echo 'selected'; } ?>>Other</option>
         </select>
 
         <input type="submit" value="Submit" />

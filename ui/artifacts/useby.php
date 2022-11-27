@@ -24,6 +24,9 @@ $artifact_set = use_by($type, $interval);
           <option value="video-game" <?php if ($type == 'video-game') { echo 'selected'; } ?>>Video Game</option>
           <option value="sport" <?php if ($type == 'sport') { echo 'selected'; } ?>>Sport</option>
           <option value="game" <?php if ($type == 'game') { echo 'selected'; } ?>>Game</option>
+          <option value="drink" <?php if ($type == 'drink') { echo 'selected'; } ?>>Drink</option>
+          <option value="food" <?php if ($type == 'food') { echo 'selected'; } ?>>Food</option>
+          <option value="other" <?php if ($type == 'other') { echo 'selected'; } ?>>Other</option>
         </select>
       </div>
 

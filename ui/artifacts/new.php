@@ -55,8 +55,8 @@ include(SHARED_PATH . '/header.php');
       <input type="text" name="Title" id="Title" value="<?php echo h($artifact['Title']); ?>" /></dd>
       
       <?php 
-      $type = ''; 
-      include(SHARED_PATH . '/artifact_type_select.php'); 
+        $type = ''; 
+        include(SHARED_PATH . '/artifact_type_select.php'); 
       ?>
       
       <label for="Acq">Acquisition Date</label>

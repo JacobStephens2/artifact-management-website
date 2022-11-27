@@ -86,6 +86,20 @@
   </option>
 
   <option 
+    value="drink" 
+    <?php if($type=='drink' ) { echo 'selected' ; } ?>
+    >
+    Drink
+  </option>
+
+  <option 
+    value="food" 
+    <?php if($type=='food' ) { echo 'selected' ; } ?>
+    >
+    Food
+  </option>
+
+  <option 
     value="other" 
     <?php if($type=='other' ) { echo 'selected' ; } ?>
     >
