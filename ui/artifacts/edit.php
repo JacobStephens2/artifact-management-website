@@ -73,10 +73,13 @@ include(SHARED_PATH . '/header.php');
       <label for="Title">Title</dt>
       <input type="text" name="Title" id="Title" value="<?php echo h($artifact['Title']); ?>" />
 
-      <?php 
-      $type = $artifact['type']; 
-      require_once(SHARED_PATH . '/artifact_type_select.php'); 
-      ?>
+      <label for="type">Type</label>
+      <select name="type" id="type">
+        <?php 
+        $type = $artifact['type']; 
+        require_once(SHARED_PATH . '/artifact_type_options.php'); 
+        ?>
+      </select>
 
       <label for="SS">Sweet Spot(s)</label>
       <input type="text" name="SS" id="SS" value="<?php echo $artifact['SS']; ?>">

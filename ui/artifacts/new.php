@@ -54,10 +54,13 @@ include(SHARED_PATH . '/header.php');
       <label for="Title">Name</label>
       <input type="text" name="Title" id="Title" value="<?php echo h($artifact['Title']); ?>" /></dd>
       
-      <?php 
-        $type = ''; 
-        include(SHARED_PATH . '/artifact_type_select.php'); 
-      ?>
+      <label for="type">Type</label>
+      <select name="type" id="type">
+        <?php 
+        $type = $artifact['type']; 
+        require_once(SHARED_PATH . '/artifact_type_options.php'); 
+        ?>
+      </select>
       
       <label for="Acq">Acquisition Date</label>
       <input type="date" name="Acq" id="Acq" value="<?php 
