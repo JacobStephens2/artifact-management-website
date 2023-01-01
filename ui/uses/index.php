@@ -11,9 +11,9 @@ include(SHARED_PATH . '/header.php');
 
   	<table class="list">
   	  <tr id="headerRow">
-        <th>Play Date (<?php echo $use_set->num_rows; ?>)</th>
+        <th>Use Date (<?php echo $use_set->num_rows; ?>)</th>
         <th>Title</th>
-        <th>Player</th>
+        <th>User</th>
   	  </tr>
 
       <?php while($use = mysqli_fetch_assoc($use_set)) { ?>
