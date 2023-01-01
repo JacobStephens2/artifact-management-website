@@ -1,19 +1,4 @@
 <option 
-  value="audiobook" 
-  <?php if($type=='audiobook' ) { echo 'selected' ; } ?>
-  >
-  Audiobook
-</option>
-
-<option 
-  value="board-game" 
-  <?php if($type=='board-game' ) { echo 'selected' ; } ?>
-  >
-  Board Game
-</option>
-
-
-<option 
   value="book" 
   <?php if($type=='book' ) { echo 'selected' ; } ?>
   >
@@ -21,24 +6,24 @@
 </option>
 
 <option 
-  value="card-game" 
-  <?php if($type=='card-game' ) { echo 'selected' ; } ?>
+  value="audiobook" 
+  <?php if($type=='audiobook' ) { echo 'selected' ; } ?>
   >
-  Card Game
-</option>
-
-<option 
-  value="childrens-game" 
-  <?php if($type=='childrens-game' ) { echo 'selected' ; } ?>
-  >
-  Children's Game
+  Book, Audio
 </option>
 
 <option 
   value="drink" 
   <?php if($type=='drink' ) { echo 'selected' ; } ?>
   >
-  Drink
+  Consumable, Drink
+</option>
+
+<option 
+  value="food" 
+  <?php if($type=='food' ) { echo 'selected' ; } ?>
+  >
+  Consumable, Food
 </option>
 
 <option 
@@ -46,13 +31,6 @@
   <?php if($type=='equipment' ) { echo 'selected' ; } ?>
   >
   Equipment
-</option>
-
-<option 
-  value="food" 
-  <?php if($type=='food' ) { echo 'selected' ; } ?>
-  >
-  Food
 </option>
 
 <option 
@@ -70,24 +48,73 @@
 </option>
 
 <option 
-  value="instrument" 
-  <?php if($type=='instrument' ) { echo 'selected' ; } ?>
+  value="board-game" 
+  <?php if($type=='board-game' ) { echo 'selected' ; } ?>
   >
-  Instrument
+  Game, Board
+</option>
+
+<option 
+  value="card-game" 
+  <?php if($type=='card-game' ) { echo 'selected' ; } ?>
+  >
+  Game, Card
+</option>
+
+<option 
+  value="childrens-game" 
+  <?php if($type=='childrens-game' ) { echo 'selected' ; } ?>
+  >
+  Game, Children's
 </option>
 
 <option 
   value="miniatures-game" 
   <?php if($type=='miniatures-game' ) { echo 'selected' ; } ?>
   >
-  Miniatures Game
+  Game, Miniatures
 </option>
 
 <option 
   value="mobile-game" 
   <?php if($type=='mobile-game' ) { echo 'selected' ; } ?>
   >
-  Mobile Game
+  Game, Mobile
+</option>
+
+<option 
+  value="role-playing-game" 
+  <?php if($type=='role-playing-game' ) { echo 'selected' ; } ?>
+  >
+  Game, Role Playing
+</option>
+
+<option 
+  value="sport" 
+  <?php if($type=='sport' ) { echo 'selected' ; } ?>
+  >
+  Game, Sport
+</option>
+
+<option 
+  value="video-game" 
+  <?php if($type=='video-game' ) { echo 'selected' ; } ?>
+  >
+  Game, Video
+</option>
+
+<option 
+  value="vr-game" 
+  <?php if($type=='vr-game' ) { echo 'selected' ; } ?>
+  >
+  Game, Virtual Reality
+</option>
+
+<option 
+  value="instrument" 
+  <?php if($type=='instrument' ) { echo 'selected' ; } ?>
+  >
+  Instrument
 </option>
 
 <option 
@@ -98,43 +125,8 @@
 </option>
 
 <option 
-  value="role-playing-game" 
-  <?php if($type=='role-playing-game' ) { echo 'selected' ; } ?>
-  >
-  Role Playing Game
-</option>
-
-<option 
-  value="sport" 
-  <?php if($type=='sport' ) { echo 'selected' ; } ?>
-  >
-  Sport
-</option>
-
-<option 
   value="toy" 
   <?php if($type=='toy' ) { echo 'selected' ; } ?>
   >
   Toy
-</option>
-
-<option 
-  value="video" 
-  <?php if($type=='video' ) { echo 'selected' ; } ?>
-  >
-  Video
-</option>
-
-<option 
-  value="video-game" 
-  <?php if($type=='video-game' ) { echo 'selected' ; } ?>
-  >
-  Video Game
-</option>
-
-<option 
-  value="vr-game" 
-  <?php if($type=='vr-game' ) { echo 'selected' ; } ?>
-  >
-  VR Game
 </option>
