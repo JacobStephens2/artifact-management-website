@@ -14,7 +14,8 @@ WHERE Candidate IS NOT NULL
 AND Candidate != '0'
 AND Candidate != ''
 AND user_id = " . $_SESSION['user_id'] . "
-ORDER BY Candidate ASC
+ORDER BY Candidate ASC,
+type ASC
 ";
 
 $resultObject = mysqli_query($db, $sql);
@@ -52,6 +53,14 @@ $resultObject = mysqli_query($db, $sql);
     <?php } ?>
 
   </table>
+
+  <label for="typeOptions">Type Options</label>
+  <select id="typeOptions">
+    <?php 
+      $type = '';
+      include(SHARED_PATH . '/artifact_type_options.php'); 
+    ?>
+  </select>
 
 </main>
 
