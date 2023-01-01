@@ -83,7 +83,7 @@ include(SHARED_PATH . '/header.php');
     	    
           <td><?php echo h($artifact['type']); ?></td>
 
-          <td><?php echo $artifact['KeptCol'] == 1 ? 'true' : 'false'; ?></td>
+          <td><?php echo $artifact['KeptCol'] == 1 ? 'Kept' : ''; ?></td>
 
           <td 
             <?php 
