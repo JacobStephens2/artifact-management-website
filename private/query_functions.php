@@ -731,6 +731,10 @@
     HAVING
         games.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
 
+        if (isset($type)) {
+          $sql .= "AND games.type = '$type'";
+        }
+
         if ( $kept == 'yes') { 
           $sql .= "AND games.KeptCol = 1 "; 
         } elseif ( $kept == 'no' ) {
