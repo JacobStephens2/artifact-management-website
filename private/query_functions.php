@@ -731,7 +731,7 @@
     HAVING
         games.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
 
-        if (isset($type)) {
+        if (isset($type) && $type != 1) {
           $sql .= "AND games.type = '$type'";
         }
 
