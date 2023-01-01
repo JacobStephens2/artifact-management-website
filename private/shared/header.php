@@ -75,14 +75,6 @@
             Create&nbsp;User
           </a>
 
-          <a href="<?php echo url_for('/aversions/index.php'); ?>">
-            Aversions
-          </a>
-
-          <a href="<?php echo url_for('/aversions/new.php'); ?>">
-            Record&nbsp;Aversion
-          </a>
-
           <a href="<?php echo url_for('/playgroup/index.php'); ?>">
             Group
           </a>

@@ -32,6 +32,16 @@ include(SHARED_PATH . '/header.php');
             Use Objects by Date List
           </a>
         </li>
+        <li>
+          <a href="<?php echo url_for('/aversions/index.php'); ?>">
+            Aversions
+          </a>
+        </li>
+        <li>
+          <a href="<?php echo url_for('/aversions/new.php'); ?>">
+            Record&nbsp;Aversion
+          </a>
+        </li>
       </ul>
     </ul>
 
