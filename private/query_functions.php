@@ -998,8 +998,7 @@
       GROUP BY games.Acq,
         games.Title,
         games.KeptCol, games.mnp, games.mxp, games.ss, games.type, games.id 
-      HAVING games.user_id = " . db_escape($db, $_SESSION['user_id']) . "
-      AND games.KeptCol = 1 ";
+      HAVING games.KeptCol = 1 ";
       if ($type != '1') {
         $sql .= "AND type = '" . $type . "' ";
       }
@@ -1327,6 +1326,7 @@
     $sql .= "WHERE responses.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
     $sql .= "AND responses.PlayDate IS NOT NULL ";
     $sql .= "ORDER BY responses.PlayDate DESC, ";
+    $sql .= "responses.id DESC, ";
     $sql .= "games.Title DESC, ";
     $sql .= "players.LastName ASC, ";
     $sql .= "players.FirstName ASC ";
