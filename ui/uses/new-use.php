@@ -23,10 +23,13 @@ include(SHARED_PATH . '/header.php');
         ";
         $result = mysqli_query($db, $sql);
       } 
+      echo "Uses inserted.";
     }
 
     // Then redirect user
-    print_r($_POST);
+    ?>
+    <pre><?php print_r($_POST); ?></pre>
+    <?php
 
   } else {
     // Redirect user
