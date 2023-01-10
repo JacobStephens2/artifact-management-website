@@ -6,7 +6,7 @@ include(SHARED_PATH . '/header.php');
 ?>
 
 <script type="module" src="modules/getArtifacts.js"></script>
-<script type="module" src="modules/searchArtifacts.js"></script>
+<script type="module" src="modules/searchArtifactsList.js"></script>
 <script type="module" src="modules/getUsers.js"></script>
 
 <main>
@@ -27,25 +27,30 @@ include(SHARED_PATH . '/header.php');
     </select>
 
     <label for="SearchTitles">Search Artifacts</label>
-    <input type="text" name="SearchTitles" id="SearchTitles">
+    <input type="search" id="SearchTitles" name="searchTitle" value="test">
+    <div class="searchResults" style="display: none;">
+      <ul class="searchResults" style="margin-top: 0;">
+        <li id="result0" value="1">One</li>
+        <li id="result1" value="2">Two</li>
+      </ul>
+    </div>
 
     <label for="Users">Users</label>
     <section id="sweetSpots">
       <div>
-        <input type="hidden" name="User[0]" value="<?php echo $_SESSION['player_id']; ?>">
+        <input type="hidden" name="User[][id]" value="<?php echo $_SESSION['player_id']; ?>">
         <input 
           class="sweetSpot"
           type="text" 
-          name="User[0][Name]" 
-          id="User0" 
+          id="User" 
           value="<?php echo $_SESSION['FullName']; ?>"
         >
       </div>
     </section>
 
     <button 
-      id="addSweetSpot"
-      class="sweetSpot"
+      id="addUser"
+      class="user"
       style="display: block;"
       >
       +
