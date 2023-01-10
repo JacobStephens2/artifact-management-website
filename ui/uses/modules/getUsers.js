@@ -1,15 +1,15 @@
-function addSweetSpotInputAndButton(event) {
+function addUserInputAndButton(event) {
   event.preventDefault();
-  let inputs = document.querySelectorAll("input.sweetSpot");
+  let inputs = document.querySelectorAll("input.addUser");
 
   let input = document.createElement("input");
-  input.setAttribute("id", "SwS" + inputs.length);
-  input.setAttribute("name", "SwS[" + inputs.length + "]");
-  input.classList.add("sweetSpot");
+  input.setAttribute("id", "User" + inputs.length);
+  input.setAttribute("name", "User[]");
+  input.classList.add("user");
 
   let button = document.createElement("button");
-  button.setAttribute("id", "RemoveSwS" + inputs.length);
-  button.classList.add("sweetSpot");
+  button.setAttribute("id", "RemoveUser" + inputs.length);
+  button.classList.add("user");
   let selector = "#SwSDiv" + inputs.length;
   button.addEventListener("click", function (event) {
     event.preventDefault();
@@ -29,5 +29,6 @@ function addSweetSpotInputAndButton(event) {
 }
 
 document
-  .querySelector("button#addSweetSpot")
-  .addEventListener("click", addSweetSpotInputAndButton);
+  .querySelector("button#addUser")
+  .addEventListener("click", addUserInputAndButton)
+;
