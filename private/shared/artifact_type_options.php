@@ -16,14 +16,14 @@
   value="drink" 
   <?php if($type=='drink' ) { echo 'selected' ; } ?>
   >
-  Consumable, Drink
+  Drink, Consumable
 </option>
 
 <option 
   value="food" 
   <?php if($type=='food' ) { echo 'selected' ; } ?>
   >
-  Consumable, Food
+  Food, Consumable
 </option>
 
 <option 
@@ -51,63 +51,70 @@
   value="board-game" 
   <?php if($type=='board-game' ) { echo 'selected' ; } ?>
   >
-  Game, Board
+  Board Game
 </option>
 
 <option 
   value="card-game" 
   <?php if($type=='card-game' ) { echo 'selected' ; } ?>
   >
-  Game, Card
+  Card Game
 </option>
 
 <option 
   value="childrens-game" 
   <?php if($type=='childrens-game' ) { echo 'selected' ; } ?>
   >
-  Game, Children's
+  Children's Game
+</option>
+
+<option 
+  value="gambling-game" 
+  <?php if($type=='gambling-game' ) { echo 'selected' ; } ?>
+  >
+  Gambling Game
 </option>
 
 <option 
   value="miniatures-game" 
   <?php if($type=='miniatures-game' ) { echo 'selected' ; } ?>
   >
-  Game, Miniatures
+  Miniatures Game
 </option>
 
 <option 
   value="mobile-game" 
   <?php if($type=='mobile-game' ) { echo 'selected' ; } ?>
   >
-  Game, Mobile
+  Mobile Game
 </option>
 
 <option 
   value="role-playing-game" 
   <?php if($type=='role-playing-game' ) { echo 'selected' ; } ?>
   >
-  Game, Role Playing
+  Role Playing Game
 </option>
 
 <option 
   value="sport" 
   <?php if($type=='sport' ) { echo 'selected' ; } ?>
   >
-  Game, Sport
+  Sport, Game
 </option>
 
 <option 
   value="video-game" 
   <?php if($type=='video-game' ) { echo 'selected' ; } ?>
   >
-  Game, Video
+  Video Game
 </option>
 
 <option 
   value="vr-game" 
   <?php if($type=='vr-game' ) { echo 'selected' ; } ?>
   >
-  Game, Virtual Reality
+  Virtual Reality Game
 </option>
 
 <option 
