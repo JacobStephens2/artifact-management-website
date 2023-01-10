@@ -526,6 +526,7 @@ button.sweetSpot {
   margin-top: 0.6rem;
   margin-bottom: 0;
   padding: 0.5rem 0.9rem;
+  display: inline;
 }
 
 div.sweetSpot {
@@ -537,10 +538,33 @@ input.sweetSpot {
   margin-right: 0.5rem;
 }
 
-button.sweetSpot {
+button.user {
+  margin-top: 0.6rem;
+  margin-bottom: 0;
+  padding: 0.5rem 0.9rem;
+  display: inline
+}
+
+div.user {
+  margin-top: 0.5rem;
+}
+
+input.user {
   display: inline;
+  margin-right: 0.5rem;
 }
 
 textarea {
   width: 63ch;
+}
+
+.searchResults li {
+  border: 1px solid ivory;
+  padding: 0 0.1rem;
+}
+
+.searchResults li:hover {
+  background-color: white;
+  border: 1px solid black;
+  cursor: pointer;
 }
