@@ -1,46 +1,46 @@
 <?php
-require_once('../../private/initialize.php');
-require_login();
+  require_once('../../private/initialize.php');
+  require_login();
 
-if(is_post_request()) {
-  $response = [];
-  $response['Title'] = $_POST['Title'] ?? '';
-  $response['PlayDate'] = $_POST['PlayDate'] ?? '';
-  $response['Note'] = $_POST['Note'] ?? '';
+  if(is_post_request()) {
+    $response = [];
+    $response['Title'] = $_POST['Title'] ?? '';
+    $response['PlayDate'] = $_POST['PlayDate'] ?? '';
+    $response['Note'] = $_POST['Note'] ?? '';
 
-  $response['Player1'] = $_POST['Player1'] ?? '';
-  $response['Player2'] = $_POST['Player2'] ?? '';
-  $response['Player3'] = $_POST['Player3'] ?? '';
-  $response['Player4'] = $_POST['Player4'] ?? '';
-  $response['Player5'] = $_POST['Player5'] ?? '';
-  $response['Player6'] = $_POST['Player6'] ?? '';
-  $response['Player7'] = $_POST['Player7'] ?? '';
-  $response['Player8'] = $_POST['Player8'] ?? '';
-  $response['Player9'] = $_POST['Player9'] ?? '';
+    $response['Player1'] = $_POST['Player1'] ?? '';
+    $response['Player2'] = $_POST['Player2'] ?? '';
+    $response['Player3'] = $_POST['Player3'] ?? '';
+    $response['Player4'] = $_POST['Player4'] ?? '';
+    $response['Player5'] = $_POST['Player5'] ?? '';
+    $response['Player6'] = $_POST['Player6'] ?? '';
+    $response['Player7'] = $_POST['Player7'] ?? '';
+    $response['Player8'] = $_POST['Player8'] ?? '';
+    $response['Player9'] = $_POST['Player9'] ?? '';
 
-  $playerCount = $_GET['playerCount'] ?? 1;
+    $playerCount = $_GET['playerCount'] ?? 1;
 
-  $result = insert_response($response, $playerCount);
+    $result = insert_response($response, $playerCount);
 
-  if($result === true) {
-    $new_id = mysqli_insert_id($db);
-    $_SESSION['message'] = "The response was recorded successfully.";
-    redirect_to(url_for('/uses/create.php'));
+    if($result === true) {
+      $new_id = mysqli_insert_id($db);
+      $_SESSION['message'] = "The response was recorded successfully.";
+      redirect_to(url_for('/uses/create.php'));
+    } else {
+      $errors = $result;
+    }
+
   } else {
-    $errors = $result;
+    // display the blank form
+    $response = [];
+    $response["Title"] = '';
+    $response["PlayDate"] = '';
+    $response["Player"] = '';
+    $playerCount = $_GET['playerCount'] ?? 1;
   }
 
-} else {
-  // display the blank form
-  $response = [];
-  $response["Title"] = '';
-  $response["PlayDate"] = '';
-  $response["Player"] = '';
-  $playerCount = $_GET['playerCount'] ?? 1;
-}
-
-$page_title = 'Record Use';
-include(SHARED_PATH . '/header.php'); 
+  $page_title = 'Record Use';
+  include(SHARED_PATH . '/header.php'); 
 ?>
 
 <main>
