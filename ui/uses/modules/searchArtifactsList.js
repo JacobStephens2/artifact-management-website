@@ -1,5 +1,7 @@
 import { API_ORIGIN } from "./publicEnvironmentVariables.js";
 
+// Search artifacts
+
 function searchArtifacts(e) {
   let requestBody = {
     query: e.target.value,
@@ -25,41 +27,31 @@ function searchArtifacts(e) {
           let listItem = document.createElement("li");
           listItem.value = data.artifacts[i].id;
           listItem.innerText = data.artifacts[i].Title;
+          listItem.addEventListener('click', function() {
+            document.querySelector('input#SearchTitleSubmission').value = data.artifacts[i].id;
+            document.querySelector('input#SearchTitles').value = data.artifacts[i].Title;
+            hideSearchResults();
+          });
           searchResultsList.append(listItem);
         }
       }
     });
 }
 
-function changeDisplayOnFocus() {
-  document.querySelector('div.searchResults').style.display = 'block';
-}
-
-function changeDisplayOnBlur() {
-  document.querySelector('div.searchResults').style.display = 'block ';
-}
-
-function addSearchValueToSearchInput(event) {
-  console.log(event);
-  document.querySelector('input#SearchTitles').value = 1;
-}
-function addSearchValueTwoToSearchInput(event) {
-  console.log(event);
-  // Get value of target in event
-  document.querySelector('input#SearchTitles').value = 2;
-}
-
 const searchTitlesInput = document.querySelector("input#SearchTitles");
-
-searchTitlesInput.addEventListener('focus', changeDisplayOnFocus);
-
-searchTitlesInput.addEventListener('blur', changeDisplayOnBlur);
 
 searchTitlesInput.addEventListener("input", searchArtifacts);
 
-document.querySelector('#result0').
-  addEventListener('click', addSearchValueToSearchInput)
-;
-document.querySelector('#result1').
-  addEventListener('click', addSearchValueTwoToSearchInput)
-;
+// Show and hide search results
+
+function showSearchResults() {
+  document.querySelector('div.searchResults').style.display = 'block';
+}
+
+searchTitlesInput.addEventListener('focus', showSearchResults);
+
+function hideSearchResults() {
+  document.querySelector('div.searchResults').style.display = 'none';
+}
+
+document.querySelector('#User').addEventListener('focus', hideSearchResults);
