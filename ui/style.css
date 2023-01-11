@@ -568,3 +568,14 @@ textarea {
   border: 1px solid black;
   cursor: pointer;
 }
+
+.userResults li {
+  border: 1px solid ivory;
+  padding: 0 0.1rem;
+}
+
+.userResults li:hover {
+  background-color: white;
+  border: 1px solid black;
+  cursor: pointer;
+}
