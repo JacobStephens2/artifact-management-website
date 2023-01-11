@@ -1,62 +1,62 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+  ini_set('display_errors', 1);
+  ini_set('display_startup_errors', 1);
+  error_reporting(E_ALL);
 
-require_once('../../private/initialize.php');
-require_login();
-if(!isset($_GET['id'])) {
-  redirect_to(url_for('/artifacts/index.php'));
-}
-$id = $_GET['id'];
-
-if(is_post_request()) {
-  // Handle form values sent by new.php
-  $artifact = [];
-  $artifact['id'] = $id ?? '';
-  $artifact['Title'] = $_POST['Title'] ?? '';
-  $artifact['Acq'] = $_POST['Acq'] ?? date('Y-m-d');
-  $artifact['type'] = $_POST['type'] ?? '';
-  $artifact['KeptCol'] = $_POST['KeptCol'] ?? '';
-  $artifact['Candidate'] = $_POST['Candidate'] ?? '';
-  $artifact['UsedRecUserCt'] = $_POST['UsedRecUserCt'] ?? '';
-  $artifact['Notes'] = $_POST['Notes'] ?? '';
-  ($_POST['MnT'] == '') ? $artifact['MnT'] = 5 : $artifact['MnT'] = $_POST['MnT'];
-  ($_POST['MxT'] == '') ? $artifact['MxT'] = 240 : $artifact['MxT'] = $_POST['MxT'];
-  ($_POST['MnP'] == '') ? $artifact['MnP'] = 5 : $artifact['MnP'] = $_POST['MnP'];
-  ($_POST['MxP'] == '') ? $artifact['MxP'] = 240 : $artifact['MxP'] = $_POST['MxP'];
-  ($_POST['SS'] == '') ? $artifact['SS'] = 1 : $artifact['SS'] = $_POST['SS'];
-  $result = update_artifact($artifact);
-  if($result === true) {
-    $_SESSION['message'] = 'The artifact was updated successfully.';
-    redirect_to(url_for('/artifacts/edit.php?id=' . $id));
-  } else {
-    $errors = $result;
+  require_once('../../private/initialize.php');
+  require_login();
+  if(!isset($_GET['id'])) {
+    redirect_to(url_for('/artifacts/index.php'));
   }
-  $artifact = find_game_by_id($id);
-} else {
-  $artifact = find_game_by_id($id);
-}
+  $id = $_GET['id'];
 
-$sweetSpotsSQL = "SELECT
-  sweetspots.id AS id,
-  games.Title AS Title,
-  sweetspots.SwS AS SwS
-  FROM sweetspots
-  JOIN games ON games.id = sweetspots.Title
-  WHERE sweetspots.Title = " . $id . "
-  ORDER BY games.Title ASC
-";
+  if(is_post_request()) {
+    // Handle form values sent by new.php
+    $artifact = [];
+    $artifact['id'] = $id ?? '';
+    $artifact['Title'] = $_POST['Title'] ?? '';
+    $artifact['Acq'] = $_POST['Acq'] ?? date('Y-m-d');
+    $artifact['type'] = $_POST['type'] ?? '';
+    $artifact['KeptCol'] = $_POST['KeptCol'] ?? '';
+    $artifact['Candidate'] = $_POST['Candidate'] ?? '';
+    $artifact['UsedRecUserCt'] = $_POST['UsedRecUserCt'] ?? '';
+    $artifact['Notes'] = $_POST['Notes'] ?? '';
+    ($_POST['MnT'] == '') ? $artifact['MnT'] = 5 : $artifact['MnT'] = $_POST['MnT'];
+    ($_POST['MxT'] == '') ? $artifact['MxT'] = 240 : $artifact['MxT'] = $_POST['MxT'];
+    ($_POST['MnP'] == '') ? $artifact['MnP'] = 5 : $artifact['MnP'] = $_POST['MnP'];
+    ($_POST['MxP'] == '') ? $artifact['MxP'] = 240 : $artifact['MxP'] = $_POST['MxP'];
+    ($_POST['SS'] == '') ? $artifact['SS'] = 1 : $artifact['SS'] = $_POST['SS'];
+    $result = update_artifact($artifact);
+    if($result === true) {
+      $_SESSION['message'] = 'The artifact was updated successfully.';
+      redirect_to(url_for('/artifacts/edit.php?id=' . $id));
+    } else {
+      $errors = $result;
+    }
+    $artifact = find_game_by_id($id);
+  } else {
+    $artifact = find_game_by_id($id);
+  }
 
-$sweetSpotsResultObject = mysqli_query($db, $sweetSpotsSQL);
+  $sweetSpotsSQL = "SELECT
+    sweetspots.id AS id,
+    games.Title AS Title,
+    sweetspots.SwS AS SwS
+    FROM sweetspots
+    JOIN games ON games.id = sweetspots.Title
+    WHERE sweetspots.Title = " . $id . "
+    ORDER BY games.Title ASC
+  ";
 
-$page_title = h($artifact['Title']); 
-include(SHARED_PATH . '/header.php'); 
+  $sweetSpotsResultObject = mysqli_query($db, $sweetSpotsSQL);
+
+  $page_title = h($artifact['Title']); 
+  include(SHARED_PATH . '/header.php'); 
 ?>
 
 <main>
 
-  <div class="object edit">
+  <div id="editArtifact" class="object edit">
     <h1>Edit <?php echo h($artifact['Title']); ?></h1>
 
     <?php echo display_errors($errors); ?>
@@ -168,17 +168,20 @@ include(SHARED_PATH . '/header.php');
 
   </div>
 
-  <section>
+  <section id="recordedUseList">
     <?php
-    $findUsesOfArtifactByUserSQL = "SELECT
-      responses.PlayDate,
-      responses.id
-      FROM responses
-      WHERE responses.Title = " . $artifact['id'] . "
-      AND responses.Player = " . $_SESSION['player_id'] . "
-      ORDER BY responses.PlayDate DESC
-    ";
-    $usesOfArtifactByUserResultObject = mysqli_query($db, $findUsesOfArtifactByUserSQL);
+      $findUsesOfArtifactByUserSQL = "SELECT
+        responses.PlayDate,
+        responses.id,
+        players.FirstName,
+        players.LastName
+        FROM responses
+        JOIN players ON responses.Player = players.id
+        WHERE responses.Title = " . $artifact['id'] . "
+        ORDER BY responses.PlayDate DESC,
+        responses.id DESC
+      ";
+      $usesOfArtifactByUserResultObject = mysqli_query($db, $findUsesOfArtifactByUserSQL);
     ?>
     <h2>
       You have recorded
@@ -189,6 +192,7 @@ include(SHARED_PATH . '/header.php');
     <table>
       <tr>
         <th>Use Date (<?php echo $usesOfArtifactByUserResultObject->num_rows; ?>)</th>
+        <th>User</th>
       <tr>
       <?php foreach ($usesOfArtifactByUserResultObject as $usesOfArtifactByUserArray) { ?>        
         <tr>
@@ -197,12 +201,21 @@ include(SHARED_PATH . '/header.php');
               <?php echo $usesOfArtifactByUserArray['PlayDate']; ?>
             </a>
           </td>
+          <td>
+            <?php 
+              echo 
+                $usesOfArtifactByUserArray['FirstName'] . 
+                " " . 
+                $usesOfArtifactByUserArray['LastName']
+              ; 
+            ?>
+          </td>
         </tr>
       <?php } ?>
     </table>
   </section>
 
-  <p>
+  <p id="deleteArtifact">
     <a class="action" href="<?php echo url_for('/artifacts/delete.php?id=' . h(u($_REQUEST['id']))); ?>">
       Delete 
       <?php echo h($artifact['Title']); ?>
