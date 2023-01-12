@@ -55,7 +55,7 @@
             Uses
           </a>
         
-          <a href="<?php echo url_for('/uses/create.php'); ?>">
+          <a href="<?php echo url_for('/uses/new.php'); ?>">
             Record&nbsp;Use
           </a>
 

@@ -51,14 +51,13 @@ include(SHARED_PATH . '/header.php');
           Uses
         </a>
       </li>
-
+    
       <ul>
         <li>
-          <a href="<?php echo url_for('/uses/create.php');?>">
-            Record Use
-          </a>
+          <a href="/uses/new.php">Record Use</a>
         </li>
       </ul>
+
     </ul>
 
     <!-- Users -->
@@ -112,13 +111,6 @@ include(SHARED_PATH . '/header.php');
       <a href="https://www.theminimalists.com/ninety/" target="_blank">The Minimalists' 90/90 Rule</a> 
       inspired Jacob to create this&nbsp;tool.
     </p>
-
-    <h2>Under Development</h2>
-    <ul>
-      <li>
-        <a href="/uses/new.php">Record Use</a>
-      </li>
-    </ul>
 
   </div>
 
