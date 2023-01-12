@@ -54,4 +54,4 @@ function hideSearchResults() {
   document.querySelector('div.searchResults').style.display = 'none';
 }
 
-document.querySelector('#User').addEventListener('focus', hideSearchResults);
+document.querySelector('#user0name').addEventListener('focus', hideSearchResults);
