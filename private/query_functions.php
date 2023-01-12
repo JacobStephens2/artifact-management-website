@@ -1050,6 +1050,40 @@
     return $errors;
   }
 
+  function insert_response_revised($postArray) {
+    global $db;
+
+    $queriesArray = [];
+
+    $i = 0;
+    foreach($postArray['user'] as $userArray) {
+      $query = "INSERT INTO responses (
+        Title, 
+        PlayDate, 
+        Player, 
+        user_id
+        ) VALUES (
+        '" . db_escape($db, $postArray['artifact']['id']) . "', 
+        '" . db_escape($db, $postArray['useDate']) . "', 
+        '" . db_escape($db, $userArray['id']) . "', 
+        '" . db_escape($db, $_SESSION['user_id']) . "'
+        )
+      ";
+      $result = mysqli_query($db, $query);
+      $i++;
+    }
+    
+    // For INSERT statements, $result is true/false
+    if ($result) {
+      return $result;
+    } else {
+      // INSERT failed
+      echo mysqli_error($db);
+      db_disconnect($db);
+      exit;
+    }  
+  }
+
   function insert_response($response, $playerCount) {
     global $db;
 
