@@ -3,20 +3,13 @@ require_once('../../private/initialize.php');
 require_login();
 $page_title = 'Use By';
 include(SHARED_PATH . '/header.php');
+include(SHARED_PATH . '/dataTable.html');
 $type = $_POST['type'] ?? '1';
 $interval = $_POST['interval'] ?? '180';
 $artifact_set = use_by($type, $interval);
 ?>
 
 <main>
-
-  <div id="imports">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
-    
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
-  </div>
 
   <h1>Use Artifacts by Date</h1>
 
@@ -43,7 +36,7 @@ $artifact_set = use_by($type, $interval);
   <p>U stands for used at recommended user count or used fully through at non-recommended count</p>
   <p>O stands for Overdue</p>
 
-  <table id="useBy" class="list">
+  <table id="useBy" class="list" data-page-length='100'>
     <thead>
       <tr id="headerRow">
         <th>Name (<?php echo $artifact_set->num_rows; ?>)</th>
