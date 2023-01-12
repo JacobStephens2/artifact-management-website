@@ -7,6 +7,7 @@ $interval = $_POST['interval'] ?? '180';
 $artifact_set = find_games_by_user_id($kept, $type, $interval);
 $page_title = 'Artifacts';
 include(SHARED_PATH . '/header.php'); 
+include(SHARED_PATH . '/dataTable.html');
 ?>
 
 <main>
@@ -57,95 +58,106 @@ include(SHARED_PATH . '/header.php');
         </li>
         ';
       }
-   ?>
+    ?>
 
     <p>C stands for candidate</p>
     <p>U stands for used at recommended user count or used fully through at non-recommended count</p>
     <p>O stands for overdue</p>
 
-  	<table class="list">
-  	  <tr id="headerRow">
-        <th>Acquisition</th>
-        <th>Type</th>
-        <th>Kept</th>
-        <th>O</th>
-        <th>U</th>
-        <th>C</th>
-        <th>Name (<?php echo $artifact_set->num_rows; ?>)</th>
-        <th>Acquisition Date</th>
-        <th>Recent Use</th>
-        <th>Use By</th>
-  	  </tr>
+  	<table class="list" id="artifacts" data-page-length='100'>
+      <thead>
+        <tr id="headerRow">
+          <th>Acquisition</th>
+          <th>Type</th>
+          <th>Kept</th>
+          <th>O</th>
+          <th>U</th>
+          <th>C</th>
+          <th>Name (<?php echo $artifact_set->num_rows; ?>)</th>
+          <th>Acquisition Date</th>
+          <th>Recent Use</th>
+          <th>Use By</th>
+        </tr>
+      </thead>
 
-      <?php while($artifact = mysqli_fetch_assoc($artifact_set)) { ?>
-        <tr>
-          <td><?php echo h($artifact['Acq']); ?></td>
-    	    
-          <td><?php echo h($artifact['type']); ?></td>
+      <tbody>
+        <?php while($artifact = mysqli_fetch_assoc($artifact_set)) { ?>
+          <tr>
+            <td><?php echo h($artifact['Acq']); ?></td>
+            
+            <td><?php echo h($artifact['type']); ?></td>
 
-          <td><?php echo $artifact['KeptCol'] == 1 ? 'Kept' : ''; ?></td>
+            <td><?php echo $artifact['KeptCol'] == 1 ? 'Kept' : ''; ?></td>
 
-          <td 
-            <?php 
-                if ($artifact['UseBy'] < date('Y-m-d')) {
-                  echo 'style="color: red;"';
-                }
-            ?>
-            >
-            <?php 
-                if ($artifact['UseBy'] < date('Y-m-d')) {
-                  echo 'Yes';
-                } else {
-                  echo 'No';
-                }
-            ?>
-          </td>
-          
-          <td
-            <?php 
-                if ( $artifact['UsedRecUserCt'] != 1 ) {
-                  echo 'style="color: red;"';
-                }
-            ?>
-            >
-            <?php 
-            if ( $artifact['UsedRecUserCt'] != 1 ) {
-              echo 'No';
-            } else {
-              echo 'Yes';
-            } 
-            ?>
-          </td>
+            <td 
+              <?php 
+                  if ($artifact['UseBy'] < date('Y-m-d')) {
+                    echo 'style="color: red;"';
+                  }
+              ?>
+              >
+              <?php 
+                  if ($artifact['UseBy'] < date('Y-m-d')) {
+                    echo 'Yes';
+                  } else {
+                    echo 'No';
+                  }
+              ?>
+            </td>
+            
+            <td
+              <?php 
+                  if ( $artifact['UsedRecUserCt'] != 1 ) {
+                    echo 'style="color: red;"';
+                  }
+              ?>
+              >
+              <?php 
+              if ( $artifact['UsedRecUserCt'] != 1 ) {
+                echo 'No';
+              } else {
+                echo 'Yes';
+              } 
+              ?>
+            </td>
 
-          <td>
-            <?php 
-                if ($artifact['Candidate'] < 1) {
-                  echo '';
-                } else {
-                  echo $artifact['Candidate'];
-                }
-            ?>
-          </td>
+            <td>
+              <?php 
+                  if ($artifact['Candidate'] < 1) {
+                    echo '';
+                  } else {
+                    echo $artifact['Candidate'];
+                  }
+              ?>
+            </td>
 
-          <td>
-            <a class="table-action" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($artifact['id']))); ?>">  
-              <?php echo h($artifact['Title']); ?>
-            </a>
-          </td>
+            <td>
+              <a class="table-action" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($artifact['id']))); ?>">  
+                <?php echo h($artifact['Title']); ?>
+              </a>
+            </td>
 
-          <td><?php echo h($artifact['Acq']); ?></td>
+            <td><?php echo h($artifact['Acq']); ?></td>
 
-          <td class="date"><?php echo h($artifact['MaxPlay']); ?></td>
-          
-          <td class="date">
-            <?php echo h($artifact['UseBy']); ?>
-          </td>
-          
-    	  </tr>
-      <?php } ?>
+            <td class="date"><?php echo h($artifact['MaxPlay']); ?></td>
+            
+            <td class="date">
+              <?php echo h($artifact['UseBy']); ?>
+            </td>
+            
+          </tr>
+        <?php } ?>
+      </tbody>
   	</table>
 
     <?php mysqli_free_result($artifact_set); ?>
+
+    <script>
+      let table = new DataTable('#artifacts', {
+        // options
+        order: [[ 8, 'desc']]
+      });
+    </script>
   </div>
 
 </main>
