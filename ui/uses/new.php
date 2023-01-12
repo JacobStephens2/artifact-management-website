@@ -90,8 +90,8 @@ include(SHARED_PATH . '/header.php');
       <input type="hidden" id="user0id" name="user[0][id]" 
         value="<?php echo $_SESSION['player_id']; ?>"
       >
-      <div class="userResults" style="display: none;">
-        <ul class="userResults" style="margin-top: 0;">
+      <div class="userResults user" style="display: none;">
+        <ul class="userResults user" style="margin-top: 0;">
           <li></li>
         </ul>
       </div>
