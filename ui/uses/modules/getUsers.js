@@ -1,4 +1,3 @@
-import { searchUsers } from "./searchUsersList.js";
 import { API_ORIGIN } from "./publicEnvironmentVariables.js";
 
 function addUserInputAndButton(event) {
