@@ -6,7 +6,6 @@ function addUserInputAndButton(event) {
 
   // Get current inputs
   let inputs = document.querySelectorAll("input.user");
-  console.log('inputs length: ' + inputs.length);
 
   // Create remove user button (-)
   let button = document.createElement("button");
@@ -22,6 +21,7 @@ function addUserInputAndButton(event) {
 
   // Create ul
   let ul = document.createElement("ul");
+  ul.setAttribute("id", "userList" + inputs.length);
   ul.classList.add("user");
 
   // Create add user input
@@ -50,21 +50,26 @@ function addUserInputAndButton(event) {
           location.href = "/login.php";
         } else {
           ul.innerHTML = '';
-          if (data.users.length > 10) {
-            var userSearchResultsListLength = 10;
+          if (event.target.value.length === 0) {
+            document.querySelector('ul#userList' + inputs.length).style.display = 'none';
           } else {
-            var userSearchResultsListLength = data.users.length;
-          }
-          for (let i = 0; i < userSearchResultsListLength; i++) {
-            let li = document.createElement("li");
-            li.value = data.users[i].id;
-            li.innerText = data.users[i].FullName;
-            li.addEventListener('click', function() {
-              document.querySelector('input#user' + inputs.length + 'id').value = data.users[i].id;
-              document.querySelector('input#user' + inputs.length + 'name').value = data.users[i].FullName;
-              ul.style.display = 'none';
-            });
-            ul.append(li);
+            document.querySelector('ul#userList' + inputs.length).style.display = 'block';
+            if (data.users.length > 10) {
+              var userSearchResultsListLength = 10;
+            } else {
+              var userSearchResultsListLength = data.users.length;
+            }
+            for (let i = 0; i < userSearchResultsListLength; i++) {
+              let li = document.createElement("li");
+              li.value = data.users[i].id;
+              li.innerText = data.users[i].FullName;
+              li.addEventListener('click', function() {
+                document.querySelector('input#user' + inputs.length + 'id').value = data.users[i].id;
+                document.querySelector('input#user' + inputs.length + 'name').value = data.users[i].FullName;
+                ul.style.display = 'none';
+              });
+              ul.append(li);
+            }
           }
         }
       });

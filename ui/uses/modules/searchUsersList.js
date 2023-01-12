@@ -18,21 +18,26 @@ function searchUsers(e) {
       } else {
         const userResultsList = document.querySelector('ul.userResults');
         userResultsList.innerHTML = '';
-        if (data.users.length > 10) {
-          var userSearchResultsListLength = 10;
+        if (e.target.value.length === 0) {
+          hideSearchResults();
         } else {
-          var userSearchResultsListLength = data.users.length;
-        }
-        for (let i = 0; i < userSearchResultsListLength; i++) {
-          let listItem = document.createElement("li");
-          listItem.value = data.users[i].id;
-          listItem.innerText = data.users[i].FullName;
-          listItem.addEventListener('click', function() {
-            document.querySelector('input#user0id').value = data.users[i].id;
-            document.querySelector('input#user0name').value = data.users[i].FullName;
-            hideSearchResults();
-          });
-          userResultsList.append(listItem);
+          showSearchResults();
+          if (data.users.length > 10) {
+            var userSearchResultsListLength = 10;
+          } else {
+            var userSearchResultsListLength = data.users.length;
+          }
+          for (let i = 0; i < userSearchResultsListLength; i++) {
+            let listItem = document.createElement("li");
+            listItem.value = data.users[i].id;
+            listItem.innerText = data.users[i].FullName;
+            listItem.addEventListener('click', function() {
+              document.querySelector('input#user0id').value = data.users[i].id;
+              document.querySelector('input#user0name').value = data.users[i].FullName;
+              hideSearchResults();
+            });
+            userResultsList.append(listItem);
+          }
         }
       }
     });
