@@ -1061,12 +1061,14 @@
         Title, 
         PlayDate, 
         Player, 
-        user_id
+        user_id,
+        Note
         ) VALUES (
         '" . db_escape($db, $postArray['artifact']['id']) . "', 
         '" . db_escape($db, $postArray['useDate']) . "', 
         '" . db_escape($db, $userArray['id']) . "', 
-        '" . db_escape($db, $_SESSION['user_id']) . "'
+        '" . db_escape($db, $_SESSION['user_id']) . "',
+        '" . db_escape($db, $postArray['Note']) . "'
         )
       ";
       $result = mysqli_query($db, $query);

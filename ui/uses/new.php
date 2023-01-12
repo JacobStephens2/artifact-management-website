@@ -105,6 +105,14 @@ include(SHARED_PATH . '/header.php');
       +
     </button>
 
+    <label for="Note">Note</label>
+    <textarea 
+      cols="30" 
+      rows="5"
+      name="Note" 
+      id="Note"
+    ></textarea>
+
     <input type="submit" value="Submit">
 
   </form>
