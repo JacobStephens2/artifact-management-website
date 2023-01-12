@@ -10,6 +10,14 @@ include(SHARED_PATH . '/header.php');
 
       <h1>Archived Pages</h1>
 
+      <ul>
+        <li>
+          <a href="<?php echo url_for('/uses/create.php');?>">
+            Record Use (Archived Jan 11, 2022)
+          </a>
+        </li>
+      </ul>
+
       <li class="main-menu">
         <a href="<?php echo url_for('/objects/index.php'); ?>">
           Objects
@@ -34,12 +42,12 @@ include(SHARED_PATH . '/header.php');
         </li>
         <li>
           <a href="<?php echo url_for('/aversions/index.php'); ?>">
-            Aversions
+            Aversions (Archived Dec 4 2022)
           </a>
         </li>
         <li>
           <a href="<?php echo url_for('/aversions/new.php'); ?>">
-            Record&nbsp;Aversion
+            Record&nbsp;Aversion (Archived Dec 4 2022)
           </a>
         </li>
       </ul>
