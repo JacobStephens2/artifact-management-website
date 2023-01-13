@@ -1,68 +1,74 @@
 <?php 
-require_once('../../private/initialize.php');
-require_login();
-$kept = $_GET['kept'] ?? 'all';
-$type = $_POST['type'] ?? '1';
-$interval = $_POST['interval'] ?? '180';
-$artifact_set = find_games_by_user_id($kept, $type, $interval);
-$page_title = 'Artifacts';
-include(SHARED_PATH . '/header.php'); 
-include(SHARED_PATH . '/dataTable.html');
+  require_once('../../private/initialize.php');
+  require_login();
+  $kept = $_GET['kept'] ?? 'all';
+  $type = $_POST['type'] ?? '1';
+  $interval = $_POST['interval'] ?? '180';
+  $artifact_set = find_games_by_user_id($kept, $type, $interval);
+  $page_title = 'Artifacts';
+  include(SHARED_PATH . '/header.php'); 
+  include(SHARED_PATH . '/dataTable.html');
 ?>
 
 <main>
   <div class="objects listing">
     <h1>Artifacts</h1>
 
-    <form action="<?php echo url_for('/artifacts/index.php'); ?>" method="post">
-      <label for="type">Game type</label>
-      <select name="type" id="type">
-        <option value="1" <?php if ($type == 1) { echo 'selected'; } ?>>All types</option>
-        <?php require_once(SHARED_PATH . '/artifact_type_options.php'); ?>
-      </select>
+    <section style="display: flex; column-gap: 3.9rem;">
+      <form action="<?php echo url_for('/artifacts/index.php'); ?>" method="post">
+        <label for="type">Game type</label>
+        <select name="type" id="type">
+          <option value="1" <?php if ($type == 1) { echo 'selected'; } ?>>All types</option>
+          <?php require_once(SHARED_PATH . '/artifact_type_options.php'); ?>
+        </select>
+        
+        <div class="displayOnPrint">
+          <label for="interval">Interval in days from most recent or to upcoming use</label>
+          <input type="number" name="interval" id="interval" value="<?php echo $interval ?>">
+        </div>
+
+        <input type="submit" value="Submit" />
+      </form>
+
+      <div>
       
-      <div class="displayOnPrint">
-        <label for="interval">Interval in days from most recent or to upcoming use</label>
-        <input type="number" name="interval" id="interval" value="<?php echo $interval ?>">
+        <?php // Artifact kept filters
+          if ($kept != 'all') {
+            ?>
+              <li>
+              <a href="<?php echo url_for("/artifacts/index.php?kept=all"); ?>">
+                Show All Artifacts
+              </a>
+              </li>
+            <?php
+          } 
+          if ( $kept != 'yes' ) {
+            ?>
+              <li>
+              <a href="<?php echo url_for("/artifacts/index.php?kept=yes"); ?>">
+                Show Only Artifacts Kept
+              </a>
+              </li>
+            <?php
+          }
+
+          if ( $kept != 'no') {
+            ?>
+            <li>
+            <a href="<?php echo url_for("/artifacts/index.php?kept=no"); ?>">
+              Show Only Artifacts Not Kept
+            </a>
+            </li>
+            <?php
+          }
+        ?>
+
+        <p>C stands for candidate</p>
+        <p>U stands for used at recommended user count or used fully through at non-recommended count</p>
+        <p>O stands for overdue</p>
+
       </div>
-
-      <input type="submit" value="Submit" />
-    </form>
-
-    <?php
-      if ($kept != 'all') {
-        echo '
-          <li>
-          <a href="' . url_for("/artifacts/index.php?kept=all") . '">
-            Show All Artifacts
-          </a>
-          </li>
-          ';
-      } 
-      if ( $kept != 'yes' ) {
-        echo '
-          <li>
-          <a href="' . url_for("/artifacts/index.php?kept=yes") . '">
-            Show Only Artifacts Kept
-          </a>
-          </li>
-          ';
-      }
-
-      if ( $kept != 'no') {
-        echo '
-        <li>
-        <a href="' . url_for("/artifacts/index.php?kept=no") . '">
-          Show Only Artifacts Not Kept
-        </a>
-        </li>
-        ';
-      }
-    ?>
-
-    <p>C stands for candidate</p>
-    <p>U stands for used at recommended user count or used fully through at non-recommended count</p>
-    <p>O stands for overdue</p>
+    </section>
 
   	<table class="list" id="artifacts" data-page-length='100'>
       <thead>
