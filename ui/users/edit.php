@@ -104,7 +104,7 @@ if(is_post_request()) {
         <tr>
           <th>Use Date</th>
           <th>Artifact</th>
-        <tr>
+        </tr>
       </thead>
 
       <tbody>
@@ -115,7 +115,13 @@ if(is_post_request()) {
 
             <td id="playDate">
               <a href="/uses/edit.php?id=<?php echo $resultArray['responseID']; ?>">
-                <?php echo $resultArray['PlayDate']; ?>
+                <?php 
+                  if ($resultArray['PlayDate'] == '') {
+                    echo 'No date';
+                  } else {
+                    echo $resultArray['PlayDate'];
+                  }
+                ?>
               </a>
             </td>
 
@@ -134,10 +140,10 @@ if(is_post_request()) {
     </table>
 
     <script>
-      // let table = new DataTable('#useList', {
-      //   // options
-      //   order: [[ 0, 'desc']]
-      // });
+      let table = new DataTable('#useList', {
+        // options
+        order: [[ 0, 'desc']]
+      });
     </script>
   </section>
 
