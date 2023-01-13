@@ -1,10 +1,10 @@
 <?php 
-require_once('../../private/initialize.php');
-require_login();
-$id = $_GET['id'] ?? '1';
-$object = find_game_by_id($id);
-$page_title = 'Show Artifact';
-include(SHARED_PATH . '/header.php');
+  require_once('../../private/initialize.php');
+  require_login();
+  $id = $_GET['id'] ?? '1';
+  $object = find_game_by_id($id);
+  $page_title = 'Show Artifact';
+  include(SHARED_PATH . '/header.php');
 ?>
 
 <main>
@@ -12,7 +12,7 @@ include(SHARED_PATH . '/header.php');
   <li><a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Artifacts</a></li>
   <li><a class="back-link" href="<?php echo url_for('/artifacts/useby.php'); ?>">&laquo; Use By List</a></li>
   <li><a class="back-link" href="<?php echo url_for('/artifacts/new.php'); ?>">&laquo; Create Artifact</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/uses/create.php?gameID=' . h(u($object['id']))); ?>">&laquo; Record Use</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/uses/new.php?gameID=' . h(u($object['id']))); ?>">&laquo; Record Use</a></li>
   
   <h1>Title: <?php echo h($object['Title']); ?></h1>
   
