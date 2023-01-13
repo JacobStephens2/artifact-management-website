@@ -35,8 +35,11 @@ if(is_post_request()) {
 
 ?>
 
-<?php $page_title = 'Edit User'; ?>
-<?php include(SHARED_PATH . '/header.php'); ?>
+<?php 
+  $page_title = 'Edit User';
+  include(SHARED_PATH . '/header.php');
+  include(SHARED_PATH . '/dataTable.html');
+?>
 
 <main>
 
@@ -75,45 +78,67 @@ if(is_post_request()) {
 
   </div>
 
-  <section>
-    <?php
-    $sql = "SELECT 
-      responses.PlayDate, 
-      responses.id as responseID,
-      games.Title,
-      games.id AS artifactID
-      FROM responses 
-      JOIN games ON games.id = responses.Title
-      WHERE responses.Player = '" . $_REQUEST['id'] . "' 
-      ORDER BY responses.PlayDate DESC
-    ";
-    $resultObject = mysqli_query($db, $sql);
+  <section id="uses">
+    <?php // get uses
+      $sql = "SELECT 
+        responses.PlayDate, 
+        responses.id as responseID,
+        games.Title,
+        games.id AS artifactID
+        FROM responses 
+        JOIN games ON games.id = responses.Title
+        WHERE responses.Player = '" . $_REQUEST['id'] . "' 
+        ORDER BY responses.PlayDate DESC
+      ";
+      $resultObject = mysqli_query($db, $sql);
     ?>
     <h2>
       <?php echo $resultObject->num_rows; ?>
       <?php echo h($player['FullName']); ?>
       uses are recorded 
     </h2>
-    <table>
-      <tr>
-        <th>Use Date (<?php echo $resultObject->num_rows; ?>)</th>
-        <th>Artifact</th>
-      <tr>
-      <?php foreach ($resultObject as $resultArray) { ?>        
+
+    <table id="useList" data-page-length='100'>
+
+      <thead>
         <tr>
-          <td>
-            <a href="/uses/edit.php?id=<?php echo $resultArray['responseID']; ?>">
-              <?php echo $resultArray['PlayDate']; ?>
-            </a>
-          </td>
-          <td>
-            <a href="/artifacts/edit.php?id=<?php echo $resultArray['artifactID']; ?>">
-              <?php echo $resultArray['Title']; ?>
-            </a>
-          </td>
-        </tr>
-      <?php } ?>
+          <th>Use Date</th>
+          <th>Artifact</th>
+        <tr>
+      </thead>
+
+      <tbody>
+        
+        <?php foreach ($resultObject as $resultArray) { ?>        
+
+          <tr>
+
+            <td id="playDate">
+              <a href="/uses/edit.php?id=<?php echo $resultArray['responseID']; ?>">
+                <?php echo $resultArray['PlayDate']; ?>
+              </a>
+            </td>
+
+            <td id="artifact">
+              <a href="/artifacts/edit.php?id=<?php echo $resultArray['artifactID']; ?>">
+                <?php echo $resultArray['Title']; ?>
+              </a>
+            </td>
+
+          </tr>
+          
+        <?php } ?>
+
+      </tbody>
+
     </table>
+
+    <script>
+      // let table = new DataTable('#useList', {
+      //   // options
+      //   order: [[ 0, 'desc']]
+      // });
+    </script>
   </section>
 
 </main>
