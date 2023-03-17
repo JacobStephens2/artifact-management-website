@@ -84,6 +84,7 @@ if(is_post_request()) {
         responses.PlayDate, 
         responses.id as responseID,
         games.Title,
+        games.type,
         games.id AS artifactID
         FROM responses 
         JOIN games ON games.id = responses.Title
@@ -104,6 +105,7 @@ if(is_post_request()) {
         <tr>
           <th>Use Date</th>
           <th>Artifact</th>
+          <th>Type</th>
         </tr>
       </thead>
 
@@ -129,6 +131,10 @@ if(is_post_request()) {
               <a href="/artifacts/edit.php?id=<?php echo $resultArray['artifactID']; ?>">
                 <?php echo $resultArray['Title']; ?>
               </a>
+            </td>
+
+            <td id="type">
+              <?php echo $resultArray['type']; ?>
             </td>
 
           </tr>
