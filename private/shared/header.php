@@ -39,7 +39,7 @@
         if(isset($_SESSION['logged_in']) && isset($_SESSION['FullName'])) {
           ?>
           <a href="<?php echo url_for('/settings/edit.php'); ?>">
-            <?php echo '<span>' . $_SESSION['FullName'] . '</span>'; ?>
+            <?php echo '<span>' . $_SESSION['username'] . '</span>'; ?>
           </a>
           <?php
         }
