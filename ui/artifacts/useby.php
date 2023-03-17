@@ -1,12 +1,12 @@
 <?php 
-require_once('../../private/initialize.php');
-require_login();
-$page_title = 'Use By';
-include(SHARED_PATH . '/header.php');
-include(SHARED_PATH . '/dataTable.html');
-$type = $_POST['type'] ?? '1';
-$interval = $_POST['interval'] ?? '180';
-$artifact_set = use_by($type, $interval);
+  require_once('../../private/initialize.php');
+  require_login();
+  $page_title = 'Use By';
+  include(SHARED_PATH . '/header.php');
+  include(SHARED_PATH . '/dataTable.html');
+  $type = $_POST['type'] ?? '1';
+  $interval = $_POST['interval'] ?? '180';
+  $artifact_set = use_by($type, $interval);
 ?>
 
 <main>
@@ -40,6 +40,9 @@ $artifact_set = use_by($type, $interval);
     <thead>
       <tr id="headerRow">
         <th>Name (<?php echo $artifact_set->num_rows; ?>)</th>
+        <th>SS</th>
+        <th>MnP</th>
+        <th>MxP</th>
         <th>C</th>
         <th>U</th>
         <th>O</th>
@@ -57,6 +60,10 @@ $artifact_set = use_by($type, $interval);
             <?php echo h($artifact['Title']); ?></a>
             </a>
           </td>
+          
+          <td><?php echo h($artifact['ss']); ?></td>
+          <td><?php echo h($artifact['mnp']); ?></td>
+          <td><?php echo h($artifact['mxp']); ?></td>
           
           <td>
             <?php 
