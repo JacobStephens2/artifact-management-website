@@ -9,11 +9,15 @@ function log_in_user($user) {
   session_regenerate_id();
 
   global $db;
+  if ($user['player_id'] == '') {
+    $user['player_id'] = $user['id'];
+  }
   $getPlayerSQL = "SELECT 
     *
     FROM players
     WHERE id = " . $user['player_id']
   ;
+  echo $getPlayerSQL;
   $playerResultObject = mysqli_query($db, $getPlayerSQL);
   $playerArray = mysqli_fetch_assoc($playerResultObject);
 
