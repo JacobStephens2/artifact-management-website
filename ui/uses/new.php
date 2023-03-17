@@ -4,8 +4,7 @@ require_login();
 
 if(is_post_request()) {
 
-  /*
-    Sample post request body
+  /* Sample post request body
 
     $_POST: Array 
     (
@@ -39,7 +38,6 @@ if(is_post_request()) {
     )
   */
 
-
   $insertResult = insert_response_revised($_POST);
 
   if($insertResult === true) {
@@ -70,7 +68,12 @@ include(SHARED_PATH . '/header.php');
     
     <label for="date">Date</label>
     <input type="date" name="useDate" id="date" 
-      value="<?php echo date('Y-m-d'); ?>"  
+      value="<?php
+        $tz = 'America/New_York';
+        $timestamp = time();
+        $dt = new DateTime("now", new DateTimeZone($tz)); //first argument "must" be a string
+        $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+        echo $dt->format('Y') . '-' . $dt->format('m') . '-' . $dt->format('d'); ?>"  
     >
 
     <label for="SearchTitles">Search Artifacts</label>
