@@ -15,12 +15,17 @@ if(is_post_request()) {
   $user['confirm_password'] = $_POST['confirm_password'] ?? '';
 
   $result = insert_user($user);
+
   if($result === true) {
     $new_id = mysqli_insert_id($db);
     $_SESSION['message'] = 'User registered';
     $user['user_group'] = 1;
-    log_in_user($user);
-    redirect_to(url_for('/index.php'));
+    try {
+      log_in_user($user);
+      redirect_to(url_for('/index.php'));
+    } catch (error) {
+      redirect_to(url_for('/index.php'));
+    }
   } else {
     $errors = $result;
   }
