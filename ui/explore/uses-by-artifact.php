@@ -1,40 +1,40 @@
 <?php 
 
-require_once('../../private/initialize.php');
+  require_once('../../private/initialize.php');
 
-require_login();
+  require_login();
 
-$page_title = 'Uses By Artifact';
+  $page_title = 'Uses By Artifact';
 
-include(SHARED_PATH . '/header.php');
+  include(SHARED_PATH . '/header.php');
 
-$getUseCountsByPlayerSQL = "SELECT 
-  COUNT('responses.PlayDate') AS CountOfUses, 
-  games.Title AS ArtifactTitle,
-  responses.Title AS ArtifactID
-  FROM responses
-  JOIN games ON games.id = responses.Title
-  WHERE responses.Player = " . $_SESSION['player_id'] . "
-  GROUP BY responses.Title
-  ORDER BY CountOfUses DESC
-";
+  $getUseCountsByPlayerSQL = "SELECT 
+    COUNT('responses.PlayDate') AS CountOfUses, 
+    games.Title AS ArtifactTitle,
+    responses.Title AS ArtifactID
+    FROM responses
+    JOIN games ON games.id = responses.Title
+    WHERE responses.Player = " . $_SESSION['player_id'] . "
+    GROUP BY responses.Title
+    ORDER BY CountOfUses DESC
+  ";
 
-$usesByPlayerResultObject = mysqli_query($db, $getUseCountsByPlayerSQL);
+  $usesByPlayerResultObject = mysqli_query($db, $getUseCountsByPlayerSQL);
 
-// find the last letter of the name
-// and set fitting punctuation
-if (substr($_SESSION['FullName'], -1, 1) == 's') {
-  $possessivePunctuation = "' ";
-} else {
-  $possessivePunctuation = "'s ";
-}
+  // find the last letter of the name
+  // and set fitting punctuation
+  if (substr($_SESSION['username'], -1, 1) == 's') {
+    $possessivePunctuation = "' ";
+  } else {
+    $possessivePunctuation = "'s ";
+  }
 
 ?>
 
 <main>
   
   <h1>
-    <?php echo $_SESSION['FullName'] . $possessivePunctuation . $page_title; ?>
+    <?php echo $_SESSION['username'] . $possessivePunctuation . $page_title; ?>
   </h1>
 
   <a href="uses-by-artifact-last-year.php">
