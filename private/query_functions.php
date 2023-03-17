@@ -449,7 +449,7 @@
     $sql .= "'1'";
     $sql .= ")";
     $result = mysqli_query($db, $sql);
-    echo '<p>' . $sql . '</p>';
+
     // For INSERT statements, $result is true/false
     if($result) {
       return true;
@@ -998,7 +998,8 @@
       GROUP BY games.Acq,
         games.Title,
         games.KeptCol, games.mnp, games.mxp, games.ss, games.type, games.id 
-      HAVING games.KeptCol = 1 ";
+      HAVING games.user_id = " . db_escape($db, $_SESSION['user_id']) . "
+        AND games.KeptCol = 1 ";
       if ($type != '1') {
         $sql .= "AND type = '" . $type . "' ";
       }
