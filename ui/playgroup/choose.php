@@ -1,18 +1,18 @@
 <?php
-require_once('../../private/initialize.php');
-require_login();
-$page_title = 'Choose for group';
-include(SHARED_PATH . '/header.php');
-if(is_post_request()) {
-  $_SESSION['range'] = $_POST['range'] ?? 'false';
-  $_SESSION['type'] = $_POST['type'] ?? '1';
-  $_SESSION['kept'] = $_POST['kept'] ?? 0;
-}
-$range = $_SESSION['range'] ?? 'false';
-$type = $_SESSION['type'] ?? '1';
-$kept = $_SESSION['kept'] ?? 0;
-$game_set = choose_games_for_group($range, $type, $kept);
-$usergroup = find_playgroup_by_user_id();
+  require_once('../../private/initialize.php');
+  require_login();
+  $page_title = 'Choose for group';
+  include(SHARED_PATH . '/header.php');
+  if(is_post_request()) {
+    $_SESSION['range'] = $_POST['range'] ?? 'false';
+    $_SESSION['type'] = $_POST['type'] ?? '1';
+    $_SESSION['kept'] = $_POST['kept'] ?? 0;
+  }
+  $range = $_SESSION['range'] ?? 'false';
+  $typeArray = $_SESSION['type'] ?? '1';
+  $kept = $_SESSION['kept'] ?? 0;
+  $game_set = choose_games_for_group($range, $typeArray, $kept);
+  $usergroup = find_playgroup_by_user_id();
 ?>
 
 <main>
@@ -24,28 +24,22 @@ $usergroup = find_playgroup_by_user_id();
     <!-- Parameters form -->
     <form action="<?php echo url_for('/playgroup/choose.php'); ?>" method="post">
 
-        <label for="range">Show only artifacts matching count of user group</label>
-        <input type="hidden" name="range" value="false" />
-        <input type="checkbox" id="range" name="range" value="true" <?php if($range == 'true') { echo " checked"; } ?> />
+        <div style="display: flex">
+          <label for="range">Show only artifacts matching count of user group</label>
+          <input type="hidden" name="range" value="false" />
+          <input type="checkbox" id="range" name="range" value="true" <?php if($range == 'true') { echo " checked"; } ?> />
+        </div>
 
-        <label for="kept">Show only artifacts kept</label>
-        <input type="hidden" name="kept" value="0" />
-        <input type="checkbox" id="kept" name="kept" value="1" <?php if($kept == 1) { echo " checked"; } ?> />
+        <div style="display: flex">
+          <label for="kept">Show only artifacts kept</label>
+          <input type="hidden" name="kept" value="0" />
+          <input type="checkbox" id="kept" name="kept" value="1" <?php if($kept == 1) { echo " checked"; } ?> />
+        </div>
 
         <label for="type">Artifact type</label>
-        <select id="type" name="type">
-          <?php if (!isset($_SESSION['type'])) { $_SESSION['type'] = 1; } ?>
-          <option value="1" <?php if (isset($_SESSION['type']) && $_SESSION['type'] == 1) { echo 'selected'; } ?>>All types</option>
-          <option value="board-game" <?php if ($_SESSION['type'] == 'board-game') { echo 'selected'; } ?>>Board Game</option>
-          <option value="role-playing-game" <?php if ($_SESSION['type'] == 'role-playing-game') { echo 'selected'; } ?>>Role Playing Game</option>
-          <option value="video-game" <?php if ($_SESSION['type'] == 'video-game') { echo 'selected'; } ?>>Video Game</option>
-          <option value="sport" <?php if ($_SESSION['type'] == 'sport') { echo 'selected'; } ?>>Sport</option>
-          <option value="game" <?php if ($_SESSION['type'] == 'game') { echo 'selected'; } ?>>Game</option>
-          <option value="equipment" <?php if ($_SESSION['type'] == 'equipment') { echo 'selected'; } ?>>Equipment</option>
-          <option value="drink" <?php if ($_SESSION['type'] == 'drink') { echo 'selected'; } ?>>Drink</option>
-          <option value="food" <?php if ($_SESSION['type'] == 'food') { echo 'selected'; } ?>>Food</option>
-          <option value="other" <?php if ($_SESSION['type'] == 'other') { echo 'selected'; } ?>>Other</option>
-        </select>
+        <section id="type" style="display: flex; flex-wrap: wrap">
+          <?php require_once '../../private/shared/artifact_type_checkboxes.php'; ?>
+        </section>
 
         <input type="submit" value="Submit" />
     </form>

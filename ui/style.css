@@ -579,3 +579,26 @@ textarea {
   border: 1px solid black;
   cursor: pointer;
 }
+
+#type input[type="checkbox"] {
+    margin-right: 2.1rem;
+}
+
+#type input[type="checkbox"] {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#type label {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+div#intro {
+    display: flex;
+    gap: 1.5rem;
+}
+
+section#legend {
+    max-width: 70ch;
+}

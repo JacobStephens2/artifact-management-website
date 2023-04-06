@@ -5,7 +5,7 @@ $errors = [];
 $username = '';
 $password = '';
 
-if(is_post_request()) {
+if (is_post_request()) {
   $subject = [];
   $user['first_name'] = $_POST['first_name'] ?? '';
   $user['last_name'] = $_POST['last_name'] ?? '';
@@ -40,8 +40,6 @@ if(is_post_request()) {
   $user['password'] = '';
   $user['confirm_password'] = '';
 }
-
-
 ?>
 
 <?php $page_title = 'Register'; ?>

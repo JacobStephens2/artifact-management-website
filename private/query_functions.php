@@ -1588,7 +1588,7 @@ function count_playgroup() {
   return $subject; // returns an assoc. array
 }
 
-function choose_games_for_group($range, $type, $kept = 0) {
+function choose_games_for_group($range, $typeArray, $kept = 0) {
   global $db;
   $playgroup_count = count_playgroup();
 
@@ -1642,8 +1642,17 @@ function choose_games_for_group($range, $type, $kept = 0) {
     $sql .= "AND games.MnP <= " . $playgroup_count['count'] . " ";
     $sql .= "AND games.MxP >= " . $playgroup_count['count'] . " ";
   }
-  if ($type != '1') {
-    $sql .= "AND games.type = '" . $type . "' ";
+  if (isset($typeArray) && $typeArray != 1) {
+    $sql .= "AND games.type IN (";
+    $i = 1;
+    foreach($typeArray as $type) {
+      $sql .= "'" . $type . "'";
+      if (count($typeArray) != $i) {
+        $sql .= ",";
+      }
+      $i++;
+    } 
+    $sql .= ") ";
   }
   if ($kept == 1) {
     $sql .= " AND keptcol = 1 ";
@@ -1655,7 +1664,7 @@ function choose_games_for_group($range, $type, $kept = 0) {
     Max(responses.PlayDate) DESC,
     Max(responses.PassDate) ASC,
     Max(responses.RequestDate) DESC
-    ";  
+  "; 
   $result = mysqli_query($db, $sql);
   confirm_result_set($result);
   return $result;
