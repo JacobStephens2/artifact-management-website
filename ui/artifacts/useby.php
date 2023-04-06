@@ -15,7 +15,8 @@
 
   <a class="hideOnPrint" href="<?php echo url_for('/objects/about-useby.php'); ?>">Learn About Use-by Date Generation</a>
   
-  <form action="<?php echo url_for('/artifacts/useby.php'); ?>" method="post">
+  <div id="intro">
+    <form action="<?php echo url_for('/artifacts/useby.php'); ?>" method="post">
       <div class="hideOnPrint">
         <label for="type">Artifact Type</label>
         <select name="type" id="type">
@@ -32,9 +33,12 @@
       <input type="submit" value="Submit" class="hideOnPrint"/>
     </form>
 
-  <p>C stands for Candidate</p>
-  <p>U stands for used at recommended user count or used fully through at non-recommended count</p>
-  <p>O stands for Overdue</p>
+    <section id="legend">
+      <p>C stands for Candidate</p>
+      <p>U stands for used at recommended user count or used fully through at non-recommended count</p>
+      <p>O stands for Overdue</p>
+    </section>
+  </div>
 
   <table id="useBy" class="list" data-page-length='100'>
     <thead>
@@ -93,13 +97,17 @@
 
           <td 
             <?php 
-                if ($artifact['PlayBy'] < date('Y-m-d')) {
+                date_default_timezone_set('America/New_York');
+                $DateTimeNow = new DateTime(date('Y-m-d')); 
+                $DateTimePlayBy = new DateTime(substr($artifact['PlayBy'],0,10)); 
+
+                if ($DateTimePlayBy < $DateTimeNow) {
                   echo 'style="color: red;"';
                 }
             ?>
             >
             <?php 
-                if ($artifact['PlayBy'] < date('Y-m-d')) {
+                if ($DateTimePlayBy < $DateTimeNow) {
                   echo 'Yes';
                 } else {
                   echo 'No';
@@ -119,7 +127,7 @@
   <script>
     let table = new DataTable('#useBy', {
       // options
-      order: [[ 4, 'asc']]
+      order: [[ 7, 'asc']] // use by date ascending (most recent first)
     });
   </script>
 
