@@ -84,3 +84,4 @@ private/environment_variables.php
 private/vendor
 api/private/vendor
 api/vendor
+ui/uses/publicEnvironmentVaribles.js
