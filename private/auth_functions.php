@@ -35,7 +35,7 @@ function log_in_user($user) {
       'iat'  => $issuedAt->getTimestamp(),  
       'iss'  => $_SERVER['SERVER_NAME'], // Issuer
       'nbf'  => $issuedAt->getTimestamp(), // Not before 
-      'exp'  => $issuedAt->modify('+60 minutes')->getTimestamp(), // Expire                      
+      'exp'  => $issuedAt->modify('+1440 minutes')->getTimestamp(), // Expire in 24 hours                    
       'user_id' => $user['id'],
   ];
   $access_token = JWT::encode(
