@@ -11,6 +11,10 @@
     width: 1.5rem;
   }
 
+  #typeCheckboxes span {
+    white-space: nowrap;
+  }
+
 </style>
 
 <?php   
@@ -45,6 +49,7 @@
   <?php
     foreach ($typesArray as $artifactType) {
       ?>
+      <span>
         <input
           type="checkbox"
           value="<?php echo $artifactType; ?>" 
@@ -60,6 +65,7 @@
         <label>
           <?php echo $artifactType; ?>
         </label>
+      </span>
       <?php
     }
   ?>
