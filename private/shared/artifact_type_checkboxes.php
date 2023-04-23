@@ -1,10 +1,24 @@
-<?php 
-  if ($typeArray == 1) {
-    $typeArray = ['nothing'];
+<style>
+
+  #artifactType label {
+    margin-right: 1.2rem;
+    display: inline;
   }
+
+  #artifactType input {
+    display: inline;
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
+</style>
+
+<?php   
+
   $typesArray = [
     'game',
     'board-game',
+    'card-game',
     'childrens-game',
     'gambling-game',
     'miniatures-game',
@@ -22,22 +36,26 @@
     'toy',
     'other'
   ];
-
-  foreach ($typesArray as $type) {
+  
+  foreach ($typesArray as $artifactType) {
     ?>
-    <label>
-        <?php echo $type; ?>
-    </label>
-    <input
-      type="checkbox"
-      value="<?php echo $type; ?>" 
-      name="type[<?php echo $type; ?>]"
-      <?php 
-        if(in_array($type, $typeArray)) { 
-          echo 'checked' ; 
-        } 
-      ?>
-    >
+    <span>
+      <input
+        type="checkbox"
+        value="<?php echo $artifactType; ?>" 
+        name="type[<?php echo $artifactType; ?>]"
+        <?php 
+          if(in_array($artifactType, $type)) { 
+            echo 'checked'; 
+          } elseif (count($type) === 0) {
+            echo 'checked';
+          }
+        ?>
+      >
+      <label>
+        <?php echo $artifactType; ?>
+      </label>
+    </span>
     <?php
   }
 ?>
