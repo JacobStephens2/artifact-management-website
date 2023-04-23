@@ -7,8 +7,13 @@
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $type = $_POST['type'];
   } else {
-    $type = [];
+    if (isset($_SESSION['type'])) {
+      $type = $_SESSION['type'];
+    } else {
+      $type = [];
+    }
   }
+  $_SESSION['type'] = $type;
   $sweetSpot = $_POST['sweetSpot'] ?? '';
   $typeArray = $_SESSION['type'] ?? [];
   $interval = $_POST['interval'] ?? 180;
