@@ -37,25 +37,43 @@
     'other'
   ];
   
-  foreach ($typesArray as $artifactType) {
-    ?>
-    <span>
-      <input
-        type="checkbox"
-        value="<?php echo $artifactType; ?>" 
-        name="type[<?php echo $artifactType; ?>]"
-        <?php 
-          if(in_array($artifactType, $type)) { 
-            echo 'checked'; 
-          } elseif (count($type) === 0) {
-            echo 'checked';
-          }
-        ?>
-      >
-      <label>
-        <?php echo $artifactType; ?>
-      </label>
-    </span>
-    <?php
-  }
 ?>
+<button id="selectAll">Select All</button>
+<button id="deselectAll">Deselect All</button>
+
+<span id="typeCheckboxes">
+  <?php
+    foreach ($typesArray as $artifactType) {
+      ?>
+        <input
+          type="checkbox"
+          value="<?php echo $artifactType; ?>" 
+          name="type[<?php echo $artifactType; ?>]"
+          <?php 
+            if(in_array($artifactType, $type)) { 
+              echo 'checked'; 
+            } elseif (count($type) === 0) {
+              echo 'checked';
+            }
+          ?>
+        >
+        <label>
+          <?php echo $artifactType; ?>
+        </label>
+      <?php
+    }
+  ?>
+</span>
+
+<script>
+  document.querySelector('#deselectAll').addEventListener('click', function(event) {
+    event.preventDefault();
+    document.querySelectorAll('#typeCheckboxes input').forEach(element => element.checked = false);
+  })
+
+  document.querySelector('#selectAll').addEventListener('click', function(event) {
+    event.preventDefault();
+    document.querySelectorAll('#typeCheckboxes input').forEach(element => element.checked = true);
+  })
+</script>
+
