@@ -9,8 +9,9 @@
     $_SESSION['kept'] = $_POST['kept'] ?? 0;
   }
   $range = $_SESSION['range'] ?? 'false';
-  $typeArray = $_SESSION['type'] ?? '1';
-  $kept = $_SESSION['kept'] ?? 0;
+  $typeArray = $_SESSION['type'] ?? [];
+  $type = $_SESSION['type'] ?? [];
+  $kept = $_SESSION['kept'] ?? [];
   $game_set = choose_games_for_group($range, $typeArray, $kept);
   $usergroup = find_playgroup_by_user_id();
 ?>

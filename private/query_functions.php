@@ -933,44 +933,8 @@
     return $result;
   }
 
-  function use_by($type, $interval) {
+  function use_by($type, $interval, $sweetSpot) {
     global $db;
-
-    /* Sample output of this query
-    SELECT
-        games.Title,
-        games.mnp,
-        games.mxp,
-        games.Candidate,
-        games.ss,
-        games.id,
-        games.type,
-        games.user_id,
-        CASE WHEN MAX(responses.PlayDate) < games.Acq THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) WHEN MAX(responses.PlayDate) IS NULL THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) ELSE DATE_ADD(
-            MAX(responses.PlayDate),
-            INTERVAL 180 DAY
-        )
-    END PlayBy,
-    games.Acq,
-    MAX(responses.PlayDate) AS MaxPlay,
-    games.KeptCol
-    FROM
-        games
-    LEFT JOIN responses ON games.id = responses.Title
-    GROUP BY
-        games.Acq,
-        games.Title,
-        games.KeptCol,
-        games.mnp,
-        games.mxp,
-        games.ss,
-        games.type,
-        games.id
-    HAVING
-        games.user_id = 8 AND games.KeptCol = 1
-    ORDER BY
-        PlayBy ASC
-    */
 
     $sql ="SELECT 
         games.Title,
@@ -998,12 +962,46 @@
       GROUP BY games.Acq,
         games.Title,
         games.KeptCol, games.mnp, games.mxp, games.ss, games.type, games.id 
-      HAVING games.user_id = " . db_escape($db, $_SESSION['user_id']) . "
-        AND games.KeptCol = 1 ";
-      if ($type != '1') {
-        $sql .= "AND type = '" . $type . "' ";
-      }
-      $sql .= "ORDER BY PlayBy ASC";
+      HAVING 
+        games.user_id = " . db_escape($db, $_SESSION['user_id']) . "
+        AND games.KeptCol = 1 
+      ";
+
+        if ($sweetSpot !== '') {
+          $sql .= "AND 
+            (
+              games.ss LIKE '$sweetSpot'
+              OR games.ss LIKE '$sweetSpot %' 
+              OR games.ss LIKE '%,$sweetSpot' 
+              OR games.ss LIKE '%,$sweetSpot,%' 
+              OR games.ss LIKE '%, $sweetSpot' 
+              OR games.ss LIKE '%, $sweetSpot,%' 
+            )
+          ";
+        }
+
+        if (gettype($type == 'array')) {
+          if (count($type) > 0) {
+            $sql .= "AND games.type IN (";
+          }
+          $i = 1;
+          foreach($type as $typeIndividual) {
+            $sql .= "'" . $typeIndividual . "'";
+            if (count($type) != $i) {
+              $sql .= ",";
+            }
+            $i++;
+          }
+          if (count($type) > 0) {
+            $sql .= ") ";
+          }
+        } else {
+          $sql .= "AND type = '" . $type . "' ";
+        }
+
+      $sql .= "
+        ORDER BY PlayBy ASC
+      ";
 
       $result = mysqli_query($db, $sql);
       confirm_result_set($result);
@@ -1039,8 +1037,56 @@
     LIMIT 1";
 
     $result = mysqli_query($db, $sql);
-      confirm_result_set($result);
-      return $result;
+    confirm_result_set($result);
+    return $result;
+
+    /* Sample query
+      SELECT 
+          games.Title,
+          games.mnp,
+          games.mxp,
+          games.Candidate,
+          games.UsedRecUserCt,
+          games.ss,
+          games.id,
+          games.type,
+          games.user_id,
+          CASE
+              WHEN MAX(responses.PlayDate) < games.Acq THEN DATE_ADD(games.Acq, INTERVAL 180 DAY)
+              WHEN MAX(responses.PlayDate) IS NULL THEN DATE_ADD(games.Acq, INTERVAL 180 DAY)
+              ELSE DATE_ADD(MAX(responses.PlayDate),
+                  INTERVAL 360 DAY)
+          END PlayBy,
+          MAX(responses.PlayDate) AS MaxPlay,
+          games.Acq,
+          games.KeptCol
+      FROM
+          games
+              LEFT JOIN
+          responses ON games.id = responses.Title
+      GROUP BY games.Acq , games.Title , games.KeptCol , games.mnp , games.mxp , games.ss , games.type , games.id
+      HAVING games.user_id = 8 AND games.KeptCol = 1
+          AND games.ss LIKE '%3%'
+          AND games.type IN ('game' , 'board-game',
+          'card-game',
+          'childrens-game',
+          'gambling-game',
+          'miniatures-game',
+          'mobile-game',
+          'role-playing-game',
+          'sport',
+          'vr-game',
+          'book',
+          'audiobook',
+          'drink',
+          'food',
+          'equipment',
+          'film',
+          'instrument',
+          'toy',
+          'other')
+      ORDER BY PlayBy ASC
+    */
   }
 
 
@@ -1642,7 +1688,7 @@ function choose_games_for_group($range, $typeArray, $kept = 0) {
     $sql .= "AND games.MnP <= " . $playgroup_count['count'] . " ";
     $sql .= "AND games.MxP >= " . $playgroup_count['count'] . " ";
   }
-  if (isset($typeArray) && $typeArray != 1) {
+  if (isset($typeArray) && $typeArray != 1 && count($typeArray) > 0) {
     $sql .= "AND games.type IN (";
     $i = 1;
     foreach($typeArray as $type) {
@@ -1654,6 +1700,8 @@ function choose_games_for_group($range, $typeArray, $kept = 0) {
     } 
     $sql .= ") ";
   }
+
+
   if ($kept == 1) {
     $sql .= " AND keptcol = 1 ";
   }
@@ -1665,6 +1713,9 @@ function choose_games_for_group($range, $typeArray, $kept = 0) {
     Max(responses.PassDate) ASC,
     Max(responses.RequestDate) DESC
   "; 
+
+  echo $sql;
+  echo '<br><br>';
   $result = mysqli_query($db, $sql);
   confirm_result_set($result);
   return $result;

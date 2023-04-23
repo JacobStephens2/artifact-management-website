@@ -3,10 +3,16 @@
   require_login();
   $page_title = 'Use By';
   include(SHARED_PATH . '/header.php');
-  include(SHARED_PATH . '/dataTable.html');
-  $type = $_POST['type'] ?? '1';
-  $interval = $_POST['interval'] ?? '180';
-  $artifact_set = use_by($type, $interval);
+  include(SHARED_PATH . '/dataTable.html'); 
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $type = $_POST['type'];
+  } else {
+    $type = [];
+  }
+  $sweetSpot = $_POST['sweetSpot'] ?? '';
+  $typeArray = $_SESSION['type'] ?? [];
+  $interval = $_POST['interval'] ?? 180;
+  $artifact_set = use_by($type, $interval, $sweetSpot);
 ?>
 
 <main>
@@ -18,12 +24,17 @@
   <div id="intro">
     <form action="<?php echo url_for('/artifacts/useby.php'); ?>" method="post">
       <div class="hideOnPrint">
-        <label for="type">Artifact Type</label>
-        <select name="type" id="type">
-          <option value="1" <?php if ($type == 1) { echo 'selected'; } ?>>All types</option>
-          <?php require_once(SHARED_PATH . '/artifact_type_options.php'); ?>
-        </select>
+
+        <label for="artifactType">Artifact type</label>
+        <section id="artifactType" style="display: flex; flex-wrap: wrap">
+          <?php require_once '../../private/shared/artifact_type_checkboxes.php'; ?>
+        </section>
+
+        <label for="sweetSpot">Sweet Spot</label>
+        <input type="number" name="sweetSpot" id="sweetSpot" value="<?php echo $sweetSpot; ?>">
+
       </div>
+
 
       <div class="displayOnPrint">
         <label for="interval">Interval in days from most recent or to upcoming use</label>
