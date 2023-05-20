@@ -9,19 +9,13 @@ function log_in_user($user) {
   session_regenerate_id();
 
   global $db;
-  if ($user['player_id'] == '') {
-    $user['player_id'] = $user['id'];
-  }
-  $getPlayerSQL = "SELECT 
-    *
-    FROM players
-    WHERE id = " . $user['player_id']
-  ;
-  echo $getPlayerSQL;
-  $playerResultObject = mysqli_query($db, $getPlayerSQL);
-  $playerArray = mysqli_fetch_assoc($playerResultObject);
+  
+  $userResultObject = mysqli_query($db, "SELECT * FROM users 
+    WHERE id = " . $user['id']
+  );
+  $userArray = mysqli_fetch_assoc($userResultObject);
 
-  $_SESSION['FullName'] = $playerArray['FullName'];
+  $_SESSION['FullName'] = $userArray['first_name'] . ' ' . $userArray['last_name'];
   $_SESSION['user_id'] = $user['id'];
   $_SESSION['player_id'] = $user['player_id'];
   $_SESSION['last_login'] = time();
