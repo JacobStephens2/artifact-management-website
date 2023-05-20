@@ -1584,18 +1584,47 @@ function delete_response($id) {
   function update_player($player) {
     global $db;
 
-
     $sql = "UPDATE players SET ";
     $sql .= "FirstName='" . db_escape($db, $player['FirstName']) . "', ";
     $sql .= "LastName='" . db_escape($db, $player['LastName']) . "', ";
     $sql .= "G='" . db_escape($db, $player['G']) . "', ";
+    if ($player['thisPlayerIsMe'] === 'yes') {
+      $sql .= "represents_user_id='" . db_escape($db, $player['user_id']) . "', ";
+    } else {
+      $sql .= "represents_user_id = NULL, ";
+    }
     $sql .= "Age='" . db_escape($db, $player['Age']) . "' ";
     $sql .= "WHERE id='" . db_escape($db, $player['id']) . "' ";
     $sql .= "LIMIT 1";
     $result = mysqli_query($db, $sql);
+
+    $updateUserQuery = "UPDATE users ";
+    
+    if ($player['thisPlayerIsMe'] === 'yes') {
+      // Update user record with player_id
+      $updateUserQuery .= " SET player_id = '" . db_escape($db, $player['id']) . "'";
+    } else {
+      $updateUserQuery .= " SET player_id = NULL";
+    }
+
+    $updateUserQuery .= " WHERE id = '" . db_escape($db, $player['user_id']) . "'
+      LIMIT 1
+    ";
+    $updateUserResult = mysqli_query($db, $updateUserQuery);
+
     // For UPDATE statements, $result is true/false
     if($result) {
-      return true;
+      if (isset($updateUserResult)) {
+        if ($updateUserResult) {
+          return true;
+        } else {
+          echo mysqli_error($db);
+          db_disconnect($db);
+          exit;
+        }
+      } else {
+        return true;
+      }
     } else {
       // UPDATE failed
       echo mysqli_error($db);
@@ -1867,6 +1896,13 @@ function find_games_by_characteristic($kept, $type, $allGames, $favCt) {
   $result = mysqli_query($db, $sql);
   confirm_result_set($result);
   return $result;
+}
+
+function singleValueQuery($query) {
+  global $db;
+  $result = mysqli_query($db, $query);
+  $resultArray = mysqli_fetch_array($result);
+  return $resultArray[0];
 }
 
 ?>

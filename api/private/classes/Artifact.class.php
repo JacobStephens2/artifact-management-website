@@ -55,13 +55,14 @@ class Artifact extends DatabaseObject {
     return $array;
   }
 
-  public static function list_games_by_query($query) {
+  public static function list_games_by_query($query, $user_id) {
     $sql = 
       "SELECT 
         games.id, 
         games.Title 
       FROM games 
       WHERE games.Title LIKE '%" . self::$database->escape_string($query) . "%'
+      AND user_id = '$user_id'
       ORDER BY games.Title ASC
     ";
     $result = self::$database->query($sql);

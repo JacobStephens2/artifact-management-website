@@ -5,6 +5,7 @@ import { API_ORIGIN } from "./publicEnvironmentVariables.js";
 function searchUsers(e) {
   let requestBody = {
     query: e.target.value,
+    userid: e.srcElement.dataset.userid
   };
   fetch("https://" + API_ORIGIN + "/users.php", {
     method: "POST",

@@ -1,41 +1,39 @@
 <?php
 
-require_once('../../private/initialize.php');
-require_login();
+  require_once('../../private/initialize.php');
+  require_login();
 
-if(!isset($_GET['id'])) {
-  redirect_to(url_for('/users/index.php'));
-}
-$id = $_GET['id'];
+  if(!isset($_GET['id'])) {
+    redirect_to(url_for('/users/index.php'));
+  }
+  $id = $_GET['id'];
 
-if(is_post_request()) {
+  if(is_post_request()) {
 
-  // Handle form values sent by new.php
+    // Handle form values sent by new.php
+    $player = [];
+    $player['id'] = $id ?? '';
+    $player['FirstName'] = $_POST['FirstName'] ?? '';
+    $player['LastName'] = $_POST['LastName'] ?? '';
+    $player['G'] = $_POST['G'] ?? '';
+    $player['Age'] = $_POST['Age'] ?? '';
+    $player['thisPlayerIsMe'] = $_POST['thisPlayerIsMe'] ?? '';
+    $player['user_id'] = $_SESSION['user_id'] ?? '';
 
-  $player = [];
-  $player['id'] = $id ?? '';
-  $player['FirstName'] = $_POST['FirstName'] ?? '';
-  $player['LastName'] = $_POST['LastName'] ?? '';
-  $player['G'] = $_POST['G'] ?? '';
-  $player['Age'] = $_POST['Age'] ?? '';
+    $result = update_player($player);
+    if($result === true) {
+      $_SESSION['message'] = 'The player was updated successfully.';
+      // redirect_to(url_for('/users/show.php?id=' . $id));
+    } else {
+      $errors = $result;
+    }
 
-  $result = update_player($player);
-  if($result === true) {
-    $_SESSION['message'] = 'The player was updated successfully.';
-    redirect_to(url_for('/users/show.php?id=' . $id));
   } else {
-    $errors = $result;
+
+    $player = find_player_by_id($id);
+
   }
 
-} else {
-
-  $player = find_player_by_id($id);
-
-}
-
-?>
-
-<?php 
   $page_title = 'Edit User';
   include(SHARED_PATH . '/header.php');
   include(SHARED_PATH . '/dataTable.html');
@@ -72,6 +70,22 @@ if(is_post_request()) {
       <label for="Age">Age</dt>
       <input type="text" id="Age" name="Age" value="<?php echo h($player['Age']); ?>" />
 
+      <label for="thisPlayerIsMe">This User Is Me</label>
+      <input type="hidden" name="thisPlayerIsMe" value="no">
+      <input type="checkbox" name="thisPlayerIsMe" id="thisPlayerIsMe"
+        value="yes"
+        <?php 
+          $query = "SELECT represents_user_id
+            FROM players
+            WHERE id = '$id'
+          ";
+          $userIDThisPlayerIDRepresents = singleValueQuery($query);
+          if ($userIDThisPlayerIDRepresents == $_SESSION['user_id']) {
+            echo 'checked';
+          }
+        ?>
+      >
+
       <input type="submit" value="Save Edits" />
 
     </form>
@@ -95,7 +109,7 @@ if(is_post_request()) {
     ?>
     <h2>
       <?php echo $resultObject->num_rows; ?>
-      <?php echo h($player['FullName']); ?>
+      <?php echo h($_SESSION['FullName']); ?>
       uses are recorded 
     </h2>
 

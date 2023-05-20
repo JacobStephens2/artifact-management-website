@@ -5,6 +5,7 @@ import { API_ORIGIN } from "./publicEnvironmentVariables.js";
 function searchArtifacts(e) {
   let requestBody = {
     query: e.target.value,
+    userid: e.srcElement.dataset.userid
   };
   fetch("https://" + API_ORIGIN + "/artifacts.php", {
     method: "POST",
@@ -18,7 +19,6 @@ function searchArtifacts(e) {
       } else {
         const searchResultsList = document.querySelector('ul.searchResults');
         searchResultsList.innerHTML = '';
-        console.log(e.target.value.length);
         if (e.target.value.length === 0) {
           hideSearchResults();
         } else {

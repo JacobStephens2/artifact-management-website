@@ -38,7 +38,7 @@ class User extends DatabaseObject {
     return $array;
   }
 
-  public static function list_users_by_query($query) {
+  public static function list_users_by_query($query, $user_id) {
     $sql = 
       "SELECT 
         id, 
@@ -46,6 +46,7 @@ class User extends DatabaseObject {
       FROM players 
       WHERE FullName LIKE '%" . self::$database->escape_string($query) . "%'
       AND FullName IS NOT NULL
+      AND user_id = '$user_id'
       ORDER BY FullName ASC
     ";
     $result = self::$database->query($sql);

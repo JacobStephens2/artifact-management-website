@@ -21,7 +21,7 @@
   );
     
   if (isset($requestBody->query) && $requestBody->query != '') {
-    $result = User::list_users_by_query($requestBody->query);
+    $result = User::list_users_by_query($requestBody->query, $requestBody->userid);
   } else {
     $result = User::list_users();
     

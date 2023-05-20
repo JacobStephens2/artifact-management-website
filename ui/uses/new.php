@@ -1,57 +1,57 @@
-<?php
-require_once('../../private/initialize.php');
-require_login();
+<?php // Initialize file
+  require_once('../../private/initialize.php');
+  require_login();
 
-if(is_post_request()) {
+  if(is_post_request()) {
 
-  /* Sample post request body
+    /* Sample post request body
 
-    $_POST: Array 
-    (
-      [useDate] => 2023-01-12
-      [artifact] => Array
-        (
-            [name] => Age of Empires IV
-            [id] => 2807
-        )
+      $_POST: Array 
+      (
+        [useDate] => 2023-01-12
+        [artifact] => Array
+          (
+              [name] => Age of Empires IV
+              [id] => 2807
+          )
 
-      [user] => Array
-        (
-          [0] => Array
-              (
-                  [name] => Jacob Stephens
-                  [id] => 141
-              )
+        [user] => Array
+          (
+            [0] => Array
+                (
+                    [name] => Jacob Stephens
+                    [id] => 141
+                )
 
-          [1] => Array
-              (
-                  [name] => Luke Boerman
-                  [id] => 91
-              )
+            [1] => Array
+                (
+                    [name] => Luke Boerman
+                    [id] => 91
+                )
 
-          [2] => Array
-              (
-                  [name] => Jarren Horrocks
-                  [id] => 26
-              )
-        )
-    )
-  */
+            [2] => Array
+                (
+                    [name] => Jarren Horrocks
+                    [id] => 26
+                )
+          )
+      )
+    */
 
-  $insertResult = insert_response_revised($_POST);
+    $insertResult = insert_response_revised($_POST);
 
-  if($insertResult === true) {
-    $new_id = mysqli_insert_id($db);
-    $_SESSION['message'] = "The response was recorded successfully.";
-    redirect_to(url_for('/uses/new.php'));
-  } else {
-    $errors = $insertResult;
+    if($insertResult === true) {
+      $new_id = mysqli_insert_id($db);
+      $_SESSION['message'] = "The response was recorded successfully.";
+      redirect_to(url_for('/uses/new.php'));
+    } else {
+      $errors = $insertResult;
+    }
+
   }
 
-}
-
-$page_title = 'Record Use';
-include(SHARED_PATH . '/header.php'); 
+  $page_title = 'Record Use';
+  include(SHARED_PATH . '/header.php'); 
 ?>
 
 <script type="module" src="modules/searchArtifactsList.js"></script>
@@ -77,7 +77,12 @@ include(SHARED_PATH . '/header.php');
     >
 
     <label for="SearchTitles">Search Artifacts</label>
-    <input type="search" id="SearchTitles" name="artifact[name]" value="">
+    <input type="search" 
+      id="SearchTitles" 
+      name="artifact[name]" 
+      value=""
+      data-userid="<?php echo $_SESSION['user_id']; ?>"
+    >
     <input type="hidden" id="SearchTitleSubmission" name="artifact[id]" value="">
     <div class="searchResults" style="display: none;">
       <ul class="searchResults" style="margin-top: 0;">
@@ -89,6 +94,8 @@ include(SHARED_PATH . '/header.php');
     <section id="users">
       <input type="search" class="user" id="user0name" name="user[0][name]" 
         value="<?php echo $_SESSION['FullName']; ?>"
+        data-userid="<?php echo $_SESSION['user_id']; ?>"
+        data-playerid="<?php echo $_SESSION['player_id']; ?>"
       >
       <input type="hidden" id="user0id" name="user[0][id]" 
         value="<?php echo $_SESSION['player_id']; ?>"
