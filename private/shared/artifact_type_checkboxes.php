@@ -27,6 +27,7 @@
     'gambling-game',
     'miniatures-game',
     'mobile-game',
+    'video-game',
     'role-playing-game',
     'sport',
     'vr-game',
@@ -43,7 +44,11 @@
   
 ?>
 <button id="selectAll">Select All</button>
-<button id="deselectAll">Deselect All</button>
+<button id="deselectAll"
+  style="margin-left: 1rem"
+  >
+  Deselect All
+</button>
 
 <span id="typeCheckboxes">
   <?php
