@@ -38,7 +38,7 @@
         </div>
 
         <label for="type">Artifact type</label>
-        <section id="type" style="display: flex; flex-wrap: wrap">
+        <section id="type">
           <?php require_once '../../private/shared/artifact_type_checkboxes.php'; ?>
         </section>
 
