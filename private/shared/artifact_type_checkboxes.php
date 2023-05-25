@@ -59,8 +59,7 @@
             if ($artifactType === '') {
               echo 'no type';
             } else {
-              // echo str_replace('-', ' ', $artifactType); 
-              echo $artifactType; 
+              echo str_replace('-', ' ', $artifactType); 
             }
           ?>
         </label>
