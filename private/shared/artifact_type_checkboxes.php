@@ -1,11 +1,18 @@
+<?php
+
+  require_once 'artifact_type_array.php';
+  global $typesArray;
+
+?>
+
 <style>
 
-  #artifactType label {
+  #typeCheckboxes label {
     margin-right: 1.2rem;
     display: inline;
   }
 
-  #artifactType input {
+  #typeCheckboxes input {
     display: inline;
     height: 1.5rem;
     width: 1.5rem;
@@ -15,42 +22,23 @@
     white-space: nowrap;
   }
 
+  #type #typeCheckboxes input[type="checkbox"] {
+      margin-right: 0.3rem;
+      margin-bottom: 1rem;
+  }
+
 </style>
 
-<?php   
+<div id="selectButtons">
+  <button id="selectAll">Select All</button>
+  <button id="deselectAll"
+    style="margin-left: 1rem"
+    >
+    Deselect All
+  </button>
+</div>
 
-  $typesArray = [
-    'game',
-    'board-game',
-    'card-game',
-    'childrens-game',
-    'gambling-game',
-    'miniatures-game',
-    'mobile-game',
-    'video-game',
-    'role-playing-game',
-    'sport',
-    'vr-game',
-    'book',
-    'audiobook',
-    'drink',
-    'food',
-    'equipment',
-    'film',
-    'instrument',
-    'toy',
-    'other'
-  ];
-  
-?>
-<button id="selectAll">Select All</button>
-<button id="deselectAll"
-  style="margin-left: 1rem"
-  >
-  Deselect All
-</button>
-
-<span id="typeCheckboxes">
+<span id="typeCheckboxes" style="display: flex; flex-wrap: wrap">
   <?php
     foreach ($typesArray as $artifactType) {
       ?>
