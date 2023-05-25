@@ -1,27 +1,12 @@
 <?php   // define types array
 
-  $typesArray = [
-    'game',
-    'board-game',
-    'card-game',
-    'childrens-game',
-    'gambling-game',
-    'miniatures-game',
-    'mobile-game',
-    'video-game',
-    'role-playing-game',
-    'sport',
-    'vr-game',
-    'dance',
-    'book',
-    'audiobook',
-    'drink',
-    'food',
-    'equipment',
-    'film',
-    'instrument',
-    'toy',
-    'other'
-  ];
-  
+  $result = query("SELECT DISTINCT(type) 
+    FROM games
+    ORDER BY type ASC
+  ");
+
+  foreach ($result as $row) {
+    $typesArray[] = $row['type'];
+  }
+
 ?>
