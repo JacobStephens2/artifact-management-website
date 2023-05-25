@@ -19,6 +19,7 @@
   }
   $_SESSION['type'] = $type;
   $sweetSpot = $_POST['sweetSpot'] ?? '';
+  $shelfSort = $_POST['shelfSort'] ?? 'no';
   $typeArray = $_SESSION['type'] ?? [];
   $interval = $_POST['interval'] ?? 180;
   $artifact_set = use_by($type, $interval, $sweetSpot);
@@ -41,6 +42,16 @@
 
         <label for="sweetSpot">Sweet Spot</label>
         <input type="number" name="sweetSpot" id="sweetSpot" value="<?php echo $sweetSpot; ?>">
+       
+        <label for="shelfSort">Shelf Sort (Instead of Use By Sort)</label>
+        <input type="hidden" name="shelfSort" value="no">
+        <input type="checkbox" name="shelfSort" id="shelfSort" value="yes"
+          <?php 
+            if ($shelfSort === 'yes') {
+              echo ' checked ';
+            }
+          ?>
+        >
 
       </div>
 
@@ -151,7 +162,27 @@
   <script>
     let table = new DataTable('#useBy', {
       // options
-      order: [[ 9, 'asc']] // use by date ascending (most recent first)
+      <?php 
+        if ($shelfSort === 'yes') {
+          ?>
+          order: [
+            [ 1, 'asc'],
+            [ 2, 'asc'],
+            [ 3, 'asc'],
+            [ 4, 'asc'],
+            [ 5, 'asc'],
+            [ 11, 'asc'],
+            [ 10, 'desc'],
+          ]
+          <?php
+        } else {
+          ?>
+          order: [
+            [ 9, 'asc'] // use by date ascending (most recent first)
+          ]
+          <?php
+        }
+      ?>
     });
   </script>
 
