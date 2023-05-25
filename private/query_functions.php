@@ -1743,8 +1743,6 @@ function choose_games_for_group($range, $typeArray, $kept = 0) {
     Max(responses.RequestDate) DESC
   "; 
 
-  echo $sql;
-  echo '<br><br>';
   $result = mysqli_query($db, $sql);
   confirm_result_set($result);
   return $result;
