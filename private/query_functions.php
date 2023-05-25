@@ -940,6 +940,8 @@
         games.Title,
         games.mnp,
         games.mxp,
+        games.mnt,
+        games.mxt,
         games.Candidate,
         games.UsedRecUserCt,
         games.ss,
