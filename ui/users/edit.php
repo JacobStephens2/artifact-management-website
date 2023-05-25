@@ -22,8 +22,8 @@
 
     $result = update_player($player);
     if($result === true) {
-      $_SESSION['message'] = 'The player was updated successfully.';
-      // redirect_to(url_for('/users/show.php?id=' . $id));
+      $_SESSION['message'] = 'The user was updated successfully.';
+      redirect_to(url_for('/users/show.php?id=' . $id));
     } else {
       $errors = $result;
     }
