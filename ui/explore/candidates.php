@@ -14,8 +14,8 @@ WHERE Candidate IS NOT NULL
 AND Candidate != '0'
 AND Candidate != ''
 AND user_id = " . $_SESSION['user_id'] . "
-ORDER BY Candidate ASC,
-type ASC
+ORDER BY type ASC,
+Candidate ASC
 ";
 
 $resultObject = mysqli_query($db, $sql);
@@ -31,13 +31,21 @@ $resultObject = mysqli_query($db, $sql);
   <table>
 
     <tr>
-      <th>User Count</th>
-      <th>Artifact</th>
       <th>Type</th>
+      <th>Category</th>
+      <th>Artifact</th>
+      <th>MnP</th>
+      <th>MxP</th>
+      <th>SS</th>
+      <th>MnT</th>
+      <th>MxT</th>
     </tr>
 
     <?php foreach ($resultObject as $row) { ?>
       <tr>
+        <td>
+          <?php echo $row['type']; ?>
+        </td>
         <td>
           <?php echo $row['Candidate']; ?>
         </td>
@@ -47,7 +55,19 @@ $resultObject = mysqli_query($db, $sql);
           </a>
         </td>
         <td>
-          <?php echo $row['type']; ?>
+          <?php echo $row['MnP']; ?>
+        </td>
+        <td>
+          <?php echo $row['MxP']; ?>
+        </td>
+        <td>
+          <?php echo $row['SS']; ?>
+        </td>
+        <td>
+          <?php echo $row['MnT']; ?>
+        </td>
+        <td>
+          <?php echo $row['MxT']; ?>
         </td>
       </tr>
     <?php } ?>
