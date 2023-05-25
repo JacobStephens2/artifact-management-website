@@ -63,6 +63,8 @@
         <th>SS</th>
         <th>MnP</th>
         <th>MxP</th>
+        <th>MnT</th>
+        <th>MxT</th>
         <th>C</th>
         <th>U</th>
         <th>O</th>
@@ -84,6 +86,8 @@
           <td><?php echo h($artifact['ss']); ?></td>
           <td><?php echo h($artifact['mnp']); ?></td>
           <td><?php echo h($artifact['mxp']); ?></td>
+          <td><?php echo h($artifact['mnt']); ?></td>
+          <td><?php echo h($artifact['mxt']); ?></td>
           
           <td>
             <?php 
@@ -143,7 +147,7 @@
   <script>
     let table = new DataTable('#useBy', {
       // options
-      order: [[ 7, 'asc']] // use by date ascending (most recent first)
+      order: [[ 9, 'asc']] // use by date ascending (most recent first)
     });
   </script>
 
