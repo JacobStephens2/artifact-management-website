@@ -55,7 +55,14 @@
           ?>
         >
         <label>
-          <?php echo $artifactType; ?>
+          <?php 
+            if ($artifactType === '') {
+              echo 'no type';
+            } else {
+              // echo str_replace('-', ' ', $artifactType); 
+              echo $artifactType; 
+            }
+          ?>
         </label>
       </span>
       <?php
