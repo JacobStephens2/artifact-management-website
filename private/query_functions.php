@@ -1905,4 +1905,9 @@ function singleValueQuery($query) {
   return $resultArray[0];
 }
 
+function query($query) {
+  global $db;
+  return mysqli_query($db, $query);
+}
+
 ?>
