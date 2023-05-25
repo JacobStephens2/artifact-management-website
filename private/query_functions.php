@@ -985,17 +985,17 @@
         if (gettype($type == 'array')) {
           if (count($type) > 0) {
             $sql .= "AND games.type IN (";
-          }
-          $i = 1;
-          foreach($type as $typeIndividual) {
-            $sql .= "'" . $typeIndividual . "'";
-            if (count($type) != $i) {
-              $sql .= ",";
+            $i = 1;
+            foreach($type as $typeIndividual) {
+              $sql .= "'" . $typeIndividual . "'";
+              if (count($type) != $i) {
+                $sql .= ",";
+              }
+              $i++;
             }
-            $i++;
-          }
-          if (count($type) > 0) {
             $sql .= ") ";
+          } else {
+            $sql .= " AND type = '' ";
           }
         } else {
           $sql .= "AND type = '" . $type . "' ";

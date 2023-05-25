@@ -2,6 +2,7 @@
 
   require_once 'artifact_type_array.php';
   global $typesArray;
+  global $type;
 
 ?>
 
@@ -50,8 +51,6 @@
           <?php 
             if(in_array($artifactType, $type)) { 
               echo 'checked'; 
-            } elseif (count($type) === 0) {
-              echo 'checked';
             }
           ?>
         >

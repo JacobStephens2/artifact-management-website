@@ -5,7 +5,11 @@
   include(SHARED_PATH . '/header.php');
   include(SHARED_PATH . '/dataTable.html'); 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $type = $_POST['type'];
+    if (isset($_POST['type'])) {
+      $type = $_POST['type'];
+    } else {
+      $type = [];
+    }
   } else {
     if (isset($_SESSION['type'])) {
       $type = $_SESSION['type'];
