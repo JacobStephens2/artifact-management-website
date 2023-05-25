@@ -34,11 +34,11 @@
     <thead>
       <tr>
         <th>Type</th>
-        <th>Category</th>
+        <th>Group and Setting</th>
         <th>Artifact</th>
+        <th>SS</th>
         <th>MnP</th>
         <th>MxP</th>
-        <th>SS</th>
         <th>MnT</th>
         <th>MxT</th>
       </tr>
@@ -58,13 +58,13 @@
             </a>
           </td>
           <td>
+            <?php echo $row['SS']; ?>
+          </td>
+          <td>
             <?php echo $row['MnP']; ?>
           </td>
           <td>
             <?php echo $row['MxP']; ?>
-          </td>
-          <td>
-            <?php echo $row['SS']; ?>
           </td>
           <td>
             <?php echo $row['MnT']; ?>
@@ -90,9 +90,10 @@
     let table = new DataTable('#candidates', {
       // options
       order: [
-        [ 5, 'asc'],
+        [ 0, 'asc'],
         [ 3, 'asc'],
         [ 4, 'asc'],
+        [ 5, 'asc'],
         [ 6, 'asc'],
         [ 7, 'asc'],
       ] 
