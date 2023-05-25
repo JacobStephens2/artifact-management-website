@@ -33,11 +33,13 @@ function addUserInputAndButton(event) {
   let input = document.createElement("input");
   input.setAttribute("id", "user" + inputs.length + "name");
   input.setAttribute("name", "user[" + inputs.length + "][name]");
+  input.setAttribute("data-userid", document.querySelector('#user0name').dataset.userid);
   input.setAttribute("type", "search");
   input.classList.add("user");
   input.addEventListener("input", function(event){
     let requestBody = {
       query: event.target.value,
+      userid: event.srcElement.dataset.userid
     };
     fetch("https://" + API_ORIGIN + "/users.php", {
       method: "POST",
