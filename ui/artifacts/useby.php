@@ -14,7 +14,6 @@
     if (isset($_SESSION['type']) && count($_SESSION['type']) > 0) {
       $type = $_SESSION['type'];
     } else {
-      echo SHARED_PATH;
       include(SHARED_PATH . '/artifact_type_array.php'); 
       global $typesArray;
       $type = $typesArray;
