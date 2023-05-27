@@ -24,7 +24,7 @@
   $sweetSpot = $_POST['sweetSpot'] ?? '';
   $shelfSort = $_POST['shelfSort'] ?? 'no';
   $typeArray = $_SESSION['type'] ?? [];
-  $interval = $_POST['interval'] ?? 183;
+  $interval = $_POST['interval'] ?? 182.5;
   $artifact_set = use_by($type, $interval, $sweetSpot);
 ?>
 
@@ -61,7 +61,7 @@
 
       <div class="displayOnPrint">
         <label for="interval">Interval in days from most recent or to upcoming use</label>
-        <input type="number" name="interval" id="interval" value="<?php echo $interval ?>">
+        <input type="number" step="0.1" name="interval" id="interval" value="<?php echo $interval ?>">
       </div>
       
       <input type="submit" value="Submit" class="hideOnPrint"/>
