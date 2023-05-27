@@ -90,12 +90,13 @@
     let table = new DataTable('#candidates', {
       // options
       order: [
-        [ 0, 'asc'],
-        [ 3, 'asc'],
-        [ 4, 'asc'],
-        [ 5, 'asc'],
-        [ 6, 'asc'],
-        [ 7, 'asc'],
+        [ 0, 'asc'], // type
+        [ 3, 'asc'], // SS
+        [ 4, 'asc'], // MnP
+        [ 5, 'asc'], // MxP
+        [ 6, 'asc'], // MnT
+        [ 7, 'asc'], // MxT
+        [ 1, 'asc'], // group and setting
       ] 
     });
   </script>
