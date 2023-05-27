@@ -11,17 +11,20 @@
       $type = [];
     }
   } else {
-    if (isset($_SESSION['type'])) {
+    if (isset($_SESSION['type']) && count($_SESSION['type']) > 0) {
       $type = $_SESSION['type'];
     } else {
-      $type = [];
+      echo SHARED_PATH;
+      include(SHARED_PATH . '/artifact_type_array.php'); 
+      global $typesArray;
+      $type = $typesArray;
     }
   }
   $_SESSION['type'] = $type;
   $sweetSpot = $_POST['sweetSpot'] ?? '';
   $shelfSort = $_POST['shelfSort'] ?? 'no';
   $typeArray = $_SESSION['type'] ?? [];
-  $interval = $_POST['interval'] ?? 180;
+  $interval = $_POST['interval'] ?? 183;
   $artifact_set = use_by($type, $interval, $sweetSpot);
 ?>
 
