@@ -1,7 +1,7 @@
 <?php 
   require_once('../../private/initialize.php');
   require_login();
-  $kept = $_POST['kept'] ?? 'all';
+  $kept = $_POST['kept'] ?? 'allkeptandnot';
   $type = $_POST['type'] ?? '1';
   $interval = $_POST['interval'] ?? '182.5';
   $sweetSpotFilter = $_POST['sweetSpotFilter'] ?? '';
@@ -46,10 +46,21 @@
           </style>
 
           <div>
+            <label for="allkeptandnot">Show All Artifacts</label>
+            <input type="radio" name="kept" value="allkeptandnot" id="allkeptandnot"
+            <?php 
+              if ($kept === 'allkeptandnot') {
+                echo ' checked ';
+              }
+            ?>
+            >
+          </div>
+
+          <div>
             <label for="onlykept">Show Only Artifacts Kept</label>
             <input type="radio" name="kept" value="yes" id="onlykept"
               <?php 
-              if (isset($_POST['kept']) && $_POST['kept'] === 'yes') {
+              if ($kept === 'yes') {
                 echo ' checked ';
               }
               ?>
@@ -60,23 +71,13 @@
             <label for="notkept">Show Only Artifacts Not Kept</label>
             <input type="radio" name="kept" value="no" id="notkept"
             <?php 
-              if (isset($_POST['kept']) && $_POST['kept'] === 'no') {
+              if ($kept === 'no') {
                 echo ' checked ';
               }
             ?>
             >
           </div>
 
-          <div>
-            <label for="allkeptandnot">Show All Artifacts</label>
-            <input type="radio" name="kept" value="kept" id="allkeptandnot"
-            <?php 
-              if (isset($_POST['kept']) && $_POST['kept'] === 'kept') {
-                echo ' checked ';
-              }
-            ?>
-            >
-          </div>
         </section>
 
         <input type="submit" value="Submit" />
