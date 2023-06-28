@@ -2,6 +2,12 @@
 require_once('../../private/initialize.php');
 require_login();
 
+$defaultMnT = 30;
+$defaultMxT = 60;
+$defaultMnP = 1;
+$defaultMxP = 1;
+$defaultSS = '01';
+
 if(is_post_request()) {
 
   $artifact = [];
@@ -12,11 +18,11 @@ if(is_post_request()) {
   $artifact['Candidate'] = $_POST['Candidate'] ?? '';
   $artifact['UsedRecUserCt'] = $_POST['UsedRecUserCt'] ?? '';
   $artifact['Notes'] = $_POST['Notes'] ?? '';
-  ($_POST['MnT'] == '') ? $artifact['MnT'] = 5 : $artifact['MnT'] = $_POST['MnT'];
-  ($_POST['MxT'] == '') ? $artifact['MxT'] = 240 : $artifact['MxT'] = $_POST['MxT'];
-  ($_POST['MnP'] == '') ? $artifact['MnP'] = 5 : $artifact['MnP'] = $_POST['MnP'];
-  ($_POST['MxP'] == '') ? $artifact['MxP'] = 240 : $artifact['MxP'] = $_POST['MxP'];
-  ($_POST['SS'] == '') ? $artifact['SS'] = 1 : $artifact['SS'] = $_POST['SS'];
+  ($_POST['MnT'] == '') ? $artifact['MnT'] = $defaultMnT : $artifact['MnT'] = $_POST['MnT'];
+  ($_POST['MxT'] == '') ? $artifact['MxT'] = $defaultMxT : $artifact['MxT'] = $_POST['MxT'];
+  ($_POST['MnP'] == '') ? $artifact['MnP'] = $defaultMnP : $artifact['MnP'] = $_POST['MnP'];
+  ($_POST['MxP'] == '') ? $artifact['MxP'] = $defaultMxP : $artifact['MxP'] = $_POST['MxP'];
+  ($_POST['SS'] == '') ? $artifact['SS'] = $defaultSS : $artifact['SS'] = $_POST['SS'];
 
   $result = insert_game($artifact);
   if($result === true) {
@@ -36,10 +42,16 @@ if(is_post_request()) {
   $artifact["KeptCol"] = '';
   $artifact["Candidate"] = '';
   $artifact["UsedRecUserCt"] = '';
+  $artifact["MnT"] = $defaultMnT;
+  $artifact["MxT"] = $defaultMxT;
+  $artifact["MnP"] = $defaultMnP;
+  $artifact["MxP"] = $defaultMxP;
+  $artifact["SS"] = $defaultSS;
 }
 
 $page_title = 'Create Artifact';
 include(SHARED_PATH . '/header.php');
+
 ?>
 
 <main>
@@ -72,19 +84,23 @@ include(SHARED_PATH . '/header.php');
       ?>"/>
 
       <label for="SS">Sweet Spot(s)</label>
-      <input type="text" name="SS" id="SS" value="">
+      <input type="text" name="SS" id="SS" 
+        value="<?php echo $artifact['SS']; ?>"
+      >
 
       <label for="MnP">Minimum User Count</label>
-      <input type="number" name="MnP" id="MnP" value="">
+      <input type="number" name="MnP" id="MnP" 
+        value="<?php echo $artifact['MnP']; ?>"
+      >
 
       <label for="MxP">Maximum User Count</label>
-      <input type="number" name="MxP" id="MxP" value="">
+      <input type="number" name="MxP" id="MxP" value="<?php echo $artifact['MxP']; ?>">
 
       <label for="MnT">Minimum Time</label>
-      <input type="number" name="MnT" id="MnT" value="">
+      <input type="number" name="MnT" id="MnT" value="<?php echo $artifact['MnT']; ?>">
 
       <label for="MxT">Maxiumum Time</label>
-      <input type="number" name="MxT" id="MxT" value="">
+      <input type="number" name="MxT" id="MxT" value="<?php echo $artifact['MxT']; ?>">
 
       <label for="KeptCol">Kept in Collection (Checked Means Yes)</label>
       <input type="hidden" name="KeptCol" value="0" />
