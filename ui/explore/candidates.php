@@ -31,7 +31,7 @@
 
   <table id="candidates" data-page-length='100'>
 
-    <thead>
+    <thead style="position: sticky; top: 0;">
       <tr>
         <th>Type</th>
         <th>Group and Setting</th>
