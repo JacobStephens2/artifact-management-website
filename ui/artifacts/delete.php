@@ -11,7 +11,7 @@ $id = $_GET['id'];
 if(is_post_request()) {
 
   $result = delete_game($id);
-  $_SESSION['message'] = 'The game was deleted successfully.';
+  $_SESSION['message'] = 'The artifact was deleted successfully.';
   redirect_to(url_for('/artifacts/index.php'));
 
 } else {
