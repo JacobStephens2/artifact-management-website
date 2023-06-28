@@ -9,4 +9,7 @@
     $typesArray[] = $row['type'];
   }
 
+  // Add a type here
+  // $typesArray[] .= 'album';
+
 ?>
