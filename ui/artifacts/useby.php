@@ -67,7 +67,6 @@
     </form>
 
     <section id="legend">
-      <p>C stands for Candidate</p>
       <p>U stands for used at recommended user count or used fully through at non-recommended count</p>
       <p>O stands for Overdue</p>
     </section>
@@ -76,24 +75,25 @@
   <table id="useBy" class="list" data-page-length='100'>
     <thead>
       <tr id="headerRow">
+        <th>Type</th>
         <th>Name (<?php echo $artifact_set->num_rows; ?>)</th>
         <th>SS</th>
         <th>MnP</th>
         <th>MxP</th>
         <th>MnT</th>
         <th>MxT</th>
-        <th>C</th>
         <th>U</th>
         <th>O</th>
         <th>Use By</th>
         <th class="hideOnPrint">Recent Use</th>
-        <th>Type</th>
       </tr>
     </thead>
 
     <tbody>
       <?php while($artifact = mysqli_fetch_assoc($artifact_set)) { ?>
         <tr>
+          <td class="type"><?php echo h($artifact['type']); ?></td>
+
           <td class="edit">
             <a class="action edit" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($artifact['id']))); ?>">
             <?php echo h($artifact['Title']); ?></a>
@@ -106,16 +106,6 @@
           <td><?php echo h($artifact['mnt']); ?></td>
           <td><?php echo h($artifact['mxt']); ?></td>
           
-          <td>
-            <?php 
-                if ($artifact['Candidate'] < 1) {
-                  echo '';
-                } else {
-                  echo $artifact['Candidate'];
-                }
-            ?>
-          </td>
-
           <td
             <?php 
                 if ( $artifact['UsedRecUserCt'] != 1 ) {
@@ -153,7 +143,6 @@
           </td>
           <td class="date"><?php echo h($artifact['PlayBy']); ?></td>
           <td class="date hideOnPrint"><?php echo h($artifact['MaxPlay']); ?></td>
-          <td class="type"><?php echo h($artifact['type']); ?></td>
         </tr>
       <?php } ?>
     </tbody>
@@ -168,19 +157,18 @@
         if ($shelfSort === 'yes') {
           ?>
           order: [
-            [ 1, 'asc'],
-            [ 2, 'asc'],
-            [ 3, 'asc'],
-            [ 4, 'asc'],
-            [ 5, 'asc'],
-            [ 11, 'asc'],
-            [ 10, 'desc'],
+            [ 0, 'asc'], // type
+            [ 2, 'asc'], // SS
+            [ 3, 'asc'], // MnP
+            [ 4, 'asc'], // MxP
+            [ 5, 'asc'], // MnT
+            [ 6, 'asc']  // MxT
           ]
           <?php
         } else {
           ?>
           order: [
-            [ 9, 'asc'] // use by date ascending (most recent first)
+            [ 9, 'asc']  // use by date
           ]
           <?php
         }
