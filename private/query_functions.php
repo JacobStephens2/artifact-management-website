@@ -651,7 +651,7 @@
     return $result;
   }
 
-  function find_games_by_user_id($kept, $type, $interval) {
+  function find_games_by_user_id($kept, $type, $interval, $sweetSpot = '') {
     global $db;
 
     /* Sample version of this query
@@ -730,6 +730,10 @@
         games.id
     HAVING
         games.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
+
+        if (strlen($sweetSpot) > 0) {
+          $sql .= "AND games.ss LIKE '%$sweetSpot%'";
+        }
 
         if (isset($type) && $type != 1) {
           $sql .= "AND games.type = '$type'";

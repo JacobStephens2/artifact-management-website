@@ -1,10 +1,11 @@
 <?php 
   require_once('../../private/initialize.php');
   require_login();
-  $kept = $_GET['kept'] ?? 'all';
+  $kept = $_POST['kept'] ?? 'all';
   $type = $_POST['type'] ?? '1';
-  $interval = $_POST['interval'] ?? '180';
-  $artifact_set = find_games_by_user_id($kept, $type, $interval);
+  $interval = $_POST['interval'] ?? '182.5';
+  $sweetSpotFilter = $_POST['sweetSpotFilter'] ?? '';
+  $artifact_set = find_games_by_user_id($kept, $type, $interval, $sweetSpotFilter);
   $page_title = 'Artifacts';
   include(SHARED_PATH . '/header.php'); 
   include(SHARED_PATH . '/dataTable.html');
@@ -24,48 +25,70 @@
         
         <div class="displayOnPrint">
           <label for="interval">Interval in days from most recent or to upcoming use</label>
-          <input type="number" name="interval" id="interval" value="<?php echo $interval ?>">
+          <input type="number" name="interval" id="interval" value="<?php echo $interval ?>" step="0.1">
         </div>
+
+        <label for="sweetSpotFilter">Sweet Spot (SwS)</label>
+        <input type="text" id="sweetSpotFilter" name="sweetSpotFilter"
+          <?php 
+            if (isset($_POST['sweetSpotFilter'])) {
+              echo 'value="' . $_POST['sweetSpotFilter'] . '"';
+            }
+          ?>
+        >
+
+        <section id="kept" style="margin-top: 1rem">
+          <style>
+            section#kept label,
+            section#kept input {
+              display: inline;
+            }
+          </style>
+
+          <div>
+            <label for="onlykept">Show Only Artifacts Kept</label>
+            <input type="radio" name="kept" value="yes" id="onlykept"
+              <?php 
+              if (isset($_POST['kept']) && $_POST['kept'] === 'yes') {
+                echo ' checked ';
+              }
+              ?>
+            >
+          </div>
+
+          <div>
+            <label for="notkept">Show Only Artifacts Not Kept</label>
+            <input type="radio" name="kept" value="no" id="notkept"
+            <?php 
+              if (isset($_POST['kept']) && $_POST['kept'] === 'no') {
+                echo ' checked ';
+              }
+            ?>
+            >
+          </div>
+
+          <div>
+            <label for="allkeptandnot">Show All Artifacts</label>
+            <input type="radio" name="kept" value="kept" id="allkeptandnot"
+            <?php 
+              if (isset($_POST['kept']) && $_POST['kept'] === 'kept') {
+                echo ' checked ';
+              }
+            ?>
+            >
+          </div>
+        </section>
 
         <input type="submit" value="Submit" />
       </form>
 
       <div>
       
-        <?php // Artifact kept filters
-          if ($kept != 'all') {
-            ?>
-              <li>
-              <a href="<?php echo url_for("/artifacts/index.php?kept=all"); ?>">
-                Show All Artifacts
-              </a>
-              </li>
-            <?php
-          } 
-          if ( $kept != 'yes' ) {
-            ?>
-              <li>
-              <a href="<?php echo url_for("/artifacts/index.php?kept=yes"); ?>">
-                Show Only Artifacts Kept
-              </a>
-              </li>
-            <?php
-          }
-
-          if ( $kept != 'no') {
-            ?>
-            <li>
-            <a href="<?php echo url_for("/artifacts/index.php?kept=no"); ?>">
-              Show Only Artifacts Not Kept
-            </a>
-            </li>
-            <?php
-          }
-        ?>
 
         <p>C stands for candidate</p>
         <p>U stands for used at recommended user count or used fully through at non-recommended count</p>
         <p>O stands for overdue</p>
+        <p>SwS stands for sweet spot</p>
 
       </div>
     </section>
@@ -79,6 +102,7 @@
           <th>O</th>
           <th>U</th>
           <th>C</th>
+          <th>SwS</th>
           <th>Name (<?php echo $artifact_set->num_rows; ?>)</th>
           <th>Acquisition Date</th>
           <th>Recent Use</th>
@@ -136,6 +160,10 @@
                   }
               ?>
             </td>
+            
+            <td>
+              <?php echo $artifact['ss']; ?>
+            </td>
 
             <td>
               <a class="table-action" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($artifact['id']))); ?>">  
@@ -161,7 +189,7 @@
     <script>
       let table = new DataTable('#artifacts', {
         // options
-        order: [[ 8, 'desc']]
+        order: [[ 9, 'desc']] // most recent use first
       });
     </script>
   </div>
