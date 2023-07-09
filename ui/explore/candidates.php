@@ -91,12 +91,12 @@
       // options
       order: [
         [ 0, 'asc'], // type
+        [ 1, 'asc'], // group and setting
         [ 3, 'asc'], // SS
         [ 4, 'asc'], // MnP
         [ 5, 'asc'], // MxP
         [ 6, 'asc'], // MnT
         [ 7, 'asc'], // MxT
-        [ 1, 'asc'], // group and setting
       ] 
     });
   </script>
