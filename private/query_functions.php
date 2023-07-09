@@ -978,6 +978,7 @@
             (
               games.ss LIKE '$sweetSpot'
               OR games.ss LIKE '$sweetSpot %' 
+              OR games.ss LIKE '%0$sweetSpot%' 
               OR games.ss LIKE '%,$sweetSpot' 
               OR games.ss LIKE '%,$sweetSpot,%' 
               OR games.ss LIKE '%, $sweetSpot' 
