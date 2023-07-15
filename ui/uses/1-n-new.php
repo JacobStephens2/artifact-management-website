@@ -35,15 +35,28 @@
       )
     */
 
-    $insertResult = insert_response_one_to_many($_POST);
-
-    if($insertResult === true) {
-      $new_id = mysqli_insert_id($db);
-      $_SESSION['message'] = "The use was recorded successfully.";
+    if ($_POST['artifact']['name'] == '') {
+      
+      $_SESSION['message'] = "Please choose an artifact.";
+      
       redirect_to(url_for('/uses/' . $formProcessingFile));
+
     } else {
-      $errors = $insertResult;
+
+      $insertResult = insert_response_one_to_many($_POST);
+
+      if($insertResult === true) {
+        $new_id = mysqli_insert_id($db);
+        $_SESSION['message'] = "The use with "
+          . count($_POST['user'])
+          . " users was recorded."
+        ;
+        redirect_to(url_for('/uses/' . $formProcessingFile));
+      } else {
+        $errors = $insertResult;
+      }
     }
+
 
   }
 
@@ -63,16 +76,6 @@
 
   <form action="<?php echo $formProcessingFile; ?>" method="post">
     
-    <label for="date">Date</label>
-    <input type="date" name="useDate" id="date" 
-      value="<?php
-        $tz = 'America/New_York';
-        $timestamp = time();
-        $dt = new DateTime("now", new DateTimeZone($tz)); //first argument "must" be a string
-        $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
-        echo $dt->format('Y') . '-' . $dt->format('m') . '-' . $dt->format('d'); ?>"  
-    >
-
     <label for="SearchTitles">Search Artifacts</label>
     <input type="search" 
       id="SearchTitles" 
@@ -89,12 +92,19 @@
 
     <label for="users">Users List</label>
     <section id="users">
-      <input type="search" class="user" id="user0name" name="user[0][name]" 
+      <input 
+        type="search" 
+        class="user" 
+        id="user0name" 
+        name="user[0][name]" 
         value="<?php echo $_SESSION['FullName']; ?>"
         data-userid="<?php echo $_SESSION['user_id']; ?>"
         data-playerid="<?php echo $_SESSION['player_id']; ?>"
       >
-      <input type="hidden" id="user0id" name="user[0][id]" 
+      <input 
+        type="hidden" 
+        id="user0id" 
+        name="user[0][id]" 
         value="<?php echo $_SESSION['player_id']; ?>"
       >
       <div class="userResults user" style="display: none;">
@@ -112,6 +122,16 @@
       +
     </button>
 
+    <label for="date">Date</label>
+    <input type="date" name="useDate" id="date" 
+      value="<?php
+        $tz = 'America/New_York';
+        $timestamp = time();
+        $dt = new DateTime("now", new DateTimeZone($tz)); //first argument "must" be a string
+        $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
+        echo $dt->format('Y') . '-' . $dt->format('m') . '-' . $dt->format('d'); ?>"  
+    >
+
     <label for="Note">Note</label>
     <textarea 
       cols="30" 
@@ -123,6 +143,15 @@
     <input type="submit" value="Submit">
 
   </form>
+
+  <script>
+    document.addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        document.querySelector('form').submit();
+      }
+    })
+  </script>
 
 </main>
 
