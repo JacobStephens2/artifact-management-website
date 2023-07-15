@@ -36,7 +36,7 @@ include(SHARED_PATH . '/header.php');
 
   <div class="object edit">
 
-    <h1>Edit Use</h1>
+    <h1><?php echo $page_title; ?></h1>
 
     <?php echo display_errors($errors); ?>
 
