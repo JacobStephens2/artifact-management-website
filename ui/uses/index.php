@@ -16,6 +16,7 @@
           <th>Use Date (<?php echo $use_set->num_rows; ?>)</th>
           <th>Title</th>
           <th>User</th>
+          <th>Type</th>
         </tr>
       </thead>
 
@@ -42,6 +43,10 @@
             
             <td class="playerName">
               <?php echo h($use['FirstName']) . ' ' . h($use['LastName']); ?>
+            </td>
+            
+            <td class="type">
+              <?php echo h($use['type']); ?>
             </td>
           </tr>
         <?php } ?>
