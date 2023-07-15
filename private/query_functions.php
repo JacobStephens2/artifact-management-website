@@ -654,49 +654,12 @@
   function find_games_by_user_id($kept, $type, $interval, $sweetSpot = '') {
     global $db;
 
-    /* Sample version of this query
-    SELECT
-        games.Title,
-        games.mnp,
-        games.mxp,
-        games.Candidate,
-        games.ss,
-        games.id,
-        games.type,
-        games.user_id,
-        games.Acq,
-        MAX(responses.PlayDate) AS MaxPlay,
-        CASE WHEN MAX(responses.PlayDate) < games.Acq THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) WHEN MAX(responses.PlayDate) IS NULL THEN DATE_ADD(games.Acq, INTERVAL 90 DAY) ELSE DATE_ADD(
-            MAX(responses.PlayDate),
-            INTERVAL 180 DAY
-        )
-        END PlayBy,
-        games.KeptCol
-    FROM
-        games
-    LEFT JOIN responses ON games.id = responses.Title
-    GROUP BY
-        games.Acq,
-        games.Title,
-        games.KeptCol,
-        games.mnp,
-        games.mxp,
-        games.ss,
-        games.type,
-        games.id
-    HAVING
-        games.user_id = 8
-    ORDER BY
-        games.KeptCol DESC,
-        MaxPlay DESC,
-        PlayBy ASC,
-        id ASC
-    */
-
     $sql = "SELECT
         games.Title,
         games.mnp,
         games.mxp,
+        games.mnt,
+        games.mxt,
         games.Candidate,
         games.UsedRecUserCt,
         games.ss,
@@ -732,9 +695,10 @@
         games.user_id = " . db_escape($db, $_SESSION['user_id']) . " ";
 
         if (strlen($sweetSpot) > 0) {
-          $sql .= "AND games.ss LIKE '%$sweetSpot%'";
+          $sql .= " AND games.ss LIKE '%$sweetSpot%' ";
+          $sql .= " AND games.ss NOT LIKE '%1$sweetSpot%' ";
         }
-
+        
         if (isset($type) && $type != [] && $type != '1') {
           $sql .= " AND games.type IN ( ";
           $i = 0;
@@ -1150,6 +1114,86 @@
     }  
   }
 
+  function insert_response_one_to_many($postArray) {
+
+    /* Sample post request body
+
+      $_POST: Array 
+      (
+        [useDate] => 2023-01-12
+        [artifact] => Array
+          (
+              [name] => Age of Empires IV
+              [id] => 2807
+          )
+
+        [user] => Array
+          (
+            [0] => Array
+                (
+                    [name] => Jacob Stephens
+                    [id] => 141
+                )
+
+            [1] => Array
+                (
+                    [name] => Luke Boerman
+                    [id] => 91
+                )
+
+          )
+      )
+    */
+
+    global $db;
+
+    $queriesArray = [];
+
+    // table uses
+    $query = "INSERT INTO uses (
+      artifact_id, 
+      use_date, 
+      user_id,
+      note
+      ) VALUES (
+      '" . db_escape($db, $postArray['artifact']['id']) . "', 
+      '" . db_escape($db, $postArray['useDate']) . "', 
+      '" . db_escape($db, $_SESSION['user_id']) . "',
+      '" . db_escape($db, $postArray['Note']) . "'
+      )
+    ";
+    $result = mysqli_query($db, $query);
+    $use_id = mysqli_insert_id($db);
+
+    $i = 0;
+    foreach($postArray['user'] as $userArray) {
+      
+      // table uses_players
+      $query = "INSERT INTO uses_players (
+        use_id, 
+        player_id, 
+        user_id
+        ) VALUES (
+        '" . db_escape($db, $use_id) . "', 
+        '" . db_escape($db, $userArray['id']) . "', 
+        '" . db_escape($db, $_SESSION['user_id']) . "'
+        )
+      ";
+      $result = mysqli_query($db, $query);
+      $i++;
+    }
+    
+    // For INSERT statements, $result is true/false
+    if ($result) {
+      return $result;
+    } else {
+      // INSERT failed
+      echo mysqli_error($db);
+      db_disconnect($db);
+      exit;
+    }  
+  }
+
   function insert_response($response, $playerCount) {
     global $db;
 
@@ -1410,6 +1454,30 @@
     return $result;
   }
 
+  function find_uses_by_user_id() {
+    global $db;
+
+    $sql = "SELECT
+      games.Title,
+      games.type,
+      games.id AS gameID, 
+      uses.id AS useID, 
+      uses.use_date 
+      FROM uses 
+      LEFT JOIN games ON uses.artifact_id = games.id 
+      WHERE uses.user_id = " . db_escape($db, $_SESSION['user_id']) . " 
+      AND uses.use_date IS NOT NULL 
+      ORDER BY uses.use_date DESC, 
+      uses.id DESC, 
+      games.Title DESC
+      LIMIT 9999
+    ";
+
+    $result = mysqli_query($db, $sql);
+    confirm_result_set($result);
+    return $result;
+  }
+
   function find_responses_by_user_id() {
     global $db;
 
@@ -1463,6 +1531,70 @@
   return $result;
 }
 
+function find_users_by_use_id($use_id) {
+  global $db;
+  $query = "SELECT
+    players.FirstName,
+    players.LastName,
+    players.id
+    FROM uses_players
+    LEFT JOIN players ON uses_players.player_id = players.id
+    WHERE uses_players.user_id='" . db_escape($db, $_SESSION['user_id']) . "'
+    AND uses_players.use_id = '" . db_escape($db, $use_id) . "' 
+  ";
+  $result = mysqli_query($db, $query);
+  confirm_result_set($result);
+  return $result; // returns an assoc. array
+  mysqli_free_result($result);
+}
+
+function find_use_details_by_id($id) {
+  global $db;
+
+  $sql = "SELECT 
+    games.id AS game_id, 
+    games.Title AS artifact,
+    uses.use_date, 
+    uses.note AS note, 
+    uses.id 
+    FROM uses 
+    LEFT JOIN games ON uses.artifact_id = games.id 
+    WHERE uses.id='" . db_escape($db, $id) . "' 
+  ";
+
+  $result = mysqli_query($db, $sql);
+  confirm_result_set($result);
+  $subject = mysqli_fetch_assoc($result);
+  mysqli_free_result($result);
+  return $subject; // returns an assoc. array
+}
+
+function find_use_users_by_id($id) {
+  global $db;
+
+  $sql = "SELECT 
+    games.Title, 
+    games.id AS gameid, 
+    responses.PlayDate, 
+    responses.Player, 
+    responses.Note AS Note, 
+    players.FirstName, 
+    players.LastName, 
+    responses.Title AS responsetitle, 
+    responses.AversionDate, 
+    responses.id 
+    FROM responses 
+    LEFT JOIN players ON responses.Player = players.id 
+    LEFT JOIN games ON responses.Title = games.id 
+    WHERE responses.id='" . db_escape($db, $id) . "' 
+  ";
+  $result = mysqli_query($db, $sql);
+  confirm_result_set($result);
+  $subject = mysqli_fetch_assoc($result);
+  mysqli_free_result($result);
+  return $subject; // returns an assoc. array
+}
+
 function find_response_by_id($id) {
   global $db;
 
@@ -1514,6 +1646,76 @@ function update_response($object) {
     db_disconnect($db);
     exit;
   }
+}
+
+function update_use($useArray) {
+  global $db;
+
+  $errors = validate_response($useArray);
+  if(!empty($errors)) {
+    return $errors;
+  }
+
+  $sql = "UPDATE uses SET
+    artifact_id='" . db_escape($db, $useArray['artifact_id']) . "', 
+    use_date='" . db_escape($db, $useArray['use_date']) . "', 
+    note='" . db_escape($db, $useArray['note']) . "'
+    WHERE id='" . db_escape($db, $useArray['use_id']) . "' 
+    AND user_id='" . db_escape($db, $_SESSION['user_id']) . "' 
+    LIMIT 1
+  ";
+
+  $result = mysqli_query($db, $sql);
+  // For UPDATE statements, $result is true/false
+  
+  if($result) {
+    // do nothing
+  } else {
+    // UPDATE failed
+    echo mysqli_error($db);
+    db_disconnect($db);
+    exit;
+  }
+
+  $query = "DELETE FROM uses_players
+    WHERE use_id = '" . $useArray['use_id'] . "'
+    AND user_id='" . db_escape($db, $_SESSION['user_id']) . "' 
+  ";
+  $result = mysqli_query($db, $query);
+  if($result) {
+    // do nothing
+  } else {
+    // UPDATE failed
+    echo mysqli_error($db);
+    db_disconnect($db);
+    exit;
+  }
+
+  $i = 0;
+  foreach ($useArray['user'] as $user) {
+    $query = "INSERT INTO uses_players (
+        use_id, 
+        player_id, 
+        user_id
+      ) VALUES (
+        '" . $useArray['use_id'] . "',
+        '" . $user . "',
+        '" . db_escape($db, $_SESSION['user_id']) . "' 
+      )
+    ";
+    $result = mysqli_query($db, $query);
+    if($result) {
+      // do nothing
+    } else {
+      // UPDATE failed
+      echo mysqli_error($db);
+      db_disconnect($db);
+      exit;
+    }
+    $i++;
+  }
+  
+  return true;
 }
 
 function delete_response($id) {

@@ -54,9 +54,18 @@
           <a href="<?php echo url_for('/uses/index.php'); ?>">
             Uses
           </a>
-        
+          
+          
           <a href="<?php echo url_for('/uses/new.php'); ?>">
             Record&nbsp;Use
+          </a>
+          
+          <a href="<?php echo url_for('/uses/1-n-uses.php'); ?>">
+            1:n Uses
+          </a>
+          
+          <a href="<?php echo url_for('/uses/1-n-new.php'); ?>">
+            Record&nbsp;1:n&nbsp;Use
           </a>
 
           <a href="<?php echo url_for('/artifacts/index.php'); ?>">
