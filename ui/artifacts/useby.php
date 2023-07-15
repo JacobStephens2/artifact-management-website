@@ -39,7 +39,7 @@
 
         <label for="artifactType">Artifact type</label>
         <section id="artifactType" style="display: flex; flex-wrap: wrap">
-          <?php require_once '../../private/shared/artifact_type_checkboxes.php'; ?>
+          <?php require_once SHARED_PATH . '/artifact_type_checkboxes.php'; ?>
         </section>
 
         <label for="sweetSpot">Sweet Spot</label>
