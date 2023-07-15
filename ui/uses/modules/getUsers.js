@@ -79,7 +79,8 @@ function addUserInputAndButton(event) {
 
   // Create div container
   let div = document.createElement("div");
-  div.setAttribute("id", "SwSDiv" + inputs.length);
+  let id = "SwSDiv" + inputs.length;
+  div.setAttribute("id", id);
   div.classList.add("sweetSpot");
 
   // Append the input and button to the div
@@ -91,6 +92,8 @@ function addUserInputAndButton(event) {
   // Append the div to the users section
   let sweetSpotSection = document.querySelector("section#users");
   sweetSpotSection.appendChild(div);
+  console.log(input);
+  input.focus();
 }
 
 document
