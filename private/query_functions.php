@@ -735,8 +735,17 @@
           $sql .= "AND games.ss LIKE '%$sweetSpot%'";
         }
 
-        if (isset($type) && $type != 1) {
-          $sql .= "AND games.type = '$type'";
+        if (isset($type) && $type != [] && $type != '1') {
+          $sql .= " AND games.type IN ( ";
+          $i = 0;
+          foreach($type as $typeItem) {
+            $i++;
+            $sql .= "'$typeItem'";
+            if ($i != count($type)) {
+              $sql .= ", ";
+            }
+          }
+          $sql .= ") ";
         }
 
         if ( $kept == 'yes') { 
@@ -1405,6 +1414,7 @@
 
     $sql = "SELECT ";
     $sql .= "games.Title, ";
+    $sql .= "games.type, ";
     $sql .= "games.id AS gameID, ";
     $sql .= "responses.id AS responseID, ";
     $sql .= "players.FirstName, ";

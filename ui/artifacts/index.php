@@ -2,13 +2,36 @@
   require_once('../../private/initialize.php');
   require_login();
   $kept = $_POST['kept'] ?? 'allkeptandnot';
-  $type = $_POST['type'] ?? '1';
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['type'])) {
+
+      if ($_POST['type'] == '1') {
+        $type = array('');
+      } else {
+        $type = $_POST['type'];
+      }
+    } else {
+      $type = array();
+    }
+  } else {
+    if (isset($_SESSION['type']) && count($_SESSION['type']) > 0) {
+      echo __LINE__;
+      $type = $_SESSION['type'];
+    } else {
+      echo __LINE__;
+
+      include(SHARED_PATH . '/artifact_types_array.php'); 
+      global $typesArray;
+      $type = $typesArray;
+    }
+  }
   $interval = $_POST['interval'] ?? '182.5';
   $sweetSpotFilter = $_POST['sweetSpotFilter'] ?? '';
   $artifact_set = find_games_by_user_id($kept, $type, $interval, $sweetSpotFilter);
   $page_title = 'Artifacts';
   include(SHARED_PATH . '/header.php'); 
   include(SHARED_PATH . '/dataTable.html');
+
 ?>
 
 <main>
@@ -36,6 +59,11 @@
             }
           ?>
         >
+
+        <label for="artifactType">Artifact type</label>
+        <section id="artifactType" style="display: flex; flex-wrap: wrap">
+          <?php require_once SHARED_PATH . '/artifact_type_checkboxes.php'; ?>
+        </section>
 
         <section id="kept" style="margin-top: 1rem">
           <style>
@@ -85,10 +113,8 @@
 
       <div>
       
-
         <p>C stands for candidate</p>
         <p>U stands for used at recommended user count or used fully through at non-recommended count</p>
-        <p>O stands for overdue</p>
         <p>SwS stands for sweet spot</p>
 
       </div>
@@ -97,60 +123,19 @@
   	<table class="list" id="artifacts" data-page-length='100'>
       <thead>
         <tr id="headerRow">
-          <th>Acquisition</th>
           <th>Type</th>
-          <th>Kept</th>
-          <th>O</th>
-          <th>U</th>
           <th>C</th>
           <th>SwS</th>
           <th>Name (<?php echo $artifact_set->num_rows; ?>)</th>
           <th>Acquisition Date</th>
           <th>Recent Use</th>
-          <th>Use By</th>
         </tr>
       </thead>
 
       <tbody>
         <?php while($artifact = mysqli_fetch_assoc($artifact_set)) { ?>
           <tr>
-            <td><?php echo h($artifact['Acq']); ?></td>
-            
             <td><?php echo h($artifact['type']); ?></td>
-
-            <td><?php echo $artifact['KeptCol'] == 1 ? 'Kept' : ''; ?></td>
-
-            <td 
-              <?php 
-                  if ($artifact['UseBy'] < date('Y-m-d')) {
-                    echo 'style="color: red;"';
-                  }
-              ?>
-              >
-              <?php 
-                  if ($artifact['UseBy'] < date('Y-m-d')) {
-                    echo 'Yes';
-                  } else {
-                    echo 'No';
-                  }
-              ?>
-            </td>
-            
-            <td
-              <?php 
-                  if ( $artifact['UsedRecUserCt'] != 1 ) {
-                    echo 'style="color: red;"';
-                  }
-              ?>
-              >
-              <?php 
-              if ( $artifact['UsedRecUserCt'] != 1 ) {
-                echo 'No';
-              } else {
-                echo 'Yes';
-              } 
-              ?>
-            </td>
 
             <td>
               <?php 
@@ -176,10 +161,6 @@
 
             <td class="date"><?php echo h($artifact['MaxPlay']); ?></td>
             
-            <td class="date">
-              <?php echo h($artifact['UseBy']); ?>
-            </td>
-            
           </tr>
         <?php } ?>
       </tbody>
@@ -190,7 +171,7 @@
     <script>
       let table = new DataTable('#artifacts', {
         // options
-        order: [[ 9, 'desc']] // most recent use first
+        order: [[ 5, 'desc']] // most recent use first
       });
     </script>
   </div>
