@@ -64,10 +64,10 @@ function addUserInputAndButton(event) {
             for (let i = 0; i < userSearchResultsListLength; i++) {
               let li = document.createElement("li");
               li.value = data.users[i].id;
-              li.innerText = data.users[i].FullName;
+              li.innerText = data.users[i].FirstName + ' ' + data.users[i].LastName;
               li.addEventListener('click', function() {
                 document.querySelector('input#user' + inputs.length + 'id').value = data.users[i].id;
-                document.querySelector('input#user' + inputs.length + 'name').value = data.users[i].FullName;
+                document.querySelector('input#user' + inputs.length + 'name').value = data.users[i].FirstName + ' ' + data.users[i].LastName;
                 ul.style.display = 'none';
               });
               ul.append(li);

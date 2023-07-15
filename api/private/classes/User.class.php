@@ -42,12 +42,15 @@ class User extends DatabaseObject {
     $sql = 
       "SELECT 
         id, 
-        FullName 
+        FullName,
+        FirstName,
+        LastName
       FROM players 
       WHERE FullName LIKE '%" . self::$database->escape_string($query) . "%'
       AND FullName IS NOT NULL
       AND user_id = '$user_id'
-      ORDER BY FullName ASC
+      ORDER BY LastName ASC,
+      FirstName ASC
     ";
     $result = self::$database->query($sql);
     if ($result->num_rows > 0) {

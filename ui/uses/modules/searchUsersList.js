@@ -31,10 +31,10 @@ function searchUsers(e) {
           for (let i = 0; i < userSearchResultsListLength; i++) {
             let listItem = document.createElement("li");
             listItem.value = data.users[i].id;
-            listItem.innerText = data.users[i].FullName;
+            listItem.innerText = data.users[i].FirstName + ' ' + data.users[i].LastName;
             listItem.addEventListener('click', function() {
               document.querySelector('input#user0id').value = data.users[i].id;
-              document.querySelector('input#user0name').value = data.users[i].FullName;
+              document.querySelector('input#user0name').value = data.users[i].FirstName + ' ' + data.users[i].LastName;
               hideSearchResults();
             });
             userResultsList.append(listItem);
