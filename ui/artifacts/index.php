@@ -46,11 +46,6 @@
           <?php require_once(SHARED_PATH . '/artifact_type_options.php'); ?>
         </select>
         
-        <div class="displayOnPrint">
-          <label for="interval">Interval in days from most recent or to upcoming use</label>
-          <input type="number" name="interval" id="interval" value="<?php echo $interval ?>" step="0.1">
-        </div>
-
         <label for="sweetSpotFilter">Sweet Spot (SwS)</label>
         <input type="text" id="sweetSpotFilter" name="sweetSpotFilter"
           <?php 
@@ -111,11 +106,6 @@
         <input type="submit" value="Submit" />
       </form>
 
-      <div>
-      
-        <p>SwS stands for sweet spot</p>
-
-      </div>
     </section>
 
   	<table class="list" id="artifacts" data-page-length='100'>
@@ -126,6 +116,7 @@
           <th>Name (<?php echo $artifact_set->num_rows; ?>)</th>
           <th>Acquisition Date</th>
           <th>Recent Use</th>
+          <th>AvgT</th>
         </tr>
       </thead>
 
@@ -147,6 +138,13 @@
             <td><?php echo h($artifact['Acq']); ?></td>
 
             <td class="date"><?php echo h($artifact['MaxPlay']); ?></td>
+
+            <td>
+              <?php 
+                $avg_time = ($artifact['mnt'] + $artifact['mxt']) / 2;
+                echo h(ceil($avg_time)); 
+              ?>
+            </td>
             
           </tr>
         <?php } ?>
@@ -158,7 +156,10 @@
     <script>
       let table = new DataTable('#artifacts', {
         // options
-        order: [[ 5, 'desc']] // most recent use first
+        order: [
+          [ 5, 'asc'], // shortest first
+          [ 4, 'desc'], // more recently played first
+        ], 
       });
     </script>
   </div>
