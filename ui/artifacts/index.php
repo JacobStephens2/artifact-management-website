@@ -73,7 +73,7 @@
             }
           </style>
 
-          <div>
+          <div style="margin-top: 1.6rem">
             <label for="allkeptandnot">Show All Artifacts</label>
             <input type="radio" name="kept" value="allkeptandnot" id="allkeptandnot"
             <?php 
@@ -113,8 +113,6 @@
 
       <div>
       
-        <p>C stands for candidate</p>
-        <p>U stands for used at recommended user count or used fully through at non-recommended count</p>
         <p>SwS stands for sweet spot</p>
 
       </div>
@@ -124,7 +122,6 @@
       <thead>
         <tr id="headerRow">
           <th>Type</th>
-          <th>C</th>
           <th>SwS</th>
           <th>Name (<?php echo $artifact_set->num_rows; ?>)</th>
           <th>Acquisition Date</th>
@@ -136,16 +133,6 @@
         <?php while($artifact = mysqli_fetch_assoc($artifact_set)) { ?>
           <tr>
             <td><?php echo h($artifact['type']); ?></td>
-
-            <td>
-              <?php 
-                  if ($artifact['Candidate'] < 1) {
-                    echo '';
-                  } else {
-                    echo $artifact['Candidate'];
-                  }
-              ?>
-            </td>
             
             <td>
               <?php echo $artifact['ss']; ?>
