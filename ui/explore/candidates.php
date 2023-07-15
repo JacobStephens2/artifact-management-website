@@ -39,8 +39,6 @@
         <th>SS</th>
         <th>MnP</th>
         <th>MxP</th>
-        <th>MnT</th>
-        <th>MxT</th>
       </tr>
     </thead>
     <tbody>
@@ -65,12 +63,6 @@
           </td>
           <td>
             <?php echo $row['MxP']; ?>
-          </td>
-          <td>
-            <?php echo $row['MnT']; ?>
-          </td>
-          <td>
-            <?php echo $row['MxT']; ?>
           </td>
         </tr>
       <?php } ?>
