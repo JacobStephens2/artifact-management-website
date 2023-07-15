@@ -109,7 +109,7 @@
     ?>
     <h2>
       <?php echo $resultObject->num_rows; ?>
-      <?php echo h($_SESSION['FullName']); ?>
+      <?php echo h($player['FirstName']) . ' ' . h($player['LastName']); ?>
       uses are recorded 
     </h2>
 
