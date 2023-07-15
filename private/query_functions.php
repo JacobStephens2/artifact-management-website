@@ -1723,10 +1723,45 @@ function delete_response($id) {
 
   $sql = "DELETE FROM responses ";
   $sql .= "WHERE id='" . db_escape($db, $id) . "' ";
+  $sql .= "AND user_id='" . db_escape($db, $_SESSION['user_id']) . "' ";
   $sql .= "LIMIT 1";
   $result = mysqli_query($db, $sql);
 
   // For DELETE statements, $result is true/false
+  if($result) {
+    return true;
+  } else {
+    // DELETE failed
+    echo mysqli_error($db);
+    db_disconnect($db);
+    exit;
+  }
+}
+
+function delete_one_to_many_use($use_id) {
+  global $db;
+
+  $sql = "DELETE FROM uses ";
+  $sql .= "WHERE id='" . db_escape($db, $use_id) . "' ";
+  $sql .= "AND user_id='" . db_escape($db, $_SESSION['user_id']) . "' ";
+  $sql .= "LIMIT 1";
+  $result = mysqli_query($db, $sql);
+
+  // For DELETE statements, $result is true/false
+  if($result) {
+    // do nothing
+  } else {
+    // DELETE failed
+    echo mysqli_error($db);
+    db_disconnect($db);
+    exit;
+  }
+
+  $sql = "DELETE FROM uses_players ";
+  $sql .= "WHERE use_id='" . db_escape($db, $use_id) . "' ";
+  $sql .= "AND user_id='" . db_escape($db, $_SESSION['user_id']) . "' ";
+  $result = mysqli_query($db, $sql);
+
   if($result) {
     return true;
   } else {

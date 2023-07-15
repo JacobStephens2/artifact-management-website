@@ -117,7 +117,7 @@ include(SHARED_PATH . '/header.php');
 
   <a 
     class="action" 
-    href="<?php echo url_for('/uses/delete.php?id=' . h(u($response['id']))); ?>"
+    href="<?php echo url_for('/uses/1-n-delete.php?id=' . h(u($response['id']))); ?>"
   >
     <button>
       Delete Use
