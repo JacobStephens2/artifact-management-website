@@ -29,7 +29,7 @@
     ($_POST['SS'] == '') ? $artifact['SS'] = 1 : $artifact['SS'] = $_POST['SS'];
     $result = update_artifact($artifact);
     if($result === true) {
-      $_SESSION['message'] = 'The artifact was updated successfully.' . $_POST['CandidateGroupDate'];
+      $_SESSION['message'] = 'The artifact was updated successfully.';
       redirect_to(url_for('/artifacts/edit.php?id=' . $id));
     } else {
       $errors = $result;
@@ -148,7 +148,10 @@
       <input type="checkbox" name="UsedRecUserCt" id="UsedRecUserCt" value="1"<?php if($artifact['UsedRecUserCt'] == "1") { echo " checked"; } ?> />
 
       <label for="Candidate">Candidate?</label>
-      <input type="text" name="Candidate" id="Candidate" value="<?php echo $artifact['Candidate'] ?>" />
+      <textarea 
+        name="Candidate" 
+        id="Candidate" 
+      ><?php echo $artifact['Candidate'] ?></textarea>
 
       <label for="CandidateGroupDate">Candidate Group Date</label>
       <input 
