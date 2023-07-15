@@ -39,7 +39,7 @@
 
     if($insertResult === true) {
       $new_id = mysqli_insert_id($db);
-      $_SESSION['message'] = "The response was recorded successfully.";
+      $_SESSION['message'] = "The use was recorded successfully.";
       redirect_to(url_for('/uses/' . $formProcessingFile));
     } else {
       $errors = $insertResult;
