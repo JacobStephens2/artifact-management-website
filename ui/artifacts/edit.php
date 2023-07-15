@@ -19,6 +19,7 @@
     $artifact['type'] = $_POST['type'] ?? '';
     $artifact['KeptCol'] = $_POST['KeptCol'] ?? '';
     $artifact['Candidate'] = $_POST['Candidate'] ?? '';
+    $artifact['CandidateGroupDate'] = $_POST['CandidateGroupDate'] ?? null;
     $artifact['UsedRecUserCt'] = $_POST['UsedRecUserCt'] ?? '';
     $artifact['Notes'] = $_POST['Notes'] ?? '';
     ($_POST['MnT'] == '') ? $artifact['MnT'] = 5 : $artifact['MnT'] = $_POST['MnT'];
@@ -28,7 +29,7 @@
     ($_POST['SS'] == '') ? $artifact['SS'] = 1 : $artifact['SS'] = $_POST['SS'];
     $result = update_artifact($artifact);
     if($result === true) {
-      $_SESSION['message'] = 'The artifact was updated successfully.';
+      $_SESSION['message'] = 'The artifact was updated successfully.' . $_POST['CandidateGroupDate'];
       redirect_to(url_for('/artifacts/edit.php?id=' . $id));
     } else {
       $errors = $result;
@@ -134,13 +135,10 @@
 
       <label for="Acq">Acquisition Date</label>
       <input type="date" name="Acq" id="Acq" value="<?php echo h($artifact['Acq']); ?>" />
-      
+
       <label for="KeptCol" >Kept in Collection? (Checked means yes)</label>
       <input type="hidden" name="KeptCol" value="0" />
       <input type="checkbox" name="KeptCol" id="KeptCol" value="1"<?php if($artifact['KeptCol'] == "1") { echo " checked"; } ?> />
-
-      <label for="Candidate">Candidate?</label>
-      <input type="text" name="Candidate" id="Candidate" value="<?php echo $artifact['Candidate'] ?>" />
 
       <label for="UsedRecUserCt">
         Used at recommended user count?<br/>
@@ -149,6 +147,17 @@
       <input type="hidden" name="UsedRecUserCt" value="0" />
       <input type="checkbox" name="UsedRecUserCt" id="UsedRecUserCt" value="1"<?php if($artifact['UsedRecUserCt'] == "1") { echo " checked"; } ?> />
 
+      <label for="Candidate">Candidate?</label>
+      <input type="text" name="Candidate" id="Candidate" value="<?php echo $artifact['Candidate'] ?>" />
+
+      <label for="CandidateGroupDate">Candidate Group Date</label>
+      <input 
+        type="date" 
+        name="CandidateGroupDate" 
+        id="CandidateGroupDate" 
+        value="<?php echo date('Y-m-d', strtotime(h($artifact['CandidateGroupDate']))); ?>" 
+      />
+      
       <?php 
       if (!isset($artifact['Notes'])) { 
         $artifact['Notes'] = '';

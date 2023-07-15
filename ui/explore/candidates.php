@@ -26,16 +26,17 @@
 <main>
 
   <h1>
-    <?php echo $page_title; ?>
+    <?php echo $resultObject->num_rows . " " . $page_title; ?>
   </h1>
 
-  <table id="candidates" data-page-length='100'>
+  <table id="candidates" data-page-length='100' class="list">
 
     <thead style="position: sticky; top: 0;">
       <tr>
         <th>Type</th>
         <th>Group and Setting</th>
-        <th>Artifact</th>
+        <th>Group Date</th>
+        <th>Artifact (<?php echo $resultObject->num_rows; ?>)</th>
         <th>SS</th>
         <th>MnP</th>
         <th>MxP</th>
@@ -49,6 +50,9 @@
           </td>
           <td>
             <?php echo $row['Candidate']; ?>
+          </td>
+          <td>
+            <?php echo substr($row['CandidateGroupDate'], 0, 10); ?>
           </td>
           <td>
             <a href="/artifacts/edit.php?id=<?php echo $row['id']; ?>">
@@ -82,13 +86,12 @@
     let table = new DataTable('#candidates', {
       // options
       order: [
+        [ 2, 'asc'], // group date
         [ 0, 'asc'], // type
         [ 1, 'asc'], // group and setting
         [ 3, 'asc'], // SS
         [ 4, 'asc'], // MnP
         [ 5, 'asc'], // MxP
-        [ 6, 'asc'], // MnT
-        [ 7, 'asc'], // MxT
       ] 
     });
   </script>

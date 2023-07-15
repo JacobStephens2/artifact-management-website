@@ -796,6 +796,7 @@
     $sql .= "type='" . db_escape($db, $artifact['type']) . "', ";
     $sql .= "SS='" . db_escape($db, $artifact['SS']) . "', ";
     $sql .= "Notes='" . db_escape($db, $artifact['Notes']) . "', ";
+    $sql .= "CandidateGroupDate='" . db_escape($db, $artifact['CandidateGroupDate']) . "', ";
     $sql .= "MnT='" . db_escape($db, $artifact['MnT']) . "', ";
     $sql .= "MxT='" . db_escape($db, $artifact['MxT']) . "', ";
     $sql .= "MnP='" . db_escape($db, $artifact['MnP']) . "', ";
