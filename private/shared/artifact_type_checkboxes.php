@@ -47,7 +47,13 @@
       <span>
         <input
           type="checkbox"
-          id="<?php echo $artifactType; ?>" 
+          id="<?php 
+            if ($artifactType == '') {
+              echo 'no-type';
+            } else {
+              echo $artifactType; 
+            }
+          ?>" 
           value="<?php echo $artifactType; ?>" 
           name="type[<?php echo $artifactType; ?>]"
           <?php 
@@ -75,6 +81,7 @@
   document.querySelector('#deselectAll').addEventListener('click', function(event) {
     event.preventDefault();
     document.querySelectorAll('#typeCheckboxes input').forEach(element => element.checked = false);
+    document.querySelector('#no-type').checked = true;
   })
 
   document.querySelector('#selectAll').addEventListener('click', function(event) {
