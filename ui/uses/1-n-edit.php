@@ -46,6 +46,14 @@ include(SHARED_PATH . '/header.php');
       method="post"
       >
 
+      <label for="UseDate">Use Date</dt>
+      <input 
+        type="date" 
+        id="UseDate" 
+        name="use_date" 
+        value="<?php echo h(substr($response['use_date'],0,10)); ?>" 
+      />
+
       <label for="Title">Artifact</label>
       <select id="Title" name="artifact_id">
         <?php
@@ -89,13 +97,7 @@ include(SHARED_PATH . '/header.php');
           mysqli_free_result($usersResultObject);
         ?>
       
-      <label for="UseDate">Use Date</dt>
-      <input 
-        type="date" 
-        id="UseDate" 
-        name="use_date" 
-        value="<?php echo h(substr($response['use_date'],0,10)); ?>" 
-      />
+      
 
       <label for="Note">Note</label>
       <textarea 
