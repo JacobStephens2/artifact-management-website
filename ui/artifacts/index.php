@@ -15,10 +15,8 @@
     }
   } else {
     if (isset($_SESSION['type']) && count($_SESSION['type']) > 0) {
-      echo __LINE__;
       $type = $_SESSION['type'];
     } else {
-      echo __LINE__;
 
       include(SHARED_PATH . '/artifact_types_array.php'); 
       global $typesArray;
