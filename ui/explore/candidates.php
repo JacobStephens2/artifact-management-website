@@ -4,11 +4,6 @@
 
   require_login();
 
-  $page_title = 'Candidates';
-
-  include(SHARED_PATH . '/header.php');
-  include(SHARED_PATH . '/dataTable.html'); 
-
   $sql = "SELECT * 
     FROM games
     WHERE Candidate IS NOT NULL
@@ -21,12 +16,17 @@
 
   $resultObject = mysqli_query($db, $sql);
 
+  $page_title = $resultObject->num_rows . " " . 'Candidates';
+
+  include(SHARED_PATH . '/header.php');
+  include(SHARED_PATH . '/dataTable.html'); 
+
 ?>
 
 <main>
 
   <h1>
-    <?php echo $resultObject->num_rows . " " . $page_title; ?>
+    <?php echo $page_title; ?>
   </h1>
 
   <table id="candidates" data-page-length='100' class="list">
@@ -51,7 +51,7 @@
           <td>
             <?php echo $row['Candidate']; ?>
           </td>
-          <td>
+          <td class="date">
             <?php echo substr($row['CandidateGroupDate'], 0, 10); ?>
           </td>
           <td>
@@ -86,9 +86,9 @@
     let table = new DataTable('#candidates', {
       // options
       order: [
+        [ 1, 'asc'], // group and setting
         [ 2, 'asc'], // group date
         [ 0, 'asc'], // type
-        [ 1, 'asc'], // group and setting
         [ 3, 'asc'], // SS
         [ 4, 'asc'], // MnP
         [ 5, 'asc'], // MxP
