@@ -697,6 +697,13 @@
         if (strlen($sweetSpot) > 0) {
           $sql .= " AND games.ss LIKE '%$sweetSpot%' ";
           $sql .= " AND games.ss NOT LIKE '%1$sweetSpot%' ";
+          $sql .= " AND games.ss NOT LIKE '%2$sweetSpot%' ";
+          $sql .= " AND games.ss NOT LIKE '%3$sweetSpot%' ";
+          $sql .= " AND games.ss NOT LIKE '%$sweetSpot" . "0%' ";
+          $sql .= " AND games.ss NOT LIKE '%$sweetSpot" . "1%' ";
+          $sql .= " AND games.ss NOT LIKE '%$sweetSpot" . "2%' ";
+          $sql .= " AND games.ss NOT LIKE '%$sweetSpot" . "3%' ";
+          $sql .= " AND games.ss NOT LIKE '%$sweetSpot" . "4%' ";
         }
         
         if (isset($type) && $type != [] && $type != '1') {
@@ -1460,8 +1467,10 @@
     $sql = "SELECT
       games.Title,
       games.type,
+      games.ss AS SwS,
       games.id AS gameID, 
       uses.id AS useID, 
+      uses.note,
       uses.use_date 
       FROM uses 
       LEFT JOIN games ON uses.artifact_id = games.id 
@@ -1691,15 +1700,17 @@ function update_use($useArray) {
     exit;
   }
 
-  $i = 0;
   foreach ($useArray['user'] as $user) {
+    if ($user['name'] == '') {
+      continue;
+    }
     $query = "INSERT INTO uses_players (
         use_id, 
         player_id, 
         user_id
       ) VALUES (
         '" . $useArray['use_id'] . "',
-        '" . $user . "',
+        '" . $user['id'] . "',
         '" . db_escape($db, $_SESSION['user_id']) . "' 
       )
     ";
@@ -1712,7 +1723,6 @@ function update_use($useArray) {
       db_disconnect($db);
       exit;
     }
-    $i++;
   }
   
   return true;

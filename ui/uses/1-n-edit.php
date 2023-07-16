@@ -31,7 +31,11 @@ if(is_post_request()) {
 
 $page_title = 'Edit 1:n Use';
 include(SHARED_PATH . '/header.php'); 
+
 ?>
+
+<script type="module" src="modules/searchUsersList.js"></script>
+<script type="module" src="modules/getUsers.js"></script>
 
 <main>
 
@@ -69,33 +73,54 @@ include(SHARED_PATH . '/header.php');
         ?>
       </select>
 
-      <label for="user">User(s)</dt>
       <?php
-          $usersResultObject = find_users_by_use_id($response['id']);
+        $usersResultObject = find_users_by_use_id($response['id']);
+      ?>
 
-          $playersResultObject = list_players();
-
-          $i = 0;
-          foreach ($usersResultObject as $user) {
-            ?>
-            <select id="user" name="user[<?php echo $i; ?>]">
-              <option value='Invalid'>Choose a User</option>
-              <?php
-              foreach($playersResultObject as $player) {
-                echo "<option value=\"" . h($player['id']) . "\"";
-                if($user["id"] == $player['id']) {
-                  echo " selected";
-                }
-                echo ">" . h($player['FirstName']) . ' ' . h($player['LastName']) . "</option>";
-              }
-              ?>
-            </select>
-            <?php
-            $i++;
-          }
-          mysqli_free_result($playersResultObject);
-          mysqli_free_result($usersResultObject);
+      <label for="users">Users List</label>
+      <section id="users">
+        <?php
+        $i = 0;
+        foreach ($usersResultObject as $user) {
+          ?>
+          <div class="sweetSpot">
+            <input 
+              type="search" 
+              class="user" 
+              id="user<?php echo $i; ?>name" 
+              name="user[<?php echo $i; ?>][name]" 
+              value="<?php echo $user['FirstName'] . ' ' . $user['LastName']; ?>"
+              data-userid="<?php echo $_SESSION['user_id']; ?>"
+              data-listposition="<?php echo $i; ?>"
+            >
+            <input 
+              type="hidden" 
+              id="user<?php echo $i; ?>id" 
+              name="user[<?php echo $i; ?>][id]" 
+              value="<?php echo $user['id']; ?>"
+              data-listposition="<?php echo $i; ?>"
+            >
+            <div class="userResults user" id="userResultsDiv<?php echo $i; ?>" style="display: none;">
+              <ul class="userResults user" id="userResults<?php echo $i; ?>" style="margin-top: 0;">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+          <?php
+          $i++;
+        }
         ?>
+
+      </section>
+
+      <button 
+        id="addUser"
+        class="user"
+        style="display: block;"
+        >
+        +
+      </button>
+
       
       
 
