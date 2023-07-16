@@ -47,7 +47,7 @@
 
       if($insertResult === true) {
         $new_id = mysqli_insert_id($db);
-        $_SESSION['message'] = "The use with "
+        $_SESSION['message'] = "The use of " . $_POST['artifact']['name'] . " with "
           . count($_POST['user'])
           . " users was recorded."
         ;
@@ -100,12 +100,14 @@
         value="<?php echo $_SESSION['FullName']; ?>"
         data-userid="<?php echo $_SESSION['user_id']; ?>"
         data-playerid="<?php echo $_SESSION['player_id']; ?>"
+        data-listposition="0"
       >
       <input 
         type="hidden" 
         id="user0id" 
         name="user[0][id]" 
         value="<?php echo $_SESSION['player_id']; ?>"
+        data-listposition="0"
       >
       <div class="userResults user" style="display: none;">
         <ul class="userResults user" style="margin-top: 0;">
