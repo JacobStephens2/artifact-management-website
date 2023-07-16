@@ -15,9 +15,11 @@
         <tr id="headerRow">
           <th>Use Date (<?php echo $use_set->num_rows; ?>)</th>
           <th>Title</th>
+          <th>SwS</th>
           <th>User Count</th>
           <th>Users</th>
           <th>Type</th>
+          <th>Note</th>
         </tr>
       </thead>
 
@@ -37,19 +39,26 @@
             <td>
               <a 
                 class="action" 
-                href="<?php echo url_for('/uses/1-n-edit.php?id=' . h(u($use['useID']))); ?>"
+                href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($use['gameID']))); ?>"
                 >
                 <?php echo h($use['Title']); ?>
               </a>
             </td>
 
             <td>
-              <?php echo $usersResultObject->num_rows; ?>
+              <?php echo h($use['SwS']); ?>
             </td>
 
             <td>
-              <?php 
+              <?php echo $usersResultObject->num_rows; ?>
+            </td>
+
+            <td><?php 
                 $i = 0;
+                if ($usersResultObject->num_rows < 10) {
+                  echo '0';
+                }
+                echo $usersResultObject->num_rows . ': ';
                 foreach ($usersResultObject as $user) {
                   $i++;
                   echo $user['FirstName'] . ' ' . $user['LastName'];
@@ -57,12 +66,20 @@
                     echo ', ';
                   }
                 }
-              ?>
-            </td>
+                if ($use['note'] != 'online') {
+                  echo ' at';
+                }
+                echo ' ' . $use['note'];
+              ?></td>
                         
             <td class="type">
               <?php echo h($use['type']); ?>
             </td>
+
+            <td>
+              <?php echo h($use['note']); ?>
+            </td>
+            
           </tr>
         <?php } ?>
       </tbody>
@@ -74,6 +91,7 @@
       let table = new DataTable('#uses', {
         // options
         order: [
+          [ 4, 'asc'], // User group first
           [ 0, 'desc'] // Most recent first
         ]
       });
