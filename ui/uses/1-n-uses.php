@@ -15,6 +15,7 @@
         <tr id="headerRow">
           <th>Use Date (<?php echo $use_set->num_rows; ?>)</th>
           <th>Title</th>
+          <th>C</th>
           <th>SwS</th>
           <th>User Count</th>
           <th>Users</th>
@@ -46,6 +47,14 @@
             </td>
 
             <td>
+              <?php 
+                if (h($use['Candidate']) != '' && h($use['Candidate']) != 0) {
+                  echo 'Yes';
+                } 
+              ?>
+            </td>
+
+            <td>
               <?php echo h($use['SwS']); ?>
             </td>
 
@@ -58,18 +67,33 @@
                 if ($usersResultObject->num_rows < 10) {
                   echo '0';
                 }
+                
                 echo $usersResultObject->num_rows . ': ';
+                
+                $usersArray = [];
                 foreach ($usersResultObject as $user) {
+                  $usersArray[] = $user['FirstName'] . ' ' . $user['LastName'];
+                }
+
+                sort($usersArray);
+
+                $i = 0;
+                foreach ($usersArray as $user) {
                   $i++;
-                  echo $user['FirstName'] . ' ' . $user['LastName'];
+                  echo $user;
                   if ($i != $usersResultObject->num_rows) {
                     echo ', ';
                   }
                 }
+
                 if ($use['note'] != 'online') {
                   echo ' at';
                 }
                 echo ' ' . $use['note'];
+                echo ' (';
+                echo h($use['Title']);
+                echo ' on ' . h(substr($use['use_date'],0,10));
+                echo ')';
               ?></td>
                         
             <td class="type">
@@ -91,7 +115,7 @@
       let table = new DataTable('#uses', {
         // options
         order: [
-          [ 4, 'asc'], // User group first
+          [ 5, 'asc'], // User group first
           [ 0, 'desc'] // Most recent first
         ]
       });
