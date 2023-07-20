@@ -109,8 +109,8 @@
         value="<?php echo $_SESSION['player_id']; ?>"
         data-listposition="0"
       >
-      <div class="userResults user" style="display: none;">
-        <ul class="userResults user" style="margin-top: 0;">
+      <div id="userResultsDiv0" class="userResults user" style="display: none;">
+        <ul id="userResults0" class="userResults user" style="margin-top: 0;">
           <li></li>
         </ul>
       </div>

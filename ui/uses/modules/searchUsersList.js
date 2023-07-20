@@ -18,7 +18,8 @@ function searchUsers(event) {
       if (data.authenticated == false) {
         location.href = "/login.php";
       } else {
-        var userResultsList = document.querySelector('ul#userResults' + listposition);
+        var selector = 'ul#userResults' + listposition;
+        var userResultsList = document.querySelector(selector);
         userResultsList.innerHTML = '';
         if (event.target.value.length === 0) {
           clearSearchResults(listposition);
@@ -54,7 +55,7 @@ function clearSearchResults(position) {
   document.querySelector('div#userResultsDiv' + position).style.display = 'none';
 }
 
-function showSearchResults(position) {
+function showSearchResults(position) {  
   let selector = 'div#userResultsDiv' + position;
   document.querySelector(selector).style.display = 'block';
 }
