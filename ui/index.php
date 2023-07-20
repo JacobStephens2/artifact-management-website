@@ -47,14 +47,14 @@ include(SHARED_PATH . '/header.php');
     <!-- Uses -->
     <ul>
       <li>
-        <a href="<?php echo url_for('/uses/index.php');?>">
+        <a href="<?php echo url_for('/uses/1-n-index.php');?>">
           Uses
         </a>
       </li>
     
       <ul>
         <li>
-          <a href="/uses/new.php">Record Use</a>
+          <a href="/uses/1-n-new.php">Record Use</a>
         </li>
       </ul>
 
