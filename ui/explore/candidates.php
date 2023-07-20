@@ -40,6 +40,7 @@
         <th>SS</th>
         <th>MnP</th>
         <th>MxP</th>
+        <th>AvgT</th>
       </tr>
     </thead>
     <tbody>
@@ -68,6 +69,12 @@
           <td>
             <?php echo $row['MxP']; ?>
           </td>
+          
+          <td>
+            <?php 
+              echo ($row['MnT'] + $row['MxT']) / 2; 
+            ?>
+          </td>
         </tr>
       <?php } ?>
     </tbody>
@@ -86,12 +93,9 @@
     let table = new DataTable('#candidates', {
       // options
       order: [
-        [ 1, 'asc'], // group and setting
-        [ 2, 'asc'], // group date
-        [ 0, 'asc'], // type
-        [ 3, 'asc'], // SS
-        [ 4, 'asc'], // MnP
-        [ 5, 'asc'], // MxP
+        [ 4, 'asc'], // SS
+        [ 7, 'asc'], // AvgT
+        [ 5, 'asc'], // MnP
       ] 
     });
   </script>
