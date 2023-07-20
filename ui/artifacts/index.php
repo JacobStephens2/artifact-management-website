@@ -18,7 +18,7 @@
       $type = $_SESSION['type'];
     } else {
 
-      include(SHARED_PATH . '/artifact_types_array.php'); 
+      include(SHARED_PATH . '/artifact_type_array.php'); 
       global $typesArray;
       $type = $typesArray;
     }
@@ -112,11 +112,17 @@
           <th>Type</th>
           <th>SwS</th>
           <th>Name (<?php echo $artifact_set->num_rows; ?>)</th>
-          <th>Acquisition Date</th>
           <th>Recent Use</th>
           <th>AvgT</th>
+          <th class="tooltip" title="Candidate">C</th>
         </tr>
       </thead>
+
+      <style>
+        .tooltip:hover {
+          background: black;
+        }
+      </style>
 
       <tbody>
         <?php while($artifact = mysqli_fetch_assoc($artifact_set)) { ?>
@@ -133,14 +139,22 @@
               </a>
             </td>
 
-            <td><?php echo h($artifact['Acq']); ?></td>
-
             <td class="date"><?php echo h($artifact['MaxPlay']); ?></td>
 
             <td>
               <?php 
                 $avg_time = ($artifact['mnt'] + $artifact['mxt']) / 2;
                 echo h(ceil($avg_time)); 
+              ?>
+            </td>
+
+            <td>
+              <?php 
+              if ($artifact['Candidate'] != '' && $artifact['Candidate'] != 0) { 
+                echo 'Yes'; 
+              } else {
+                echo 'No';
+              }
               ?>
             </td>
             
@@ -155,10 +169,18 @@
       let table = new DataTable('#artifacts', {
         // options
         order: [
-          [ 5, 'asc'], // shortest first
-          [ 4, 'desc'], // more recently played first
+          [ 5, 'asc'], // non candidates first
+          [ 4, 'asc'], // shortest first
+          [ 1, 'desc'], // lower sweet spots first
         ], 
       });
+
+      document.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          document.querySelector('form').submit();
+        }
+      })
     </script>
   </div>
 
