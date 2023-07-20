@@ -16,6 +16,9 @@
     $artifact['id'] = $id ?? '';
     $artifact['Title'] = $_POST['Title'] ?? '';
     $artifact['Acq'] = $_POST['Acq'] ?? date('Y-m-d');
+    if ($artifact['Acq'] == '') {
+      $artifact['Acq'] = date('Y-m-d');
+    }
     $artifact['type'] = $_POST['type'] ?? '';
     $artifact['KeptCol'] = $_POST['KeptCol'] ?? '';
     $artifact['Candidate'] = $_POST['Candidate'] ?? '';
