@@ -1467,6 +1467,7 @@
     $sql = "SELECT
       games.Title,
       games.type,
+      games.Candidate,
       games.ss AS SwS,
       games.id AS gameID, 
       uses.id AS useID, 

@@ -80,9 +80,8 @@
         <th>SS</th>
         <th>MnP</th>
         <th>MxP</th>
-        <th>MnT</th>
-        <th>MxT</th>
-        <th>U</th>
+        <th>AvgT</th>
+        <th>C</th>
         <th>O</th>
         <th>Use By</th>
         <th class="hideOnPrint">Recent Use</th>
@@ -103,26 +102,17 @@
           <td><?php echo h($artifact['ss']); ?></td>
           <td><?php echo h($artifact['mnp']); ?></td>
           <td><?php echo h($artifact['mxp']); ?></td>
-          <td><?php echo h($artifact['mnt']); ?></td>
-          <td><?php echo h($artifact['mxt']); ?></td>
+          <td><?php echo (h($artifact['mnt']) + h($artifact['mxt'])) / 2; ?></td>
           
-          <td
+          <td>
             <?php 
-                if ( $artifact['UsedRecUserCt'] != 1 ) {
-                  echo 'style="color: red;"';
-                }
-            ?>
-            >
-            <?php 
-            if ( $artifact['UsedRecUserCt'] != 1 ) {
-              echo 'No';
-            } else {
+            if ( strlen($artifact['Candidate']) > 0 ) {
               echo 'Yes';
-            } 
+            }
             ?>
           </td>
 
-          <td 
+          <td class="overdue"
             <?php 
                 date_default_timezone_set('America/New_York');
                 $DateTimeNow = new DateTime(date('Y-m-d')); 
@@ -168,12 +158,19 @@
         } else {
           ?>
           order: [
-            [ 9, 'asc']  // use by date
+            [ 8, 'asc']  // use by date
           ]
           <?php
         }
       ?>
     });
+
+    document.addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        document.querySelector('form').submit();
+      }
+    })
   </script>
 
 </main>
