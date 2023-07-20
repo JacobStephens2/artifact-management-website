@@ -12,6 +12,18 @@ include(SHARED_PATH . '/header.php');
 
       <ul>
         <li>
+          <a href="<?php echo url_for('/uses/index.php'); ?>">
+            1:1 Uses (Archived Jul 16, 2023)
+          </a>
+        </li>
+
+        <li>
+          <a href="<?php echo url_for('/uses/new.php'); ?>">
+            Record 1:1 &nbsp;Use (Archived Jul 16, 2023)
+          </a>
+        </li>
+        
+        <li>
           <a href="<?php echo url_for('/uses/create.php');?>">
             Record Use (Archived Jan 11, 2022)
           </a>
