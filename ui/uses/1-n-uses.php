@@ -72,10 +72,11 @@
                 
                 $usersArray = [];
                 foreach ($usersResultObject as $user) {
-                  $usersArray[] = $user['FirstName'] . ' ' . $user['LastName'];
+                  $usersArray[$user['id']] = $user['FirstName'] . ' ' . $user['LastName'];
                 }
 
-                sort($usersArray);
+                // sort by the key ascending
+                ksort($usersArray);
 
                 $i = 0;
                 foreach ($usersArray as $user) {
