@@ -28,18 +28,20 @@
       margin-bottom: 1rem;
   }
 
+  #selectButtons button {
+    font-size: 1rem;
+    margin: 0.3rem 0.2rem;
+  }
+
 </style>
 
 <div id="selectButtons">
   <button id="selectAll">Select All</button>
-  <button id="deselectAll"
-    style="margin-left: 1rem"
-    >
-    Deselect All
-  </button>
+  <button id="deselectAll">Deselect All</button>
   <button id="selectGames">Select Games</button>
   <button id="selectAnalogGames">Select Analog Games</button>
-  <button id="selectDigitalGames">Select Digital Games</button>
+  <button id="selectOnlineGames">Select Online Games</button>
+  <button id="selectOutdoorGames">Select Outdoor Games</button>
 </div>
 
 <span id="typeCheckboxes" style="display: flex; flex-wrap: wrap">
@@ -109,7 +111,6 @@
   document.querySelector('#selectAnalogGames').addEventListener('click', function(event) {
     event.preventDefault();
     document.querySelectorAll('#typeCheckboxes input').forEach(element => element.checked = false);
-    document.querySelector('#typeCheckboxes #childrens-game').checked = true;
     document.querySelector('#typeCheckboxes #gambling-game').checked = true;
     document.querySelector('#typeCheckboxes #game').checked = true;
     document.querySelector('#typeCheckboxes #gambling-game').checked = true;
@@ -117,14 +118,24 @@
     document.querySelector('#typeCheckboxes #sport').checked = true;
     document.querySelector('#typeCheckboxes #table-game').checked = true;
   })
-  
-  document.querySelector('#selectDigitalGames').addEventListener('click', function(event) {
+
+  document.querySelector('#selectOnlineGames').addEventListener('click', function(event) {
     event.preventDefault();
     document.querySelectorAll('#typeCheckboxes input').forEach(element => element.checked = false);
     document.querySelector('#typeCheckboxes #individual-display').checked = true;
     document.querySelector('#typeCheckboxes #mobile-game').checked = true;
-    document.querySelector('#typeCheckboxes #shared-display').checked = true;
     document.querySelector('#typeCheckboxes #vr-game').checked = true;
+  })
+
+  document.querySelector('#selectOutdoorGames').addEventListener('click', function(event) {
+    event.preventDefault();
+    document.querySelectorAll('#typeCheckboxes input').forEach(element => element.checked = false);
+    document.querySelector('#typeCheckboxes #gambling-game').checked = true;
+    document.querySelector('#typeCheckboxes #game').checked = true;
+    document.querySelector('#typeCheckboxes #mobile-game').checked = true;
+    document.querySelector('#typeCheckboxes #sport').checked = true;
+    document.querySelector('#typeCheckboxes #toy').checked = true;
+    document.querySelector('#typeCheckboxes #equipment').checked = true;
   })
 </script>
 
