@@ -134,7 +134,7 @@ include(SHARED_PATH . '/header.php');
       
       <input type="hidden" name="use_id" value="<?php echo h($response['id']); ?>" /></dd>
 
-      <input type="submit" value="Save response" />
+      <input type="submit" value="Save use" />
 
     </form>
 
