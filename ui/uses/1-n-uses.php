@@ -116,8 +116,8 @@
       let table = new DataTable('#uses', {
         // options
         order: [
-          [ 5, 'asc'], // User group first
-          [ 0, 'desc'] // Most recent first
+          [ 0, 'desc'], // Most recent first
+          [ 5, 'asc'] // User group first
         ]
       });
     </script>
