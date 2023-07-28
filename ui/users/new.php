@@ -1,5 +1,6 @@
 <?php
 require_once('../../private/initialize.php');
+
 require_login();
 
 if(is_post_request()) {
@@ -8,7 +9,13 @@ if(is_post_request()) {
   $player['FirstName'] = $_POST['FirstName'] ?? '';
   $player['LastName'] = $_POST['LastName'] ?? '';
   $player['G'] = $_POST['G'] ?? '';
+  if (isset($_POST['G']) && $_POST['G'] == '') {
+    $player['G'] = 'other';
+  }
   $player['Age'] = $_POST['Age'] ?? '';
+  if (isset($_POST['Age']) && $_POST['Age'] == '') {
+    $player['Age'] = '30';
+  }
 
 
   $result = insert_player($player);
