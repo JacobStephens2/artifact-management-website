@@ -25,6 +25,8 @@
   $typeArray = $_SESSION['type'] ?? [];
   $interval = $_POST['interval'] ?? 182.5;
   $artifact_set = use_by($type, $interval, $sweetSpot);
+
+
 ?>
 
 <main>
@@ -89,7 +91,8 @@
     </thead>
 
     <tbody>
-      <?php while($artifact = mysqli_fetch_assoc($artifact_set)) { ?>
+      <?php while($artifact = mysqli_fetch_assoc($artifact_set)) { 
+        ?>
         <tr>
           <td class="type"><?php echo h($artifact['type']); ?></td>
 
@@ -114,25 +117,41 @@
 
           <td class="overdue"
             <?php 
+            ini_set('display_errors', 1);
+            ini_set('display_startup_errors', 1);
+            error_reporting(E_ALL);
                 date_default_timezone_set('America/New_York');
                 $DateTimeNow = new DateTime(date('Y-m-d')); 
-                $DateTimePlayBy = new DateTime(substr($artifact['PlayBy'],0,10)); 
+                $DateTimeMostRecentUse = new DateTime(substr($artifact['MostRecentUseOrResponse'],0,10)); 
+                $DateTimeAcquisition = new DateTime(substr($artifact['Acq'],0,10)); 
+                $intervalInHours = $interval * 24;
 
-                if ($DateTimePlayBy < $DateTimeNow) {
+                if ($DateTimeMostRecentUse < $DateTimeAcquisition) {
+                  $DateInterval = DateInterval::createFromDateString("$intervalInHours hour");
+                  $useByDate = date_add($DateTimeAcquisition, $DateInterval);
+                } else {
+                  $doubledInterval = $intervalInHours * 2;
+                  $DateInterval = DateInterval::createFromDateString("$doubledInterval hour");
+                  $useByDate = date_add($DateTimeMostRecentUse, $DateInterval);
+                }
+
+                if ($useByDate < $DateTimeNow) {
                   echo 'style="color: red;"';
                 }
             ?>
             >
             <?php 
-                if ($DateTimePlayBy < $DateTimeNow) {
+                if ($useByDate < $DateTimeNow) {
                   echo 'Yes';
                 } else {
                   echo 'No';
                 }
               ?>
           </td>
-          <td class="date"><?php echo h($artifact['PlayBy']); ?></td>
-          <td class="date hideOnPrint"><?php echo h($artifact['MaxPlay']); ?></td>
+          
+          <td class="date"><?php print_r($useByDate->format('Y-m-d'));// echo h($artifact['MostRecentUseOrResponse']); ?></td>
+
+          <td class="date hideOnPrint"><?php echo h(substr($artifact['MostRecentUseOrResponse'],0,10)); ?></td>
         </tr>
       <?php } ?>
     </tbody>

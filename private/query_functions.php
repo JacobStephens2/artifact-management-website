@@ -933,19 +933,18 @@
         games.id,
         games.type,
         games.user_id,
-        CASE 
-          WHEN MAX(responses.PlayDate) < games.Acq 
-            THEN DATE_ADD(games.Acq, INTERVAL " . $interval . " DAY)
-          WHEN MAX(responses.PlayDate) IS NULL 
-          THEN DATE_ADD(games.Acq, INTERVAL " . $interval . " DAY) 
-          ELSE 
-          DATE_ADD(MAX(responses.PlayDate), INTERVAL " .  $interval * 2 . " DAY)
-          END PlayBy,
+        MAX(uses.use_date) AS MostRecentUse,
         MAX(responses.PlayDate) AS MaxPlay,
+        CASE
+          WHEN MAX(uses.use_date) IS NULL THEN MAX(responses.PlayDate)
+          WHEN MAX(uses.use_date) < MAX(responses.PlayDate) THEN MAX(responses.PlayDate)
+          ELSE MAX(uses.use_date)
+        END MostRecentUseOrResponse,
         games.Acq,
         games.KeptCol
       FROM games
         LEFT JOIN responses ON games.id = responses.Title
+        LEFT JOIN uses ON games.id = uses.artifact_id
       GROUP BY games.Acq,
         games.Title,
         games.KeptCol, games.mnp, games.mxp, games.ss, games.type, games.id 
@@ -988,8 +987,10 @@
         }
 
       $sql .= "
-        ORDER BY PlayBy ASC
+        ORDER BY MostRecentUseOrResponse DESC
       ";
+
+      echo $sql;
 
       $result = mysqli_query($db, $sql);
       confirm_result_set($result);
@@ -1021,8 +1022,9 @@
 
     HAVING (games.KeptCol) = 1
     and games.type = 'board-game'
-    ORDER BY PlayBy ASC
-    LIMIT 1";
+    ORDER BY MostRecentUse DESC, MaxPlay DESC
+    LIMIT 1
+    ";
 
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
@@ -2167,6 +2169,13 @@ function singleValueQuery($query) {
   $result = mysqli_query($db, $query);
   $resultArray = mysqli_fetch_array($result);
   return $resultArray[0];
+}
+
+function singleRowQuery($query) {
+  global $db;
+  $result = mysqli_query($db, $query);
+  $resultArray = mysqli_fetch_array($result);
+  return $resultArray;
 }
 
 function query($query) {
