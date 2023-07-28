@@ -8,6 +8,10 @@
 
   include(SHARED_PATH . '/header.php');
 
+  if ($_SESSION['player_id'] == '') {
+    echo 'Go to users, choose yourself, ensure "This user is me" is checked, submit the form, then log out and log back in.';
+  }
+
   $getUseCountsByPlayerSQL = "SELECT 
     COUNT('responses.PlayDate') AS CountOfUses, 
     games.Title AS ArtifactTitle,
