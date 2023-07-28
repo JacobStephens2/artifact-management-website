@@ -12,7 +12,7 @@
   <li><a class="back-link" href="<?php echo url_for('/artifacts/index.php'); ?>">&laquo; Artifacts</a></li>
   <li><a class="back-link" href="<?php echo url_for('/artifacts/useby.php'); ?>">&laquo; Use By List</a></li>
   <li><a class="back-link" href="<?php echo url_for('/artifacts/new.php'); ?>">&laquo; Create Artifact</a></li>
-  <li><a class="back-link" href="<?php echo url_for('/uses/new.php?gameID=' . h(u($object['id']))); ?>">&laquo; Record Use</a></li>
+  <li><a class="back-link" href="<?php echo url_for('/uses/1-n-new.php?gameID=' . h(u($object['id']))); ?>">&laquo; Record Use</a></li>
   
   <h1>Title: <?php echo h($object['Title']); ?></h1>
   
