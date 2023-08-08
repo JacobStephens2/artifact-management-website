@@ -16,6 +16,11 @@
     $artifact['id'] = $id ?? '';
     $artifact['Title'] = $_POST['Title'] ?? '';
     $artifact['Acq'] = $_POST['Acq'] ?? date('Y-m-d');
+    $artifact['age'] = $_POST['age'] ?? 0;
+    if ($artifact['age'] == '') {
+      $artifact['age'] = 0;
+    }
+
     if ($artifact['Acq'] == '') {
       $artifact['Acq'] = date('Y-m-d');
     }
@@ -26,7 +31,7 @@
     $artifact['UsedRecUserCt'] = $_POST['UsedRecUserCt'] ?? '';
     $artifact['Notes'] = $_POST['Notes'] ?? '';
     ($_POST['MnT'] == '') ? $artifact['MnT'] = 5 : $artifact['MnT'] = $_POST['MnT'];
-    ($_POST['MxT'] == '') ? $artifact['MxT'] = 240 : $artifact['MxT'] = $_POST['MxT'];
+    ($_POST['MxT'] == '') ? $artifact['fMxT'] = 240 : $artifact['MxT'] = $_POST['MxT'];
     ($_POST['MnP'] == '') ? $artifact['MnP'] = 5 : $artifact['MnP'] = $_POST['MnP'];
     ($_POST['MxP'] == '') ? $artifact['MxP'] = 240 : $artifact['MxP'] = $_POST['MxP'];
     ($_POST['SS'] == '') ? $artifact['SS'] = 1 : $artifact['SS'] = $_POST['SS'];
@@ -135,6 +140,9 @@
 
       <label for="MxT">Maxiumum Time</label>
       <input type="number" name="MxT" id="MxT" value="<?php echo $artifact['MxT']; ?>">
+
+      <label for="age">Minimum Age</label>
+      <input type="number" name="age" id="age" value="<?php echo $artifact['Age']; ?>">
 
       <label for="Acq">Acquisition Date</label>
       <input type="date" name="Acq" id="Acq" value="<?php echo h($artifact['Acq']); ?>" />

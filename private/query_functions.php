@@ -770,6 +770,7 @@
     $sql .= "CandidateGroupDate='" . db_escape($db, $artifact['CandidateGroupDate']) . "', ";
     $sql .= "MnT='" . db_escape($db, $artifact['MnT']) . "', ";
     $sql .= "MxT='" . db_escape($db, $artifact['MxT']) . "', ";
+    $sql .= "Age='" . db_escape($db, $artifact['age']) . "', ";
     $sql .= "MnP='" . db_escape($db, $artifact['MnP']) . "', ";
     $sql .= "MxP='" . db_escape($db, $artifact['MxP']) . "' ";
     $sql .= "WHERE id='" . db_escape($db, $artifact['id']) . "' ";
@@ -780,6 +781,7 @@
       return true;
     } else {
       // UPDATE failed
+      echo '<p>' . $sql . "</p>";
       echo mysqli_error($db);
       db_disconnect($db);
       exit;
@@ -821,6 +823,7 @@
               type, 
               KeptCol, 
               Candidate, 
+              CandidateGroupDate, 
               UsedRecUserCt, 
               SS,
               MnT,
@@ -836,6 +839,7 @@
     $sql .= "'" . db_escape($db, $object['type']) . "',";
     $sql .= "'" . db_escape($db, $object['KeptCol']) . "',";
     $sql .= "'" . db_escape($db, $object['Candidate']) . "',";
+    $sql .= "'" . db_escape($db, $object['CandidateGroupDate']) . "',";
     $sql .= "'" . db_escape($db, $object['UsedRecUserCt']) . "',";
     $sql .= "'" . db_escape($db, $object['SS']) . "',";
     $sql .= "'" . db_escape($db, $object['MnT']) . "',";
@@ -933,6 +937,7 @@
         games.id,
         games.type,
         games.user_id,
+        games.age,
         MAX(uses.use_date) AS MostRecentUse,
         MAX(responses.PlayDate) AS MaxPlay,
         CASE
@@ -989,8 +994,6 @@
       $sql .= "
         ORDER BY MostRecentUseOrResponse DESC
       ";
-
-      echo $sql;
 
       $result = mysqli_query($db, $sql);
       confirm_result_set($result);
