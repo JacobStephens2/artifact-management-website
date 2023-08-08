@@ -67,6 +67,7 @@
 <script type="module" src="modules/searchArtifactsList.js"></script>
 <script type="module" src="modules/searchUsersList.js"></script>
 <script type="module" src="modules/getUsers.js"></script>
+<script defer src="1-n-new.js"></script>
 
 <main>
 
