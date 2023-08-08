@@ -83,6 +83,7 @@
         <th>MnP</th>
         <th>MxP</th>
         <th>AvgT</th>
+        <th>Age</th>
         <th>C</th>
         <th>O</th>
         <th>Use By</th>
@@ -96,7 +97,7 @@
         <tr>
           <td class="type"><?php echo h($artifact['type']); ?></td>
 
-          <td class="edit">
+          <td class="artifact edit">
             <a class="action edit" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($artifact['id']))); ?>">
             <?php echo h($artifact['Title']); ?></a>
             </a>
@@ -106,8 +107,9 @@
           <td><?php echo h($artifact['mnp']); ?></td>
           <td><?php echo h($artifact['mxp']); ?></td>
           <td><?php echo (h($artifact['mnt']) + h($artifact['mxt'])) / 2; ?></td>
+          <td><?php echo h($artifact['age']); ?></td>
           
-          <td>
+          <td class="candidate">
             <?php 
             if ( strlen($artifact['Candidate']) > 0 ) {
               echo 'Yes';
@@ -149,7 +151,7 @@
               ?>
           </td>
           
-          <td class="date"><?php print_r($useByDate->format('Y-m-d'));// echo h($artifact['MostRecentUseOrResponse']); ?></td>
+          <td class="date"><?php print_r($useByDate->format('Y-m-d')); ?></td>
 
           <td class="date hideOnPrint"><?php echo h(substr($artifact['MostRecentUseOrResponse'],0,10)); ?></td>
         </tr>
@@ -168,6 +170,7 @@
           order: [
             [ 0, 'asc'], // type
             [ 2, 'asc'], // SS
+            [ 7, 'asc']  // AvgT
             [ 3, 'asc'], // MnP
             [ 4, 'asc'], // MxP
             [ 5, 'asc'], // MnT
@@ -177,7 +180,7 @@
         } else {
           ?>
           order: [
-            [ 8, 'asc']  // use by date
+            [ 9, 'asc']  // use by date
           ]
           <?php
         }
