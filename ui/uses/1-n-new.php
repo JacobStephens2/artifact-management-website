@@ -1,4 +1,7 @@
 <?php // Initialize file
+
+  $page_title = 'Record Use';
+
   require_once('../../private/initialize.php');
   require_login();
 
@@ -60,7 +63,6 @@
 
   }
 
-  $page_title = 'Record 1:n Use';
   include(SHARED_PATH . '/header.php'); 
 ?>
 
