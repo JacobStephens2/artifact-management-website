@@ -1,14 +1,45 @@
 <?php 
   require_once('../../private/initialize.php');
   require_login();
-  $use_set = find_uses_by_user_id();
-  $page_title = '1:n Artifact Uses';
+  $page_title = 'Artifact Uses';
   include(SHARED_PATH . '/header.php');
   include(SHARED_PATH . '/dataTable.html');
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['type'])) {
+      $type = $_POST['type'];
+    } else {
+      $type = [];
+    }
+  } else {
+    if (isset($_SESSION['type']) && count($_SESSION['type']) > 0) {
+      $type = $_SESSION['type'];
+    } else {
+      include(SHARED_PATH . '/artifact_type_array.php'); 
+      global $typesArray;
+      $type = $typesArray;
+    }
+  }
+
+  $minimumDate = $_POST['minimumDate'] ?? date('Y-m-d', strtotime('1 year ago'));
+
+  $use_set = find_uses_by_user_id($type, $minimumDate);
 ?>
 
 <main>
     <h1><?php echo $page_title; ?></h1>
+
+    <form method="POST">
+      <label for="artifactType">Artifact type</label>
+      <section id="artifactType" style="display: flex; flex-wrap: wrap">
+        <?php require_once SHARED_PATH . '/artifact_type_checkboxes.php'; ?>
+      </section>
+
+      <label for="minimumDate">Minimum Date</label>
+      <input type="date" name="minimumDate" id="minimumDate" value="<?php echo $minimumDate; ?>">
+
+      <button type="submit">Submit</button>
+    </form>
 
   	<table class="list" id="uses" data-page-length='100'>
       <thead>
@@ -25,7 +56,14 @@
       </thead>
 
       <tbody>
-        <?php while($use = mysqli_fetch_assoc($use_set)) { ?>
+        <?php 
+
+          $group_setting_game_array = array();
+          $group_and_setting_array = array();
+
+          while($use = mysqli_fetch_assoc($use_set)) { 
+          
+          ?>
           <?php $usersResultObject = find_users_by_use_id($use['useID']); ?>
           <tr>
             <td class="date">
@@ -62,13 +100,15 @@
               <?php echo $usersResultObject->num_rows; ?>
             </td>
 
-            <td><?php 
+            <td>
+              <?php 
                 $i = 0;
+                $situation = '';
                 if ($usersResultObject->num_rows < 10) {
-                  echo '0';
+                  $situation .= '0';
                 }
                 
-                echo $usersResultObject->num_rows . ': ';
+                $situation .= $usersResultObject->num_rows . ': ';
                 
                 $usersArray = [];
                 foreach ($usersResultObject as $user) {
@@ -81,21 +121,38 @@
                 $i = 0;
                 foreach ($usersArray as $user) {
                   $i++;
-                  echo $user;
+                  $situation .= $user;
                   if ($i != $usersResultObject->num_rows) {
-                    echo ', ';
+                    $situation .= ', ';
                   }
                 }
 
                 if ($use['note'] != 'online') {
-                  echo ' at';
+                  $situation .= ' at';
                 }
-                echo ' ' . $use['note'];
-                echo ' (';
-                echo h($use['Title']);
-                echo ' on ' . h(substr($use['use_date'],0,10));
-                echo ')';
-              ?></td>
+
+                $situation .= ' ' . $use['note'];
+
+                $group_and_setting = $situation;
+                if (!in_array($group_and_setting, $group_and_setting_array)) {
+                  $group_and_setting_array[] = $group_and_setting;
+                }
+
+                $situation .= ' (';
+                $situation .= h($use['Title']);
+
+                $group_setting_game = $situation;
+
+                if (!in_array($group_setting_game, $group_setting_game_array)) {
+                  $group_setting_game_array[] = $group_setting_game;
+                }
+
+                $situation .= ' on ' . h(substr($use['use_date'],0,10));
+                $situation .= ')';
+
+                echo $situation;
+              ?>
+            </td>
                         
             <td class="type">
               <?php echo h($use['type']); ?>
@@ -109,6 +166,9 @@
         <?php } ?>
       </tbody>
   	</table>
+
+    <p>Group, setting, and game combinations: <?php echo count($group_setting_game_array); ?></p>
+    <p>Group and setting combinations: <?php echo count($group_and_setting_array); ?></p>
 
     <?php mysqli_free_result($use_set); ?>
 
