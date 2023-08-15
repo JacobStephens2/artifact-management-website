@@ -1,8 +1,26 @@
 <?php // initialize page
 
+  $page_title = 'Candidates';
+
   require_once('../../private/initialize.php');
 
   require_login();
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['type'])) {
+      $type = $_POST['type'];
+    } else {
+      $type = [];
+    }
+  } else {
+    if (isset($_SESSION['type']) && count($_SESSION['type']) > 0) {
+      $type = $_SESSION['type'];
+    } else {
+      include(SHARED_PATH . '/artifact_type_array.php'); 
+      global $typesArray;
+      $type = $typesArray;
+    }
+  }
 
   $sql = "SELECT * 
     FROM games
@@ -33,29 +51,36 @@
     $sql .= " AND Candidate NOT LIKE '%" . $_POST['removeUserByNameTwo'] . "%' ";
   }
 
+  if (count($type) > 0) {
+    $sql .= "AND type IN (";
+    $i = 1;
+    foreach($type as $typeIndividual) {
+      $sql .= "'" . $typeIndividual . "'";
+      if (count($type) != $i) {
+        $sql .= ",";
+      }
+      $i++;
+    }
+    $sql .= ") ";
+  }
+
   $sql .= " ORDER BY type ASC,
     Candidate ASC
   ";
 
   $resultObject = mysqli_query($db, $sql);
 
-  $page_title = $resultObject->num_rows . " " . 'Candidates';
-
   include(SHARED_PATH . '/header.php');
   include(SHARED_PATH . '/dataTable.html'); 
 
 ?>
 
+<link rel="stylesheet" href="candidates.css">
+
 <main>
 
-  <style>
-    input[type="text"] {
-      width: 25rem;
-    }
-  </style>
-
   <h1>
-    <?php echo $page_title; if ($_SERVER['REQUEST_METHOD'] == 'POST') { echo ' Match Search Results'; } ?>
+    <?php echo $resultObject->num_rows . " " . $page_title; if ($_SERVER['REQUEST_METHOD'] == 'POST') { echo ' Match Search Results'; } ?>
   </h1>
 
   <form action="candidates.php" method="POST">
@@ -83,6 +108,10 @@
       </div>
     </section>
 
+    <label for="artifactType">Artifact type</label>
+    <section id="artifactType" style="display: flex; flex-wrap: wrap">
+      <?php require_once SHARED_PATH . '/artifact_type_checkboxes.php'; ?>
+    </section>
     
     <section style="display: flex; gap: 1.3rem">
       <div style="margin-top: 0.6rem">
