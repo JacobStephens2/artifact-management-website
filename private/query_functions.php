@@ -922,7 +922,7 @@
     return $result;
   }
 
-  function use_by($type, $interval, $sweetSpot) {
+  function use_by($type, $interval, $sweetSpot, $minimumAge) {
     global $db;
 
     $sql ="SELECT 
@@ -970,6 +970,10 @@
               OR games.ss LIKE '%, $sweetSpot,%' 
             )
           ";
+        }
+        
+        if ($minimumAge !== '') {
+          $sql .= " AND games.age >= '$minimumAge' ";
         }
 
         if (gettype($type == 'array')) {
@@ -1466,7 +1470,7 @@
     return $result;
   }
 
-  function find_uses_by_user_id() {
+  function find_uses_by_user_id($type, $minimumDate) {
     global $db;
 
     $sql = "SELECT
@@ -1482,7 +1486,30 @@
       LEFT JOIN games ON uses.artifact_id = games.id 
       WHERE uses.user_id = " . db_escape($db, $_SESSION['user_id']) . " 
       AND uses.use_date IS NOT NULL 
-      ORDER BY uses.use_date DESC, 
+    ";
+
+    if (gettype($type == 'array')) {
+      if (count($type) > 0) {
+        $sql .= "AND games.type IN (";
+        $i = 1;
+        foreach($type as $typeIndividual) {
+          $sql .= "'" . $typeIndividual . "'";
+          if (count($type) != $i) {
+            $sql .= ",";
+          }
+          $i++;
+        }
+        $sql .= ") ";
+      } else {
+        $sql .= " AND games.type = '' ";
+      }
+    }
+
+    if ($minimumDate != '') {
+      $sql .= " AND uses.use_date >= '$minimumDate' ";
+    }
+
+    $sql .= " ORDER BY uses.use_date DESC, 
       uses.id DESC, 
       games.Title DESC
       LIMIT 9999
