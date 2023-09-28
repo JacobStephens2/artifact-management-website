@@ -75,6 +75,7 @@
 
 ?>
 
+<script defer src="candidates.js"></script>
 <link rel="stylesheet" href="candidates.css">
 
 <main>
@@ -186,39 +187,50 @@
           }
 
           $mostRecentUseDate = $mostRecentUseDateArray['most_recent_use_date'];
+          $interval_time_ago = strtotime('now - ' . DEFAULT_USE_INTERVAL . ' days');
         //
         ?>
         <tr>
-          <td>
+          <td class="type">
             <?php echo h($row['type']); ?>
           </td>
 
-          <td>
+          <td class="users">
             <?php echo substr(h($row['Candidate']),0,3); ?>
           </td>
           
-          <td>
+          <td class="group_and_setting">
             <?php echo substr(h($row['Candidate']),3); ?>
           </td>
           
-          <td class="date">
-            <?php echo substr(h($row['CandidateGroupDate']), 0, 10); ?>
+          <td class="date group_date"
+            <?php 
+              $candidate_group_date = substr(h($row['CandidateGroupDate']), 0, 10);
+              
+              $candidate_group_date_time = strtotime($candidate_group_date);
+
+              if ($candidate_group_date_time < $interval_time_ago) {
+                  echo ' style="color: red;" ';
+              }
+              ?>
+              >
+              <?php
+
+              echo $candidate_group_date; 
+            ?>
           </td>
           
-          <td>
+          <td class="artifact">
             <a href="/artifacts/edit.php?id=<?php echo $row['id']; ?>">
               <?php echo $row['Title']; ?>
             </a>
           </td>
 
-          <td class="mostRecentUse date"
-            
-            >
+          <td class="mostRecentUse date">
             <a
               <?php
                 $mostRecentUseTime = strtotime($mostRecentUseDate);
-                $oneYearAgoTime = strtotime('now - 1 year');
-                if ($mostRecentUseTime < $oneYearAgoTime) {
+                if ($mostRecentUseTime < $interval_time_ago) {
                   echo ' style="color: red;" ';
                 }
 
@@ -237,17 +249,17 @@
             </a>
           </td>
 
-          <td>
+          <td class="sweet_spot">
             <?php echo h($row['SS']); ?>
           </td>
-          <td>
+          <td class="minimum_players">
             <?php echo h($row['MnP']); ?>
           </td>
-          <td>
+          <td class="maximum_players">
             <?php echo h($row['MxP']); ?>
           </td>
           
-          <td>
+          <td class="average_time">
             <?php 
               echo h(($row['MnT'] + $row['MxT']) / 2); 
             ?>
@@ -265,19 +277,6 @@
       include(SHARED_PATH . '/artifact_type_options.php'); 
     ?>
   </select>
-
-  <script>
-    let table = new DataTable('#candidates', {
-      // options
-      order: [
-        [ 1, 'asc'], // Users
-        [ 5, 'desc'], // Recent Use
-        [ 6, 'asc'], // SwS
-        [ 9, 'asc'], // AvgT
-        [ 7, 'asc'], // MnP
-      ] 
-    });
-  </script>
 
 </main>
 
