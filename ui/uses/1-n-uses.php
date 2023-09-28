@@ -21,7 +21,8 @@
     }
   }
 
-  $minimumDate = $_POST['minimumDate'] ?? date('Y-m-d', strtotime('1 year ago'));
+  $minimumDate = $_POST['minimumDate'] ?? '';
+  $hide_duplicate_group_settings = $_POST['hide_duplicate_group_settings'] ?? 'no';
 
   $use_set = find_uses_by_user_id($type, $minimumDate);
 ?>
@@ -35,8 +36,16 @@
         <?php require_once SHARED_PATH . '/artifact_type_checkboxes.php'; ?>
       </section>
 
-      <label for="minimumDate">Minimum Date</label>
+      <label for="minimumDate">Minimum Date (<?php echo DEFAULT_USE_INTERVAL; ?> days ago: <?php echo date('m/d/Y', strtotime(DEFAULT_USE_INTERVAL . ' days ago')); ?>)</label>
       <input type="date" name="minimumDate" id="minimumDate" value="<?php echo $minimumDate; ?>">
+
+      <label for="hide_duplicate_group_settings">Hide Duplicate Group Settings (Date Agnostic)</label>
+      <input name="hide_duplicate_group_settings" 
+        type="checkbox"
+        id="hide_duplicate_group_settings" 
+        value="yes"
+        <?php if ($hide_duplicate_group_settings === 'yes') { echo ' checked '; } ?>
+      >
 
       <button type="submit">Submit</button>
     </form>
@@ -44,126 +53,139 @@
   	<table class="list" id="uses" data-page-length='100'>
       <thead>
         <tr id="headerRow">
-          <th>Use Date (<?php echo $use_set->num_rows; ?>)</th>
+          <th>Use Date <?php if ($hide_duplicate_group_settings === 'no') { echo '(' . $use_set->num_rows . ')'; } ?></th>
           <th>Title</th>
           <th>C</th>
           <th>SwS</th>
           <th>User Count</th>
-          <th>Users</th>
+          <th class="group_setting">Group Setting</th>
           <th>Type</th>
           <th>Note</th>
+          <th>Candidate</th>
         </tr>
       </thead>
 
       <tbody>
         <?php 
-
           $group_setting_game_array = array();
           $group_and_setting_array = array();
 
           while($use = mysqli_fetch_assoc($use_set)) { 
+
+            $usersResultObject = find_users_by_use_id($use['useID']);
+
+            $i = 0;
+            $situation = '';
+            if ($usersResultObject->num_rows < 10) {
+              $situation .= '0';
+            }
+            
+            $situation .= $usersResultObject->num_rows . ': ';
+            
+            $usersArray = [];
+            foreach ($usersResultObject as $user) {
+              $usersArray[$user['id']] = $user['FirstName'] . ' ' . $user['LastName'];
+            }
+
+            // sort by the key ascending
+            ksort($usersArray);
+
+            $i = 0;
+            foreach ($usersArray as $user) {
+              $i++;
+              $situation .= $user;
+              if ($i != $usersResultObject->num_rows) {
+                $situation .= ', ';
+              }
+            }
+
+            if ($use['note'] != 'online') {
+              $situation .= ' at';
+            }
+
+            $situation .= ' ' . $use['note'];
+
+            $group_and_setting = $situation;
+            if (!in_array($group_and_setting, $group_and_setting_array)) {
+              $group_and_setting_array[] = $group_and_setting;
+            }
+
+            $situation .= ' (';
+            $situation .= h($use['Title']);
+
+            $group_setting_game = $situation;
+
+            if (!in_array($group_setting_game, $group_setting_game_array)) {
+              $group_setting_game_array[] = $group_setting_game;
+            } elseif ($hide_duplicate_group_settings === 'yes') {
+              continue;
+            }
+
+            $group_setting_game_escaped = db_escape($db, $group_setting_game);
+
+            $query = "SELECT title 
+              FROM games WHERE candidate LIKE '$group_setting_game_escaped%'
+            ";
+      
+            $candidate_artifact = singleValueQuery($query);
+
+            $situation .= ' on ' . h(substr($use['use_date'],0,10));
+            $situation .= ')';
           
-          ?>
-          <?php $usersResultObject = find_users_by_use_id($use['useID']); ?>
-          <tr>
-            <td class="date">
-              <a 
-                class="action" 
-                href="<?php echo url_for('/uses/1-n-edit.php?id=' . h(u($use['useID']))); ?>"
-                >
-                <?php echo h(substr($use['use_date'],0,10)); ?>
-              </a>
-            </td>
-            
-            <td>
-              <a 
-                class="action" 
-                href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($use['gameID']))); ?>"
-                >
-                <?php echo h($use['Title']); ?>
-              </a>
-            </td>
+            ?>
+            <tr>
+              <td class="date">
+                <a 
+                  class="action" 
+                  href="<?php echo url_for('/uses/1-n-edit.php?id=' . h(u($use['useID']))); ?>"
+                  >
+                  <?php echo h(substr($use['use_date'],0,10)); ?>
+                </a>
+              </td>
+              
+              <td class="title">
+                <a 
+                  class="action" 
+                  href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($use['gameID']))); ?>"
+                  >
+                  <?php echo h($use['Title']); ?>
+                </a>
+              </td>
 
-            <td>
-              <?php 
-                if (h($use['Candidate']) != '' && h($use['Candidate']) != 0) {
-                  echo 'Yes';
-                } 
-              ?>
-            </td>
+              <td class="candidate">
+                <?php 
+                  if (h($use['Candidate']) != '' && h($use['Candidate']) != 0) {
+                    echo 'Yes';
+                  } 
+                ?>
+              </td>
 
-            <td>
-              <?php echo h($use['SwS']); ?>
-            </td>
+              <td class="sweet_spot">
+                <?php echo h($use['SwS']); ?>
+              </td>
 
-            <td>
-              <?php echo $usersResultObject->num_rows; ?>
-            </td>
+              <td class="user_count">
+                <?php echo $usersResultObject->num_rows; ?>
+              </td>
 
-            <td>
-              <?php 
-                $i = 0;
-                $situation = '';
-                if ($usersResultObject->num_rows < 10) {
-                  $situation .= '0';
-                }
-                
-                $situation .= $usersResultObject->num_rows . ': ';
-                
-                $usersArray = [];
-                foreach ($usersResultObject as $user) {
-                  $usersArray[$user['id']] = $user['FirstName'] . ' ' . $user['LastName'];
-                }
+              <td class="group_setting">
+                <?php echo $situation; ?>
+              </td>
+                          
+              <td class="type">
+                <?php echo h($use['type']); ?>
+              </td>
 
-                // sort by the key ascending
-                ksort($usersArray);
+              <td class="note">
+                <?php echo h($use['note']); ?>
+              </td>
 
-                $i = 0;
-                foreach ($usersArray as $user) {
-                  $i++;
-                  $situation .= $user;
-                  if ($i != $usersResultObject->num_rows) {
-                    $situation .= ', ';
-                  }
-                }
-
-                if ($use['note'] != 'online') {
-                  $situation .= ' at';
-                }
-
-                $situation .= ' ' . $use['note'];
-
-                $group_and_setting = $situation;
-                if (!in_array($group_and_setting, $group_and_setting_array)) {
-                  $group_and_setting_array[] = $group_and_setting;
-                }
-
-                $situation .= ' (';
-                $situation .= h($use['Title']);
-
-                $group_setting_game = $situation;
-
-                if (!in_array($group_setting_game, $group_setting_game_array)) {
-                  $group_setting_game_array[] = $group_setting_game;
-                }
-
-                $situation .= ' on ' . h(substr($use['use_date'],0,10));
-                $situation .= ')';
-
-                echo $situation;
-              ?>
-            </td>
-                        
-            <td class="type">
-              <?php echo h($use['type']); ?>
-            </td>
-
-            <td>
-              <?php echo h($use['note']); ?>
-            </td>
-            
-          </tr>
-        <?php } ?>
+              <td class="canidate_spot_used"><?php if ($candidate_artifact != 'No results') {echo "$candidate_artifact";} ?></td>
+              
+            </tr>
+            <?php 
+          } 
+        ?>
       </tbody>
   	</table>
 
@@ -173,13 +195,33 @@
     <?php mysqli_free_result($use_set); ?>
 
     <script>
-      let table = new DataTable('#uses', {
-        // options
-        order: [
-          [ 0, 'desc'], // Most recent first
-          [ 5, 'asc'] // User group first
-        ]
-      });
+
+
+      <?php
+      if ($hide_duplicate_group_settings === 'yes') {
+        ?>
+        document.querySelector('h1').innerText += ' (<?php echo count($group_setting_game_array); ?> group settings)';
+        document.querySelector('.group_setting').innerText += ' (<?php echo count($group_setting_game_array); ?>)';
+        let table = new DataTable('#uses', {
+          // options
+          order: [
+            [ 5, 'desc'], // User group descending
+            [ 0, 'desc'] // Most recently used first
+          ]
+        });
+        <?php
+      } else {
+        ?>
+        let table = new DataTable('#uses', {
+          // options
+          order: [
+            [ 0, 'desc'], // Most recently used ascending
+            [ 5, 'asc'] // User group first
+          ]
+        });
+        <?php
+      }
+      ?>
     </script>
 
 </main>
