@@ -23,7 +23,7 @@
       $type = $typesArray;
     }
   }
-  $interval = $_POST['interval'] ?? '182.5';
+  $interval = $_POST['interval'] ?? DEFAULT_USE_INTERVAL;
   $sweetSpotFilter = $_POST['sweetSpotFilter'] ?? '';
   $artifact_set = find_games_by_user_id($kept, $type, $interval, $sweetSpotFilter);
   $page_title = 'Artifacts';
@@ -34,7 +34,7 @@
 
 <main>
   <div class="objects listing">
-    <h1>Artifacts</h1>
+    <h1>Artifacts <?php if ($kept === 'secondary_only') { echo ' (Secondary Only)'; } ?></h1>
 
     <section style="display: flex; column-gap: 3.9rem;">
       <form action="<?php echo url_for('/artifacts/index.php'); ?>" method="post">
@@ -93,6 +93,17 @@
             <input type="radio" name="kept" value="no" id="notkept"
             <?php 
               if ($kept === 'no') {
+                echo ' checked ';
+              }
+            ?>
+            >
+          </div>
+          
+          <div>
+            <label for="notkept">Show Secondary Collection Only</label>
+            <input type="radio" name="kept" value="secondary_only" id="secondary_only"
+            <?php 
+              if ($kept === 'secondary_only') {
                 echo ' checked ';
               }
             ?>

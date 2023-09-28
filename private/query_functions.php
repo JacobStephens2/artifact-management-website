@@ -664,6 +664,7 @@
         games.UsedRecUserCt,
         games.ss,
         games.id,
+        games.InSecondaryCollection,
         games.type,
         games.user_id,
         CASE 
@@ -720,9 +721,11 @@
         }
 
         if ( $kept == 'yes') { 
-          $sql .= "AND games.KeptCol = 1 "; 
+          $sql .= " AND games.KeptCol = 1 "; 
         } elseif ( $kept == 'no' ) {
-          $sql .= "AND games.KeptCol = 0 "; 
+          $sql .= " AND games.KeptCol = 0 "; 
+        } elseif ( $kept == 'secondary_only' ) {
+          $sql .= " AND games.InSecondaryCollection = 'yes' "; 
         }
 
     $sql .= "
@@ -771,6 +774,7 @@
     $sql .= "MnT='" . db_escape($db, $artifact['MnT']) . "', ";
     $sql .= "MxT='" . db_escape($db, $artifact['MxT']) . "', ";
     $sql .= "Age='" . db_escape($db, $artifact['age']) . "', ";
+    $sql .= "InSecondaryCollection='" . db_escape($db, $artifact['InSecondaryCollection']) . "', ";
     $sql .= "MnP='" . db_escape($db, $artifact['MnP']) . "', ";
     $sql .= "MxP='" . db_escape($db, $artifact['MxP']) . "' ";
     $sql .= "WHERE id='" . db_escape($db, $artifact['id']) . "' ";
@@ -922,7 +926,7 @@
     return $result;
   }
 
-  function use_by($type, $interval, $sweetSpot, $minimumAge) {
+  function use_by($type, $interval, $sweetSpot, $minimumAge, $shelfSort) {
     global $db;
 
     $sql ="SELECT 
@@ -938,6 +942,7 @@
         games.type,
         games.user_id,
         games.age,
+        games.InSecondaryCollection,
         MAX(uses.use_date) AS MostRecentUse,
         MAX(responses.PlayDate) AS MaxPlay,
         CASE
@@ -955,8 +960,14 @@
         games.KeptCol, games.mnp, games.mxp, games.ss, games.type, games.id 
       HAVING 
         games.user_id = " . db_escape($db, $_SESSION['user_id']) . "
-        AND games.KeptCol = 1 
+        
       ";
+
+      if ($shelfSort == 'yes') {
+        $sql .= " AND (games.KeptCol = 1 OR games.InSecondaryCollection = 'yes') ";
+      } else {
+        $sql .= " AND games.KeptCol = 1 ";
+      }
 
         if ($sweetSpot !== '') {
           $sql .= "AND 
@@ -2197,8 +2208,16 @@ function find_games_by_characteristic($kept, $type, $allGames, $favCt) {
 function singleValueQuery($query) {
   global $db;
   $result = mysqli_query($db, $query);
-  $resultArray = mysqli_fetch_array($result);
-  return $resultArray[0];
+  if ($result !== false) {
+    $resultArray = mysqli_fetch_array($result);
+    if ($resultArray !== null) {
+      return $resultArray[0];
+    } else {
+      return 'No results';
+    }
+  } else {
+    return 'Possible query error';
+  }
 }
 
 function singleRowQuery($query) {
