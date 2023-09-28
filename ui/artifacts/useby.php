@@ -26,8 +26,8 @@
   $minimumAge = $_POST['minimumAge'] ?? 0;
   $shelfSort = $_POST['shelfSort'] ?? 'no';
   $typeArray = $_SESSION['type'] ?? [];
-  $interval = $_POST['interval'] ?? 182.5;
-  $artifact_set = use_by($type, $interval, $sweetSpot, $minimumAge);
+  $interval = $_POST['interval'] ?? DEFAULT_USE_INTERVAL;
+  $artifact_set = use_by($type, $interval, $sweetSpot, $minimumAge, $shelfSort);
 
 
 ?>
@@ -85,16 +85,16 @@
       <tr id="headerRow">
         <th>Type</th>
         <th>Name (<?php echo $artifact_set->num_rows; ?>)</th>
+        <th>SwS</th>
+        <th>AvgT</th>
+        <th>Age</th>
         <th>SwS's</th>
         <th>MnP</th>
         <th>MxP</th>
-        <th>AvgT</th>
-        <th>Age</th>
         <th>C</th>
         <th>O</th>
         <th>Use By</th>
         <th class="hideOnPrint">Recent Use</th>
-        <th>SwS</th>
       </tr>
     </thead>
 
@@ -104,17 +104,29 @@
         <tr>
           <td class="type"><?php echo h($artifact['type']); ?></td>
 
-          <td class="artifact edit">
+          <td class="name artifact edit">
             <a class="action edit" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($artifact['id']))); ?>">
             <?php echo h($artifact['Title']); ?></a>
             </a>
           </td>
+
+          <td class="SwS">
+            <?php 
+              // find the first number without leading zeros
+              preg_match(
+                '/([1-9][0-9])|[1-9]/', 
+                $artifact['ss'],
+                $match
+              );
+              echo h($match[0]); 
+            ?>
+          </td>
           
-          <td><?php echo h($artifact['ss']); ?></td>
-          <td><?php echo h($artifact['mnp']); ?></td>
-          <td><?php echo h($artifact['mxp']); ?></td>
-          <td><?php echo (h($artifact['mnt']) + h($artifact['mxt'])) / 2; ?></td>
-          <td><?php echo h($artifact['age']); ?></td>
+          <td class="AvgT"><?php echo (h($artifact['mnt']) + h($artifact['mxt'])) / 2; ?></td>
+          <td class="Age"><?php echo h($artifact['age']); ?></td>
+          <td class="SwSs"><?php echo h($artifact['ss']); ?></td>
+          <td class="MnP" ><?php echo h($artifact['mnp']); ?></td>
+          <td class="MxP"><?php echo h($artifact['mxp']); ?></td>
           
           <td class="candidate">
             <?php 
@@ -158,22 +170,10 @@
               ?>
           </td>
           
-          <td class="date"><?php print_r($useByDate->format('Y-m-d')); ?></td>
+          <td class="useByDate date"><?php print_r($useByDate->format('Y-m-d')); ?></td>
 
-          <td class="date hideOnPrint">
+          <td class="mostRecentUse date hideOnPrint">
             <?php echo h(substr($artifact['MostRecentUseOrResponse'],0,10)); ?>
-          </td>
-
-          <td>
-            <?php 
-              // find the first number without leading zeros
-              preg_match(
-                '/([1-9][0-9])|[1-9]/', 
-                $artifact['ss'],
-                $match
-              );
-              echo h($match[0]); 
-            ?>
           </td>
 
         </tr>
@@ -190,17 +190,22 @@
           ?>
           order: [
             [ 0, 'asc'], // Type
-            [ 11, 'asc'], // SwS
-            [ 5, 'asc'],  // AvgT
-            [ 3, 'asc'], // MnP
-            [ 4, 'asc'], // MxP
-            [ 6, 'asc']  // MxT
+            [ 2, 'asc'], // SwS
+            [ 3, 'asc'],  // AvgT
+            [ 4, 'asc'], // Age
+            [ 5, 'asc'], // SwS's
+            [ 6, 'asc'], // MnP
+            [ 7, 'asc'], // MxP
+            [ 11, 'desc'], // recent use
+            [ 8, 'desc'], // C
           ]
           <?php
         } else { 
           ?>
           order: [
-            [ 9, 'asc']  // use by date
+            [ 10, 'asc'],  // use by date
+            [ 3, 'asc'],  // AvgT
+            [ 4, 'asc'],  // Age
           ]
           <?php
         }
