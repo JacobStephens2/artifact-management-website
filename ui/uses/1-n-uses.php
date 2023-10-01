@@ -23,6 +23,7 @@
 
   $minimumDate = $_POST['minimumDate'] ?? '';
   $hide_duplicate_group_settings = $_POST['hide_duplicate_group_settings'] ?? 'no';
+  $hide_online_setting = $_POST['hide_online_setting'] ?? 'no';
 
   $use_set = find_uses_by_user_id($type, $minimumDate);
 ?>
@@ -47,6 +48,14 @@
         <?php if ($hide_duplicate_group_settings === 'yes') { echo ' checked '; } ?>
       >
 
+      <label for="hide_online_setting">Hide Online Setting</label>
+      <input name="hide_online_setting" 
+        type="checkbox"
+        id="hide_online_setting" 
+        value="yes"
+        <?php if ($hide_online_setting === 'yes') { echo ' checked '; } ?>
+      >
+
       <button type="submit">Submit</button>
     </form>
 
@@ -60,7 +69,7 @@
           <th>User Count</th>
           <th class="group_setting">Group Setting</th>
           <th>Type</th>
-          <th>Note</th>
+          <th>Setting</th>
           <th>Candidate</th>
         </tr>
       </thead>
@@ -71,6 +80,13 @@
           $group_and_setting_array = array();
 
           while($use = mysqli_fetch_assoc($use_set)) { 
+
+            // Hide online setting uses
+            if ($hide_online_setting === 'yes') {
+              if (h($use['note']) === 'online') {
+                continue;
+              }
+            }
 
             $usersResultObject = find_users_by_use_id($use['useID']);
 
@@ -176,7 +192,7 @@
                 <?php echo h($use['type']); ?>
               </td>
 
-              <td class="note">
+              <td class="setting">
                 <?php echo h($use['note']); ?>
               </td>
 
@@ -198,7 +214,7 @@
 
 
       <?php
-      if ($hide_duplicate_group_settings === 'yes') {
+      if ($hide_duplicate_group_settings === 'yes' || $hide_online_setting === 'yes') {
         ?>
         document.querySelector('h1').innerText += ' (<?php echo count($group_setting_game_array); ?> group settings)';
         document.querySelector('.group_setting').innerText += ' (<?php echo count($group_setting_game_array); ?>)';
