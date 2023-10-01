@@ -32,7 +32,7 @@
     $artifact['UsedRecUserCt'] = $_POST['UsedRecUserCt'] ?? '';
     $artifact['Notes'] = $_POST['Notes'] ?? '';
     ($_POST['MnT'] == '') ? $artifact['MnT'] = 5 : $artifact['MnT'] = $_POST['MnT'];
-    ($_POST['MxT'] == '') ? $artifact['fMxT'] = 240 : $artifact['MxT'] = $_POST['MxT'];
+    ($_POST['MxT'] == '') ? $artifact['MxT'] = 240 : $artifact['MxT'] = $_POST['MxT'];
     ($_POST['MnP'] == '') ? $artifact['MnP'] = 5 : $artifact['MnP'] = $_POST['MnP'];
     ($_POST['MxP'] == '') ? $artifact['MxP'] = 240 : $artifact['MxP'] = $_POST['MxP'];
     ($_POST['SS'] == '') ? $artifact['SS'] = 1 : $artifact['SS'] = $_POST['SS'];
