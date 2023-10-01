@@ -137,7 +137,7 @@
         echo $dt->format('Y') . '-' . $dt->format('m') . '-' . $dt->format('d'); ?>"  
     >
 
-    <label for="Note">Note</label>
+    <label for="Note">Setting</label>
     <textarea 
       cols="30" 
       rows="5"
