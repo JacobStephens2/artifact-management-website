@@ -19,13 +19,12 @@ define(
   "JWT_SECRET", 
   ""
 );
-
-define("ARTIFACTS_DOMAIN", "artifact-minimalism.site");
-
 define("COOKIE_SECURE", true);
 
-define("API_ORIGIN", "api.artifact-minimalism.site");
-define("REQUEST_ORIGIN", "artifact-minimalism.site");
+define("ARTIFACTS_DOMAIN", "artifact.stewardgoods.com");
+define("DOMAIN", ARTIFACTS_DOMAIN);
+define("API_ORIGIN", "api." . ARTIFACTS_DOMAIN);
+define("REQUEST_ORIGIN", ARTIFACTS_DOMAIN);
 
 define("SWEET_SPOT_BUTTONS_ON", false);
 
