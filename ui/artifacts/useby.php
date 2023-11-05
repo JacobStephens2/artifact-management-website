@@ -147,7 +147,7 @@
                 $DateTimeAcquisition = new DateTime(substr($artifact['Acq'],0,10)); 
                 $intervalInHours = $interval * 24;
 
-                if ($DateTimeMostRecentUse < $DateTimeAcquisition) {
+                if ($DateTimeMostRecentUse < $DateTimeAcquisition || $artifact['MostRecentUseOrResponse'] === NULL) {
                   $DateInterval = DateInterval::createFromDateString("$intervalInHours hour");
                   $useByDate = date_add($DateTimeAcquisition, $DateInterval);
                 } else {
