@@ -48,7 +48,7 @@ if (
             The link is invalid/expired. Either you did not copy the correct link from the email, or you have already used the key in which case it is deactivated.
           </p>
           <p>
-            <a href="https://artifact-minimalism.site/reset-password/index.php">Click here</a> to reset password.
+            <a href="https://' . DOMAIN . '/reset-password/index.php">Click here</a> to reset password.
           </p>';
       } else {
         $row = mysqli_fetch_assoc($query);
@@ -120,7 +120,7 @@ if(isset($_POST["email"]) && isset($_POST["action"]) && ($_POST["action"]=="upda
         <div class="error update-message">
           <p>Congratulations! Your password has been updated successfully.</p>
           <p>
-            <a href="https:\/\/artifact-minimalism.site/login.php">Click here</a> to Login.
+            <a href="https:\/\/<?php echo DOMAIN; ?>/login.php">Click here</a> to Login.
           </p>
         </div>
         <?php
