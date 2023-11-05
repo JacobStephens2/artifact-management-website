@@ -145,6 +145,14 @@
       id="Note"
     ></textarea>
 
+    <label for="NotesTwo">Notes</label>
+    <textarea 
+      cols="30" 
+      rows="5"
+      name="NotesTwo" 
+      id="NotesTwo"
+    ></textarea>
+
     <input type="submit" value="Submit">
 
   </form>
