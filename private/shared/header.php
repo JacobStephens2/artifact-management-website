@@ -91,6 +91,10 @@
             Candidates
           </a>
 
+          <a href="<?php echo url_for('/support.php'); ?>">
+            Support
+          </a>
+
           <?php
           echo '<span><a href="' . url_for('logout.php') . '">Logout</a></span>';
 
