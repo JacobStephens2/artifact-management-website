@@ -51,6 +51,7 @@
     
             if ($useByDate->format('Y-m-d') === $DateTimeNow->format('Y-m-d')) {
                 $due_today[$i]['artifact'] = h($artifact['Title']);
+                $due_today[$i]['artifact_id'] = h($artifact['id']);
                 $due_today[$i]['most_recent_use'] = $date_of_most_recent_use;
             }
             $i++;
@@ -89,9 +90,11 @@
                 foreach($due_today as $artifact) {
                     $name = $artifact['artifact'];
                     $most_recent_use = $artifact['most_recent_use'];
+                    $id = $artifact['artifact_id'];
                     $body .= "
                         <li>
-                            $name: last used $most_recent_use
+                            <a href='https://" . DOMAIN . "/artifacts/edit.php?id=$id'>$name</a>: 
+                            last used $most_recent_use
                         </li>
                     ";
                 }
