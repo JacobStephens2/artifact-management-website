@@ -138,12 +138,10 @@
     >
 
     <label for="Note">Setting</label>
-    <textarea 
-      cols="30" 
-      rows="5"
+    <input type="text" 
       name="Note" 
       id="Note"
-    ></textarea>
+    >
 
     <label for="NotesTwo">Notes</label>
     <textarea 
