@@ -926,7 +926,11 @@
     return $result;
   }
 
-  function use_by($type, $interval, $sweetSpot, $minimumAge, $shelfSort) {
+  function use_by($type, $interval, $sweetSpot, $minimumAge, $shelfSort, $user = null) {
+
+    if ($user === null) {
+      $user = $_SESSION['user_id'];
+    }
     global $db;
 
     $sql ="SELECT 
@@ -959,7 +963,7 @@
         games.Title,
         games.KeptCol, games.mnp, games.mxp, games.ss, games.type, games.id 
       HAVING 
-        games.user_id = " . db_escape($db, $_SESSION['user_id']) . "
+        games.user_id = " . db_escape($db, $user) . "
         
       ";
 
@@ -969,42 +973,42 @@
         $sql .= " AND games.KeptCol = 1 ";
       }
 
-        if ($sweetSpot !== '') {
-          $sql .= "AND 
-            (
-              games.ss LIKE '$sweetSpot'
-              OR games.ss LIKE '$sweetSpot %' 
-              OR games.ss LIKE '%0$sweetSpot%' 
-              OR games.ss LIKE '%,$sweetSpot' 
-              OR games.ss LIKE '%,$sweetSpot,%' 
-              OR games.ss LIKE '%, $sweetSpot' 
-              OR games.ss LIKE '%, $sweetSpot,%' 
-            )
-          ";
-        }
-        
-        if ($minimumAge !== '') {
-          $sql .= " AND games.age >= '$minimumAge' ";
-        }
+      if ($sweetSpot !== '') {
+        $sql .= "AND 
+          (
+            games.ss LIKE '$sweetSpot'
+            OR games.ss LIKE '$sweetSpot %' 
+            OR games.ss LIKE '%0$sweetSpot%' 
+            OR games.ss LIKE '%,$sweetSpot' 
+            OR games.ss LIKE '%,$sweetSpot,%' 
+            OR games.ss LIKE '%, $sweetSpot' 
+            OR games.ss LIKE '%, $sweetSpot,%' 
+          )
+        ";
+      }
 
-        if (gettype($type == 'array')) {
-          if (count($type) > 0) {
-            $sql .= "AND games.type IN (";
-            $i = 1;
-            foreach($type as $typeIndividual) {
-              $sql .= "'" . $typeIndividual . "'";
-              if (count($type) != $i) {
-                $sql .= ",";
-              }
-              $i++;
+      if ($minimumAge !== '' && $minimumAge !== 0 && $minimumAge !== '0') {
+        $sql .= " AND games.age >= '$minimumAge' ";
+      }
+
+      if (gettype($type == 'array')) {
+        if (count($type) > 0) {
+          $sql .= "AND games.type IN (";
+          $i = 1;
+          foreach($type as $typeIndividual) {
+            $sql .= "'" . $typeIndividual . "'";
+            if (count($type) != $i) {
+              $sql .= ",";
             }
-            $sql .= ") ";
-          } else {
-            $sql .= " AND type = '' ";
+            $i++;
           }
+          $sql .= ") ";
         } else {
-          $sql .= "AND type = '" . $type . "' ";
+          $sql .= " AND type = '' ";
         }
+      } else {
+        $sql .= "AND type = '" . $type . "' ";
+      }
 
       $sql .= "
         ORDER BY MostRecentUseOrResponse DESC
@@ -1181,14 +1185,17 @@
       artifact_id, 
       use_date, 
       user_id,
+      notesTwo,
       note
       ) VALUES (
       '" . db_escape($db, $postArray['artifact']['id']) . "', 
       '" . db_escape($db, $postArray['useDate']) . "', 
       '" . db_escape($db, $_SESSION['user_id']) . "',
+      '" . db_escape($db, $postArray['NotesTwo']) . "',
       '" . db_escape($db, $postArray['Note']) . "'
       )
     ";
+    file_put_contents(__FILE__ . '.' . __FUNCTION__ . '.log', $query);
     $result = mysqli_query($db, $query);
     $use_id = mysqli_insert_id($db);
 
