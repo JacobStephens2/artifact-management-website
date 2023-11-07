@@ -197,6 +197,45 @@
 
   </div>
 
+  <section id="oneToManyUsesList">
+    <?php
+      $findUsesOfArtifactByUserSQL = "SELECT
+        id,
+        use_date,
+        note
+        FROM uses
+        WHERE artifact_id = " . $artifact['id'] . "
+        ORDER BY use_date DESC,
+        id DESC
+      ";
+      $usesOfArtifactByUserResultObject = mysqli_query($db, $findUsesOfArtifactByUserSQL);
+    ?>
+    <h2>
+      You have recorded
+      <?php echo $usesOfArtifactByUserResultObject->num_rows; ?> 
+      one to many uses of
+      <?php echo h($artifact['Title']); ?>
+    </h2>
+    <table>
+      <tr>
+        <th>Use Date (<?php echo $usesOfArtifactByUserResultObject->num_rows; ?>)</th>
+      <tr>
+      <?php 
+        foreach ($usesOfArtifactByUserResultObject as $usesOfArtifactByUserArray) { 
+          ?>        
+          <tr>
+            <td>
+              <a href="/uses/1-n-edit.php?id=<?php echo $usesOfArtifactByUserArray['id']; ?>">
+                <?php echo $usesOfArtifactByUserArray['use_date']; ?>
+              </a>
+            </td>
+          </tr>
+          <?php 
+        } 
+      ?>
+    </table>
+  </section>
+
   <section id="recordedUseList">
     <?php
       $findUsesOfArtifactByUserSQL = "SELECT
@@ -215,7 +254,7 @@
     <h2>
       You have recorded
       <?php echo $usesOfArtifactByUserResultObject->num_rows; ?> 
-      uses of
+      one to one uses of
       <?php echo h($artifact['Title']); ?>
     </h2>
     <table>
