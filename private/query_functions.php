@@ -1616,6 +1616,7 @@ function find_use_details_by_id($id) {
     games.Title AS artifact,
     uses.use_date, 
     uses.note AS note, 
+    uses.notesTwo AS notesTwo, 
     uses.id 
     FROM uses 
     LEFT JOIN games ON uses.artifact_id = games.id 
@@ -1719,6 +1720,7 @@ function update_use($useArray) {
   $sql = "UPDATE uses SET
     artifact_id='" . db_escape($db, $useArray['artifact_id']) . "', 
     use_date='" . db_escape($db, $useArray['use_date']) . "', 
+    notesTwo='" . db_escape($db, $useArray['notesTwo']) . "', 
     note='" . db_escape($db, $useArray['note']) . "'
     WHERE id='" . db_escape($db, $useArray['use_id']) . "' 
     AND user_id='" . db_escape($db, $_SESSION['user_id']) . "' 

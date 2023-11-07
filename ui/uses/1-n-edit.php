@@ -15,6 +15,7 @@ if(is_post_request()) {
   $response['use_date'] = $_POST['use_date'] ?? '';
   $response['user'] = $_POST['user'] ?? '';
   $response['note'] = $_POST['note'] ?? '';
+  $response['notesTwo'] = $_POST['notesTwo'] ?? '';
 
   $result = update_use($response);
   if($result === true) {
@@ -124,13 +125,21 @@ include(SHARED_PATH . '/header.php');
       
       
 
-      <label for="Note">Note</label>
-      <textarea 
+      <label for="Note">Setting</label>
+      <input type="text"
         name="note" 
         id="Note" 
+        value="<?php echo h($response['note']); ?>" 
+      >
+
+      <label for="notesTwo"></label>
+      <textarea 
+        name="notesTwo" 
+        id="notesTwo" 
         cols="30" 
         rows="10"
-        ><?php echo h($response['note']); ?></textarea>
+        ><?php echo h($response['notesTwo']); ?></textarea>
+
       
       <input type="hidden" name="use_id" value="<?php echo h($response['id']); ?>" /></dd>
 
