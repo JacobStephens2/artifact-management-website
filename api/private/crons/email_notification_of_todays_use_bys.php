@@ -98,6 +98,7 @@
 
                 $body .= '
                     </ul>
+                    <p>Record uses at <a href="https://' . DOMAIN . '/uses/1-n-new.php">' . DOMAIN . '</a></p>
                     <p>These artifacts have a use by date of today.</p>
                 ';
 
