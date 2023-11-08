@@ -1011,7 +1011,7 @@
       }
 
       $sql .= "
-        ORDER BY MostRecentUseOrResponse DESC
+        ORDER BY MostRecentUseOrResponse ASC
       ";
 
       $result = mysqli_query($db, $sql);

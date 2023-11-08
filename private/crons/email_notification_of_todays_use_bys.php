@@ -28,15 +28,24 @@
         
         $artifact_set = use_by($type, $interval, $sweetSpot, $minimumAge, $shelfSort, $user['id']);
 
-        $due_today = array();
+        $due_today_array = array();
+        $overdue_array = array();
+        $due_in_the_future = array();
 
         $i = 0;
         while($artifact = mysqli_fetch_assoc($artifact_set)) { 
+
+            file_put_contents(__FILE__ . '.log', print_r($artifact, true) . "\n", FILE_APPEND);
             
             date_default_timezone_set('America/New_York');
             $DateTimeNow = new DateTime(date('Y-m-d')); 
+            file_put_contents(__FILE__ . '.log', '$artifact["MostRecentUseOrResponse"] type: ' . gettype($artifact['MostRecentUseOrResponse']) . "\n", FILE_APPEND);
             $DateTimeMostRecentUse = new DateTime(substr($artifact['MostRecentUseOrResponse'],0,10)); 
-            $date_of_most_recent_use = $DateTimeMostRecentUse->format('Y-m-d');
+            if ($artifact['MostRecentUseOrResponse'] === NULL) {
+                $date_of_most_recent_use = 'No recorded uses';
+            } else {
+                $date_of_most_recent_use = $DateTimeMostRecentUse->format('Y-m-d');
+            }
             $DateTimeAcquisition = new DateTime(substr($artifact['Acq'],0,10)); 
             $intervalInHours = $interval * 24;
     
@@ -48,16 +57,32 @@
                 $DateInterval = DateInterval::createFromDateString("$doubledInterval hour");
                 $useByDate = date_add($DateTimeMostRecentUse, $DateInterval);
             }
-    
+
+            $diff_days = $useByDate->diff($DateTimeNow)->days;
+            file_put_contents(__FILE__ . '.log', $diff_days . " days difference\n", FILE_APPEND);
+
             if ($useByDate->format('Y-m-d') === $DateTimeNow->format('Y-m-d')) {
-                $due_today[$i]['artifact'] = h($artifact['Title']);
-                $due_today[$i]['artifact_id'] = h($artifact['id']);
-                $due_today[$i]['most_recent_use'] = $date_of_most_recent_use;
+                $due_today_array[$i]['artifact'] = h($artifact['Title']);
+                $due_today_array[$i]['artifact_id'] = h($artifact['id']);
+                $due_today_array[$i]['most_recent_use'] = $date_of_most_recent_use;
+            } elseif ($useByDate->format('Y-m-d') < $DateTimeNow->format('Y-m-d')) {
+                $overdue_array[$i]['artifact'] = h($artifact['Title']);
+                $overdue_array[$i]['artifact_id'] = h($artifact['id']);
+                $overdue_array[$i]['use_by_date'] = $useByDate->format('Y-m-d');
+                file_put_contents(__FILE__ . '.log', h($artifact['Title']) . ' ' . $date_of_most_recent_use . "\n", FILE_APPEND);
+                $overdue_array[$i]['most_recent_use'] = $date_of_most_recent_use;
+            } else {
+                $due_in_the_future[$i]['artifact'] = h($artifact['Title']);
+                $due_in_the_future[$i]['artifact_id'] = h($artifact['id']);
+                $due_in_the_future[$i]['use_by_date'] = $useByDate->format('Y-m-d');
+                $due_in_the_future[$i]['most_recent_use'] = $date_of_most_recent_use;
             }
             $i++;
         }
+
+        file_put_contents(__FILE__ . '.log', 'due in the future: ' . print_r($due_in_the_future, true) . "\n", FILE_APPEND);
     
-        if(count($due_today) > 0) { // email this list to the user
+        if(count($due_today_array) > 0 || count($overdue_array) > 0) { // email this list to the user
 
             // get user email address
             $email = singleValueQuery("SELECT email FROM users WHERE id = '" . $user['id'] . "'");
@@ -81,29 +106,71 @@
             // Content
             $mail->isHTML(true);
 
+            
             try {
-                $mail->Subject = "Artifact Uses Due Today";
-                $body = '
-                    <ul>
-                ';
+                $mail->Subject = "Artifact Uses Due";
+                $body = '';
 
-                foreach($due_today as $artifact) {
-                    $name = $artifact['artifact'];
-                    $most_recent_use = $artifact['most_recent_use'];
-                    $id = $artifact['artifact_id'];
-                    $body .= "
-                        <li>
-                            <a href='https://" . DOMAIN . "/artifacts/edit.php?id=$id'>$name</a>: 
-                            last used $most_recent_use
-                        </li>
-                    ";
-                }
+                if (count($due_today_array) > 0) {
+                    $body .= '
+                        <h1>Artifact uses due today</h1>
+                        <ul>
+                    ';
+    
+                    foreach($due_today_array as $due_today) {
+                        $name = $due_today['artifact'];
+                        $most_recent_use = $due_today['most_recent_use'];
+                        $id = $due_today['artifact_id'];
+                        $body .= "
+                            <li>
+                                <a href='https://" . DOMAIN . "/artifacts/edit.php?id=$id'>$name</a>: 
+                                last used $most_recent_use
+                            </li>
+                        ";
+                    }
+    
+                    $body .= '
+                        </ul>
+                    ';
+                } 
+
+                if (count($overdue_array) > 0) {
+                    $body .= '
+                        <h1>Artifacts overdue</h1>
+                        <ul>
+                    ';
+    
+                    foreach($overdue_array as $overdue) {
+                        $name = $overdue['artifact'];
+                        $most_recent_use = $overdue['most_recent_use'];
+                        $use_by_date = $overdue['use_by_date'];
+                        $id = $overdue['artifact_id'];
+                        if ($most_recent_use === 'No recorded uses') {
+                            $body .= "
+                                <li>
+                                    <a href='https://" . DOMAIN . "/artifacts/edit.php?id=$id'>$name</a>: 
+                                    $most_recent_use, use by $use_by_date
+                                </li>
+                            ";
+                        } else {
+                            $body .= "
+                                <li>
+                                    <a href='https://" . DOMAIN . "/artifacts/edit.php?id=$id'>$name</a>: 
+                                    last used $most_recent_use, use by $use_by_date
+                                </li>
+                            ";
+                        }
+                    }
+    
+                    $body .= '
+                        </ul>
+                    ';
+                } 
 
                 $body .= '
-                    </ul>
                     <p>Record uses at <a href="https://' . DOMAIN . '/uses/1-n-new.php">' . DOMAIN . '</a></p>
-                    <p>These artifacts have a use by date of today.</p>
                 ';
+
 
                 $mail->Body = $body;
 
