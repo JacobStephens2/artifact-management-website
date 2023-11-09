@@ -59,9 +59,8 @@
             }
 
             $diff_days = $useByDate->diff($DateTimeNow)->days;
-            file_put_contents(__FILE__ . '.log', h($artifact['Title']) . ': ' . $diff_days . " days difference\n", FILE_APPEND);
 
-            if ($diff_days === 0) { // due today
+            if ($useByDate->format('Y-m-d') === $DateTimeNow->format('Y-m-d')) { // due today
                 $due_today_array[$i]['artifact'] = h($artifact['Title']);
                 $due_today_array[$i]['artifact_id'] = h($artifact['id']);
                 $due_today_array[$i]['most_recent_use'] = $date_of_most_recent_use;
@@ -74,13 +73,10 @@
                 $overdue_array[$i]['artifact'] = h($artifact['Title']);
                 $overdue_array[$i]['artifact_id'] = h($artifact['id']);
                 $overdue_array[$i]['use_by_date'] = $useByDate->format('Y-m-d');
-                file_put_contents(__FILE__ . '.log', h($artifact['Title']) . ' ' . $date_of_most_recent_use . "\n", FILE_APPEND);
                 $overdue_array[$i]['most_recent_use'] = $date_of_most_recent_use;
             } 
             $i++;
         }
-
-        file_put_contents(__FILE__ . '.log', 'due in the future: ' . print_r($due_in_coming_week, true) . "\n", FILE_APPEND);
     
         if(count($due_today_array) > 0 || count($overdue_array) > 0) { // email this list to the user
 
