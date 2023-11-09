@@ -125,7 +125,7 @@ include(SHARED_PATH . '/header.php');
          <label for="email">
             Enter Your Email Address
          </label>
-         <input type="email" name="email" id="email" placeholder="username@email.com" />
+         <input type="email" name="email" id="email" placeholder="name@domain.com" />
          <input type="submit" value="Reset Password"/>
       </form>
 
