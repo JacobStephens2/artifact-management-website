@@ -1,4 +1,4 @@
-# artifact-management-tool
+# Artifact Manager
 
 This website is a tool for people to track their artifact use and operationalize commitments to the Minimalists' 90/90 rule.
 
