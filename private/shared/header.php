@@ -75,18 +75,6 @@
             Create&nbsp;User
           </a>
 
-          <a href="<?php echo url_for('/playgroup/index.php'); ?>">
-            Group
-          </a>
-
-          <a href="<?php echo url_for('/playgroup/choose.php'); ?>">
-            Choose&nbsp;for&nbsp;Group
-          </a>
-
-          <a href="<?php echo url_for('/explore/uses-by-artifact.php'); ?>">
-            Uses By Artifact
-          </a>
-
           <a href="<?php echo url_for('/explore/candidates.php'); ?>">
             Candidates
           </a>

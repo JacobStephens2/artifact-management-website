@@ -30,11 +30,13 @@ include(SHARED_PATH . '/header.php');
         </li>
       </ul>
 
-      <li class="main-menu">
-        <a href="<?php echo url_for('/objects/index.php'); ?>">
-          Objects
-        </a>
-      </li>
+      <ul>
+        <li class="main-menu">
+          <a href="<?php echo url_for('/objects/index.php'); ?>">
+            Objects
+          </a>
+        </li>
+      </ul>
 
       <ul class="list-2">
         <li>
@@ -63,7 +65,21 @@ include(SHARED_PATH . '/header.php');
           </a>
         </li>
       </ul>
-    </ul>
+
+      <h2>Pages to be updated to accomodate one to many users uses</h2>
+
+      <a href="<?php echo url_for('/playgroup/index.php'); ?>">
+        Group
+      </a>
+
+      <a href="<?php echo url_for('/playgroup/choose.php'); ?>">
+        Choose&nbsp;for&nbsp;Group
+      </a>
+
+      <a href="<?php echo url_for('/explore/uses-by-artifact.php'); ?>">
+        Uses By Artifact
+      </a>
+
 
   </div>
 
