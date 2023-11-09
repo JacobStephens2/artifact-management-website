@@ -30,17 +30,6 @@ include(SHARED_PATH . '/header.php');
           </a>
         </li>
 
-        <li>
-          <a href=" <?php echo url_for('/explore/index.php');?>">
-            Explore Artifacts by Characteristic
-          </a>
-        </li>
-
-        <li>
-          <a href="<?php echo url_for('/explore/uses-by-artifact.php'); ?>">
-            Uses By Artifact
-          </a>
-        </li>
       </ul>
     </ul>
 
@@ -74,17 +63,6 @@ include(SHARED_PATH . '/header.php');
           </a>
         </li>
 
-        <li>
-          <a href="<?php echo url_for('/playgroup/index.php');?>">
-            User Group
-          </a>
-        </li>
-
-        <li>
-          <a class="action" href="<?php echo url_for('/playgroup/choose.php'); ?>">
-            Choose Artifacts for User Group
-          </a>
-        </li>
       </ul>
     </ul>
 
