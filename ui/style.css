@@ -625,8 +625,8 @@ section#legend {
 
 p.copied_message {
   position: fixed;
-  left: 50vw;
-  top: 1rem;
+  left: 40vw;
+  top: 2rem;
   z-index: 2;
   background-color: ivory;
   padding: 1rem;
