@@ -517,6 +517,12 @@ td.name {
   width: 18ch;
 }
 
+td.name div {
+  display: flex;
+  justify-content: space-between;
+  border: 0px;
+}
+
 tr.header-row {
   position: sticky;
   top: 0;
@@ -601,4 +607,29 @@ div#intro {
 
 section#legend {
     max-width: 70ch;
+}
+
+.name a {
+  display: inline;
+}
+
+.clipboard {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.clipboard:hover {
+  cursor: pointer;
+  background-color: lightgrey;
+}
+
+p.copied_message {
+  position: fixed;
+  left: 50vw;
+  top: 1rem;
+  z-index: 2;
+  background-color: ivory;
+  padding: 1rem;
+  border: 1px solid black;
+  border-radius: 6px;
 }

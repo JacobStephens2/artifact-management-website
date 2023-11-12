@@ -80,6 +80,8 @@
     </section>
   </div>
 
+  <p class="copied_message" style="display: none"></p>
+
   <table id="useBy" class="list" data-page-length='100'>
     <thead>
       <tr id="headerRow">
@@ -100,14 +102,43 @@
 
     <tbody>
       <?php while($artifact = mysqli_fetch_assoc($artifact_set)) { 
+        $id = h(u($artifact['id']));
         ?>
         <tr>
           <td class="type"><?php echo h($artifact['type']); ?></td>
 
           <td class="name artifact edit">
-            <a class="action edit" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($artifact['id']))); ?>">
-            <?php echo h($artifact['Title']); ?></a>
-            </a>
+            <div>
+              <a id="artifact_id_<?php echo $id; ?>" 
+                class="action edit"
+                href="<?php echo url_for('/artifacts/edit.php?id=' . $id); ?>"
+                ><?php echo h($artifact['Title']); 
+              ?></a>
+              </a>
+              <img class="clipboard" 
+                id="artifact_id_copy_<?php echo $id; ?>" 
+                src="/assets/copy.png" 
+                alt="A clipboard icon for copying"
+              >
+              
+              <script>
+                document
+                  .querySelector('img#artifact_id_copy_<?php echo $id; ?>')
+                  .addEventListener('click', function() {
+                    let text = document.querySelector('a#artifact_id_<?php echo $id; ?>').innerHTML;
+                    navigator.clipboard.writeText(text);
+                    var copied_message = document.querySelector('p.copied_message');
+                    copied_message.innerText = text + ' copied';
+                    copied_message.style.display = 'block';
+                    setTimeout(() => {
+                      copied_message.innerText = '';
+                      copied_message.style.display = 'none';
+                    }, 1500); 
+                  }
+                );
+
+              </script>
+            </div>
           </td>
 
           <td class="SwS">
@@ -219,6 +250,8 @@
       }
     })
   </script>
+
+  <a href="https://www.flaticon.com/free-icons/copy" title="copy icons">Copy icons created by Anggara - Flaticon</a>
 
 </main>
 
