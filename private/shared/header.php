@@ -75,10 +75,6 @@
             Create&nbsp;User
           </a>
 
-          <a href="<?php echo url_for('/explore/candidates.php'); ?>">
-            Candidates
-          </a>
-
           <a href="<?php echo url_for('/support.php'); ?>">
             Support
           </a>

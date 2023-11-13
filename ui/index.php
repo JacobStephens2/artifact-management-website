@@ -67,6 +67,14 @@ include(SHARED_PATH . '/header.php');
     </ul>
 
     <ul>
+      <li>
+        <a href="<?php echo url_for('/explore/candidates.php'); ?>">
+          Candidates
+        </a>
+      </li>
+    </ul>
+
+    <ul>
       <li class="main-menu"><a href="<?php echo url_for('/archive.php'); ?>">Archived Pages</a></li>
     </ul>
     
