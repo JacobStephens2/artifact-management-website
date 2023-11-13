@@ -35,11 +35,8 @@
         $i = 0;
         while($artifact = mysqli_fetch_assoc($artifact_set)) { 
 
-            file_put_contents(__FILE__ . '.log', print_r($artifact, true) . "\n", FILE_APPEND);
-            
             date_default_timezone_set('America/New_York');
             $DateTimeNow = new DateTime(date('Y-m-d')); 
-            file_put_contents(__FILE__ . '.log', '$artifact["MostRecentUseOrResponse"] type: ' . gettype($artifact['MostRecentUseOrResponse']) . "\n", FILE_APPEND);
             $DateTimeMostRecentUse = new DateTime(substr($artifact['MostRecentUseOrResponse'],0,10)); 
             if ($artifact['MostRecentUseOrResponse'] === NULL) {
                 $date_of_most_recent_use = 'No recorded uses';
@@ -78,7 +75,10 @@
             $i++;
         }
     
-        if(count($due_today_array) > 0 || count($overdue_array) > 0) { // email this list to the user
+        if(count($due_today_array) > 0 
+            || count($overdue_array) > 0
+            || count($due_in_coming_week) > 0
+            ) { // email this list to the user
 
             // get user email address
             $email = singleValueQuery("SELECT email FROM users WHERE id = '" . $user['id'] . "'");
