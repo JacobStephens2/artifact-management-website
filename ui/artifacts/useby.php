@@ -26,7 +26,11 @@
   $minimumAge = $_POST['minimumAge'] ?? 0;
   $shelfSort = $_POST['shelfSort'] ?? 'no';
   $typeArray = $_SESSION['type'] ?? [];
-  $interval = $_POST['interval'] ?? DEFAULT_USE_INTERVAL;
+  $default_use_interval = singleValueQuery("SELECT default_use_interval
+    FROM users
+    WHERE id = " . $_SESSION['user_id'] . "
+  ");
+  $interval = $_POST['interval'] ?? $default_use_interval;
   $artifact_set = use_by($type, $interval, $sweetSpot, $minimumAge, $shelfSort);
 
 

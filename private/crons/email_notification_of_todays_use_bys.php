@@ -14,7 +14,6 @@
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
 
-    $interval = DEFAULT_USE_INTERVAL;
     $sweetSpot = '';
     $minimumAge = 0;
     $shelfSort = 'no';
@@ -25,6 +24,11 @@
     $users = query("SELECT id FROM users");
 
     foreach ($users as $user) {
+
+        $interval = singleValueQuery("SELECT default_use_interval
+            FROM users
+            WHERE id = " . $user['id'] . "
+        ");
         
         $artifact_set = use_by($type, $interval, $sweetSpot, $minimumAge, $shelfSort, $user['id']);
 
