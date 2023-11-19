@@ -1,6 +1,6 @@
 <?php require_once('../../private/initialize.php'); ?>
 
-<?php require_login();
+<?php require_login($_SERVER['REQUEST_URI']);
 
 $id = $_GET['id'] ?? '1'; // PHP > 7.0
 

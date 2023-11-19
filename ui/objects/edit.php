@@ -1,7 +1,7 @@
 <?php
 
 require_once('../../private/initialize.php');
-require_login();
+require_login($_SERVER['REQUEST_URI']);
 
 if(!isset($_GET['id'])) {
   redirect_to(url_for('/objects/index.php'));

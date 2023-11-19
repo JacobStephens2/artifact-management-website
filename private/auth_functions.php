@@ -103,25 +103,23 @@ function is_logged_in() {
 function is_admin($user_group) {
   if(!$user_group = 2 ) {
     echo 1;
-  } else {
-    // Do nothing, let the rest of the page proceed
   }
 }
 
 // Requires the user logging in at least be in the user group or higher
-function require_login() {
+function require_login($redirect_url = '') {
     if($_SESSION['user_group'] < 1 ) {
-      redirect_to(url_for('/login.php'));
-    } else {
-      // Do nothing, let the rest of the page proceed
+      if ($redirect_url === '') {
+        redirect_to(url_for('/login.php'));
+      } else {
+        redirect_to(url_for('/login.php?redirectURL=' . urlencode($_SERVER['REQUEST_URI'])));
+      }
     }
 }
 
 function require_admin() {
   if($_SESSION['user_group'] < 2 ) {
     redirect_to(url_for('/login.php'));
-  } else {
-    // Do nothing, let the rest of the page proceed
   }
 }
 

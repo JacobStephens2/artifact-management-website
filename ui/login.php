@@ -29,7 +29,11 @@ if(is_post_request()) {
       if(password_verify($password, $user['hashed_password'])) { // original
         // password matches
         log_in_user($user);
-        redirect_to(url_for('/index.php'));      
+        if (isset($_POST['redirectURL'])) {
+          redirect_to(url_for(urldecode($_POST['redirectURL'])));      
+        } else {
+          redirect_to(url_for('/index.php'));      
+        }
       } else {
         // username found, but password does not match
         $errors[] = $login_failure_msg;
@@ -59,7 +63,13 @@ if ($action == 'logout') {
 <?php include(SHARED_PATH . '/header.php'); ?>
   
     <main>
-      <p>You can use this site to generate a list of use-by dates for objects. <a href="https://jacobstephens.net" target="_blank">Jacob Stephens</a> uses this tool to track usage of their books, ensuring they use each book either in the next or previous 180 days. <a href="https://www.theminimalists.com/ninety/" target="_blank">The Minimalists' 90/90 Rule</a> inspired Jacob to create this&nbsp;tool.</p>
+      <p>
+        You can use this site to generate a list of use-by dates for objects. 
+        <a href="https://jacobstephens.net" target="_blank">Jacob Stephens</a> uses this tool 
+        to track usage of their books, ensuring they use each book either in the next 
+        or previous 180 days. <a href="https://www.theminimalists.com/ninety/" target="_blank">
+          The Minimalists' 90/90 Rule</a> inspired Jacob to create this&nbsp;tool.
+      </p>
 
       <a href="<?php echo url_for('/register.php'); ?>"><button type="button">Create an account</button></a>
 
@@ -72,6 +82,13 @@ if ($action == 'logout') {
         <input class="input-box" type="text" name="username" value=""/>
         <h2>Password:</h2>
         <input class="input-box" type="password" name="password" value=""/>
+        <?php
+          if (isset($_GET['redirectURL'])) {
+            ?>
+            <input type="hidden" name="redirectURL" value="<?php echo urldecode($_GET['redirectURL']); ?>">
+            <?php
+          }
+        ?>
         <input class="submit" type="submit" name="submit" value="Submit"  />
       </form>
 

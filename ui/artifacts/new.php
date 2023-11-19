@@ -1,6 +1,6 @@
 <?php
 require_once('../../private/initialize.php');
-require_login();
+require_login($_SERVER['REQUEST_URI']);
 
 $defaultMnT = 30;
 $defaultMxT = 60;

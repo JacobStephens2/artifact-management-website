@@ -1,6 +1,6 @@
 <?php 
 require_once('../../private/initialize.php');
-require_login();
+require_login($_SERVER['REQUEST_URI']);
 $player_set = find_players_by_user_id();
 $page_title = 'Users';
 include(SHARED_PATH . '/header.php');

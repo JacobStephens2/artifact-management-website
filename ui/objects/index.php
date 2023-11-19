@@ -1,6 +1,6 @@
 <?php 
 require_once('../../private/initialize.php');
-require_login();
+require_login($_SERVER['REQUEST_URI']);
 $object_set = find_objects_by_user();
 $page_title = 'objects'; 
 include(SHARED_PATH . '/header.php'); 

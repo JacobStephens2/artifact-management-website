@@ -1,6 +1,6 @@
 <?php 
 require_once('../../private/initialize.php');
-require_login();
+require_login($_SERVER['REQUEST_URI']);
 $use_set = find_aversions_by_user_id();
 $page_title = 'Artifact Aversions';
 include(SHARED_PATH . '/header.php');

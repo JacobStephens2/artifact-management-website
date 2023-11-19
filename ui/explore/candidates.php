@@ -4,7 +4,7 @@
 
   require_once('../../private/initialize.php');
 
-  require_login();
+  require_login($_SERVER['REQUEST_URI']);
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['type'])) {

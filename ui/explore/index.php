@@ -2,7 +2,7 @@
 
 require_once('../../private/initialize.php');
 
-require_login();
+require_login($_SERVER['REQUEST_URI']);
 
 $kept = $_POST['kept'] ?? '';
 $type = $_POST['type'] ?? '1';
