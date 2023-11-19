@@ -1,6 +1,6 @@
 <?php 
   require_once('../../private/initialize.php');
-  require_login($_SERVER['REQUEST_URI']);
+  require_login();
   $use_set = find_responses_by_user_id();
   $page_title = 'Artifact Uses';
   include(SHARED_PATH . '/header.php');

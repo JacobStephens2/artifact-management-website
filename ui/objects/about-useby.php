@@ -1,5 +1,5 @@
 <?php require_once('../../private/initialize.php'); ?>
-<?php require_login($_SERVER['REQUEST_URI']); ?>
+<?php require_login(); ?>
 <?php $page_title = 'About Use By'; ?>
 <?php include(SHARED_PATH . '/header.php'); ?>
 

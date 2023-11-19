@@ -2,7 +2,7 @@
 
 require_once('../../private/initialize.php');
 
-require_login($_SERVER['REQUEST_URI']);
+require_login();
 
 $page_title = 'Uses By Artifact Over Last 365 Days';
 

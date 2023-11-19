@@ -1,6 +1,6 @@
 <?php
 require_once('../../private/initialize.php');
-require_login($_SERVER['REQUEST_URI']);
+require_login();
 $id = $_GET['id'] ?? '1'; // PHP > 7.0
 $player = find_player_by_id($id);
 $page_title = 'Show User';

@@ -107,13 +107,9 @@ function is_admin($user_group) {
 }
 
 // Requires the user logging in at least be in the user group or higher
-function require_login($redirect_url = '') {
+function require_login() {
     if($_SESSION['user_group'] < 1 ) {
-      if ($redirect_url === '') {
-        redirect_to(url_for('/login.php'));
-      } else {
-        redirect_to(url_for('/login.php?redirectURL=' . urlencode($_SERVER['REQUEST_URI'])));
-      }
+      redirect_to(url_for('/login.php?redirectURL=' . urlencode($_SERVER['REQUEST_URI'])));
     }
 }
 

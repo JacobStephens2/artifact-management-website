@@ -1,7 +1,7 @@
 <?php
 
 require_once('../../private/initialize.php');
-require_login($_SERVER['REQUEST_URI']);
+require_login();
 
 
 if(is_post_request()) {

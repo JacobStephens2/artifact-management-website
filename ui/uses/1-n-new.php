@@ -3,7 +3,7 @@
   $page_title = 'Record Use';
 
   require_once('../../private/initialize.php');
-  require_login($_SERVER['REQUEST_URI']);
+  require_login();
 
   $formProcessingFile = '1-n-new.php';
 
