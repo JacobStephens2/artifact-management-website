@@ -132,7 +132,7 @@ include(SHARED_PATH . '/header.php');
         value="<?php echo h($response['note']); ?>" 
       >
 
-      <label for="notesTwo"></label>
+      <label for="notesTwo">Notes</label>
       <textarea 
         name="notesTwo" 
         id="notesTwo" 
