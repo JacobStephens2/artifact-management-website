@@ -126,14 +126,14 @@
                             $body .= "
                                 <li>
                                     <a href='https://" . DOMAIN . "/artifacts/edit.php?id=$id'>$name</a>: 
-                                    $most_recent_use, use by $use_by_date
+                                    $most_recent_use, use by $use_by_date (" . date('l', strtotime($use_by_date)) . ")
                                 </li>
                             ";
                         } else {
                             $body .= "
                                 <li>
                                     <a href='https://" . DOMAIN . "/artifacts/edit.php?id=$id'>$name</a>: 
-                                    last used $most_recent_use, use by $use_by_date
+                                    last used $most_recent_use, use by $use_by_date (" . date('l', strtotime($use_by_date)) . ")
                                 </li>
                             ";
                         }
@@ -182,14 +182,14 @@
                             $body .= "
                                 <li>
                                     <a href='https://" . DOMAIN . "/artifacts/edit.php?id=$id'>$name</a>: 
-                                    $most_recent_use, use by $use_by_date
+                                    $most_recent_use, use by $use_by_date (" . date('l', strtotime($use_by_date)) . ")
                                 </li>
                             ";
                         } else {
                             $body .= "
                                 <li>
                                     <a href='https://" . DOMAIN . "/artifacts/edit.php?id=$id'>$name</a>: 
-                                    last used $most_recent_use, use by $use_by_date
+                                    last used $most_recent_use, use by $use_by_date (" . date('l', strtotime($use_by_date)) . ")
                                 </li>
                             ";
                         }
