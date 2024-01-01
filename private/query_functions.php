@@ -1195,7 +1195,6 @@
       '" . db_escape($db, $postArray['Note']) . "'
       )
     ";
-    file_put_contents(__FILE__ . '.' . __FUNCTION__ . '.log', $query);
     $result = mysqli_query($db, $query);
     $use_id = mysqli_insert_id($db);
 
