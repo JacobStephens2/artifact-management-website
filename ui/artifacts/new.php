@@ -16,11 +16,8 @@ if(is_post_request()) {
   $artifact['type'] = $_POST['type'] ?? '';
   $artifact['KeptCol'] = $_POST['KeptCol'] ?? '';
   $artifact['Candidate'] = $_POST['Candidate'] ?? '';
-  $artifact['CandidateGroupDate'] = $_POST['CandidateGroupDate'] ?? date('Y-m-d');
-  if ($_POST['CandidateGroupDate'] == '') {
-     $artifact['CandidateGroupDate'] = date('Y-m-d');
-  }
-  $artifact['UsedRecUserCt'] = $_POST['UsedRecUserCt'] ?? '';
+  $artifact['CandidateGroupDate'] = date('Y-m-d');
+  $artifact['UsedRecUserCt'] = 0;
   $artifact['Notes'] = $_POST['Notes'] ?? '';
   ($_POST['MnT'] == '') ? $artifact['MnT'] = $defaultMnT : $artifact['MnT'] = $_POST['MnT'];
   ($_POST['MxT'] == '') ? $artifact['MxT'] = $defaultMxT : $artifact['MxT'] = $_POST['MxT'];
@@ -110,21 +107,6 @@ include(SHARED_PATH . '/header.php');
       <input type="hidden" name="KeptCol" value="0" />
       <input type="checkbox" name="KeptCol" value="1" checked/>
       
-      <label for="Candidate">Candidate?</label>
-      <input type="text" name="Candidate" id="Candidate" value="<?php echo $artifact['Candidate']; ?>" />
-
-      <label for="CandidateGroupDate">Candidate Group Date</label>
-      <input 
-        type="date" 
-        name="CandidateGroupDate" 
-        id="CandidateGroupDate" 
-        value="" 
-      />
-
-      <label for="UsedRecUserCt">Used at recommended user count or completely through at non recommended user count</label>
-      <input type="hidden" name="UsedRecUserCt" value="0" />
-      <input type="checkbox" name="UsedRecUserCt" value="1" checked/>
-
       <label for="Notes">Notes</label>
       <textarea name="Notes" id="Notes" cols="30" rows="5"></textarea>
 

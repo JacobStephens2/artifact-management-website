@@ -28,8 +28,8 @@
     $artifact['type'] = $_POST['type'] ?? '';
     $artifact['KeptCol'] = $_POST['KeptCol'] ?? '';
     $artifact['Candidate'] = $_POST['Candidate'] ?? '';
-    $artifact['CandidateGroupDate'] = $_POST['CandidateGroupDate'] ?? null;
-    $artifact['UsedRecUserCt'] = $_POST['UsedRecUserCt'] ?? '';
+    $artifact['CandidateGroupDate'] = date('Y-m-d');
+    $artifact['UsedRecUserCt'] = '0';
     $artifact['Notes'] = $_POST['Notes'] ?? '';
     ($_POST['MnT'] == '') ? $artifact['MnT'] = 5 : $artifact['MnT'] = $_POST['MnT'];
     ($_POST['MxT'] == '') ? $artifact['MxT'] = 240 : $artifact['MxT'] = $_POST['MxT'];
@@ -155,27 +155,6 @@
       <label for="InSecondaryCollection" >Kept in Secondary Collection? (Checked means yes)</label>
       <input type="checkbox" name="InSecondaryCollection" id="InSecondaryCollection" value="yes" 
         <?php if($artifact['InSecondaryCollection'] == "yes") { echo " checked"; } ?>
-      />
-
-      <label for="UsedRecUserCt">
-        Used at recommended user count?<br/>
-        Or fully used through at non recommended count? (Checked means yes)
-      </label>
-      <input type="hidden" name="UsedRecUserCt" value="0" />
-      <input type="checkbox" name="UsedRecUserCt" id="UsedRecUserCt" value="1"<?php if($artifact['UsedRecUserCt'] == "1") { echo " checked"; } ?> />
-
-      <label for="Candidate">Candidate?</label>
-      <textarea 
-        name="Candidate" 
-        id="Candidate" 
-      ><?php echo $artifact['Candidate'] ?></textarea>
-
-      <label for="CandidateGroupDate">Candidate Group Date</label>
-      <input 
-        type="date" 
-        name="CandidateGroupDate" 
-        id="CandidateGroupDate" 
-        value="<?php echo date('Y-m-d', strtotime(h($artifact['CandidateGroupDate']))); ?>" 
       />
       
       <?php 
