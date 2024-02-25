@@ -13,6 +13,7 @@ if(is_post_request()) {
       last_name = '" . db_escape($db, $_POST['last_name']) . "',
       email = '" . db_escape($db, $_POST['email']) . "',
       username = '" . db_escape($db, $_POST['username']) . "',
+      default_setting = '" . db_escape($db, $_POST['default_setting']) . "',
       default_use_interval  = '" . db_escape($db, $_POST['default_use_interval']) . "'
       WHERE id = " . $_SESSION['user_id'] . "
       LIMIT 1
@@ -25,7 +26,8 @@ $findUserSQL = "SELECT
   last_name,
   email,
   username,
-  default_use_interval
+  default_use_interval,
+  default_setting
   FROM users
   WHERE id = " . $_SESSION['user_id'] . "
 ;";
@@ -90,6 +92,14 @@ $userArray = mysqli_fetch_assoc($userResult);
       name="default_use_interval" 
       id="default_use_interval"
       value="<?php echo $userArray['default_use_interval']; ?>"
+    >
+    
+    <label for="default_setting">Default Setting</label>
+    <input 
+      type="text" 
+      name="default_setting" 
+      id="default_setting"
+      value="<?php echo $userArray['default_setting']; ?>"
     >
 
     <input type="submit" value="Update Settings">

@@ -27,6 +27,7 @@
   $sweetSpotFilter = $_POST['sweetSpotFilter'] ?? '';
   $artifact_set = find_games_by_user_id($kept, $type, $interval, $sweetSpotFilter);
   $page_title = 'Artifacts';
+  if ($kept === 'secondary_only') { $page_title .= ' (Secondary Only)'; }
   include(SHARED_PATH . '/header.php'); 
   include(SHARED_PATH . '/dataTable.html');
 

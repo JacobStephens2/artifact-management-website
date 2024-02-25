@@ -138,9 +138,16 @@
     >
 
     <label for="Note">Setting</label>
+    <?php 
+      $default_setting = singleValueQuery("SELECT default_setting
+        FROM users
+        WHERE id = '" . $_SESSION['user_id'] . "'
+      ");
+    ?>
     <input type="text" 
       name="Note" 
       id="Note"
+      value="<?php echo $default_setting; ?>"
     >
 
     <label for="NotesTwo">Notes</label>
