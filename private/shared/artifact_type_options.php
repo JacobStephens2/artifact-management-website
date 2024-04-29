@@ -12,7 +12,7 @@
         if ($type === '' && $typeCategory === 'book') {
           echo 'selected';
         } elseif ($type == $typeCategory ) { 
-          echo 'selected' ; 
+          echo 'selected';
         } 
       ?>
       >
