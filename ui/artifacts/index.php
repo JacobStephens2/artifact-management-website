@@ -207,7 +207,7 @@
                 }
                 $use_by = date("Y-m-d", strtotime("$most_recent_use + $conditional_interval days"));
                 
-                if ($artifact['UseBy'] < date('Y-m-d') && $artifact['KeptCol'] == 1) {
+                if ($use_by < date('Y-m-d') && $artifact['KeptCol'] == 1) {
                   echo " style='color:red;' ";
                 }; 
               ?>
