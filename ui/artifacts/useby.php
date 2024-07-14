@@ -1,10 +1,16 @@
-<?php 
+<?php  // require login
   require_once('../../private/initialize.php');
   require_login();
+?>
+
+<?php // load header
   $page_title = 'Use By';
   include(SHARED_PATH . '/header.php');
   include(SHARED_PATH . '/dataTable.html'); 
+?>
+<script defer src="useby.js"></script>
 
+<?php // process form submission and initialize variables
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['type'])) {
       $type = $_POST['type'];
@@ -25,6 +31,7 @@
   $sweetSpot = $_POST['sweetSpot'] ?? '';
   $minimumAge = $_POST['minimumAge'] ?? 0;
   $shelfSort = $_POST['shelfSort'] ?? 'no';
+  $showAttributes = $_POST['showAttributes'] ?? 'no';
   $typeArray = $_SESSION['type'] ?? [];
   $default_use_interval = singleValueQuery("SELECT default_use_interval
     FROM users
@@ -32,17 +39,25 @@
   ");
   $interval = $_POST['interval'] ?? $default_use_interval;
   $artifact_set = use_by($type, $interval, $sweetSpot, $minimumAge, $shelfSort);
-
-
 ?>
 
 <main>
 
-  <h1>Use Artifacts by Date</h1>
-
-  <a class="hideOnPrint" href="<?php echo url_for('/objects/about-useby.php'); ?>">Learn About Use-by Date Generation</a>
+  <div style="display: flex;
+    justify-content: space-between;"
+    >
+    <h1>
+      <a class="hideOnPrint" target="_blank"
+        href="<?php echo url_for('/objects/about-useby.php'); ?>"
+        >
+        Use Artifacts by Date
+      </a>
+    </h1>
   
-  <div id="intro">
+    <button id="display_filters" style="display: block">Show filters</button>
+  </div>
+
+  <div id="intro" class="filters" style="display: none">
     <form action="<?php echo url_for('/artifacts/useby.php'); ?>" method="post">
       <div class="hideOnPrint">
 
@@ -62,6 +77,16 @@
         <input type="checkbox" name="shelfSort" id="shelfSort" value="yes"
           <?php 
             if ($shelfSort === 'yes') {
+              echo ' checked ';
+            }
+          ?>
+        >
+        
+        <label for="showAttributes">Show artifact attributes</label>
+        <input type="hidden" name="showAttributes" value="no">
+        <input type="checkbox" name="showAttributes" id="showAttributes" value="yes"
+          <?php 
+            if ($showAttributes === 'yes') {
               echo ' checked ';
             }
           ?>
