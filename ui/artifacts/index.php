@@ -212,8 +212,6 @@
               ?>
             </td>
 
-            <?php file_put_contents(__FILE__ . '.log', print_r($artifact, true) . "\n", FILE_APPEND); ?>
-
             <?php
               if ($showAttributes === 'yes') {
                 ?>
