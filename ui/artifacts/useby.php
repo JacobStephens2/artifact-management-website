@@ -248,8 +248,6 @@
             <?php echo h(substr($artifact['MostRecentUseOrResponse'],0,10)); ?>
           </td>
 
-          <?php file_put_contents(__FILE__ . '.log', print_r($artifact, true) . "\n", FILE_APPEND); ?>
-
           <td class="acquisitionDate"><?php echo h($artifact['Acq']); ?></td>
 
         </tr>
