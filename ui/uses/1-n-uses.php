@@ -22,6 +22,7 @@
   }
 
   $minimumDate = $_POST['minimumDate'] ?? '';
+  $showAttributes = $_POST['showAttributes'] ?? 'no';
   $hide_duplicate_group_settings = $_POST['hide_duplicate_group_settings'] ?? 'no';
   $hide_online_setting = $_POST['hide_online_setting'] ?? 'no';
 
@@ -47,6 +48,16 @@
       <label for="minimumDate">Minimum Date (<?php echo DEFAULT_USE_INTERVAL; ?> days ago: <?php echo date('m/d/Y', strtotime(DEFAULT_USE_INTERVAL . ' days ago')); ?>)</label>
       <input type="date" name="minimumDate" id="minimumDate" value="<?php echo $minimumDate; ?>">
 
+      <label for="showAttributes">Show artifact attributes</label>
+      <input type="hidden" name="showAttributes" value="no">
+      <input type="checkbox" name="showAttributes" id="showAttributes" value="yes"
+        <?php 
+          if ($showAttributes === 'yes') {
+            echo ' checked ';
+          }
+        ?>
+      >
+      
       <label for="hide_duplicate_group_settings">Hide Duplicate Group Settings (Date Agnostic)</label>
       <input name="hide_duplicate_group_settings" 
         type="checkbox"
@@ -71,13 +82,19 @@
         <tr id="headerRow">
           <th>Use Date <?php if ($hide_duplicate_group_settings === 'no') { echo '(' . $use_set->num_rows . ')'; } ?></th>
           <th>Title</th>
-          <th>Candidate</th>
-          <th>SwS</th>
-          <th>User Count</th>
           <th class="group_setting">Group Setting</th>
           <th>Type</th>
           <th>Setting</th>
-          <th>Candidate Spot Used</th>
+          <?php
+            if ($showAttributes === 'yes') {
+              ?>
+              <th>Candidate</th>
+              <th>SwS</th>
+              <th>User Count</th>
+              <th>Candidate Spot Used</th>
+              <?php
+            }
+          ?>
         </tr>
       </thead>
 
@@ -175,22 +192,6 @@
                 </a>
               </td>
 
-              <td class="candidate">
-                <?php 
-                  if (h($use['Candidate']) != '' && h($use['Candidate']) != 0) {
-                    echo 'Yes';
-                  } 
-                ?>
-              </td>
-
-              <td class="sweet_spot">
-                <?php echo h($use['SwS']); ?>
-              </td>
-
-              <td class="user_count">
-                <?php echo $usersResultObject->num_rows; ?>
-              </td>
-
               <td class="group_setting">
                 <?php echo $situation; ?>
               </td>
@@ -203,7 +204,29 @@
                 <?php echo h($use['note']); ?>
               </td>
 
-              <td class="canidate_spot_used"><?php if ($candidate_artifact != 'No results') {echo "$candidate_artifact";} ?></td>
+              <?php
+                if ($showAttributes === 'yes') {
+                  ?>
+                  <td class="candidate">
+                    <?php 
+                      if (h($use['Candidate']) != '' && h($use['Candidate']) != 0) {
+                        echo 'Yes';
+                      } 
+                    ?>
+                  </td>
+    
+                  <td class="sweet_spot">
+                    <?php echo h($use['SwS']); ?>
+                  </td>
+    
+                  <td class="user_count">
+                    <?php echo $usersResultObject->num_rows; ?>
+                  </td>
+    
+                  <td class="canidate_spot_used"><?php if ($candidate_artifact != 'No results') {echo "$candidate_artifact";} ?></td>
+                  <?php
+                }
+              ?>
               
             </tr>
             <?php 
@@ -239,7 +262,7 @@
           // options
           order: [
             [ 0, 'desc'], // Most recently used ascending
-            [ 5, 'asc'] // User group first
+            [ 2, 'asc'] // smaller user groups first
           ]
         });
         <?php
