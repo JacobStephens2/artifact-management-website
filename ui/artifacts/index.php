@@ -200,10 +200,10 @@
             <td class="date use_by"
               <?php 
                 if ($most_recent_use === '') {
-                  $conditional_interval = ceil($interval);
+                  $conditional_interval = floor($interval);
                   $starting_date = $artifact['Acq'];
                 } else {
-                  $conditional_interval = ceil($interval * 2);
+                  $conditional_interval = floor($interval * 2);
                   $starting_date = $most_recent_use;
                 }
                 $use_by = date("Y-m-d", strtotime("$starting_date + $conditional_interval days"));
