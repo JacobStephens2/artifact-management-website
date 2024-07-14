@@ -23,7 +23,12 @@
       $type = $typesArray;
     }
   }
-  $interval = $_POST['interval'] ?? DEFAULT_USE_INTERVAL;
+  $default_use_interval = singleValueQuery("SELECT default_use_interval
+    FROM users
+    WHERE id = " . $_SESSION['user_id'] . "
+  ");
+
+  $interval = $_POST['interval'] ?? $default_use_interval;
   $sweetSpotFilter = $_POST['sweetSpotFilter'] ?? '';
   $showAttributes = $_POST['showAttributes'] ?? 'no';
   $artifact_set = find_games_by_user_id($kept, $type, $interval, $sweetSpotFilter);
@@ -207,7 +212,7 @@
                 }; 
               ?>
               >
-              <?php echo h($use_by . " ($conditional_interval days added to $starting_date)"); ?>
+              <?php echo h($use_by); ?>
             </td>
 
             <td class="kept">
