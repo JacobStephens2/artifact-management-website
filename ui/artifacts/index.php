@@ -212,7 +212,11 @@
                 }; 
               ?>
               >
-              <?php echo h($use_by); ?>
+              <?php 
+                if ($use_by !== '1970-01-01') {
+                  echo h($use_by); 
+                }
+              ?>
             </td>
 
             <td class="kept">
