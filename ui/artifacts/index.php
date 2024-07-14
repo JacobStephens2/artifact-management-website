@@ -192,7 +192,15 @@
               ?>
             </td>
 
-            <td class="date use_by"><?php echo h($artifact['UseBy']); ?></td>
+            <td class="date use_by"
+              <?php 
+                if ($artifact['UseBy'] > date('Y-m-d') && $artifact['KeptCol'] == 1) {
+                  echo " style='color:red;' ";
+                }; 
+              ?>
+              >
+              <?php echo h($artifact['UseBy']); ?>
+            </td>
 
             <td class="kept">
               <?php 
