@@ -71,13 +71,13 @@
         <tr id="headerRow">
           <th>Use Date <?php if ($hide_duplicate_group_settings === 'no') { echo '(' . $use_set->num_rows . ')'; } ?></th>
           <th>Title</th>
-          <th>C</th>
+          <th>Candidate</th>
           <th>SwS</th>
           <th>User Count</th>
           <th class="group_setting">Group Setting</th>
           <th>Type</th>
           <th>Setting</th>
-          <th>Candidate</th>
+          <th>Candidate Spot Used</th>
         </tr>
       </thead>
 
