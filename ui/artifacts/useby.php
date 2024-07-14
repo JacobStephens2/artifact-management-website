@@ -94,7 +94,6 @@
 
       </div>
 
-
       <div class="displayOnPrint">
         <label for="interval">Interval in days from most recent or to upcoming use</label>
         <input type="number" step="0.1" name="interval" id="interval" value="<?php echo $interval ?>">
@@ -105,7 +104,6 @@
 
     <section id="legend">
       <p>U stands for used at recommended user count or used fully through at non-recommended count</p>
-      <p>O stands for Overdue</p>
     </section>
   </div>
 
@@ -116,16 +114,23 @@
       <tr id="headerRow">
         <th>Type</th>
         <th>Name (<?php echo $artifact_set->num_rows; ?>)</th>
-        <th>SwS</th>
-        <th>AvgT</th>
-        <th>Age</th>
-        <th>SwS's</th>
-        <th>MnP</th>
-        <th>MxP</th>
-        <th>C</th>
-        <th>O</th>
+        <?php
+          if ($showAttributes === 'yes') {
+            ?>
+            <th>SwS</th>
+            <th>AvgT</th>
+            <th>Age</th>
+            <th>SwS's</th>
+            <th>MnP</th>
+            <th>MxP</th>
+            <th>C</th>
+            <?php
+          }
+        ?>
+        <th>Overdue</th>
         <th>Use By</th>
         <th class="hideOnPrint">Recent Use</th>
+        <th>Acquisition Date</th>
       </tr>
     </thead>
 
@@ -170,31 +175,37 @@
             </div>
           </td>
 
-          <td class="SwS">
-            <?php 
-              // find the first number without leading zeros
-              preg_match(
-                '/([1-9][0-9])|[1-9]/', 
-                $artifact['ss'],
-                $match
-              );
-              echo h($match[0]); 
+          <?php
+          if ($showAttributes === 'yes') {
             ?>
-          </td>
-          
-          <td class="AvgT"><?php echo (h($artifact['mnt']) + h($artifact['mxt'])) / 2; ?></td>
-          <td class="Age"><?php echo h($artifact['age']); ?></td>
-          <td class="SwSs"><?php echo h($artifact['ss']); ?></td>
-          <td class="MnP" ><?php echo h($artifact['mnp']); ?></td>
-          <td class="MxP"><?php echo h($artifact['mxp']); ?></td>
-          
-          <td class="candidate">
-            <?php 
-            if ( strlen($artifact['Candidate']) > 0 ) {
-              echo 'Yes';
-            }
-            ?>
-          </td>
+            <td class="SwS">
+              <?php 
+                // find the first number without leading zeros
+                preg_match(
+                  '/([1-9][0-9])|[1-9]/', 
+                  $artifact['ss'],
+                  $match
+                );
+                echo h($match[0]); 
+              ?>
+            </td>
+            
+            <td class="AvgT"><?php echo (h($artifact['mnt']) + h($artifact['mxt'])) / 2; ?></td>
+            <td class="Age"><?php echo h($artifact['age']); ?></td>
+            <td class="SwSs"><?php echo h($artifact['ss']); ?></td>
+            <td class="MnP" ><?php echo h($artifact['mnp']); ?></td>
+            <td class="MxP"><?php echo h($artifact['mxp']); ?></td>
+            
+            <td class="candidate">
+              <?php 
+              if ( strlen($artifact['Candidate']) > 0 ) {
+                echo 'Yes';
+              }
+              ?>
+            </td>
+            <?php
+          }
+          ?>
 
           <td class="overdue"
             <?php 
@@ -236,6 +247,10 @@
             <?php echo h(substr($artifact['MostRecentUseOrResponse'],0,10)); ?>
           </td>
 
+          <?php file_put_contents(__FILE__ . '.log', print_r($artifact, true) . "\n", FILE_APPEND); ?>
+
+          <td class="acquisitionDate"><?php echo h($artifact['Acq']); ?></td>
+
         </tr>
       <?php } ?>
     </tbody>
@@ -260,12 +275,20 @@
             [ 8, 'desc'], // C
           ]
           <?php
-        } else { 
+        } elseif ($showAttributes === 'yes') { 
           ?>
           order: [
             [ 10, 'asc'],  // use by date
             [ 3, 'asc'],  // AvgT
             [ 4, 'asc'],  // Age
+          ]
+          <?php
+        } else {
+          ?>
+          order: [
+            [ 3, 'asc'],  // use by date
+            [ 4, 'asc'],  // recent use
+            [ 5, 'asc'],  // acquisition date
           ]
           <?php
         }
