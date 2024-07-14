@@ -194,7 +194,7 @@
 
             <td class="date use_by"
               <?php 
-                if ($artifact['UseBy'] > date('Y-m-d') && $artifact['KeptCol'] == 1) {
+                if ($artifact['UseBy'] < date('Y-m-d') && $artifact['KeptCol'] == 1) {
                   echo " style='color:red;' ";
                 }; 
               ?>
