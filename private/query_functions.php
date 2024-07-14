@@ -667,6 +667,8 @@
         games.InSecondaryCollection,
         games.type,
         games.user_id,
+        DATE(MAX(responses.PlayDate)) AS MaxPlay,
+        DATE(MAX(uses.use_date)) AS MaxUse,
         CASE 
           WHEN 
             MAX(responses.PlayDate) < games.Acq 
@@ -677,12 +679,12 @@
           ELSE 
             DATE_ADD(MAX(responses.PlayDate), INTERVAL " . $interval * 2 . " DAY)
           END UseBy,
-        MAX(responses.PlayDate) AS MaxPlay,
         games.Acq,
         games.KeptCol
     FROM
         games
     LEFT JOIN responses ON games.id = responses.Title
+    LEFT JOIN uses ON games.id = uses.artifact_id
     GROUP BY
         games.Acq,
         games.Title,
@@ -736,7 +738,6 @@
         games.KeptCol DESC,
         id ASC
     ";
-
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
     return $result;

@@ -143,7 +143,7 @@
           <th>Type</th>
           <th>Name (<?php echo $artifact_set->num_rows; ?>)</th>
           <th>Acquisition</th>
-          <th>Recent 1:1 Use</th>
+          <th>Recent Use</th>
           <th>Use By</th>
           <th>Kept</th>
           <?php
@@ -181,25 +181,33 @@
             
             <td class="date most_recent_use">
               <?php 
-                $recent_use = singleValueQuery("SELECT DATE(MAX(use_date)) 
-                  FROM uses WHERE artifact_id = '" . $artifact['id'] . "'"
-                );
-                if ($recent_use === NULL || $recent_use < $artifact['MaxPlay']) {
-                  echo h($artifact['MaxPlay']); 
+                
+                if ($artifact['MaxPlay'] > $artifact['MaxUse']) {
+                  $most_recent_use = $artifact['MaxPlay']; 
                 } else {
-                  echo h($recent_use);
+                  $most_recent_use = $artifact['MaxUse']; 
                 }
+                echo h($most_recent_use);
               ?>
             </td>
 
             <td class="date use_by"
               <?php 
+                if ($most_recent_use === NULL) {
+                  $conditional_interval = $interval;
+                  $starting_date = $artifact['Acq'];
+                } else {
+                  $conditional_interval = $interval * 2;
+                  $starting_date = $most_recent_use;
+                }
+                $use_by = date("Y-m-d", strtotime("$most_recent_use + $conditional_interval days"));
+                
                 if ($artifact['UseBy'] < date('Y-m-d') && $artifact['KeptCol'] == 1) {
                   echo " style='color:red;' ";
                 }; 
               ?>
               >
-              <?php echo h($artifact['UseBy']); ?>
+              <?php echo h($use_by . " ($conditional_interval days added to $starting_date)"); ?>
             </td>
 
             <td class="kept">
