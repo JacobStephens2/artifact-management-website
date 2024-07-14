@@ -46,7 +46,7 @@ include(SHARED_PATH . '/dataTable.html');
     <script>
       let table = new DataTable('#users', {
         // options
-        order: [[ 4, 'asc']]
+        order: [[ 4, 'desc']] // most recent users first
       });
     </script>
   </div>
