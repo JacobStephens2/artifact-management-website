@@ -28,10 +28,17 @@
   $use_set = find_uses_by_user_id($type, $minimumDate);
 ?>
 
-<main>
-    <h1><?php echo $page_title; ?></h1>
+<script defer src="/shared/filter_button.js"></script>
 
-    <form method="POST">
+<main>
+    <div style="display: flex;
+        justify-content: space-between;"
+        >
+        <h1><?php echo $page_title; ?></h1>
+        <button id="display_filters" style="display: block">Show filters</button>
+    </div>
+
+    <form method="POST" style="display: none">
       <label for="artifactType">Artifact type</label>
       <section id="artifactType" style="display: flex; flex-wrap: wrap">
         <?php require_once SHARED_PATH . '/artifact_type_checkboxes.php'; ?>

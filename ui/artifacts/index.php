@@ -33,90 +33,98 @@
 
 ?>
 
+<script defer src="/shared/filter_button.js"></script>
+
 <main>
   <div class="objects listing">
-    <h1>Artifacts <?php if ($kept === 'secondary_only') { echo ' (Secondary Only)'; } ?></h1>
 
-    <section style="display: flex; column-gap: 3.9rem;">
-      <form action="<?php echo url_for('/artifacts/index.php'); ?>" method="post">
-        <label for="type">Game type</label>
-        <select name="type" id="type">
-          <option value="1" <?php if ($type == 1) { echo 'selected'; } ?>>All types</option>
-          <?php require_once(SHARED_PATH . '/artifact_type_options.php'); ?>
-        </select>
-        
-        <label for="sweetSpotFilter">Sweet Spot (SwS)</label>
-        <input type="text" id="sweetSpotFilter" name="sweetSpotFilter"
+    <div style="display: flex;
+      justify-content: space-between;"
+      >
+      <h1>Artifacts <?php if ($kept === 'secondary_only') { echo ' (Secondary Only)'; } ?></h1>
+      <button id="display_filters" style="display: block">Show filters</button>
+    </div>
+
+    <form action="<?php echo url_for('/artifacts/index.php'); ?>" 
+      method="post"
+      style="display: none"
+      >
+      <label for="type">Game type</label>
+      <select name="type" id="type">
+        <option value="1" <?php if ($type == 1) { echo 'selected'; } ?>>All types</option>
+        <?php require_once(SHARED_PATH . '/artifact_type_options.php'); ?>
+      </select>
+      
+      <label for="sweetSpotFilter">Sweet Spot (SwS)</label>
+      <input type="text" id="sweetSpotFilter" name="sweetSpotFilter"
+        <?php 
+          if (isset($_POST['sweetSpotFilter'])) {
+            echo 'value="' . $_POST['sweetSpotFilter'] . '"';
+          }
+        ?>
+      >
+
+      <label for="artifactType">Artifact type</label>
+      <section id="artifactType" style="display: flex; flex-wrap: wrap">
+        <?php require_once SHARED_PATH . '/artifact_type_checkboxes.php'; ?>
+      </section>
+
+      <section id="kept" style="margin-top: 1rem">
+        <style>
+          section#kept label,
+          section#kept input {
+            display: inline;
+          }
+        </style>
+
+        <div style="margin-top: 1.6rem">
+          <label for="allkeptandnot">Show All Artifacts</label>
+          <input type="radio" name="kept" value="allkeptandnot" id="allkeptandnot"
           <?php 
-            if (isset($_POST['sweetSpotFilter'])) {
-              echo 'value="' . $_POST['sweetSpotFilter'] . '"';
+            if ($kept === 'allkeptandnot') {
+              echo ' checked ';
             }
           ?>
-        >
+          >
+        </div>
 
-        <label for="artifactType">Artifact type</label>
-        <section id="artifactType" style="display: flex; flex-wrap: wrap">
-          <?php require_once SHARED_PATH . '/artifact_type_checkboxes.php'; ?>
-        </section>
-
-        <section id="kept" style="margin-top: 1rem">
-          <style>
-            section#kept label,
-            section#kept input {
-              display: inline;
+        <div>
+          <label for="onlykept">Show Only Artifacts Kept</label>
+          <input type="radio" name="kept" value="yes" id="onlykept"
+            <?php 
+            if ($kept === 'yes') {
+              echo ' checked ';
             }
-          </style>
-
-          <div style="margin-top: 1.6rem">
-            <label for="allkeptandnot">Show All Artifacts</label>
-            <input type="radio" name="kept" value="allkeptandnot" id="allkeptandnot"
-            <?php 
-              if ($kept === 'allkeptandnot') {
-                echo ' checked ';
-              }
             ?>
-            >
-          </div>
+          >
+        </div>
 
-          <div>
-            <label for="onlykept">Show Only Artifacts Kept</label>
-            <input type="radio" name="kept" value="yes" id="onlykept"
-              <?php 
-              if ($kept === 'yes') {
-                echo ' checked ';
-              }
-              ?>
-            >
-          </div>
+        <div>
+          <label for="notkept">Show Only Artifacts Not Kept</label>
+          <input type="radio" name="kept" value="no" id="notkept"
+          <?php 
+            if ($kept === 'no') {
+              echo ' checked ';
+            }
+          ?>
+          >
+        </div>
+        
+        <div>
+          <label for="notkept">Show Secondary Collection Only</label>
+          <input type="radio" name="kept" value="secondary_only" id="secondary_only"
+          <?php 
+            if ($kept === 'secondary_only') {
+              echo ' checked ';
+            }
+          ?>
+          >
+        </div>
 
-          <div>
-            <label for="notkept">Show Only Artifacts Not Kept</label>
-            <input type="radio" name="kept" value="no" id="notkept"
-            <?php 
-              if ($kept === 'no') {
-                echo ' checked ';
-              }
-            ?>
-            >
-          </div>
-          
-          <div>
-            <label for="notkept">Show Secondary Collection Only</label>
-            <input type="radio" name="kept" value="secondary_only" id="secondary_only"
-            <?php 
-              if ($kept === 'secondary_only') {
-                echo ' checked ';
-              }
-            ?>
-            >
-          </div>
+      </section>
 
-        </section>
-
-        <input type="submit" value="Submit" />
-      </form>
-
-    </section>
+      <input type="submit" value="Submit" />
+    </form>
 
   	<table class="list" id="artifacts" data-page-length='100'>
       <thead>

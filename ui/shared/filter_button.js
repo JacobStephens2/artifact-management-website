@@ -1,6 +1,6 @@
 var filterButton = document.querySelector('button#display_filters');
 filterButton.addEventListener('click', () => {
-    let filterDiv = document.querySelector('div.filters');
+    let filterDiv = document.querySelector('form');
     if (filterDiv.style.display === 'none') {
         filterDiv.style.display = 'block';
         filterButton.innerText = 'Hide Filters';

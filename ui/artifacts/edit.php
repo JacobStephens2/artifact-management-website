@@ -75,10 +75,9 @@
       Toggle Edit Form Display
     </button>
 
-    <form 
+    <form id="editForm"
       action="<?php echo url_for('/artifacts/edit.php?id=' . h(u($id))); ?>" 
       method="post"
-      id="editForm"
       >
       <label for="Title">Title</dt>
       <input type="text" name="Title" id="Title" value="<?php echo h($artifact['Title']); ?>" />
@@ -90,6 +89,13 @@
         require_once(SHARED_PATH . '/artifact_type_options.php'); 
         ?>
       </select>
+
+      <label for="Acq">Acquisition Date</label>
+      <input type="date" name="Acq" id="Acq" value="<?php echo h($artifact['Acq']); ?>" />
+
+      <label for="KeptCol" >Kept in Collection? (Checked means yes)</label>
+      <input type="hidden" name="KeptCol" value="0" />
+      <input type="checkbox" name="KeptCol" id="KeptCol" value="1"<?php if($artifact['KeptCol'] == "1") { echo " checked"; } ?> />
 
       <label for="SS">Sweet Spot(s)</label>
       <input type="text" name="SS" id="SS" value="<?php echo $artifact['SS']; ?>">
@@ -144,13 +150,6 @@
 
       <label for="age">Minimum Age</label>
       <input type="number" name="age" id="age" value="<?php echo $artifact['Age']; ?>">
-
-      <label for="Acq">Acquisition Date</label>
-      <input type="date" name="Acq" id="Acq" value="<?php echo h($artifact['Acq']); ?>" />
-
-      <label for="KeptCol" >Kept in Collection? (Checked means yes)</label>
-      <input type="hidden" name="KeptCol" value="0" />
-      <input type="checkbox" name="KeptCol" id="KeptCol" value="1"<?php if($artifact['KeptCol'] == "1") { echo " checked"; } ?> />
 
       <label for="InSecondaryCollection" >Kept in Secondary Collection? (Checked means yes)</label>
       <input type="checkbox" name="InSecondaryCollection" id="InSecondaryCollection" value="yes" 

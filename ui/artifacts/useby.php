@@ -8,7 +8,7 @@
   include(SHARED_PATH . '/header.php');
   include(SHARED_PATH . '/dataTable.html'); 
 ?>
-<script defer src="useby.js"></script>
+<script defer src="/shared/filter_button.js"></script>
 
 <?php // process form submission and initialize variables
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -57,55 +57,56 @@
     <button id="display_filters" style="display: block">Show filters</button>
   </div>
 
-  <div id="intro" class="filters" style="display: none">
-    <form action="<?php echo url_for('/artifacts/useby.php'); ?>" method="post">
-      <div class="hideOnPrint">
+  <form action="<?php echo url_for('/artifacts/useby.php'); ?>" 
+    method="post"
+    style="display: none"
+    >
+    <div class="hideOnPrint">
 
-        <label for="artifactType">Artifact type</label>
-        <section id="artifactType" style="display: flex; flex-wrap: wrap">
-          <?php require_once SHARED_PATH . '/artifact_type_checkboxes.php'; ?>
-        </section>
+      <label for="artifactType">Artifact type</label>
+      <section id="artifactType" style="display: flex; flex-wrap: wrap">
+        <?php require_once SHARED_PATH . '/artifact_type_checkboxes.php'; ?>
+      </section>
 
-        <label for="sweetSpot">Sweet Spot</label>
-        <input type="number" name="sweetSpot" id="sweetSpot" value="<?php echo $sweetSpot; ?>">
+      <label for="sweetSpot">Sweet Spot</label>
+      <input type="number" name="sweetSpot" id="sweetSpot" value="<?php echo $sweetSpot; ?>">
 
-        <label for="minimumAge">Minimum Age</label>
-        <input type="number" name="minimumAge" id="minimumAge" value="<?php echo $minimumAge; ?>">
-       
-        <label for="shelfSort">Shelf Sort (Instead of Use By Sort)</label>
-        <input type="hidden" name="shelfSort" value="no">
-        <input type="checkbox" name="shelfSort" id="shelfSort" value="yes"
-          <?php 
-            if ($shelfSort === 'yes') {
-              echo ' checked ';
-            }
-          ?>
-        >
-        
-        <label for="showAttributes">Show artifact attributes</label>
-        <input type="hidden" name="showAttributes" value="no">
-        <input type="checkbox" name="showAttributes" id="showAttributes" value="yes"
-          <?php 
-            if ($showAttributes === 'yes') {
-              echo ' checked ';
-            }
-          ?>
-        >
-
-      </div>
-
-      <div class="displayOnPrint">
-        <label for="interval">Interval in days from most recent or to upcoming use</label>
-        <input type="number" step="0.1" name="interval" id="interval" value="<?php echo $interval ?>">
-      </div>
+      <label for="minimumAge">Minimum Age</label>
+      <input type="number" name="minimumAge" id="minimumAge" value="<?php echo $minimumAge; ?>">
       
-      <input type="submit" value="Submit" class="hideOnPrint"/>
-    </form>
+      <label for="shelfSort">Shelf Sort (Instead of Use By Sort)</label>
+      <input type="hidden" name="shelfSort" value="no">
+      <input type="checkbox" name="shelfSort" id="shelfSort" value="yes"
+        <?php 
+          if ($shelfSort === 'yes') {
+            echo ' checked ';
+          }
+        ?>
+      >
+      
+      <label for="showAttributes">Show artifact attributes</label>
+      <input type="hidden" name="showAttributes" value="no">
+      <input type="checkbox" name="showAttributes" id="showAttributes" value="yes"
+        <?php 
+          if ($showAttributes === 'yes') {
+            echo ' checked ';
+          }
+        ?>
+      >
 
+    </div>
+
+    <div class="displayOnPrint">
+      <label for="interval">Interval in days from most recent or to upcoming use</label>
+      <input type="number" step="0.1" name="interval" id="interval" value="<?php echo $interval ?>">
+    </div>
+    
+    <input type="submit" value="Submit" class="hideOnPrint"/>
+  
     <section id="legend">
       <p>U stands for used at recommended user count or used fully through at non-recommended count</p>
     </section>
-  </div>
+  </form>
 
   <p class="copied_message" style="display: none"></p>
 
@@ -266,7 +267,7 @@
           order: [
             [ 0, 'asc'], // Type
             [ 2, 'asc'], // SwS
-            [ 3, 'asc'],  // AvgT
+            [ 3, 'asc'], // AvgT
             [ 4, 'asc'], // Age
             [ 5, 'asc'], // SwS's
             [ 6, 'asc'], // MnP
