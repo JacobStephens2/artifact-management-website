@@ -186,8 +186,9 @@
             
             <td class="date most_recent_use">
               <?php 
-                
-                if ($artifact['MaxPlay'] > $artifact['MaxUse']) {
+                if ($artifact['MaxPlay'] === NULL && $artifact['MaxUse'] === NULL) {
+                  $most_recent_use = ''; 
+                } elseif ($artifact['MaxPlay'] > $artifact['MaxUse']) {
                   $most_recent_use = $artifact['MaxPlay']; 
                 } else {
                   $most_recent_use = $artifact['MaxUse']; 
@@ -198,14 +199,14 @@
 
             <td class="date use_by"
               <?php 
-                if ($most_recent_use === NULL) {
-                  $conditional_interval = $interval;
+                if ($most_recent_use === '') {
+                  $conditional_interval = ceil($interval);
                   $starting_date = $artifact['Acq'];
                 } else {
-                  $conditional_interval = $interval * 2;
+                  $conditional_interval = ceil($interval * 2);
                   $starting_date = $most_recent_use;
                 }
-                $use_by = date("Y-m-d", strtotime("$most_recent_use + $conditional_interval days"));
+                $use_by = date("Y-m-d", strtotime("$starting_date + $conditional_interval days"));
                 
                 if ($use_by < date('Y-m-d') && $artifact['KeptCol'] == 1) {
                   echo " style='color:red;' ";
