@@ -25,6 +25,7 @@
   }
   $interval = $_POST['interval'] ?? DEFAULT_USE_INTERVAL;
   $sweetSpotFilter = $_POST['sweetSpotFilter'] ?? '';
+  $showAttributes = $_POST['showAttributes'] ?? 'no';
   $artifact_set = find_games_by_user_id($kept, $type, $interval, $sweetSpotFilter);
   $page_title = 'Artifacts';
   if ($kept === 'secondary_only') { $page_title .= ' (Secondary Only)'; }
@@ -60,6 +61,16 @@
         <?php 
           if (isset($_POST['sweetSpotFilter'])) {
             echo 'value="' . $_POST['sweetSpotFilter'] . '"';
+          }
+        ?>
+      >
+
+      <label for="showAttributes">Show artifact attributes</label>
+      <input type="hidden" name="showAttributes" value="no">
+      <input type="checkbox" name="showAttributes" id="showAttributes" value="yes"
+        <?php 
+          if ($showAttributes === 'yes') {
+            echo ' checked ';
           }
         ?>
       >
@@ -130,11 +141,20 @@
       <thead>
         <tr id="headerRow">
           <th>Type</th>
-          <th>SwS</th>
           <th>Name (<?php echo $artifact_set->num_rows; ?>)</th>
-          <th>Recent Use</th>
-          <th>AvgT</th>
-          <th class="tooltip" title="Candidate">C</th>
+          <th>Acquisition</th>
+          <th>Recent 1:1 Use</th>
+          <th>Use By</th>
+          <th>Kept</th>
+          <?php
+            if ($showAttributes === 'yes') {
+              ?>
+              <th>SwS</th>
+              <th>AvgT</th>
+              <th class="tooltip" title="Candidate">Candidate</th>
+              <?php
+            }
+          ?>
         </tr>
       </thead>
 
@@ -148,35 +168,71 @@
         <?php while($artifact = mysqli_fetch_assoc($artifact_set)) { ?>
           <tr>
             <td><?php echo h($artifact['type']); ?></td>
-            
-            <td>
-              <?php echo $artifact['ss']; ?>
-            </td>
 
             <td>
-              <a class="table-action" href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($artifact['id']))); ?>">  
+              <a class="table-action" 
+                href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($artifact['id']))); ?>"
+                >  
                 <?php echo h($artifact['Title']); ?>
               </a>
             </td>
 
-            <td class="date"><?php echo h($artifact['MaxPlay']); ?></td>
-
-            <td>
+            <td class="date acquisition"><?php echo h($artifact['Acq']); ?></td>
+            
+            <td class="date most_recent_use">
               <?php 
-                $avg_time = ($artifact['mnt'] + $artifact['mxt']) / 2;
-                echo h(ceil($avg_time)); 
+                $recent_use = singleValueQuery("SELECT DATE(MAX(use_date)) 
+                  FROM uses WHERE artifact_id = '" . $artifact['id'] . "'"
+                );
+                if ($recent_use === NULL || $recent_use < $artifact['MaxPlay']) {
+                  echo h($artifact['MaxPlay']); 
+                } else {
+                  echo h($recent_use);
+                }
               ?>
             </td>
 
-            <td>
+            <td class="date use_by"><?php echo h($artifact['UseBy']); ?></td>
+
+            <td class="kept">
               <?php 
-              if ($artifact['Candidate'] != '' && $artifact['Candidate'] != 0) { 
-                echo 'Yes'; 
-              } else {
-                echo 'No';
+                if ($artifact['KeptCol'] == 1) {
+                  echo 'yes';
+                } else {
+                  echo 'no';
+                }
+              ?>
+            </td>
+
+            <?php file_put_contents(__FILE__ . '.log', print_r($artifact, true) . "\n", FILE_APPEND); ?>
+
+            <?php
+              if ($showAttributes === 'yes') {
+                ?>
+                <td>
+                  <?php echo $artifact['ss']; ?>
+                </td>
+    
+                <td>
+                  <?php 
+                    $avg_time = ($artifact['mnt'] + $artifact['mxt']) / 2;
+                    echo h(ceil($avg_time)); 
+                  ?>
+                </td>
+
+                <td>
+                  <?php 
+                  
+                  if ($artifact['Candidate'] != '' && $artifact['Candidate'] != 0) { 
+                    echo 'Yes'; 
+                  } else {
+                    echo 'No';
+                  }
+                  ?>
+                </td>
+                <?php
               }
-              ?>
-            </td>
+            ?>
             
           </tr>
         <?php } ?>
@@ -189,9 +245,9 @@
       let table = new DataTable('#artifacts', {
         // options
         order: [
-          [ 5, 'asc'], // non candidates first
-          [ 4, 'asc'], // shortest first
-          [ 1, 'desc'], // lower sweet spots first
+          [ 2, 'desc'], // most recent acquisition first
+          [ 3, 'desc'], // most recent use first
+          [ 4, 'desc'], // most recent use by first
         ], 
       });
 
