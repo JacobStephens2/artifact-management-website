@@ -1,5 +1,5 @@
     <footer>
-      <h2>&copy; <?php echo date('Y'); ?> <a style="color: white" href="https://stewardgoods.com" target='_blank'>Steward Goods</a></h2>
+      <h2>&copy; <?php echo date('Y'); ?> <a style="color: white" href="https://resume.jacobstephens.net" target='_blank'>Jacob Stephens</a></h2>
     </footer>
 
   </body>
