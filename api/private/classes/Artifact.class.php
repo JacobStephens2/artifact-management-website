@@ -4,7 +4,9 @@ class Artifact extends DatabaseObject {
 
   static protected $table_name = 'games';
   static protected $db_columns = [
-    'Access', 'Acq', 'Age', 'age_max', 'Av', 'BGG_Rat', 'Candidate', 'FavCt', 'FullTitle', 'id', 'KeptCol', 'KeptDig', 'KeptPhys', 'KLKept', 'MnP', 'MnT', 'MxP', 'MxT', 'OrigPlat', 'SS', 'System', 'Title', 'type', 'UsedRecUserCt', 'user_id', 'Wt', 'Yr'
+    'Access', 'Acq', 'Age', 'age_max', 'Av', 'BGG_Rat', 'Candidate', 'FavCt', 'FullTitle', 'id', 'KeptCol', 
+    'KeptDig', 'KeptPhys', 'MnP', 'MnT', 'MxP', 'MxT', 'OrigPlat', 'SS', 'System', 'Title', 
+    'type', 'UsedRecUserCt', 'user_id', 'Wt', 'Yr'
   ];
 
   public $id;
@@ -21,7 +23,6 @@ class Artifact extends DatabaseObject {
   public $KeptCol;
   public $KeptDig;
   public $KeptPhys;
-  public $KLKept;
   public $MnP;
   public $MnT;
   public $MxP;
