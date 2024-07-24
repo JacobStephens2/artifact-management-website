@@ -9,7 +9,7 @@
     <option 
       value="<?php echo $typeCategory; ?>" 
       <?php
-        if ($type === '' && $typeCategory === 'book') {
+        if ($type === '' || $typeCategory === 'book') {
           echo 'selected';
         } elseif ($type == $typeCategory ) { 
           echo 'selected';
