@@ -74,6 +74,10 @@
           <a href="<?php echo url_for('/users/new.php'); ?>">
             Create&nbsp;User
           </a>
+         
+          <a href="<?php echo url_for('/types'); ?>">
+            Types
+          </a>
 
           <a href="<?php echo url_for('/support.php'); ?>">
             Support
