@@ -1,8 +1,10 @@
 <?php   // define types array
-
+  $user_id = $_SESSION['user_id'];
+  
   $result = query(
-    "SELECT DISTINCT(type) 
-    FROM games
+    "SELECT ObjectType AS type
+    FROM types
+    WHERE user_id = '$user_id'
     ORDER BY type ASC
   ");
 

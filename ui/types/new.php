@@ -31,9 +31,6 @@ if(is_post_request()) {
     $message = "You already have a type with this name. A duplicate was not created.";
   }
 
-} else {
-  // display the blank form
-  $type = "";
 }
 
 ?>
@@ -56,12 +53,16 @@ if(is_post_request()) {
     <form method="post">
       <dl>
         <dt>Type</dt>
-        <dd><input type="text" name="type" value="<?php echo h($type); ?>" /></dd>
+        <dd><input type="text" name="type"/></dd>
       </dl>
       <div>
         <input type="submit" value="Add" />
       </div>
     </form>
+
+    <a href="/types">
+      <p>List of types</p>
+    </a>
 
   </div>
 

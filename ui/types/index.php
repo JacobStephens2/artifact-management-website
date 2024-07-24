@@ -32,13 +32,14 @@
         <tr id="headerRow">
           <th>Type</th>
           <th>Artifacts Kept</th>
+          <th>Artifacts Not Kept</th>
         </tr>
       </thead>
 
       <tbody>
         <?php 
           $user_id = $_SESSION['user_id'];
-          $types = query("SELECT ObjectType FROM types WHERE user_id = '$user_id'");
+          $types = query("SELECT id, ObjectType FROM types WHERE user_id = '$user_id'");
 
           foreach($types as $type) { 
             
@@ -51,11 +52,24 @@
               AND user_id = '$user_id'
               AND KeptCol = '1'
             ");
+            
+            $artifacts_unkept_of_this_type = singleValueQuery(
+              "SELECT COUNT(id) AS artifacts_kept_of_this_type
+              FROM games
+              WHERE type = '$type_name'
+              AND user_id = '$user_id'
+              AND KeptCol = '0'
+            ");
             ?>
             
             <tr>
-              <td><?php echo h($type_name); ?></td>            
+              <td>
+                <a href="/types/edit?id=<?php echo $type['id']; ?>">
+                  <?php echo h($type_name); ?>
+                </a>
+              </td>
               <td><?php echo h($artifacts_kept_of_this_type); ?></td>            
+              <td><?php echo h($artifacts_unkept_of_this_type); ?></td>            
             </tr>
             
             <?php 
@@ -69,7 +83,8 @@
         // options
         order: [
           [ 1, 'desc'], // count kept
-          [ 0, 'asc'] // artifact type
+          [ 2, 'desc'], // count unkept
+          [ 0, 'asc'] // name
         ], 
       });
     </script>
