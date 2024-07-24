@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Check if the request is not for a valid file
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# Check if the request is not for a valid directory
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rewrite the request to include the file extension
+RewriteRule ^([^\.]+)$ $1.php [NC,L]

@@ -21,6 +21,9 @@
       justify-content: space-between;"
       >
       <h1>Types</h1>
+      <a href="/types/new">
+        <button>New</button>
+      </a>
     </div>
 
   	<table class="list" data-page-length='100'>
