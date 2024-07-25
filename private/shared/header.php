@@ -31,14 +31,14 @@
 
   <body>
     <header>
-      <a class="header-link" href="/index.php">Artifact Manager</a>
+      <a class="header-link" href="/">Artifact Manager</a>
     </header>
 
     <nav class="hideOnPrint">
         <?php
         if(isset($_SESSION['logged_in']) && isset($_SESSION['FullName'])) {
           ?>
-          <a href="<?php echo url_for('/settings/edit.php'); ?>">
+          <a href="<?php echo url_for('/settings/edit'); ?>">
             <?php echo '<span>' . $_SESSION['username'] . '</span>'; ?>
           </a>
           <?php
@@ -47,31 +47,31 @@
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
           ?>
           
-          <a href="<?php echo url_for('/artifacts/useby.php'); ?>">
+          <a href="<?php echo url_for('/artifacts/useby'); ?>">
             Use&nbsp;Artifacts&nbsp;By&nbsp;Date
           </a>
           
-          <a href="<?php echo url_for('/uses/1-n-uses.php'); ?>">
+          <a href="<?php echo url_for('/uses/1-n-uses'); ?>">
             Uses
           </a>
           
-          <a href="<?php echo url_for('/uses/1-n-new.php'); ?>">
+          <a href="<?php echo url_for('/uses/1-n-new'); ?>">
             Record&nbsp;Use
           </a>
 
-          <a href="<?php echo url_for('/artifacts/index.php'); ?>">
+          <a href="<?php echo url_for('/artifacts'); ?>">
             Artifacts
           </a>
         
-          <a href="<?php echo url_for('/artifacts/new.php'); ?>">
+          <a href="<?php echo url_for('/artifacts/new'); ?>">
             Create&nbsp;Artifact
           </a>
 
-          <a href="<?php echo url_for('/users/index.php'); ?>">
+          <a href="<?php echo url_for('/users'); ?>">
             Users
           </a>
 
-          <a href="<?php echo url_for('/users/new.php'); ?>">
+          <a href="<?php echo url_for('/users/new'); ?>">
             Create&nbsp;User
           </a>
          
@@ -79,12 +79,13 @@
             Types
           </a>
 
-          <a href="<?php echo url_for('/support.php'); ?>">
+          <a href="<?php echo url_for('/support'); ?>">
             Support
           </a>
 
+          <span><a href="<?php echo url_for('logout'); ?>">Logout</a></span>
+          
           <?php
-          echo '<span><a href="' . url_for('logout.php') . '">Logout</a></span>';
 
         }
       ?>
