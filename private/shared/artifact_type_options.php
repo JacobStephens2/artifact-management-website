@@ -4,16 +4,19 @@
   global $typesArray;
   var_dump($type);
 
+  $match_found = false;
   foreach ($typesArray as $typeCategory) {
     ?>
     <option 
       value="<?php echo $typeCategory; ?>" 
       <?php
-        if ($type === '' || $typeCategory === 'book') {
-          echo 'selected';
-        } elseif ($type == $typeCategory ) { 
+        if ($type == $typeCategory ) { 
+          $match_found = true;
           echo 'selected';
         } 
+        if ($typeCategory === 'other' && $match_found === false) {
+          echo 'selected';
+        }
       ?>
       >
       <?php echo $typeCategory; ?>
