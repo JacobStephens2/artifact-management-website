@@ -1,7 +1,7 @@
 <?php
 require_once('../../private/initialize.php');
 global $db;
-$page_title = 'Edit Type';
+$page_title = 'Delete Type';
 
 require_login();
 
@@ -53,7 +53,14 @@ include(SHARED_PATH . '/header.php');
 <main>
 
   <div class="object new">
-    <h1><?php echo $page_title; ?></h1>
+    <h1>
+      <?php 
+        echo $page_title;
+        if ($type !== 'No results') {
+          echo " " . $type;
+        }
+      ?>
+    </h1>
 
     <?php 
       echo display_errors($errors); 
