@@ -37,6 +37,7 @@ if(is_post_request()) {
 
 <?php $page_title = 'Add Type'; ?>
 <?php include(SHARED_PATH . '/header.php'); ?>
+<script src="prevent_spaces_in_type.js" defer></script>
 
 <main>
 
@@ -49,6 +50,8 @@ if(is_post_request()) {
         echo "<p>$message</p>";
       }
     ?>
+
+    <p>Types cannot have spaces in them.</p>
 
     <form method="post">
       <dl>
