@@ -46,7 +46,7 @@
 
 <span id="typeCheckboxes" style="display: flex; flex-wrap: wrap">
   <?php
-    foreach ($typesArray as $artifactType) {
+    foreach ($typesArray as $artifactType => $id) {
       ?>
       <span>
         <input
@@ -58,11 +58,13 @@
               echo $artifactType; 
             }
           ?>" 
-          value="<?php echo $artifactType; ?>" 
+          value="<?php echo $id; ?>" 
           name="type[<?php echo $artifactType; ?>]"
           <?php 
-            if(in_array($artifactType, $type)) { 
-              echo 'checked'; 
+            if (gettype($type) === 'array') {
+              if(in_array($artifactType, $type)) { 
+                echo 'checked'; 
+              }
             }
           ?>
         >

@@ -1,5 +1,6 @@
 <?php 
   require_once('../../private/initialize.php');
+  global $db;
   require_login();
   $kept = $_POST['kept'] ?? 'allkeptandnot';
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -16,12 +17,19 @@
   } else {
     if (isset($_SESSION['type']) && count($_SESSION['type']) > 0) {
       $type = $_SESSION['type'];
+
+    } else if (isset($_GET['type'])) {
+      
+      $type = array();
+      $type['type'] = array(db_escape($db, $_GET['type']));
+
     } else {
 
       include(SHARED_PATH . '/artifact_type_array.php'); 
       global $typesArray;
       $type = $typesArray;
     }
+
   }
   $default_use_interval = singleValueQuery("SELECT default_use_interval
     FROM users
@@ -31,6 +39,7 @@
   $interval = $_POST['interval'] ?? $default_use_interval;
   $sweetSpotFilter = $_POST['sweetSpotFilter'] ?? '';
   $showAttributes = $_POST['showAttributes'] ?? 'no';
+  var_dump($type);
   $artifact_set = find_games_by_user_id($kept, $type, $interval, $sweetSpotFilter);
   $page_title = 'Artifacts';
   if ($kept === 'secondary_only') { $page_title .= ' (Secondary Only)'; }

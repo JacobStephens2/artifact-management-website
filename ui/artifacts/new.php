@@ -26,6 +26,7 @@ if(is_post_request()) {
   ($_POST['SS'] == '') ? $artifact['SS'] = $defaultSS : $artifact['SS'] = $_POST['SS'];
 
   $result = insert_game($artifact);
+
   if($result === true) {
     $new_id = mysqli_insert_id($db);
     $_SESSION['message'] = 'The object was created successfully.';
@@ -62,7 +63,7 @@ include(SHARED_PATH . '/header.php');
 
     <?php echo display_errors($errors); ?>
 
-    <form action="<?php echo url_for('/artifacts/new.php'); ?>" method="post">
+    <form action="<?php echo url_for('/artifacts/new'); ?>" method="POST">
 
       <label for="Title">Name</label>
       <input type="text" name="Title" id="Title" value="<?php echo h($artifact['Title']); ?>" /></dd>
@@ -70,8 +71,8 @@ include(SHARED_PATH . '/header.php');
       <label for="type">Type</label>
       <select name="type" id="type">
         <?php 
-        $type = $artifact['type']; 
-        require_once(SHARED_PATH . '/artifact_type_options.php'); 
+          $type = $artifact['type']; 
+          require_once(SHARED_PATH . '/artifact_type_options.php'); 
         ?>
       </select>
       

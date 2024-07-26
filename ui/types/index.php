@@ -68,8 +68,16 @@
                   <?php echo h($type_name); ?>
                 </a>
               </td>
-              <td><?php echo h($artifacts_kept_of_this_type); ?></td>            
-              <td><?php echo h($artifacts_unkept_of_this_type); ?></td>            
+              <td>
+                <a href="/artifacts/?type=<?php echo $type['id']; ?>&kept=yes">
+                  <?php echo h($artifacts_kept_of_this_type); ?>
+                </a>
+              </td>
+              <td>
+                <a href="/artifacts/?type=<?php echo $type['id']; ?>&kept=no">
+                  <?php echo h($artifacts_unkept_of_this_type); ?>
+                </a>
+              </td>
             </tr>
             
             <?php 

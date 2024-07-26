@@ -2,24 +2,24 @@
 
   require_once 'artifact_type_array.php';
   global $typesArray;
-  var_dump($type);
+  global $type_id;
 
   $match_found = false;
-  foreach ($typesArray as $typeCategory) {
+  foreach ($typesArray as $type => $id) {
     ?>
     <option 
-      value="<?php echo $typeCategory; ?>" 
+      value="<?php echo $id; ?>" 
       <?php
-        if ($type == $typeCategory ) { 
+        if ($id == $type_id ) { 
           $match_found = true;
           echo 'selected';
         } 
-        if ($typeCategory === 'other' && $match_found === false) {
+        if ($id == DEFAULT_TYPE && $match_found === false) {
           echo 'selected';
         }
       ?>
       >
-      <?php echo $typeCategory; ?>
+      <?php echo $type; ?>
     </option>
 
     <?php

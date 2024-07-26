@@ -665,8 +665,9 @@
         games.ss,
         games.id,
         games.InSecondaryCollection,
-        games.type,
+        types.objectType AS type,
         games.user_id,
+        games.type_id,
         DATE(MAX(responses.PlayDate)) AS MaxPlay,
         DATE(MAX(uses.use_date)) AS MaxUse,
         CASE 
@@ -685,6 +686,7 @@
         games
     LEFT JOIN responses ON games.id = responses.Title
     LEFT JOIN uses ON games.id = uses.artifact_id
+    LEFT JOIN types ON games.type_id = types.id
     GROUP BY
         games.Acq,
         games.Title,
@@ -710,11 +712,11 @@
         }
         
         if (isset($type) && $type != [] && $type != '1') {
-          $sql .= " AND games.type IN ( ";
+          $sql .= " AND games.type_id IN ( ";
           $i = 0;
-          foreach($type as $typeItem) {
+          foreach($type as $type_name => $type_id) {
             $i++;
-            $sql .= "'$typeItem'";
+            $sql .= "'$type_id'";
             if ($i != count($type)) {
               $sql .= ", ";
             }
@@ -746,14 +748,22 @@
   function find_game_by_id($id) {
     global $db;
 
-    $sql = "SELECT * FROM games ";
-    $sql .= "WHERE id='" . db_escape($db, $id) . "' ";
+    $sql = 
+      "SELECT types.objectType AS type_name, games.*
+      FROM games 
+      JOIN types ON games.type_id = types.id
+      WHERE games.id='" . db_escape($db, $id) . "' 
+    ";
+
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
+
     $subject = mysqli_fetch_assoc($result);
     mysqli_free_result($result);
+
     return $subject; // returns an assoc. array
   }
+
   function update_artifact($artifact) {
     global $db;
 
@@ -762,24 +772,31 @@
       return $errors;
     }
 
-    $sql = "UPDATE games SET ";
-    $sql .= "Title='" . db_escape($db, $artifact['Title']) . "', ";
-    $sql .= "KeptCol='" . db_escape($db, $artifact['KeptCol']) . "', ";
-    $sql .= "Acq='" . db_escape($db, $artifact['Acq']) . "', ";
-    $sql .= "Candidate='" . db_escape($db, $artifact['Candidate']) . "', ";
-    $sql .= "UsedRecUserCt='" . db_escape($db, $artifact['UsedRecUserCt']) . "', ";
-    $sql .= "type='" . db_escape($db, $artifact['type']) . "', ";
-    $sql .= "SS='" . db_escape($db, $artifact['SS']) . "', ";
-    $sql .= "Notes='" . db_escape($db, $artifact['Notes']) . "', ";
-    $sql .= "CandidateGroupDate='" . db_escape($db, $artifact['CandidateGroupDate']) . "', ";
-    $sql .= "MnT='" . db_escape($db, $artifact['MnT']) . "', ";
-    $sql .= "MxT='" . db_escape($db, $artifact['MxT']) . "', ";
-    $sql .= "Age='" . db_escape($db, $artifact['age']) . "', ";
-    $sql .= "InSecondaryCollection='" . db_escape($db, $artifact['InSecondaryCollection']) . "', ";
-    $sql .= "MnP='" . db_escape($db, $artifact['MnP']) . "', ";
-    $sql .= "MxP='" . db_escape($db, $artifact['MxP']) . "' ";
-    $sql .= "WHERE id='" . db_escape($db, $artifact['id']) . "' ";
-    $sql .= "LIMIT 1";
+    $type_id = db_escape($db, $artifact['type']);
+    $type_name = get_type_name($type_id);
+
+    $sql = 
+      "UPDATE games SET 
+        Title='" . db_escape($db, $artifact['Title']) . "', 
+        KeptCol='" . db_escape($db, $artifact['KeptCol']) . "', 
+        Acq='" . db_escape($db, $artifact['Acq']) . "', 
+        Candidate='" . db_escape($db, $artifact['Candidate']) . "', 
+        UsedRecUserCt='" . db_escape($db, $artifact['UsedRecUserCt']) . "', 
+        type_id='$type_id', 
+        type='$type_name', 
+        SS='" . db_escape($db, $artifact['SS']) . "', 
+        Notes='" . db_escape($db, $artifact['Notes']) . "', 
+        CandidateGroupDate='" . db_escape($db, $artifact['CandidateGroupDate']) . "', 
+        MnT='" . db_escape($db, $artifact['MnT']) . "', 
+        MxT='" . db_escape($db, $artifact['MxT']) . "', 
+        Age='" . db_escape($db, $artifact['age']) . "', 
+        InSecondaryCollection='" . db_escape($db, $artifact['InSecondaryCollection']) . "', 
+        MnP='" . db_escape($db, $artifact['MnP']) . "', 
+        MxP='" . db_escape($db, $artifact['MxP']) . "' 
+      WHERE id='" . db_escape($db, $artifact['id']) . "' 
+      LIMIT 1
+    ";
+
     $result = mysqli_query($db, $sql);
     // For UPDATE statements, $result is true/false
     if($result) {
@@ -791,6 +808,7 @@
       db_disconnect($db);
       exit;
     }
+
   }
   
   function validate_game($artifact) {
@@ -812,6 +830,7 @@
 
     return $errors;
   }
+
   function insert_game($object) {
     global $db;
 
@@ -820,41 +839,46 @@
       return $errors;
     }
 
-    $sql = "INSERT INTO games ";
-    $sql .= "(
-              Title, 
-              Notes,
-              Acq, 
-              type, 
-              KeptCol, 
-              Candidate, 
-              CandidateGroupDate, 
-              UsedRecUserCt, 
-              SS,
-              MnT,
-              MxT,
-              MnP,
-              MxP,
-              user_id
-              ) ";
-    $sql .= "VALUES (";
-    $sql .= "'" . db_escape($db, $object['Title']) . "',";
-    $sql .= "'" . db_escape($db, $object['Notes']) . "',";
-    $sql .= "'" . db_escape($db, $object['Acq']) . "',";
-    $sql .= "'" . db_escape($db, $object['type']) . "',";
-    $sql .= "'" . db_escape($db, $object['KeptCol']) . "',";
-    $sql .= "'" . db_escape($db, $object['Candidate']) . "',";
-    $sql .= "'" . db_escape($db, $object['CandidateGroupDate']) . "',";
-    $sql .= "'" . db_escape($db, $object['UsedRecUserCt']) . "',";
-    $sql .= "'" . db_escape($db, $object['SS']) . "',";
-    $sql .= "'" . db_escape($db, $object['MnT']) . "',";
-    $sql .= "'" . db_escape($db, $object['MxT']) . "',";
-    $sql .= "'" . db_escape($db, $object['MnP']) . "',";
-    $sql .= "'" . db_escape($db, $object['MxP']) . "',";
-    $sql .= "'" . db_escape($db, $_SESSION['user_id']) . "'";
-    $sql .= ")";
+    $type_id = db_escape($db, $object['type']);
+    $type_name = get_type_name($type_id);
+
+    $sql = "INSERT INTO games (
+        Title, 
+        Notes,
+        Acq, 
+        type_id, 
+        type,
+        KeptCol, 
+        Candidate, 
+        CandidateGroupDate, 
+        UsedRecUserCt, 
+        SS,
+        MnT,
+        MxT,
+        MnP,
+        MxP,
+        user_id
+      ) VALUES (
+        '" . db_escape($db, $object['Title']) . "',
+        '" . db_escape($db, $object['Notes']) . "',
+        '" . db_escape($db, $object['Acq']) . "',
+        '$type_id',
+        '$type_name',
+        '" . db_escape($db, $object['KeptCol']) . "',
+        '" . db_escape($db, $object['Candidate']) . "',
+        '" . db_escape($db, $object['CandidateGroupDate']) . "',
+        '" . db_escape($db, $object['UsedRecUserCt']) . "',
+        '" . db_escape($db, $object['SS']) . "',
+        '" . db_escape($db, $object['MnT']) . "',
+        '" . db_escape($db, $object['MxT']) . "',
+        '" . db_escape($db, $object['MnP']) . "',
+        '" . db_escape($db, $object['MxP']) . "',
+        '" . db_escape($db, $_SESSION['user_id']) . "'
+      )
+    ";
     $result = mysqli_query($db, $sql);
     // For INSERT statements, $result is true/false
+
     if($result) {
       return true;
     } else {
@@ -864,6 +888,7 @@
       exit;
     }
   }
+
   function delete_game($id) {
     global $db;
 
@@ -944,7 +969,7 @@
         games.UsedRecUserCt,
         games.ss,
         games.id,
-        games.type,
+        types.objectType AS type,
         games.user_id,
         games.age,
         games.InSecondaryCollection,
@@ -960,6 +985,7 @@
       FROM games
         LEFT JOIN responses ON games.id = responses.Title
         LEFT JOIN uses ON games.id = uses.artifact_id
+        LEFT JOIN types ON games.type_id = types.id
       GROUP BY games.Acq,
         games.Title,
         games.KeptCol, games.mnp, games.mxp, games.ss, games.type, games.id 
@@ -1493,7 +1519,7 @@
 
     $sql = "SELECT
       games.Title,
-      games.type,
+      types.objectType AS type,
       games.Candidate,
       games.ss AS SwS,
       games.id AS gameID, 
@@ -1502,6 +1528,7 @@
       uses.use_date 
       FROM uses 
       LEFT JOIN games ON uses.artifact_id = games.id 
+      LEFT JOIN types ON games.type_id = types.id
       WHERE uses.user_id = " . db_escape($db, $_SESSION['user_id']) . " 
       AND uses.use_date IS NOT NULL 
     ";
@@ -2239,6 +2266,14 @@ function singleRowQuery($query) {
 function query($query) {
   global $db;
   return mysqli_query($db, $query);
+}
+
+function get_type_name($type_id) {
+  return singleValueQuery(
+    "SELECT objectType
+    FROM types
+    WHERE id = '$type_id'"
+  );
 }
 
 ?>

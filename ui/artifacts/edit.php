@@ -43,10 +43,9 @@
     } else {
       $errors = $result;
     }
-    $artifact = find_game_by_id($id);
-  } else {
-    $artifact = find_game_by_id($id);
   }
+
+  $artifact = find_game_by_id($id);
 
   $sweetSpotsSQL = "SELECT
     sweetspots.id AS id,
@@ -76,17 +75,18 @@
     </button>
 
     <form id="editForm"
-      action="<?php echo url_for('/artifacts/edit.php?id=' . h(u($id))); ?>" 
+      action="<?php echo url_for('/artifacts/edit?id=' . h(u($id))); ?>" 
       method="post"
       >
+
       <label for="Title">Title</dt>
       <input type="text" name="Title" id="Title" value="<?php echo h($artifact['Title']); ?>" />
 
       <label for="type">Type</label>
       <select name="type" id="type">
         <?php 
-        $type = $artifact['type']; 
-        require_once(SHARED_PATH . '/artifact_type_options.php'); 
+          $type_id = $artifact['type_id'];
+          require_once(SHARED_PATH . '/artifact_type_options.php'); 
         ?>
       </select>
 
