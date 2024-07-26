@@ -35,8 +35,6 @@ include(SHARED_PATH . '/header.php');
 
 ?>
 
-<script src="prevent_spaces_in_type.js" defer></script>
-
 <main>
 
   <div class="object new">
@@ -48,8 +46,6 @@ include(SHARED_PATH . '/header.php');
         echo "<p>$message</p>";
       }
     ?>
-
-    <p>Types cannot have spaces in them.</p>
 
     <form method="post">
       <dl>
