@@ -39,7 +39,6 @@
   $interval = $_POST['interval'] ?? $default_use_interval;
   $sweetSpotFilter = $_POST['sweetSpotFilter'] ?? '';
   $showAttributes = $_POST['showAttributes'] ?? 'no';
-  var_dump($type);
   $artifact_set = find_games_by_user_id($kept, $type, $interval, $sweetSpotFilter);
   $page_title = 'Artifacts';
   if ($kept === 'secondary_only') { $page_title .= ' (Secondary Only)'; }
