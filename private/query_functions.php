@@ -1525,7 +1525,8 @@
       games.id AS gameID, 
       uses.id AS useID, 
       uses.note,
-      uses.use_date 
+      uses.use_date,
+      games.type_id
       FROM uses 
       LEFT JOIN games ON uses.artifact_id = games.id 
       LEFT JOIN types ON games.type_id = types.id
@@ -1535,7 +1536,7 @@
 
     if (gettype($type == 'array')) {
       if (count($type) > 0) {
-        $sql .= "AND games.type IN (";
+        $sql .= "AND games.type_id IN (";
         $i = 1;
         foreach($type as $typeIndividual) {
           $sql .= "'" . $typeIndividual . "'";
@@ -1546,7 +1547,7 @@
         }
         $sql .= ") ";
       } else {
-        $sql .= " AND games.type = '' ";
+        $sql .= " AND games.type_id = '' ";
       }
     }
 
