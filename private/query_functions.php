@@ -959,7 +959,8 @@
     }
     global $db;
 
-    $sql ="SELECT 
+    $sql =
+      "SELECT 
         games.Title,
         games.mnp,
         games.mxp,
@@ -972,6 +973,7 @@
         types.objectType AS type,
         games.user_id,
         games.age,
+        games.type_id,
         games.InSecondaryCollection,
         MAX(uses.use_date) AS MostRecentUse,
         MAX(responses.PlayDate) AS MaxPlay,
@@ -991,7 +993,6 @@
         games.KeptCol, games.mnp, games.mxp, games.ss, games.type, games.id 
       HAVING 
         games.user_id = " . db_escape($db, $user) . "
-        
       ";
 
       if ($shelfSort == 'yes') {
@@ -1018,9 +1019,9 @@
         $sql .= " AND games.age >= '$minimumAge' ";
       }
 
-      if (gettype($type == 'array')) {
+      if (gettype($type) === 'array') {
         if (count($type) > 0) {
-          $sql .= "AND games.type IN (";
+          $sql .= "AND games.type_id IN (";
           $i = 1;
           foreach($type as $typeIndividual) {
             $sql .= "'" . $typeIndividual . "'";
@@ -1040,7 +1041,6 @@
       $sql .= "
         ORDER BY MostRecentUseOrResponse ASC
       ";
-
       $result = mysqli_query($db, $sql);
       confirm_result_set($result);
       return $result;
