@@ -148,12 +148,12 @@
   	<table class="list" id="artifacts" data-page-length='100'>
       <thead>
         <tr id="headerRow">
+          <th>Kept</th>
           <th>Type</th>
           <th>Name (<?php echo $artifact_set->num_rows; ?>)</th>
           <th>Acquisition</th>
           <th>Recent Use</th>
           <th>Use By</th>
-          <th>Kept</th>
           <?php
             if ($showAttributes === 'yes') {
               ?>
@@ -175,9 +175,19 @@
       <tbody>
         <?php while($artifact = mysqli_fetch_assoc($artifact_set)) { ?>
           <tr>
+            <td class="kept">
+              <?php 
+                if ($artifact['KeptCol'] == 1) {
+                  echo 'yes';
+                } else {
+                  echo 'no';
+                }
+              ?>
+            </td>
+
             <td><?php echo h($artifact['type']); ?></td>
 
-            <td>
+            <td class="artifact_title">
               <a class="table-action" 
                 href="<?php echo url_for('/artifacts/edit.php?id=' . h(u($artifact['id']))); ?>"
                 >  
@@ -223,17 +233,7 @@
               ?>
             </td>
 
-            <td class="kept">
-              <?php 
-                if ($artifact['KeptCol'] == 1) {
-                  echo 'yes';
-                } else {
-                  echo 'no';
-                }
-              ?>
-            </td>
-
-            <?php
+            <?php // show other attributes conditionally
               if ($showAttributes === 'yes') {
                 ?>
                 <td>
@@ -268,13 +268,13 @@
 
     <?php mysqli_free_result($artifact_set); ?>
 
-    <script>
+    <script class="data_table">
       let table = new DataTable('#artifacts', {
         // options
         order: [
-          [ 2, 'desc'], // most recent acquisition first
-          [ 3, 'desc'], // most recent use first
-          [ 4, 'desc'], // most recent use by first
+          [ 3, 'desc'], // most recent acquisition first
+          [ 4, 'desc'], // most recent use first
+          [ 5, 'desc'], // most recent use by first
         ], 
       });
 
@@ -286,7 +286,6 @@
       })
     </script>
   </div>
-
 </main>
 
 <?php include(SHARED_PATH . '/footer.php'); ?>
