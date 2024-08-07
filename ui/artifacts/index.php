@@ -25,6 +25,7 @@
       global $typesArray;
       $type = $typesArray;
     }
+    
 
   }
   $default_use_interval = singleValueQuery("SELECT default_use_interval
@@ -59,12 +60,6 @@
       method="post"
       style="display: none"
       >
-      <label for="type">Game type</label>
-      <select name="type" id="type">
-        <option value="1" <?php if ($type == 1) { echo 'selected'; } ?>>All types</option>
-        <?php require_once(SHARED_PATH . '/artifact_type_options.php'); ?>
-      </select>
-      
       <label for="sweetSpotFilter">Sweet Spot (SwS)</label>
       <input type="text" id="sweetSpotFilter" name="sweetSpotFilter"
         <?php 
