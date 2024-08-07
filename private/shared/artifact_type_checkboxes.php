@@ -59,11 +59,11 @@
             }
           ?>" 
           value="<?php echo $id; ?>" 
-          name="type[<?php echo $artifactType; ?>]"
+          name="type[<?php echo $id; ?>]"
           <?php 
             if (gettype($type) === 'array') {
-              if(in_array($artifactType, $type)) { 
-                echo 'checked'; 
+              if(in_array($id, $type)) { 
+                echo ' checked '; 
               }
             }
           ?>
