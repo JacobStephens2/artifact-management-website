@@ -1,6 +1,6 @@
 # Artifact Manager
 
-This web app is a tool for people to track their artifact use and operationalize commitments to the Minimalists' 90/90 rule.
+This web app is a tool for people to track their artifact use and operationalize commitments to the [Minimalists' 90/90 rule]([url](https://www.theminimalists.com/ninety/)).
 
 This site is live at [https://artifact.stewardgoods.com](https://artifact.stewardgoods.com/)
 
