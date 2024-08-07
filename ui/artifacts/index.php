@@ -15,7 +15,11 @@
       $type = array();
     }
   } else {
-    $kept = db_escape($db, $_GET['kept']) ?? 'allkeptandnot';
+    if (isset($_GET['kept'])) {
+      $kept = db_escape($db, $_GET['kept']);
+    } else {
+      $kept = 'allkeptandnot';
+    }
     if (isset($_GET['type'])) {
       $type = array();
       $type[] = db_escape($db, $_GET['type']);
