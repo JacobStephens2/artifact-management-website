@@ -2,8 +2,7 @@
 
   require_once 'artifact_type_array.php';
   global $typesArray;
-  global $type;
-  $selected_types = $type;
+  global $type_id;
 
   $match_found = false;
   foreach ($typesArray as $type => $id) {
@@ -11,7 +10,7 @@
     <option 
       value="<?php echo $id; ?>" 
       <?php
-        if (in_array($id, $selected_types)) { 
+        if ($id == $type_id) { 
           $match_found = true;
           echo ' selected ';
         } 
