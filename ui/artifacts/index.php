@@ -2,8 +2,8 @@
   require_once('../../private/initialize.php');
   global $db;
   require_login();
-  $kept = $_POST['kept'] ?? 'allkeptandnot';
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $kept = $_POST['kept'] ?? 'allkeptandnot';
     if (isset($_POST['type'])) {
 
       if ($_POST['type'] == '1') {
@@ -15,16 +15,12 @@
       $type = array();
     }
   } else {
-    if (isset($_SESSION['type']) && count($_SESSION['type']) > 0) {
-      $type = $_SESSION['type'];
-
-    } else if (isset($_GET['type'])) {
-      
+    $kept = db_escape($db, $_GET['kept']) ?? 'allkeptandnot';
+    if (isset($_GET['type'])) {
       $type = array();
-      $type['type'] = array(db_escape($db, $_GET['type']));
+      $type[] = db_escape($db, $_GET['type']);
 
     } else {
-
       include(SHARED_PATH . '/artifact_type_array.php'); 
       global $typesArray;
       $type = $typesArray;
