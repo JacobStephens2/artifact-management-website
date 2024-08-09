@@ -39,24 +39,27 @@
       <tbody>
         <?php 
           $user_id = $_SESSION['user_id'];
+          echo $user_id;
           $types = query("SELECT id, ObjectType FROM types WHERE user_id = '$user_id'");
 
           foreach($types as $type) { 
             
             $type_name = $type['ObjectType'];
+            $type_id = $type['id'];
 
-            $artifacts_kept_of_this_type = singleValueQuery(
+            $query = 
               "SELECT COUNT(id) AS artifacts_kept_of_this_type
               FROM games
-              WHERE type = '$type_name'
+              WHERE type_id = '$type_id'
               AND user_id = '$user_id'
               AND KeptCol = '1'
-            ");
-            
+            ";
+            $artifacts_kept_of_this_type = singleValueQuery($query);
+
             $artifacts_unkept_of_this_type = singleValueQuery(
               "SELECT COUNT(id) AS artifacts_kept_of_this_type
               FROM games
-              WHERE type = '$type_name'
+              WHERE type_id = '$type_id'
               AND user_id = '$user_id'
               AND KeptCol = '0'
             ");
