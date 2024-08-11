@@ -633,3 +633,7 @@ p.copied_message {
   border: 1px solid black;
   border-radius: 6px;
 }
+
+td.name.artifact.edit {
+  width: 23rem;
+}

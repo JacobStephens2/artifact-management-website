@@ -39,7 +39,6 @@
       <tbody>
         <?php 
           $user_id = $_SESSION['user_id'];
-          echo $user_id;
           $types = query("SELECT id, ObjectType FROM types WHERE user_id = '$user_id'");
 
           foreach($types as $type) { 

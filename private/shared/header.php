@@ -13,7 +13,7 @@
     
     <link rel="shortcut icon" type="image/jpg" href="<?php echo url_for('favicon.ico') ?>">
 
-    <link rel="stylesheet" media="all" href="../../style.css" />
+    <link rel="stylesheet" media="all" href="../../style.css?v=2" />
 
     <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
 
