@@ -9,6 +9,7 @@
   include(SHARED_PATH . '/dataTable.html'); 
 ?>
 <script defer src="/shared/filter_button.js"></script>
+<script defer src="useby.js?v=3"></script>
 
 <?php // process form submission and initialize variables
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -27,6 +28,7 @@
     }
   }
 
+  $user_id = $_SESSION['user_id'];
   $_SESSION['type'] = $type;
   $sweetSpot = $_POST['sweetSpot'] ?? '';
   $minimumAge = $_POST['minimumAge'] ?? 0;
@@ -35,13 +37,16 @@
   $typeArray = $_SESSION['type'] ?? [];
   $default_use_interval = singleValueQuery("SELECT default_use_interval
     FROM users
-    WHERE id = " . $_SESSION['user_id'] . "
+    WHERE id = '$user_id'
   ");
   $interval = $_POST['interval'] ?? $default_use_interval;
   $artifact_set = use_by($type, $interval, $sweetSpot, $minimumAge, $shelfSort);
+  $total_overdue = 0;
 ?>
 
 <main>
+
+  <meta id="apiOrigin" content="<?php echo API_ORIGIN; ?>">
 
   <div style="display: flex;
     justify-content: space-between;"
@@ -54,6 +59,7 @@
       </a>
     </h1>
   
+    <button id="send_use_email" data-userid="<?php echo $user_id; ?>">Send Use Email</button>
     <button id="display_filters" style="display: block">Show filters</button>
   </div>
 
@@ -128,7 +134,7 @@
             <?php
           }
         ?>
-        <th>Overdue</th>
+        <th>Overdue (<span id="totalOverdue"></span>)</th>
         <th>Use By</th>
         <th class="hideOnPrint">Recent Use</th>
         <th>Acquisition Date</th>
@@ -210,9 +216,9 @@
 
           <td class="overdue"
             <?php 
-            ini_set('display_errors', 1);
-            ini_set('display_startup_errors', 1);
-            error_reporting(E_ALL);
+                ini_set('display_errors', 1);
+                ini_set('display_startup_errors', 1);
+                error_reporting(E_ALL);
                 date_default_timezone_set('America/New_York');
                 $DateTimeNow = new DateTime(date('Y-m-d')); 
                 $DateTimeMostRecentUse = new DateTime(substr($artifact['MostRecentUseOrResponse'],0,10)); 
@@ -235,6 +241,7 @@
             >
             <?php 
                 if ($useByDate < $DateTimeNow) {
+                  $total_overdue++;
                   echo 'Yes';
                 } else {
                   echo 'No';
@@ -257,6 +264,7 @@
 
   <?php mysqli_free_result($artifact_set); ?>
   <script>
+    document.querySelector('span#totalOverdue').innerText = '<?php echo $total_overdue; ?>';
     let table = new DataTable('#useBy', {
       // options
       <?php 
