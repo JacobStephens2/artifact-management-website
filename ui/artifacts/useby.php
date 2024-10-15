@@ -138,12 +138,18 @@
         <th>Use By</th>
         <th class="hideOnPrint">Recent Use</th>
         <th>Acquisition Date</th>
+        <th>Interval</th>
       </tr>
     </thead>
 
     <tbody>
       <?php while($artifact = mysqli_fetch_assoc($artifact_set)) { 
         $id = h(u($artifact['id']));
+        if ($artifact['interaction_frequency_days'] !== null) {
+          $this_interval = $artifact['interaction_frequency_days'];
+        } else {
+          $this_interval = $interval;
+        }
         ?>
         <tr>
           <td class="type"><?php echo h($artifact['type']); ?></td>
@@ -223,7 +229,8 @@
                 $DateTimeNow = new DateTime(date('Y-m-d')); 
                 $DateTimeMostRecentUse = new DateTime(substr($artifact['MostRecentUseOrResponse'],0,10)); 
                 $DateTimeAcquisition = new DateTime(substr($artifact['Acq'],0,10)); 
-                $intervalInHours = $interval * 24;
+
+                $intervalInHours = $this_interval * 24;
 
                 if ($DateTimeMostRecentUse < $DateTimeAcquisition || $artifact['MostRecentUseOrResponse'] === NULL) {
                   $DateInterval = DateInterval::createFromDateString("$intervalInHours hour");
@@ -256,7 +263,7 @@
           </td>
 
           <td class="acquisitionDate"><?php echo h($artifact['Acq']); ?></td>
-
+          <td class="interval"><?php echo $this_interval; ?></td>
         </tr>
       <?php } ?>
     </tbody>

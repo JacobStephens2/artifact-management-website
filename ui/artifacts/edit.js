@@ -30,4 +30,5 @@ function addSweetSpotInputAndButton(event) {
 
 document
   .querySelector("button#addSweetSpot")
-  .addEventListener("click", addSweetSpotInputAndButton);
+  .addEventListener("click", addSweetSpotInputAndButton)
+;

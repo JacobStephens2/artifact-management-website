@@ -796,7 +796,8 @@ use PHPMailer\PHPMailer\Exception;
         Age='" . db_escape($db, $artifact['age']) . "', 
         InSecondaryCollection='" . db_escape($db, $artifact['InSecondaryCollection']) . "', 
         MnP='" . db_escape($db, $artifact['MnP']) . "', 
-        MxP='" . db_escape($db, $artifact['MxP']) . "' 
+        MxP='" . db_escape($db, $artifact['MxP']) . "',
+        interaction_frequency_days='" . db_escape($db, $artifact['interaction_frequency_days']) . "'
       WHERE id='" . db_escape($db, $artifact['id']) . "' 
       LIMIT 1
     ";
@@ -861,7 +862,8 @@ use PHPMailer\PHPMailer\Exception;
         MxT,
         MnP,
         MxP,
-        user_id
+        user_id,
+        interaction_frequency_days
       ) VALUES (
         '" . db_escape($db, $object['Title']) . "',
         '" . db_escape($db, $object['Notes']) . "',
@@ -877,7 +879,8 @@ use PHPMailer\PHPMailer\Exception;
         '" . db_escape($db, $object['MxT']) . "',
         '" . db_escape($db, $object['MnP']) . "',
         '" . db_escape($db, $object['MxP']) . "',
-        '" . db_escape($db, $_SESSION['user_id']) . "'
+        '" . db_escape($db, $_SESSION['user_id']) . "',
+        '" . db_escape($db, $object['interaction_frequency_days']) . "'
       )
     ";
     $result = mysqli_query($db, $sql);
@@ -988,7 +991,8 @@ use PHPMailer\PHPMailer\Exception;
           ELSE MAX(uses.use_date)
         END MostRecentUseOrResponse,
         games.Acq,
-        games.KeptCol
+        games.KeptCol,
+        games.interaction_frequency_days
       FROM games
         LEFT JOIN responses ON games.id = responses.Title
         LEFT JOIN uses ON games.id = uses.artifact_id
@@ -2307,6 +2311,12 @@ function email_artifact_use_notice($user_id) {
   
   $i = 0;
   while($artifact = mysqli_fetch_assoc($artifact_set)) { 
+
+      if ($artifact['interaction_frequency_days'] !== null) {
+        $this_interval = $artifact['interaction_frequency_days'];
+      } else {
+        $this_interval = $interval;
+      }
   
       date_default_timezone_set('America/New_York');
       $DateTimeNow = new DateTime(date('Y-m-d')); 
@@ -2317,7 +2327,7 @@ function email_artifact_use_notice($user_id) {
           $date_of_most_recent_use = $DateTimeMostRecentUse->format('Y-m-d');
       }
       $DateTimeAcquisition = new DateTime(substr($artifact['Acq'],0,10)); 
-      $intervalInHours = $interval * 24;
+      $intervalInHours = $this_interval * 24;
   
       if ($DateTimeMostRecentUse < $DateTimeAcquisition || $artifact['MostRecentUseOrResponse'] === NULL) {
           $DateInterval = DateInterval::createFromDateString("$intervalInHours hour");
@@ -2334,16 +2344,19 @@ function email_artifact_use_notice($user_id) {
           $due_today_array[$i]['artifact'] = h($artifact['Title']);
           $due_today_array[$i]['artifact_id'] = h($artifact['id']);
           $due_today_array[$i]['most_recent_use'] = $date_of_most_recent_use;
+          $due_today_array[$i]['interval'] = $this_interval;
       } elseif ($diff_days > 0 && $diff_days < 8 && $useByDate->format('Y-m-d') > $DateTimeNow->format('Y-m-d')) { // due in coming week
           $due_in_coming_week[$i]['artifact'] = h($artifact['Title']);
           $due_in_coming_week[$i]['artifact_id'] = h($artifact['id']);
           $due_in_coming_week[$i]['use_by_date'] = $useByDate->format('Y-m-d');
           $due_in_coming_week[$i]['most_recent_use'] = $date_of_most_recent_use;
+          $due_in_coming_week[$i]['interval'] = $this_interval;
       } elseif ($useByDate->format('Y-m-d') < $DateTimeNow->format('Y-m-d')) { // due in past
           $overdue_array[$i]['artifact'] = h($artifact['Title']);
           $overdue_array[$i]['artifact_id'] = h($artifact['id']);
           $overdue_array[$i]['use_by_date'] = $useByDate->format('Y-m-d');
           $overdue_array[$i]['most_recent_use'] = $date_of_most_recent_use;
+          $overdue_array[$i]['interval'] = $this_interval;
       } 
       $i++;
   }
@@ -2394,18 +2407,19 @@ function email_artifact_use_notice($user_id) {
                   $most_recent_use = $overdue['most_recent_use'];
                   $use_by_date = $overdue['use_by_date'];
                   $id = $overdue['artifact_id'];
+                  $interval = $overdue['interval'];
                   if ($most_recent_use === 'No recorded uses') {
                       $body .= "
                           <li>
                               <a href='https://" . DOMAIN . "/artifacts/edit.php?id=$id'>$name</a>: 
-                              $most_recent_use, use by $use_by_date (" . date('l', strtotime($use_by_date)) . ")
+                              $most_recent_use, use by $use_by_date (" . date('l', strtotime($use_by_date)) . ", interval: $interval days)
                           </li>
                       ";
                   } else {
                       $body .= "
                           <li>
                               <a href='https://" . DOMAIN . "/artifacts/edit.php?id=$id'>$name</a>: 
-                              last used $most_recent_use, use by $use_by_date (" . date('l', strtotime($use_by_date)) . ")
+                              last used $most_recent_use, use by $use_by_date (" . date('l', strtotime($use_by_date)) . " interval: $interval days)
                           </li>
                       ";
                   }
@@ -2426,10 +2440,11 @@ function email_artifact_use_notice($user_id) {
                   $name = $due_today['artifact'];
                   $most_recent_use = $due_today['most_recent_use'];
                   $id = $due_today['artifact_id'];
+                  $interval = $due_today['interval'];
                   $body .= "
                       <li>
                           <a href='https://" . DOMAIN . "/artifacts/edit.php?id=$id'>$name</a>: 
-                          last used $most_recent_use
+                          last used $most_recent_use (interval: $interval days)
                       </li>
                   ";
               }
@@ -2450,18 +2465,19 @@ function email_artifact_use_notice($user_id) {
                   $most_recent_use = $artifact['most_recent_use'];
                   $use_by_date = $artifact['use_by_date'];
                   $id = $artifact['artifact_id'];
+                  $interval = $artifact['interval'];
                   if ($most_recent_use === 'No recorded uses') {
                       $body .= "
                           <li>
                               <a href='https://" . DOMAIN . "/artifacts/edit.php?id=$id'>$name</a>: 
-                              $most_recent_use, use by $use_by_date (" . date('l', strtotime($use_by_date)) . ")
+                              $most_recent_use, use by $use_by_date (" . date('l', strtotime($use_by_date)) . ", interval: $interval days)
                           </li>
                       ";
                   } else {
                       $body .= "
                           <li>
                               <a href='https://" . DOMAIN . "/artifacts/edit.php?id=$id'>$name</a>: 
-                              last used $most_recent_use, use by $use_by_date (" . date('l', strtotime($use_by_date)) . ")
+                              last used $most_recent_use, use by $use_by_date (" . date('l', strtotime($use_by_date)) . ", interval: $interval days)
                           </li>
                       ";
                   }

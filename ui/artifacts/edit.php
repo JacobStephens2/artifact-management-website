@@ -26,6 +26,17 @@
       $artifact['Acq'] = date('Y-m-d');
     }
     $artifact['type'] = $_POST['type'] ?? '';
+
+    $user_id = $_SESSION['user_id'];
+    $default_interval = singleValueQuery(
+      "SELECT default_use_interval
+      FROM users
+      WHERE id = '$user_id'
+    ");
+    $artifact['interaction_frequency_days'] = 
+      $_POST['interaction_frequency_days'] 
+      ?? $default_interval
+    ;
     $artifact['KeptCol'] = $_POST['KeptCol'] ?? '';
     $artifact['Candidate'] = $_POST['Candidate'] ?? '';
     $artifact['CandidateGroupDate'] = date('Y-m-d');
@@ -97,6 +108,12 @@
       <input type="hidden" name="KeptCol" value="0" />
       <input type="checkbox" name="KeptCol" id="KeptCol" value="1"<?php if($artifact['KeptCol'] == "1") { echo " checked"; } ?> />
 
+      <label for="interaction_frequency_days">Interaction Frequency (Days)</label>
+      <input type="number" name="interaction_frequency_days" id="interaction_frequency_days"
+        onwheel="this.blur()"
+        value="<?php echo h($artifact['interaction_frequency_days']); ?>"
+      >
+
       <label for="SS">Sweet Spot(s)</label>
       <input type="text" name="SS" id="SS" value="<?php echo $artifact['SS']; ?>">
 
@@ -134,7 +151,7 @@
       }
       ?>
 
-      <script defer src="edit.js"></script>
+      <script defer src="edit.js?v=2"></script>
 
       <label for="MnP">Minimum User Count</label>
       <input type="number" name="MnP" id="MnP" value="<?php echo $artifact['MnP']; ?>">
