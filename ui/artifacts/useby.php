@@ -4,7 +4,7 @@
 ?>
 
 <?php // load header
-  $page_title = 'Use By';
+  $page_title = 'Interact By';
   include(SHARED_PATH . '/header.php');
   include(SHARED_PATH . '/dataTable.html'); 
 ?>
@@ -55,11 +55,11 @@
       <a class="hideOnPrint" target="_blank"
         href="<?php echo url_for('/objects/about-useby.php'); ?>"
         >
-        Use Artifacts by Date
+        Interact with by date
       </a>
     </h1>
   
-    <button id="send_use_email" data-userid="<?php echo $user_id; ?>">Send Use Email</button>
+    <button id="send_use_email" data-userid="<?php echo $user_id; ?>">Send Interact Email</button>
     <button id="display_filters" style="display: block">Show filters</button>
   </div>
 
@@ -80,7 +80,7 @@
       <label for="minimumAge">Minimum Age</label>
       <input type="number" name="minimumAge" id="minimumAge" value="<?php echo $minimumAge; ?>">
       
-      <label for="shelfSort">Shelf Sort (Instead of Use By Sort)</label>
+      <label for="shelfSort">Shelf Sort (Instead of Interact By Sort)</label>
       <input type="hidden" name="shelfSort" value="no">
       <input type="checkbox" name="shelfSort" id="shelfSort" value="yes"
         <?php 
@@ -135,9 +135,9 @@
           }
         ?>
         <th>Overdue (<span id="totalOverdue"></span>)</th>
-        <th>Use By</th>
-        <th class="hideOnPrint">Recent Use</th>
-        <th>Acquisition Date</th>
+        <th>Interact By</th>
+        <th class="hideOnPrint">Recent Interaction</th>
+        <th>Tracking Start</th>
         <th>Interval</th>
       </tr>
     </thead>

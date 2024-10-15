@@ -63,6 +63,16 @@
 
   }
 
+  if (isset($_GET['artifact_id'])) {
+    $artifact_id = $_GET['artifact_id'];
+    $artifact_name = singleValueQuery(
+      "SELECT Title FROM games WHERE id = '$artifact_id' "
+    );
+  } else {
+    $artifact_id = null;
+    $artifact_name = null;
+  }
+
   include(SHARED_PATH . '/header.php'); 
 ?>
 
@@ -83,10 +93,12 @@
     <input type="search" 
       id="SearchTitles" 
       name="artifact[name]" 
-      value=""
+      value="<?php echo $artifact_name; ?>"
       data-userid="<?php echo $_SESSION['user_id']; ?>"
     >
-    <input type="hidden" id="SearchTitleSubmission" name="artifact[id]" value="">
+    <input type="hidden" id="SearchTitleSubmission" name="artifact[id]" 
+      value="<?php echo $artifact_id; ?>"
+    >
     <div class="searchResults" style="display: none;">
       <ul class="searchResults" style="margin-top: 0;">
         <li></li>

@@ -10,6 +10,13 @@
   }
   $id = $_GET['id'];
 
+  $user_id = $_SESSION['user_id'];
+  $default_interval = singleValueQuery(
+    "SELECT default_use_interval
+    FROM users
+    WHERE id = '$user_id'
+  ");
+
   if(is_post_request()) {
     // Handle form values sent by new.php
     $artifact = [];
@@ -27,16 +34,7 @@
     }
     $artifact['type'] = $_POST['type'] ?? '';
 
-    $user_id = $_SESSION['user_id'];
-    $default_interval = singleValueQuery(
-      "SELECT default_use_interval
-      FROM users
-      WHERE id = '$user_id'
-    ");
-    $artifact['interaction_frequency_days'] = 
-      $_POST['interaction_frequency_days'] 
-      ?? $default_interval
-    ;
+    $artifact['interaction_frequency_days'] = $_POST['interaction_frequency_days'] ?? $default_interval;
     $artifact['KeptCol'] = $_POST['KeptCol'] ?? '';
     $artifact['Candidate'] = $_POST['Candidate'] ?? '';
     $artifact['CandidateGroupDate'] = date('Y-m-d');
@@ -109,9 +107,15 @@
       <input type="checkbox" name="KeptCol" id="KeptCol" value="1"<?php if($artifact['KeptCol'] == "1") { echo " checked"; } ?> />
 
       <label for="interaction_frequency_days">Interaction Frequency (Days)</label>
-      <input type="number" name="interaction_frequency_days" id="interaction_frequency_days"
+      <input type="number" step="0.1" name="interaction_frequency_days" id="interaction_frequency_days"
         onwheel="this.blur()"
-        value="<?php echo h($artifact['interaction_frequency_days']); ?>"
+        value="<?php 
+          if ($artifact['interaction_frequency_days'] === null) {
+            echo $default_interval; 
+          } else {
+            echo h($artifact['interaction_frequency_days']); 
+          }
+          ?>"
       >
 
       <label for="SS">Sweet Spot(s)</label>

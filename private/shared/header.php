@@ -48,15 +48,15 @@
           ?>
           
           <a href="<?php echo url_for('/artifacts/useby'); ?>">
-            Use&nbsp;Artifacts&nbsp;By&nbsp;Date
+            Interact&nbsp;By&nbsp;Date
           </a>
           
           <a href="<?php echo url_for('/uses/1-n-uses'); ?>">
-            Uses
+            Interactions
           </a>
           
           <a href="<?php echo url_for('/uses/1-n-new'); ?>">
-            Record&nbsp;Use
+            Record&nbsp;Interaction
           </a>
 
           <a href="<?php echo url_for('/artifacts'); ?>">

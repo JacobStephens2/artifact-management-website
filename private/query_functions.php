@@ -2322,7 +2322,7 @@ function email_artifact_use_notice($user_id) {
       $DateTimeNow = new DateTime(date('Y-m-d')); 
       $DateTimeMostRecentUse = new DateTime(substr($artifact['MostRecentUseOrResponse'],0,10)); 
       if ($artifact['MostRecentUseOrResponse'] === NULL) {
-          $date_of_most_recent_use = 'No recorded uses';
+          $date_of_most_recent_use = 'No interactions';
       } else {
           $date_of_most_recent_use = $DateTimeMostRecentUse->format('Y-m-d');
       }
@@ -2393,12 +2393,12 @@ function email_artifact_use_notice($user_id) {
   
       
       try {
-          $mail->Subject = "Artifact Uses Due";
+          $mail->Subject = "Interactions Due";
           $body = '';
 
           if (count($overdue_array) > 0) {
               $body .= '
-                  <h1>Artifacts overdue</h1>
+                  <h1>Interactions overdue</h1>
                   <ul>
               ';
   
@@ -2408,18 +2408,20 @@ function email_artifact_use_notice($user_id) {
                   $use_by_date = $overdue['use_by_date'];
                   $id = $overdue['artifact_id'];
                   $interval = $overdue['interval'];
-                  if ($most_recent_use === 'No recorded uses') {
+                  if ($most_recent_use === 'No interactions') {
                       $body .= "
                           <li>
                               <a href='https://" . DOMAIN . "/artifacts/edit.php?id=$id'>$name</a>: 
-                              $most_recent_use, use by $use_by_date (" . date('l', strtotime($use_by_date)) . ", interval: $interval days)
+                              $most_recent_use, interact by $use_by_date (" . date('l', strtotime($use_by_date)) . ", interval: $interval days)
+                              <a href='https://" . DOMAIN . "/artifacts/1-n-new.php?artifact_id=$id'>Record Interaction</a>
                           </li>
                       ";
                   } else {
                       $body .= "
                           <li>
                               <a href='https://" . DOMAIN . "/artifacts/edit.php?id=$id'>$name</a>: 
-                              last used $most_recent_use, use by $use_by_date (" . date('l', strtotime($use_by_date)) . " interval: $interval days)
+                              last interacted $most_recent_use, interact by $use_by_date (" . date('l', strtotime($use_by_date)) . " interval: $interval days)
+                              <a href='https://" . DOMAIN . "/artifacts/1-n-new.php?artifact_id=$id'>Record Interaction</a>
                           </li>
                       ";
                   }
@@ -2432,7 +2434,7 @@ function email_artifact_use_notice($user_id) {
   
           if (count($due_today_array) > 0) {
               $body .= '
-                  <h1>Artifact uses due today</h1>
+                  <h1>Interactions due today</h1>
                   <ul>
               ';
   
@@ -2444,7 +2446,8 @@ function email_artifact_use_notice($user_id) {
                   $body .= "
                       <li>
                           <a href='https://" . DOMAIN . "/artifacts/edit.php?id=$id'>$name</a>: 
-                          last used $most_recent_use (interval: $interval days)
+                          last interacted $most_recent_use (interval: $interval days)
+                          <a href='https://" . DOMAIN . "/artifacts/1-n-new.php?artifact_id=$id'>Record Interaction</a>
                       </li>
                   ";
               }
@@ -2456,7 +2459,7 @@ function email_artifact_use_notice($user_id) {
   
           if (count($due_in_coming_week) > 0) {
               $body .= '
-                  <h1>Artifacts due in coming week</h1>
+                  <h1>Interactions due in coming week</h1>
                   <ul>
               ';
   
@@ -2466,18 +2469,20 @@ function email_artifact_use_notice($user_id) {
                   $use_by_date = $artifact['use_by_date'];
                   $id = $artifact['artifact_id'];
                   $interval = $artifact['interval'];
-                  if ($most_recent_use === 'No recorded uses') {
+                  if ($most_recent_use === 'No interactions') {
                       $body .= "
                           <li>
                               <a href='https://" . DOMAIN . "/artifacts/edit.php?id=$id'>$name</a>: 
-                              $most_recent_use, use by $use_by_date (" . date('l', strtotime($use_by_date)) . ", interval: $interval days)
+                              $most_recent_use, interact by $use_by_date (" . date('l', strtotime($use_by_date)) . ", interval: $interval days)
+                              <a href='https://" . DOMAIN . "/artifacts/1-n-new.php?artifact_id=$id'>Record Interaction</a>
                           </li>
                       ";
                   } else {
                       $body .= "
                           <li>
                               <a href='https://" . DOMAIN . "/artifacts/edit.php?id=$id'>$name</a>: 
-                              last used $most_recent_use, use by $use_by_date (" . date('l', strtotime($use_by_date)) . ", interval: $interval days)
+                              last used $most_recent_use, interact by $use_by_date (" . date('l', strtotime($use_by_date)) . ", interval: $interval days)
+                              <a href='https://" . DOMAIN . "/artifacts/1-n-new.php?artifact_id=$id'>Record Interaction</a>
                           </li>
                       ";
                   }

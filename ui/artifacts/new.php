@@ -8,6 +8,13 @@ $defaultMnP = 1;
 $defaultMxP = 1;
 $defaultSS = '01';
 
+$user_id = $_SESSION['user_id'];
+$default_interval = singleValueQuery(
+  "SELECT default_use_interval
+  FROM users
+  WHERE id = '$user_id'
+");
+
 if(is_post_request()) {
 
   $artifact = [];
@@ -16,6 +23,7 @@ if(is_post_request()) {
   $artifact['type'] = $_POST['type'] ?? '';
   $artifact['KeptCol'] = $_POST['KeptCol'] ?? '';
   $artifact['Candidate'] = $_POST['Candidate'] ?? '';
+  $artifact['interaction_frequency_days'] = $_POST['interaction_frequency_days'] ?? $default_interval;
   $artifact['CandidateGroupDate'] = date('Y-m-d');
   $artifact['UsedRecUserCt'] = 0;
   $artifact['Notes'] = $_POST['Notes'] ?? '';
@@ -84,6 +92,12 @@ include(SHARED_PATH . '/header.php');
         $dt->setTimestamp($timestamp); //adjust the object to correct timestamp
         echo $dt->format('Y') . '-' . $dt->format('m') . '-' . $dt->format('d'); 
       ?>"/>
+
+      <label for="interaction_frequency_days">Interaction Frequency (Days)</label>
+      <input type="number" step="0.1" name="interaction_frequency_days" id="interaction_frequency_days"
+        value="<?php echo $default_interval; ?>"
+        onwheel="this.blur()"
+      >
 
       <label for="SS">Sweet Spot(s)</label>
       <input type="text" name="SS" id="SS" 
