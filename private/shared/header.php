@@ -60,11 +60,11 @@
           </a>
 
           <a href="<?php echo url_for('/artifacts'); ?>">
-            Artifacts
+            Entities
           </a>
         
           <a href="<?php echo url_for('/artifacts/new'); ?>">
-            Create&nbsp;Artifact
+            Create&nbsp;Entity
           </a>
 
           <a href="<?php echo url_for('/users'); ?>">

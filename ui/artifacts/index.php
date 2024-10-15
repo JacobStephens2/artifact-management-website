@@ -41,7 +41,7 @@
   $sweetSpotFilter = $_POST['sweetSpotFilter'] ?? '';
   $showAttributes = $_POST['showAttributes'] ?? 'no';
   $artifact_set = find_games_by_user_id($kept, $type, $interval, $sweetSpotFilter);
-  $page_title = 'Artifacts';
+  $page_title = 'Entities';
   if ($kept === 'secondary_only') { $page_title .= ' (Secondary Only)'; }
   include(SHARED_PATH . '/header.php'); 
   include(SHARED_PATH . '/dataTable.html');
@@ -56,7 +56,7 @@
     <div style="display: flex;
       justify-content: space-between;"
       >
-      <h1>Artifacts <?php if ($kept === 'secondary_only') { echo ' (Secondary Only)'; } ?></h1>
+      <h1>Entities <?php if ($kept === 'secondary_only') { echo ' (Secondary Only)'; } ?></h1>
       <button id="display_filters" style="display: block">Show filters</button>
     </div>
 

@@ -1,7 +1,7 @@
 <?php 
   require_once('../../private/initialize.php');
   require_login();
-  $page_title = 'Artifact Uses';
+  $page_title = 'Entity Interactions';
   include(SHARED_PATH . '/header.php');
   include(SHARED_PATH . '/dataTable.html');
 
@@ -81,7 +81,7 @@
       <thead>
         <tr id="headerRow">
           <th>Use Date <?php if ($hide_duplicate_group_settings === 'no') { echo '(' . $use_set->num_rows . ')'; } ?></th>
-          <th>Title</th>
+          <th>Entity</th>
           <th class="group_setting">Group Setting</th>
           <th>Type</th>
           <th>Setting</th>
